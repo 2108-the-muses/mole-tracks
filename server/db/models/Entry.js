@@ -6,7 +6,7 @@ const Entry = db.define('entry', {
     type: Sequelize.TEXT,
   },
   tags: {
-    type: Sequelize.ARRAY(Sequelize.ENUM('asymmetry', 'border', 'color', 'elevation')),
+    type: Sequelize.ARRAY(Sequelize.ENUM('asymmetry', 'border', 'color', 'elevation', 'diameter')),
   },
   // for dummy data purposes
   imgUrl: {
