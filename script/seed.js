@@ -1,29 +1,73 @@
-'use strict'
+'use strict';
 
-const {db, models: {User} } = require('../server/db')
+const {
+  db,
+  models: { User, Mole, Entry },
+} = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
+  await db.sync({ force: true }); // clears db and matches models to tables
+  console.log('db synced!');
 
   // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
+  const [Cody, Murphy] = await User.bulkCreate([
+    {
+      username: 'cody',
+      password: '123',
+      email: 'cody@moletracks.com',
+      firstName: 'Cody',
+      lastName: 'Mole',
+    },
+    {
+      username: 'murphy',
+      password: '123',
+      email: 'murphy@moletrack.com',
+      firstName: 'Murphy',
+      lastName: 'Mole',
+    },
+  ]);
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
+  // Creating Moles
+  const [Fuzzy, Bumpy] = await Mole.bulkCreate([
+    {
+      nickname: 'Fuzzy',
+      side: 'front',
+      bodyPart: 'arm-l',
+    },
+    {
+      nickname: 'Bumpy',
+      side: 'back',
+      bodyPart: 'head',
+    },
+  ]);
+
+  // Creating Entries
+  const [March1, July1] = await Entry.bulkCreate([
+    {
+      notes: 'Came out of nowhere. So fuzzy!!!',
+      tags: ['border', 'elevation'],
+      imgUrl: 'https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg',
+    },
+    {
+      notes: "It's bumpin'",
+      tags: ['asymmetry', 'elevation'],
+      imgUrl:
+        'https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx',
+    },
+  ]);
+
+  // Associations via Magic Methods
+  Cody.setMole(Fuzzy);
+  Murphy.setMole(Bumpy);
+
+  Fuzzy.setEntry(March1);
+  Bumpy.setEntry(July1);
+
+  console.log(`seeded successfully`);
 }
 
 /*
@@ -32,16 +76,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...')
+  console.log('seeding...');
   try {
-    await seed()
+    await seed();
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
+    console.error(err);
+    process.exitCode = 1;
   } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log('closing db connection');
+    await db.close();
+    console.log('db connection closed');
   }
 }
 
@@ -51,8 +95,8 @@ async function runSeed() {
   any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
-  runSeed()
+  runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
+module.exports = seed;

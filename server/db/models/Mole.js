@@ -9,16 +9,11 @@ const Mole = db.define('mole', {
     type: Sequelize.ENUM('front', 'back'),
     allowNull: false,
   },
+  // only certain body parts will show up on the front end depending on
+  // which "side" is selected
   bodyPart: {
-    type: Sequelize.ENUM(
-      'head',
-      'torso',
-      'left arm',
-      'right arm',
-      'left leg',
-      'right leg',
-      'groin',
-      'butt'
-    ),
+    type: Sequelize.ENUM('head', 'torso', 'arm-l', 'arm-r', 'leg-l', 'leg-r', 'groin', 'butt'),
   },
 });
+
+module.exports = Mole;
