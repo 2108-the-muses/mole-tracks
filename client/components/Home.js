@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native';
-import { login, signup, body, moles, singleMole, entry } from '../NavigationConstants';
+import React from "react";
+import {StyleSheet, View, TouchableOpacity} from "react-native";
+import {login, signup, body, moles, singleMole, entry} from "../NavigationConstants";
 
 const Home = (props) => {
   const navigation = props.navigation;
@@ -31,15 +31,15 @@ const Home = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   button: {
     width: 150,
     height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
