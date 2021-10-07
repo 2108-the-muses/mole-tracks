@@ -11,6 +11,7 @@
     "server": "nodemon server/index.js"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.4",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.3",
@@ -23,6 +24,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.4.0",
     "react-native-web": "^0.17.5",
     "sequelize": "^6.3.5"
   },
