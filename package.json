@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@react-navigation/native": "^6.0.4",
+    "@react-navigation/native-stack": "^6.2.2",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.3",

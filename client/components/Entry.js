@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, StatusBar } from 'react-native';
 
-const Login = () => {
+const Entry = () => {
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
+      <Text>Entry</Text>
+      <StatusBar style="auto" />
     </View>
   );
 };
@@ -18,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Entry;
