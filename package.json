@@ -11,7 +11,12 @@
     "server": "nodemon server/index.js"
   },
   "dependencies": {
+<<<<<<< HEAD
     "aws-sdk": "^2.1002.0",
+=======
+    "@react-navigation/native": "^6.0.4",
+    "@react-navigation/native-stack": "^6.2.2",
+>>>>>>> 501c91de8f6ac6eaab37a49876e3b53ec66f357e
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.3",
@@ -26,8 +31,9 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "sequelize": "^6.3.5",
     "uuid": "^8.3.2",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^3.4.0",
     "react-native-web": "^0.17.5",
     "sequelize": "^6.3.5"
   },
