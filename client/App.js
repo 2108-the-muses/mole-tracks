@@ -1,21 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Provider } from 'react-redux';
-import store from './store';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from "react";
+import {Provider} from "react-redux";
+import store from "./store";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
-import { home, login, signup, body, moles, singleMole, entry } from './NavigationConstants';
-import Login from './components/Login';
-import Entry from './components/Entry';
-import Signup from './components/Signup';
-import Body from './components/Body';
-import Moles from './components/Moles';
-import SingleMole from './components/SingleMole';
+import {home, login, signup, body, moles, singleMole, entry} from "./NavigationConstants";
+import Login from "./components/Login";
+import Entry from "./components/Entry";
+import Signup from "./components/Signup";
+import Body from "./components/Body";
+import Moles from "./components/Moles";
+import SingleMole from "./components/SingleMole";
 
 // this is a dummy component for now
-import Home from './components/Home';
+import Home from "./components/Home";
 
 const Stack = createNativeStackNavigator();
 

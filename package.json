@@ -12,13 +12,14 @@
     "server": "nodemon server/index.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.1002.0",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/native-stack": "^6.2.2",
+    "aws-sdk": "^2.1002.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.3",
     "expo": "~42.0.1",
+    "expo-image-picker": "~10.2.2",
     "expo-status-bar": "~1.0.4",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
@@ -28,22 +29,24 @@
     "pg": "^8.5.1",
     "react": "17.0.2",
     "react-native": "0.65.1",
-    "uuid": "^8.3.2",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
     "react-native-web": "^0.17.5",
-    "sequelize": "^6.3.5",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "expo-image-picker": "~10.2.2"
+    "sequelize": "^6.3.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
     "babel-loader": "^8.2.2",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.26.1",
     "esm": "^3.2.25",
     "nodemon": "^1.19.4",
     "react-dom": "17.0.2"
