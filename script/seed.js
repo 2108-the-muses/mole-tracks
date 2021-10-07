@@ -46,11 +46,17 @@ async function seed() {
   ]);
 
   // Creating Entries
-  const [March1, July1] = await Entry.bulkCreate([
+  const [March1, June1, July1] = await Entry.bulkCreate([
     {
       notes: 'Came out of nowhere. So fuzzy!!!',
       tags: ['border', 'elevation'],
       imgUrl: 'https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg',
+    },
+    {
+      notes: "It's getting fuzzier!",
+      tags: ['border', 'elevation'],
+      imgUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU',
     },
     {
       notes: "It's bumpin'",
@@ -61,11 +67,10 @@ async function seed() {
   ]);
 
   // Associations via Magic Methods
-  Cody.setMole(Fuzzy);
-  Murphy.setMole(Bumpy);
+  await Cody.setMoles([Fuzzy, Bumpy]);
 
-  Fuzzy.setEntry(March1);
-  Bumpy.setEntry(July1);
+  await Fuzzy.setEntries([March1, June1]);
+  await Bumpy.setEntries(July1);
 
   console.log(`seeded successfully`);
 }
