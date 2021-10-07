@@ -30,6 +30,8 @@ router.post("/", (req, res, next) => {
       ContentType: files.file.type,
       ContentLength: files.file.size,
       Body: fs.createReadStream(files.file.path),
-    }, ()=>res.redirect("/"));
+    }, 
+    //create mole entry 
+    ()=>res.redirect("/"));
   });
 });
