@@ -14,7 +14,7 @@ async function seed() {
   console.log('db synced!');
 
   // Creating Users
-  const [Cody, Murphy] = await User.bulkCreate([
+  const [Cody, Murphy, Sally] = await User.bulkCreate([
     {
       username: 'cody',
       password: '123',
@@ -29,10 +29,17 @@ async function seed() {
       firstName: 'Murphy',
       lastName: 'Mole',
     },
+    {
+      username: 'sally',
+      password: '123',
+      email: 'sally@moletrack.com',
+      firstName: 'Sally',
+      lastName: 'Mole',
+    }
   ]);
 
   // Creating Moles
-  const [Fuzzy, Bumpy] = await Mole.bulkCreate([
+  const [Fuzzy, Bumpy, Slimy] = await Mole.bulkCreate([
     {
       nickname: 'Fuzzy',
       side: 'front',
@@ -43,6 +50,11 @@ async function seed() {
       side: 'back',
       bodyPart: 'head',
     },
+    {
+      nickname: 'Slimy',
+      side: 'back',
+      bodyPart: 'butt',
+    }
   ]);
 
   // Creating Entries
@@ -68,6 +80,7 @@ async function seed() {
 
   // Associations via Magic Methods
   await Cody.setMoles([Fuzzy, Bumpy]);
+  await Sally.setMoles(Slimy);
 
   await Fuzzy.setEntries([March1, June1]);
   await Bumpy.setEntries(July1);
