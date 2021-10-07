@@ -17,9 +17,19 @@ const S3 = new AWS.S3({
 router.post("/", (req, res, next) => {
   const form = formidable({ multiples: true });
   form.parse(req, async (err, fields, files) => {
+    console.log(files.file)
     if (err) {
       next(err);
       return;
     }
+
+    const id = uuidv4();
+    S3.putObject({
+      Bucket: "mole-tracks",
+      Key: id,
+      ContentType: files.file.type,
+      ContentLength: files.file.size,
+      Body: fs.createReadStream(files.file.path),
+    }, ()=>res.redirect("/"));
   });
 });
