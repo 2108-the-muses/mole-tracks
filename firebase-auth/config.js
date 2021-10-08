@@ -1,13 +1,14 @@
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/app";
 import "firebase/auth";
+import {API_KEY} from '../secrets'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAQwAxmegpZj8nQl43gKbq1WXjbqIMTadg",
+  apiKey: API_KEY,
   authDomain: "mole-tracks.firebaseapp.com",
   projectId: "mole-tracks",
   storageBucket: "mole-tracks.appspot.com",

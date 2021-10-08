@@ -24,6 +24,7 @@ const SignUp = (props) => {
   const handleSignUp = async () => {
     await dispatch(authenticate(username, email, password, "signup"));
     props.navigation.navigate("Main");
+    console.log(firebaseAuth)
   };
 
   console.log(email, password);

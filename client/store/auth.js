@@ -1,6 +1,6 @@
 import axios from "axios";
 // import history from '../history'
-
+import {firebaseAuth} from "../../firebase-auth/config";
 const TOKEN = "token";
 
 /**
@@ -17,7 +17,7 @@ const setAuth = (auth) => ({type: SET_AUTH, auth});
  * THUNK CREATORS
  */
 export const me = () => async (dispatch) => {
-  const token = window.localStorage.getItem(TOKEN);
+  const token = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
   if (token) {
     const res = await axios.get("/auth/me", {
       headers: {
@@ -32,8 +32,6 @@ export const authenticate = (username, email, password, method) => async (dispat
   try {
     await firebaseAuth.createUserWithEmailAndPassword(email, password);
     const res = await axios.post(`/auth/${method}`, {username, email});
-
-    window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
   } catch (authError) {
     return dispatch(setAuth({error: authError.message}));
