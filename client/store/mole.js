@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IPAddress } from "../../secrets";
+import { IP_ADDRESS } from "../../secrets";
 
 /**
  * ACTION TYPES
@@ -18,7 +18,7 @@ export const fetchAllMoles = (userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `http://${IPAddress}:8080/api/mole/${userId}` //'http://192.168.1.209:8080/api/cats'
+        `http://${IP_ADDRESS}:8080/api/mole/${userId}`
       );
       dispatch(setAllMoles(data));
     } catch (error) {

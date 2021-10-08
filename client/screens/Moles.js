@@ -1,11 +1,11 @@
 import React from "react";
 import {StyleSheet, View, Text} from "react-native";
-import Moles from '../components/moles'
+import BodyPartsList from '../components/bodyPartsList'
 
 const AllMoles = () => {
   return (
     <View style={styles.container}>
-      <Moles />
+      <BodyPartsList />
     </View>
   );
 };
