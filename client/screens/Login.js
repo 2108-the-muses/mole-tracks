@@ -10,7 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import {firebaseAuth} from "../../firebase-auth/config";
+import {firebaseAuth} from "../firebase-auth/config";
 
 export default class Login extends React.Component {
   state = {email: "", password: "", errorMessage: null};

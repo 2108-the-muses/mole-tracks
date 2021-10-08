@@ -1,6 +1,6 @@
 import React from "react";
 import {Alert, Platform, Image, View, Text, StyleSheet, Button} from "react-native";
-import {firebaseAuth} from "../../firebase-auth/config";
+import {firebaseAuth} from "../firebase-auth/config";
 
 export default class Main extends React.Component {
   constructor(props) {

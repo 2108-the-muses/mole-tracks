@@ -11,7 +11,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import {firebaseAuth} from "../../firebase-auth/config";
+import {firebaseAuth} from "../firebase-auth/config";
 import {authenticate} from "../store/auth";
 
 const SignUp = (props) => {
@@ -24,6 +24,7 @@ const SignUp = (props) => {
   const handleSignUp = async () => {
     await dispatch(authenticate(username, email, password, "signup"));
     props.navigation.navigate("Main");
+    
     console.log(firebaseAuth)
   };
 

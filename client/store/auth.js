@@ -1,6 +1,6 @@
 import axios from "axios";
 // import history from '../history'
-import {firebaseAuth} from "../../firebase-auth/config";
+import {firebaseAuth} from "../firebase-auth/config";
 import {IP_ADDRESS} from "../../secrets";
 const TOKEN = "token";
 

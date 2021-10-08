@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const {firebaseAdmin} = require('../fbconfig')
 const {
   models: {User},
 } = require("../db");
@@ -24,7 +25,9 @@ router.post("/signup", async (req, res, next) => {
 
 router.get("/me", async (req, res, next) => {
   try {
-    res.send(await User.findByToken(req.headers.authorization));
+   const {uid} = firebaseAdmin.auth().verifyIdToken(req.headers.authorization)
+   console.log(uid)
+    // res.send(await User.findByToken(req.headers.authorization));
   } catch (ex) {
     next(ex);
   }
