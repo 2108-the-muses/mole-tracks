@@ -1,7 +1,7 @@
-export const home = "home";
-export const login = "login";
-export const signup = "signup";
-export const body = "body";
-export const moles = "moles";
-export const singleMole = "singleMole";
-export const entry = "entry";
+export const home = "Home";
+export const login = "Login";
+export const signup = "SignUp";
+export const body = "Body";
+export const moles = "Moles";
+export const singleMole = "SingleMole";
+export const entry = "Entry";
