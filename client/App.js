@@ -5,15 +5,15 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 import {home, login, signup, body, moles, singleMole, entry} from "./NavigationConstants";
-import Login from "./components/Login";
-import Entry from "./components/Entry";
-import Signup from "./components/Signup";
-import Body from "./components/Body";
-import Moles from "./components/Moles";
-import SingleMole from "./components/SingleMole";
+import Login from "./screens/Login";
+import Entry from "./screens/Entry";
+import Signup from "./screens/Signup";
+import Body from "./screens/Body";
+import Moles from "./screens/Moles";
+import SingleMole from "./screens/SingleMole";
 
 // this is a dummy component for now
-import Home from "./components/Home";
+import Home from "./screens/Home";
 
 const Stack = createNativeStackNavigator();
 
