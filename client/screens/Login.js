@@ -22,7 +22,7 @@ export default class Login extends React.Component {
   };
   render() {
     return (
-      <ImageBackground style={{width: "100%", height: "100%"}}>
+      <ImageBackground style={{width: "100%", height: "100%", backgroundColor: "black"}}>
         <View style={styles.container}>
           <View style={styles.headingSection}>
             <Image style={{width: 100, height: 100}} />

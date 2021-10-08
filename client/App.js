@@ -21,20 +21,20 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    // <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="loading">
-        <Stack.Screen name="loading" component={Loading} />
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name={home} component={Home} />
-        <Stack.Screen name={body} component={Body} />
-        <Stack.Screen name={moles} component={Moles} />
-        <Stack.Screen name={singleMole} component={SingleMole} />
-        <Stack.Screen name={entry} component={Entry} />
-      </Stack.Navigator>
-    </NavigationContainer>
-    // </Provider>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="loading">
+          <Stack.Screen name="loading" component={Loading} />
+          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name={home} component={Home} />
+          <Stack.Screen name={body} component={Body} />
+          <Stack.Screen name={moles} component={Moles} />
+          <Stack.Screen name={singleMole} component={SingleMole} />
+          <Stack.Screen name={entry} component={Entry} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

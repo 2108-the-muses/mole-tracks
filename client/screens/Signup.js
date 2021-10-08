@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
   View,
   Text,
@@ -11,56 +12,69 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {firebaseAuth} from "../../firebase-auth/config";
+import {authenticate} from "../store/auth";
 
-export default class SignUp extends React.Component {
-  state = {email: "", password: "", errorMessage: null};
-  handleSignUp = () => {
-    // TODO: Firebase stuff...
-    console.log("handleSignUp");
-    firebaseAuth
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("Main"))
-      .catch((error) => this.setState({errorMessage: error.message}));
+const SignUp = (props) => {
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleSignUp = async () => {
+    await dispatch(authenticate(username, email, password, "signup"));
+    props.navigation.navigate("Main");
   };
-  render() {
-    return (
-      <ImageBackground source={require("./bgImg.png")} style={{width: "100%", height: "100%"}}>
-        <View style={styles.container}>
-          <View style={styles.headingSection}>
-            <Image source={require("./userImg.png")} style={{width: 100, height: 100}} />
-          </View>
-          <Text style={styles.heading}>Sign Up</Text>
-          {this.state.errorMessage && <Text style={{color: "red"}}>{this.state.errorMessage}</Text>}
-          <TextInput
-            placeholder="Email"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={(email) => this.setState({email})}
-            value={this.state.email}
-          />
-          <TextInput
-            secureTextEntry
-            placeholder="Password"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={(password) => this.setState({password})}
-            value={this.state.password}
-          />
-          <TouchableOpacity onPress={this.handleSignUp}>
-            <View style={styles.signupBtn}>
-              <Text style={styles.buttonText}>Sign Up</Text>
-            </View>
-          </TouchableOpacity>
-          <Button
-            color="transparent"
-            title="Already have an account? Login "
-            onPress={() => this.props.navigation.navigate("Login")}
-          />
+
+  console.log(email, password);
+  return (
+    <ImageBackground style={{width: "100%", height: "100%", backgroundColor: "black"}}>
+      <View style={styles.container}>
+        <View style={styles.headingSection}>
+          <Image style={{width: 100, height: 100}} />
         </View>
-      </ImageBackground>
-    );
-  }
-}
+        <Text style={styles.heading}>Sign Up</Text>
+        {/* @todo check for error on auth */}
+        {error && <Text style={{color: "red"}}>{error}</Text>}
+        <TextInput
+          placeholder="Email"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(email) => setEmail(email)}
+          value={email}
+        />
+        <TextInput
+          placeholder="Username"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(username) => setUsername(username)}
+          value={username}
+        />
+        <TextInput
+          secureTextEntry
+          placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(password) => setPassword(password)}
+          value={password}
+        />
+        <TouchableOpacity onPress={handleSignUp}>
+          <View style={styles.signupBtn}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </View>
+        </TouchableOpacity>
+        <Button
+          color="transparent"
+          title="Already have an account? Login "
+          onPress={() => props.navigation.navigate("Login")}
+        />
+      </View>
+    </ImageBackground>
+  );
+};
+
+export default SignUp;
+
 const heightConst = Dimensions.get("screen").height;
 const styles = StyleSheet.create({
   container: {
