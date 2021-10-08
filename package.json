@@ -23,6 +23,7 @@
     "expo-status-bar": "~1.0.4",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
+    "firebase": "8.2.3",
     "formidable": "^1.2.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
