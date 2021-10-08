@@ -1,12 +1,30 @@
-import React from "react";
-import {StyleSheet, View, Text} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { fetchAllMoles } from "../store/mole";
+import { useDispatch, useSelector } from "react-redux";
 
 const Moles = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Moles</Text>
-    </View>
-  );
+  let moles = useSelector((state) => state.allMoles);
+
+  const dispatch = useDispatch();
+
+  //Currently hard coded for user 1. Add individual user functionality later.
+  useEffect(() => {
+    dispatch(fetchAllMoles(3));
+  }, []);
+
+  const list = () => {
+    return moles.map((mole, index) => {
+      return (
+        <View key={index} style={styles.container}>
+          <TouchableOpacity>
+            <Text>{mole.nickname}</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    });
+  };
+  return <View>{list()}</View>;
 };
 
 const styles = StyleSheet.create({
