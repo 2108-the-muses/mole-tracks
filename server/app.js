@@ -2,7 +2,10 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
+const cors = require("cors");
 module.exports = app;
+
+app.use(cors({origin: true}));
 
 // logging middleware
 app.use(morgan("dev"));
@@ -13,18 +16,16 @@ app.use(express.json());
 // auth and api routes
 app.use("/auth", require("./auth"));
 app.use("/api", require("./api"));
-app.use("/testUpload", require("./testUpload"));
 
-app.get("/", (req, res) =>
-  res.sendFile(path.join(__dirname, "..", "public/index.html"))
-);
+// app.get("/", (req, res) => res.sendFile(path.join(__dirname, "..", "public/index.html")));
 
 // static file-serving middleware
-app.use(express.static(path.join(__dirname, "..", "public")));
+// app.use(express.static(path.join(__dirname, "..", "public")));
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
   if (path.extname(req.path).length) {
+    console.log("IN THE 404 HANDLER");
     const err = new Error("Not found");
     err.status = 404;
     next(err);
@@ -34,9 +35,9 @@ app.use((req, res, next) => {
 });
 
 // sends index.html
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "public/index.html"));
-});
+// app.use("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "..", "public/index.html"));
+// });
 
 // error handling endware
 app.use((err, req, res, next) => {

@@ -15,7 +15,8 @@ router.post("/login", async (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
   try {
     const user = await User.create(req.body);
-    res.status(200);
+    console.log("in signup", user);
+    res.sendStatus(200);
   } catch (err) {
     next(err);
   }
