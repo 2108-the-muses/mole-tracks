@@ -1,11 +1,10 @@
 import React from "react";
 import {StyleSheet, View, Text} from "react-native";
-import Moles from '../components/moles'
 
-const AllMoles = () => {
+const Moles = () => {
   return (
     <View style={styles.container}>
-      <Moles />
+      <Text>Moles</Text>
     </View>
   );
 };
@@ -19,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AllMoles;
+export default Moles;
