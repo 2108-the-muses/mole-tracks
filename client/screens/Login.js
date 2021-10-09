@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
   View,
   Text,
@@ -10,55 +11,68 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import {authenticate} from "../store/auth";
 import {firebaseAuth} from "../firebase-auth/config";
 
-export default class Login extends React.Component {
-  state = {email: "", password: "", errorMessage: null};
-  handleLogin = () => {
-    firebaseAuth
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate("Main"))
-      .catch((error) => this.setState({errorMessage: error.message}));
+const Login = (props) => {
+  const dispatch = useDispatch();
+  const authError = useSelector((state) => state.auth.error);
+  const [email, setEmail] = useState("cody@moletracks.com");
+  const [password, setPassword] = useState("123456");
+  const [error, setError] = useState(null);
+
+  const handleLogin = async () => {
+    try {
+      if (await dispatch(authenticate({email: email, password: password, method: "login"}))) {
+        props.navigation.navigate("Main");
+      } else {
+        setError("ERROR");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-  render() {
-    return (
-      <ImageBackground style={{width: "100%", height: "100%", backgroundColor: "black"}}>
-        <View style={styles.container}>
-          <View style={styles.headingSection}>
-            <Image style={{width: 100, height: 100}} />
-          </View>
-          <Text style={styles.heading}>Login</Text>
-          {this.state.errorMessage && <Text style={{color: "red"}}>{this.state.errorMessage}</Text>}
-          <TextInput
-            placeholder="Email"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={(email) => this.setState({email})}
-            value={this.state.email}
-          />
-          <TextInput
-            secureTextEntry
-            placeholder="Password"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={(password) => this.setState({password})}
-            value={this.state.password}
-          />
-          <TouchableOpacity onPress={this.handleLogin}>
-            <View style={styles.signupBtn}>
-              <Text style={styles.buttonText}>Log In</Text>
-            </View>
-          </TouchableOpacity>
-          <Button
-            title="Don't have an account? Sign Up"
-            color="transparent"
-            onPress={() => this.props.navigation.navigate("SignUp")}
-          />
+
+  return (
+    <ImageBackground style={{width: "100%", height: "100%", backgroundColor: "black"}}>
+      <View style={styles.container}>
+        <View style={styles.headingSection}>
+          <Image style={{width: 100, height: 100}} />
         </View>
-      </ImageBackground>
-    );
-  }
-}
+        <Text style={styles.heading}>Login</Text>
+        {error && <Text style={{color: "red"}}>{error}</Text>}
+        <TextInput
+          placeholder="Email"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(email) => setEmail(email)}
+          value={email}
+        />
+        <TextInput
+          secureTextEntry
+          placeholder="Password"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(password) => setPassword(password)}
+          value={password}
+        />
+        <TouchableOpacity onPress={handleLogin}>
+          <View style={styles.signupBtn}>
+            <Text style={styles.buttonText}>Log In</Text>
+          </View>
+        </TouchableOpacity>
+        <Button
+          title="Don't have an account? Sign Up"
+          color="transparent"
+          onPress={() => props.navigation.navigate("SignUp")}
+        />
+      </View>
+    </ImageBackground>
+  );
+};
+
+export default Login;
+
 const heightConst = Dimensions.get("screen").height;
 const styles = StyleSheet.create({
   container: {

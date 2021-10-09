@@ -33,31 +33,42 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const authenticate = (email, firstName, lastName, password, method) => async (dispatch) => {
-  try {
-    const {user} = await firebaseAuth.createUserWithEmailAndPassword(email, password);
-    const {data} = await axios.post(`http://${IP_ADDRESS}:8080/auth/${method}`, {
-      uid: user.uid,
-      email,
-      firstName,
-      lastName,
-    });
-    if (data.uid) {
-      dispatch(me());
-      return true;
-    } else {
-      console.log("Failed to authenticate");
-      return false;
+export const authenticate =
+  ({email, firstName, lastName, password, method}) =>
+  async (dispatch) => {
+    try {
+      const verify = (data) => {
+        if (data.uid) {
+          dispatch(me());
+          return true;
+        } else {
+          console.log("Failed to authenticate");
+          return false;
+        }
+      };
+      if (method === "signup") {
+        const {user} = await firebaseAuth.createUserWithEmailAndPassword(email, password);
+        const {data} = await axios.post(`http://${IP_ADDRESS}:8080/auth/${method}`, {
+          uid: user.uid,
+          email,
+          firstName,
+          lastName,
+        });
+        if (verify(data)) return true;
+      } else if (method === "login") {
+        const {user} = await firebaseAuth.signInWithEmailAndPassword(email, password);
+        const {data} = await axios.post(`http://${IP_ADDRESS}:8080/auth/${method}`, {
+          uid: user.uid,
+        });
+        if (verify(data)) return true;
+      }
+    } catch (err) {
+      dispatch(setError(err.message));
+      console.log(err);
     }
-  } catch (err) {
-    dispatch(setError(err.message));
-    console.log(err);
-  }
-};
+  };
 
 export const logout = () => {
-  window.localStorage.removeItem(TOKEN);
-  // history.push('/login')
   return {
     type: SET_USER,
     user: {},

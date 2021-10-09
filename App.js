@@ -3,8 +3,6 @@ import {Provider} from "react-redux";
 import store from "./client/store";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {AppRegistry} from "react-native";
-import {name} from "./app.json";
 
 import {home, login, signup, body, moles, singleMole, entry} from "./client/NavigationConstants";
 import Login from "./client/screens/Login";
@@ -25,7 +23,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="loading">
+        <Stack.Navigator initialRouteName="SignUp">
           <Stack.Screen name="loading" component={Loading} />
           <Stack.Screen name="Main" component={Main} />
           <Stack.Screen name="Login" component={Login} />
@@ -40,5 +38,3 @@ export default function App() {
     </Provider>
   );
 }
-
-// AppRegistry.registerComponent(name, () => Main);

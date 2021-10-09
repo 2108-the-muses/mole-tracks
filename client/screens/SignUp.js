@@ -26,7 +26,7 @@ const SignUp = (props) => {
 
   const handleSignUp = async () => {
     try {
-      if (await dispatch(authenticate(email, firstName, lastName, password, "signup"))) {
+      if (await dispatch(authenticate({email, firstName, lastName, password, method: "signup"}))) {
         props.navigation.navigate("Main");
       } else {
         console.log("AUTH ERROR", authError);

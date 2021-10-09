@@ -1,38 +1,59 @@
-import React from "react";
-import {Alert, Platform, Image, View, Text, StyleSheet, Button} from "react-native";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {ActivityIndicator, View, Text, StyleSheet, Button, TouchableOpacity} from "react-native";
 import {firebaseAuth} from "../firebase-auth/config";
+import {logout} from "../store/auth";
 
-export default class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {currentUser: null, errorMessage: null};
-  }
-  componentDidMount() {
-    const {currentUser} = firebaseAuth;
-    this.setState({currentUser});
-  }
-  onPressButton = () => {
-    firebaseAuth
-      .signOut()
-      .then(() => this.props.navigation.navigate("Login"))
-      .catch((error) => this.setState({errorMessage: error.message}));
+const Main = (props) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const [error, setError] = useState("");
+
+  const onPressButton = async () => {
+    try {
+      await firebaseAuth.signOut();
+      dispatch(logout());
+      props.navigation.navigate("Login");
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
-  render() {
-    const {currentUser} = this.state;
-    return (
-      <View style={styles.container}>
-        <Text>Hi {currentUser && currentUser.email}!</Text>
-        <View>
-          <Button onPress={this.onPressButton} title="Sign Out" />
-        </View>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      {user.email ? (
+        <>
+          <Text>
+            Hi {user.firstName} at {user.email}!
+          </Text>
+          <View>
+            <Button onPress={onPressButton} title="Sign Out" />
+          </View>
+          <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("Home")}>
+            <Text>Home</Text>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <>
+          <Text>Loading</Text>
+          <ActivityIndicator size="large" />
+        </>
+      )}
+    </View>
+  );
+};
+
+export default Main;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    width: 150,
+    height: 30,
     justifyContent: "center",
     alignItems: "center",
   },
