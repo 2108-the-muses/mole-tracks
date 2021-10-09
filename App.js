@@ -1,21 +1,23 @@
 import React from "react";
 import {Provider} from "react-redux";
-import store from "./store";
+import store from "./client/store";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {AppRegistry} from "react-native";
+import {name} from "./app.json";
 
-import {home, login, signup, body, moles, singleMole, entry} from "./NavigationConstants";
-import Login from "./screens/Login";
-import Entry from "./screens/Entry";
-import Body from "./screens/Body";
-import Moles from "./screens/Moles";
-import SingleMole from "./screens/SingleMole";
-import Loading from "./screens/Loading";
-import SignUp from "./screens/SignUp";
-import Main from "./screens/Main";
+import {home, login, signup, body, moles, singleMole, entry} from "./client/NavigationConstants";
+import Login from "./client/screens/Login";
+import Entry from "./client/screens/Entry";
+import Body from "./client/screens/Body";
+import Moles from "./client/screens/Moles";
+import SingleMole from "./client/screens/SingleMole";
+import Loading from "./client/screens/Loading";
+import SignUp from "./client/screens/SignUp";
+import Main from "./client/screens/Main";
 
 // this is a dummy component for now
-import Home from "./screens/Home";
+import Home from "./client/screens/Home";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,3 +40,5 @@ export default function App() {
     </Provider>
   );
 }
+
+AppRegistry.registerComponent(name, () => Main);
