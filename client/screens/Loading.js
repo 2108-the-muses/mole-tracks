@@ -2,12 +2,11 @@ import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {ActivityIndicator, View, Text, StyleSheet} from "react-native";
 import {firebaseAuth} from "../firebase-auth/config";
-import { getAuth } from "firebase/auth";
+import {getAuth} from "firebase/auth";
 
 class Loading extends React.Component {
   componentDidMount() {
     firebaseAuth.onAuthStateChanged((user) => {
-      console.log(user);
       this.props.navigation.navigate(user ? "Main" : "SignUp");
     });
   }

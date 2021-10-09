@@ -6,18 +6,27 @@ import "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "../../secrets";
+
 const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: "mole-tracks.firebaseapp.com",
-  projectId: "mole-tracks",
-  storageBucket: "mole-tracks.appspot.com",
-  messagingSenderId: "644137951927",
-  appId: "1:644137951927:web:51f1736da4f9595e1f6332",
-  measurementId: "G-VKC9MBBDZ4",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
 // Initialize Firebase
 export const app = firebase.initializeApp(firebaseConfig);
 export const firebaseAuth = app.auth();
-
-

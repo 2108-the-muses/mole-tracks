@@ -22,13 +22,11 @@ const SignUp = (props) => {
   const [error, setError] = useState(null);
 
   const handleSignUp = async () => {
+    console.log("handle sign up");
     await dispatch(authenticate(username, email, password, "signup"));
     props.navigation.navigate("Main");
-    
-    console.log(firebaseAuth)
   };
 
-  console.log(email, password);
   return (
     <ImageBackground style={{width: "100%", height: "100%", backgroundColor: "black"}}>
       <View style={styles.container}>

@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
+
 module.exports = app;
 
 app.use(cors({origin: true}));
@@ -25,7 +26,6 @@ app.use("/api", require("./api"));
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
   if (path.extname(req.path).length) {
-    console.log("IN THE 404 HANDLER");
     const err = new Error("Not found");
     err.status = 404;
     next(err);

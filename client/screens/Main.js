@@ -12,7 +12,6 @@ export default class Main extends React.Component {
     this.setState({currentUser});
   }
   onPressButton = () => {
-    console.log("PressButton");
     firebaseAuth
       .signOut()
       .then(() => this.props.navigation.navigate("Login"))

@@ -1,5 +1,5 @@
-const admin = require('firebase-admin')
+// const admin = require('firebase-admin')
 
-const firebaseAdmin = admin.initializeApp({credential: admin.credential.applicationDefault()})
+// const firebaseAdmin = admin.initializeApp({credential: admin.credential.applicationDefault()})
 
-module.exports = {firebaseAdmin}
+// module.exports = {firebaseAdmin}
