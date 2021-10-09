@@ -9,12 +9,14 @@ const TOKEN = "token";
 /**
  * ACTION TYPES
  */
-const SET_AUTH = "SET_AUTH";
+const SET_USER = "SET_USER";
+const SET_ERROR = "SET_ERROR";
 
 /**
  * ACTION CREATORS
  */
-const setAuth = (auth) => ({type: SET_AUTH, auth});
+const setUser = (user) => ({type: SET_USER, user});
+const setError = (error) => ({type: SET_ERROR, error});
 
 /**
  * THUNK CREATORS
@@ -22,26 +24,34 @@ const setAuth = (auth) => ({type: SET_AUTH, auth});
 export const me = () => async (dispatch) => {
   const idToken = await firebaseAuth.currentUser.getIdToken(true);
   if (idToken) {
-    const res = await axios.get(`http://${IP_ADDRESS}:8080/auth/me`, {
+    const {data} = await axios.get(`http://${IP_ADDRESS}:8080/auth/me`, {
       headers: {
-        AuthToken: idToken,
+        authtoken: idToken,
       },
     });
-    console.log("ME RESPONSE", res);
-    return dispatch(setAuth(res.data));
+    return dispatch(setUser(data));
   }
 };
 
-export const authenticate = (username, email, password, method) => async (dispatch) => {
+export const authenticate = (email, firstName, lastName, password, method) => async (dispatch) => {
   try {
     const {user} = await firebaseAuth.createUserWithEmailAndPassword(email, password);
-    // user has email, uid  // has potential to add photoURL, phoneNumber, displayName
-    console.log("authenticate");
-    const res = await axios.post(`http://${IP_ADDRESS}:8080/auth/${method}`, {username, email});
-    console.log("RESPONSE", res);
-    dispatch(me());
-  } catch (authError) {
-    return dispatch(setAuth({error: authError.message}));
+    const {data} = await axios.post(`http://${IP_ADDRESS}:8080/auth/${method}`, {
+      uid: user.uid,
+      email,
+      firstName,
+      lastName,
+    });
+    if (data.uid) {
+      dispatch(me());
+      return true;
+    } else {
+      console.log("Failed to authenticate");
+      return false;
+    }
+  } catch (err) {
+    dispatch(setError(err.message));
+    console.log(err);
   }
 };
 
@@ -49,18 +59,25 @@ export const logout = () => {
   window.localStorage.removeItem(TOKEN);
   // history.push('/login')
   return {
-    type: SET_AUTH,
-    auth: {},
+    type: SET_USER,
+    user: {},
   };
+};
+
+const initialState = {
+  user: {},
+  error: "",
 };
 
 /**
  * REDUCER
  */
-export default function (state = {}, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
-    case SET_AUTH:
-      return action.auth;
+    case SET_USER:
+      return {...state, user: action.user};
+    case SET_ERROR:
+      return {...state, error: action.error};
     default:
       return state;
   }

@@ -10,13 +10,12 @@ const checkAuth = async (req, res, next) => {
   try {
     if (req.headers.authtoken) {
       req.user = await admin.auth().verifyIdToken(req.headers.authtoken);
-      console.log("RESPONSE************", req.user);
       next();
     } else {
       res.status(403).send("Unauthorized");
     }
   } catch (err) {
-    console.log(err);
+    console.log("CHECK AUTH", err);
     next(err);
   }
 };

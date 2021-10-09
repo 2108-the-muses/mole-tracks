@@ -11,20 +11,30 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import {firebaseAuth} from "../firebase-auth/config";
 import {authenticate} from "../store/auth";
+import {firebaseAuth} from "../firebase-auth/config";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const authError = useSelector((state) => state.auth.error);
+  const user = useSelector((state) => state.auth.user);
+  const [firstName, setFirstName] = useState("Cody");
+  const [lastName, setLastName] = useState("Mole");
+  const [email, setEmail] = useState("cody@moletracks.com");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
 
   const handleSignUp = async () => {
-    console.log("handle sign up");
-    await dispatch(authenticate(username, email, password, "signup"));
-    props.navigation.navigate("Main");
+    try {
+      if (await dispatch(authenticate(email, firstName, lastName, password, "signup"))) {
+        props.navigation.navigate("Main");
+      } else {
+        console.log("AUTH ERROR", authError);
+        setError("ERROR");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -44,11 +54,18 @@ const SignUp = (props) => {
           value={email}
         />
         <TextInput
-          placeholder="Username"
+          placeholder="First Name"
           autoCapitalize="none"
           style={styles.textInput}
-          onChangeText={(username) => setUsername(username)}
-          value={username}
+          onChangeText={(firstName) => setFirstName(firstName)}
+          value={firstName}
+        />
+        <TextInput
+          placeholder="Last Name"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(lastName) => setLastName(lastName)}
+          value={lastName}
         />
         <TextInput
           secureTextEntry

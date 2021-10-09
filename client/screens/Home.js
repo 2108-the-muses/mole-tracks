@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, TouchableOpacity} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text} from "react-native";
 import {login, signup, body, moles, singleMole, entry} from "../NavigationConstants";
 
 const Home = (props) => {
@@ -7,22 +7,22 @@ const Home = (props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(login)}>
-        Login
+        <Text>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(signup)}>
-        Signup
+        <Text>Signup</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(body)}>
-        Body
+        <Text>Body</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(moles)}>
-        Moles
+        <Text>Moles</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(singleMole)}>
-        SingleMole
+        <Text>SingleMole</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(entry)}>
-        Entry
+        <Text>Entry</Text>
       </TouchableOpacity>
     </View>
   );
