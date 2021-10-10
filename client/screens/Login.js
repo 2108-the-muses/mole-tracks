@@ -11,13 +11,27 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {authenticate} from "../store/auth";
+
+import {useFonts} from "@use-expo/font";
+import AppLoading from "expo-app-loading";
 
 const Login = (props) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("cody@moletracks.com");
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
+
+  const [isLoaded] = useFonts({
+    "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
+    "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
+    "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
+  });
+
+  if (!isLoaded) {
+    return <AppLoading />;
+  }
 
   const handleLogin = async () => {
     try {
@@ -31,40 +45,56 @@ const Login = (props) => {
   };
 
   return (
-    <ImageBackground style={{width: "100%", height: "100%", backgroundColor: "black"}}>
+    <KeyboardAwareScrollView style={{flex: 1}}>
       <View style={styles.container}>
-        <View style={styles.headingSection}>
-          <Image style={{width: 100, height: 100}} />
-        </View>
-        <Text style={styles.heading}>Login</Text>
-        {error && <Text style={{color: "red"}}>{error}</Text>}
-        <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(email) => setEmail(email)}
-          value={email}
+        <ImageBackground
+          source={require("../../assets/images/face-with-mole.png")}
+          style={styles.image}
         />
-        <TextInput
-          secureTextEntry
-          placeholder="Password"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(password) => setPassword(password)}
-          value={password}
-        />
-        <TouchableOpacity onPress={handleLogin}>
-          <View style={styles.signupBtn}>
-            <Text style={styles.buttonText}>Log In</Text>
+        <View style={styles.form}>
+          <TextInput
+            placeholder="Email"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(email) => setEmail(email)}
+            value={email}
+          />
+          <TextInput
+            secureTextEntry
+            placeholder="Password"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(password) => setPassword(password)}
+            value={password}
+          />
+          {error && <Text style={{color: "red", marginTop: 10}}>{error}</Text>}
+          <View style={styles.buttonBox}>
+            <TouchableOpacity onPress={handleLogin}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>login</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => props.navigation.navigate("SignUp")}>
+              <View style={[styles.button, styles.fade]}>
+                <Text style={styles.buttonText}>sign up</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-        <Button
-          title="Don't have an account? Sign Up"
-          color="white"
-          onPress={() => props.navigation.navigate("SignUp")}
-        />
+          <Text style={{marginTop: 10}}>or</Text>
+          <View style={styles.googleButtonBox}>
+            <TouchableOpacity>
+              <View style={styles.googleButton}>
+                <Image
+                  style={styles.googleImage}
+                  source={require("../../assets/images/google-logo.png")}
+                />
+                <Text style={styles.googleButtonText}>Continue with Google</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-    </ImageBackground>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -76,41 +106,92 @@ const styles = StyleSheet.create({
     height: heightConst - 50,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
+    fontFamily: "OpenSans",
   },
-  headingSection: {
-    borderColor: 1,
-    textAlign: "center",
+  image: {
+    width: 325,
+    height: 325,
+    position: "absolute",
+    top: 20,
+  },
+  form: {
     alignItems: "center",
-    marginBottom: 35,
-  },
-  heading: {
-    color: "#fff",
-    fontSize: 26,
-    marginBottom: 10,
+    justifyContent: "flex-end",
+    width: "80%",
+    height: "100%",
+    bottom: 150,
   },
   textInput: {
     height: 40,
-    width: "90%",
-    borderColor: "#fff",
-    borderWidth: 1,
-    marginTop: 8,
-    color: "#fff",
+    width: 290,
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    marginTop: 15,
+    color: "black",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 22,
   },
-  signupBtn: {
-    borderRadius: 5,
-    marginBottom: 5,
-    backgroundColor: "transparent",
-    borderWidth: 1,
-    borderColor: "#fff",
-    width: 100,
-    height: 35,
-    overflow: "hidden",
+  buttonBox: {
+    flexDirection: "row",
+    width: 260,
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  button: {
+    borderRadius: 10,
+    backgroundColor: "#FF7379",
+    width: 115,
+    height: 45,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
+    shadowColor: "gray",
+    shadowOffset: {width: 0, height: 1},
+    shadowRadius: 3,
+    elevation: 1,
   },
   buttonText: {
-    color: "#fff",
+    color: "white",
     textAlign: "center",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 22,
+  },
+  fade: {
+    opacity: 0.3,
+  },
+  googleButtonBox: {
+    flexDirection: "row",
+    width: 260,
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  googleButton: {
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#FF7379",
+    backgroundColor: "white",
+    width: 260,
+    height: 45,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    shadowColor: "gray",
+    shadowOffset: {width: 0, height: 1},
+    shadowRadius: 3,
+    elevation: 1,
+    flexDirection: "row",
+  },
+  googleButtonText: {
+    color: "black",
+    textAlign: "center",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 16,
+  },
+  googleImage: {
+    width: 25,
+    height: 25,
+    position: "absolute",
+    left: 12,
   },
 });
