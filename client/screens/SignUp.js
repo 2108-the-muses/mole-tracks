@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 import {
   View,
   Text,
@@ -12,12 +12,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {authenticate} from "../store/auth";
-import {firebaseAuth} from "../firebase-auth/config";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
-  const authError = useSelector((state) => state.auth.error);
-  const user = useSelector((state) => state.auth.user);
   const [firstName, setFirstName] = useState("Cody");
   const [lastName, setLastName] = useState("Mole");
   const [email, setEmail] = useState("cody@moletracks.com");
@@ -26,12 +23,10 @@ const SignUp = (props) => {
 
   const handleSignUp = async () => {
     try {
-      if (await dispatch(authenticate({email, firstName, lastName, password, method: "signup"}))) {
-        props.navigation.navigate("Main");
-      } else {
-        console.log("AUTH ERROR", authError);
-        setError("ERROR");
-      }
+      const response = await dispatch(
+        authenticate({email, firstName, lastName, password, method: "signup"})
+      );
+      response === true ? props.navigation.navigate("Main") : setError(response);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +39,6 @@ const SignUp = (props) => {
           <Image style={{width: 100, height: 100}} />
         </View>
         <Text style={styles.heading}>Sign Up</Text>
-        {/* @todo check for error on auth */}
         {error && <Text style={{color: "red"}}>{error}</Text>}
         <TextInput
           placeholder="Email"

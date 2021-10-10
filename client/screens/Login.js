@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {
   View,
   Text,
@@ -12,22 +12,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {authenticate} from "../store/auth";
-import {firebaseAuth} from "../firebase-auth/config";
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const authError = useSelector((state) => state.auth.error);
   const [email, setEmail] = useState("cody@moletracks.com");
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
 
   const handleLogin = async () => {
     try {
-      if (await dispatch(authenticate({email: email, password: password, method: "login"}))) {
-        props.navigation.navigate("Main");
-      } else {
-        setError("ERROR");
-      }
+      const response = await dispatch(
+        authenticate({email: email, password: password, method: "login"})
+      );
+      response === true ? props.navigation.navigate("Main") : setError(response);
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +60,7 @@ const Login = (props) => {
         </TouchableOpacity>
         <Button
           title="Don't have an account? Sign Up"
-          color="transparent"
+          color="white"
           onPress={() => props.navigation.navigate("SignUp")}
         />
       </View>

@@ -4,24 +4,20 @@ import {firebaseAuth} from "../firebase-auth/config";
 
 import {IP_ADDRESS} from "../../secrets";
 
-const TOKEN = "token";
-
 /**
  * ACTION TYPES
  */
 const SET_USER = "SET_USER";
-const SET_ERROR = "SET_ERROR";
 
 /**
  * ACTION CREATORS
  */
 const setUser = (user) => ({type: SET_USER, user});
-const setError = (error) => ({type: SET_ERROR, error});
 
 /**
  * THUNK CREATORS
  */
-export const me = () => async (dispatch) => {
+export const setUserThunk = () => async (dispatch) => {
   const idToken = await firebaseAuth.currentUser.getIdToken(true);
   if (idToken) {
     const {data} = await axios.get(`http://${IP_ADDRESS}:8080/auth/me`, {
@@ -39,7 +35,7 @@ export const authenticate =
     try {
       const verify = (data) => {
         if (data.uid) {
-          dispatch(me());
+          dispatch(setUserThunk());
           return true;
         } else {
           console.log("Failed to authenticate");
@@ -63,8 +59,8 @@ export const authenticate =
         if (verify(data)) return true;
       }
     } catch (err) {
-      dispatch(setError(err.message));
       console.log(err);
+      return err.message;
     }
   };
 
@@ -77,7 +73,6 @@ export const logout = () => {
 
 const initialState = {
   user: {},
-  error: "",
 };
 
 /**
@@ -87,8 +82,6 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       return {...state, user: action.user};
-    case SET_ERROR:
-      return {...state, error: action.error};
     default:
       return state;
   }

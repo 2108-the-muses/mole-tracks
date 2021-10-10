@@ -15,7 +15,6 @@ const checkAuth = async (req, res, next) => {
       res.status(403).send("Unauthorized");
     }
   } catch (err) {
-    console.log("CHECK AUTH", err);
     next(err);
   }
 };
