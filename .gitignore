@@ -11,5 +11,6 @@ web-build/
 secrets.js
 .env
 firebase-admin-sdk.json
+
 # macOS
 .DS_Store
