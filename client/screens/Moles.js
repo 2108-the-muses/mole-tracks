@@ -1,12 +1,16 @@
 import React from "react";
-import {StyleSheet, View, Text} from "react-native";
-import BodyPartsList from '../components/bodyPartsList'
+import { StyleSheet, View, SafeAreaView, ScrollView } from "react-native";
+import BodyPartsList from "../components/bodyPartsList";
 
 const AllMoles = () => {
   return (
-    <View style={styles.container}>
-      <BodyPartsList />
-    </View>
+    <SafeAreaView style={styles.scrollView}>
+      <ScrollView>
+        <View style={styles.container}>
+          <BodyPartsList />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -16,6 +20,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  scrollView: {
+    flex: 1,
   },
 });
 

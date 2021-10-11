@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, View, Text } from "react-native";
 import { fetchAllMoles } from "../store/mole";
 import { useDispatch, useSelector } from "react-redux";
 import Moles from "./moles";
@@ -7,7 +7,6 @@ import Moles from "./moles";
 const BodyPartsList = () => {
   let moles = useSelector((state) => state.allMoles);
   let user = useSelector((state) => state.auth.user);
-  // const [error, setError] = useState("");
 
   let bodyParts = [
     "head",
@@ -21,22 +20,23 @@ const BodyPartsList = () => {
   ];
   const dispatch = useDispatch();
 
-  //Currently hard coded for user 1. Add individual user functionality later.
-  // 'uHiPs9ZlgwPuLeLOIhdsfTUBqCM2'
   useEffect(() => {
     dispatch(fetchAllMoles(user.uid));
   }, []);
 
   const list = () => {
-    console.log("moles", moles)
-    console.log("user", user)
     return bodyParts.map((bodyPart, index) => {
       let molesInBodyPart = moles.filter((mole) => mole.bodyPart === bodyPart);
 
       if (molesInBodyPart.length)
         return (
-          <View key={index}>
-            <Text style={styles.title}>{bodyPart}</Text>
+          <View key={index} style={styles.bodyParts}>
+            <View style={styles.titleBox}>
+              <View style={styles.title}>
+                <Text style={styles.titleText}>{bodyPart}</Text>
+              </View>
+            </View>
+
             <Text>
               <Moles moles={molesInBodyPart} />
             </Text>
@@ -54,12 +54,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  titleBox: {
+    flexDirection: "row",
+    width: 260,
+    justifyContent: "space-between",
+    marginTop: 20,
+    marginLeft: 20,
+  },
   title: {
-    flex: 1,
-    fontSize: 25,
+    borderRadius: 10,
+    backgroundColor: "#FF7379",
+    width: 115,
+    height: 45,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 10,
+    shadowColor: "gray",
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 3,
+    elevation: 1,
   },
+  titleText: {
+    color: "white",
+    textAlign: "center",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 25,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  bodyParts: {},
 });
 
 export default BodyPartsList;
