@@ -10,7 +10,9 @@ import {
   SINGLEMOLE,
   ENTRY,
   ADD,
+  LOGOUT
 } from "../NavigationConstants";
+import Ionicons from '@expo/vector-icons/Ionicons'
 import Login from "../screens/Login";
 import Entry from "../screens/Entry";
 import Body from "../screens/Body";
@@ -18,52 +20,56 @@ import Moles from "../screens/Moles";
 import SingleMole from "../screens/SingleMole";
 import Loading from "../screens/Loading";
 import SignUp from "../screens/SignUp";
-import Main from "../screens/Main";
+import Logout from "../components/Logout"
 import Add from "../screens/Add";
+import {BodyTemp,MolesTemp} from '../screens/tempScreens'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // this is a dummy component for now
-import Home from "../screens/Home";
 
 const Stack = createNativeStackNavigator();
 
 const BodyStack = () => {
   return (
-    <Stack.Navigator headerMode="auto" initialRouteName={BODY}>
-      <Stack.Screen name={LOADING} component={Loading} />
+    <Stack.Navigator initialRouteName={"body-temp"}>
       <Stack.Screen name={BODY} component={Body} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
+      <Stack.Screen name = "body-temp" component = {BodyTemp}/>
+      <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
   );
 };
 
 const MolesStack = () => {
   return (
-    <Stack.Navigator headerMode="auto" initialRouteName={MOLES}>
-      <Stack.Screen name={LOADING} component={Loading} />
+    <Stack.Navigator initialRouteName={"moles-temp"}>
+      <Stack.Screen name = "moles-temp" component = {MolesTemp}/>
       <Stack.Screen name={MOLES} component={Moles} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
+      <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
   );
 };
 
 const AddStack = () => {
   return (
-    <Stack.Navigator headerMode="auto" initialRouteName={ADD}>
-      <Stack.Screen name={LOADING} component={Loading} />
-      <Stack.Screen name={ADD} component={Add} />
+    <Stack.Navigator initialRouteName={ADD}>
+      <Stack.Screen name={ADD} component={Add} initialParams={{ selected: "" }} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ENTRY} component={Entry} />
+
+      <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
   );
 };
 
 const UserStack = () => {
   return (
-    <Stack.Navigator headerMode="auto" initialRouteName={Profile}>
+    <Stack.Navigator initialRouteName={LOGOUT}>
       <Stack.Screen name={LOADING} component={Loading} />
-      {/* <Stack.Screen name={PROFILE} component={Profile} /> */}
+      <Stack.Screen name = {LOGOUT} component = {Logout}/>
+      <Stack.Screen name = {LOGIN} component = {Login}/>
     </Stack.Navigator>
   );
 };
@@ -72,10 +78,29 @@ const Tab = createBottomTabNavigator();
 
 export const TabNavigator = () => {
   return (
-    <Tab.Navigator headerMode="auto" initialRouteName={BODY}>
+    <Tab.Navigator screenOptions={({route}) => ({
+      headerShown: false, tabBarIcon: ({focused,color,size})=>{
+  let iconName
+
+  if(route.name === "Body"){
+    iconName = focused ? 'body': 'body-outline'}
+  else if (route.name === "Moles"){
+    iconName = focused ? 'list': 'list-outline'
+  }
+  else if (route.name === "Add"){
+    iconName = focused ? 'add': 'add-outline'
+  }
+  else{
+    iconName = focused? 'person-circle':'person-circle-outline'
+  }
+  return <Ionicons name ={iconName} size = {size} color ={color}/>
+      },
+      tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+    })}>
       <Tab.Screen name="Body" component={BodyStack} />
       <Tab.Screen name="Moles" component={MolesStack} />
-      <Tab.Screen name="Add" component={Add} initialParams={{ selected: "" }} />
+      <Tab.Screen name="Add" component={AddStack} />
       <Tab.Screen name="User" component={UserStack} />
     </Tab.Navigator>
   );
@@ -84,7 +109,7 @@ export const TabNavigator = () => {
 const Auth = createNativeStackNavigator();
 
 export const AuthNavigator = () => {
-  return(<Auth.Navigator headerMode="auto" initialRouteName={LOGIN}>
+  return(<Auth.Navigator initialRouteName={LOGIN}>
     <Auth.Screen name={LOGIN} component={Login} />
     <Auth.Screen name={SIGNUP} component={SignUp} />
     <Auth.Screen name={LOADING} component={Loading} />
