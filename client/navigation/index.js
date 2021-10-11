@@ -20,8 +20,8 @@ import Loading from "../screens/Loading";
 import SignUp from "../screens/SignUp";
 import Main from "../screens/Main";
 import Add from "../screens/Add";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // this is a dummy component for now
 import Home from "../screens/Home";
@@ -72,11 +72,22 @@ const Tab = createBottomTabNavigator();
 
 export const TabNavigator = () => {
   return (
-    <Tab.Navigator headerMode="auto">
+    <Tab.Navigator headerMode="auto" initialRouteName={BODY}>
       <Tab.Screen name="Body" component={BodyStack} />
       <Tab.Screen name="Moles" component={MolesStack} />
-      <Tab.Screen name="Add" component={Add} />
+      <Tab.Screen name="Add" component={Add} initialParams={{ selected: "" }} />
       <Tab.Screen name="User" component={UserStack} />
     </Tab.Navigator>
   );
+};
+
+const Auth = createNativeStackNavigator();
+
+export const AuthNavigator = () => {
+  return(<Auth.Navigator headerMode="auto" initialRouteName={LOGIN}>
+    <Auth.Screen name={LOGIN} component={Login} />
+    <Auth.Screen name={SIGNUP} component={SignUp} />
+    <Auth.Screen name={LOADING} component={Loading} />
+    <Auth.Screen name={BODY} component={Body} />
+  </Auth.Navigator>)
 };

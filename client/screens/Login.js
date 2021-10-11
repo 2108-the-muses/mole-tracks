@@ -13,11 +13,14 @@ import {
 } from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {authenticate} from "../store/auth";
-
+import {firebaseAuth} from '../firebase-auth/config'
 import {useFonts} from "@use-expo/font";
 import AppLoading from "expo-app-loading";
 
 const Login = (props) => {
+  firebaseAuth.onAuthStateChanged((user) => {
+    props.navigation.navigate(user ? "Body" : "SignUp");
+  });
   const dispatch = useDispatch();
   const [email, setEmail] = useState("cody@moletracks.com");
   const [password, setPassword] = useState("123456");
@@ -38,7 +41,7 @@ const Login = (props) => {
       const response = await dispatch(
         authenticate({email: email, password: password, method: "login"})
       );
-      response === true ? props.navigation.navigate("Main") : setError(response);
+      response === true ? props.navigation.navigate("Body") : setError(response);
     } catch (error) {
       console.log(error);
     }
