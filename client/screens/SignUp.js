@@ -4,7 +4,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   ImageBackground,
   Image,
@@ -17,8 +16,10 @@ import {authenticate} from "../store/auth";
 import {useFonts} from "@use-expo/font";
 import AppLoading from "expo-app-loading";
 
-const Login = (props) => {
+const SignUp = (props) => {
   const dispatch = useDispatch();
+  const [firstName, setFirstName] = useState("Cody");
+  const [lastName, setLastName] = useState("Mole");
   const [email, setEmail] = useState("cody@moletracks.com");
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
@@ -33,10 +34,10 @@ const Login = (props) => {
     return <AppLoading />;
   }
 
-  const handleLogin = async () => {
+  const handleSignUp = async () => {
     try {
       const response = await dispatch(
-        authenticate({email: email, password: password, method: "login"})
+        authenticate({email, firstName, lastName, password, method: "signup"})
       );
       response === true ? props.navigation.navigate("Main") : setError(response);
     } catch (error) {
@@ -60,6 +61,20 @@ const Login = (props) => {
             value={email}
           />
           <TextInput
+            placeholder="First Name"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(firstName) => setFirstName(firstName)}
+            value={firstName}
+          />
+          <TextInput
+            placeholder="Last Name"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(lastName) => setLastName(lastName)}
+            value={lastName}
+          />
+          <TextInput
             secureTextEntry
             placeholder="Password"
             autoCapitalize="none"
@@ -69,13 +84,13 @@ const Login = (props) => {
           />
           {error && <Text style={{color: "red", marginTop: 10}}>{error}</Text>}
           <View style={styles.buttonBox}>
-            <TouchableOpacity onPress={handleLogin}>
-              <View style={styles.button}>
+            <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
+              <View style={[styles.button, styles.fade]}>
                 <Text style={styles.buttonText}>login</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => props.navigation.navigate("SignUp")}>
-              <View style={[styles.button, styles.fade]}>
+            <TouchableOpacity onPress={handleSignUp}>
+              <View style={styles.button}>
                 <Text style={styles.buttonText}>sign up</Text>
               </View>
             </TouchableOpacity>
@@ -88,7 +103,7 @@ const Login = (props) => {
                   style={styles.googleImage}
                   source={require("../../assets/images/google-logo.png")}
                 />
-                <Text style={styles.googleButtonText}>Continue with Google</Text>
+                <Text style={styles.googleButtonText}>Continue With Google</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -98,7 +113,7 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default SignUp;
 
 const heightConst = Dimensions.get("screen").height;
 const styles = StyleSheet.create({

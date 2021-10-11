@@ -1,59 +1,87 @@
-import axios from 'axios';
+import axios from "axios";
 // import history from '../history'
+import {firebaseAuth} from "../firebase-auth/config";
 
-const TOKEN = 'token';
+import {IP_ADDRESS} from "../../secrets";
 
 /**
  * ACTION TYPES
  */
-const SET_AUTH = 'SET_AUTH';
+const SET_USER = "SET_USER";
 
 /**
  * ACTION CREATORS
  */
-const setAuth = (auth) => ({ type: SET_AUTH, auth });
+const setUser = (user) => ({type: SET_USER, user});
 
 /**
  * THUNK CREATORS
  */
-export const me = () => async (dispatch) => {
-  const token = window.localStorage.getItem(TOKEN);
-  if (token) {
-    const res = await axios.get('/auth/me', {
+export const setUserThunk = () => async (dispatch) => {
+  const idToken = await firebaseAuth.currentUser.getIdToken(true);
+  if (idToken) {
+    const {data} = await axios.get(`http://${IP_ADDRESS}:8080/auth/me`, {
       headers: {
-        authorization: token,
+        authtoken: idToken,
       },
     });
-    return dispatch(setAuth(res.data));
+    return dispatch(setUser(data));
   }
 };
 
-export const authenticate = (username, password, method) => async (dispatch) => {
-  try {
-    const res = await axios.post(`/auth/${method}`, { username, password });
-    window.localStorage.setItem(TOKEN, res.data.token);
-    dispatch(me());
-  } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
-  }
-};
+export const authenticate =
+  ({email, firstName, lastName, password, method}) =>
+  async (dispatch) => {
+    try {
+      const verify = (data) => {
+        if (data.uid) {
+          dispatch(setUserThunk());
+          return true;
+        } else {
+          console.log("Failed to authenticate");
+          return false;
+        }
+      };
+      if (method === "signup") {
+        const {user} = await firebaseAuth.createUserWithEmailAndPassword(email, password);
+        const {data} = await axios.post(`http://${IP_ADDRESS}:8080/auth/${method}`, {
+          uid: user.uid,
+          email,
+          firstName,
+          lastName,
+        });
+        if (verify(data)) return true;
+      } else if (method === "login") {
+        const {user} = await firebaseAuth.signInWithEmailAndPassword(email, password);
+        const {data} = await axios.post(`http://${IP_ADDRESS}:8080/auth/${method}`, {
+          uid: user.uid,
+        });
+        if (verify(data)) return true;
+      }
+    } catch (err) {
+      console.log(err);
+      return err.message;
+    }
+  };
 
 export const logout = () => {
-  window.localStorage.removeItem(TOKEN);
-  // history.push('/login')
   return {
-    type: SET_AUTH,
-    auth: {},
+    type: SET_USER,
+    user: {},
   };
+};
+
+const initialState = {
+  user: {},
 };
 
 /**
  * REDUCER
  */
-export default function (state = {}, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
-    case SET_AUTH:
-      return action.auth;
+    case SET_USER:
+      return {...state, user: action.user};
     default:
       return state;
   }
