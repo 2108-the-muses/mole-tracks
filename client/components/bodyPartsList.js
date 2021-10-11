@@ -6,6 +6,9 @@ import Moles from "./moles";
 
 const BodyPartsList = () => {
   let moles = useSelector((state) => state.allMoles);
+  let user = useSelector((state) => state.auth.user);
+  // const [error, setError] = useState("");
+
   let bodyParts = [
     "head",
     "torso",
@@ -19,11 +22,14 @@ const BodyPartsList = () => {
   const dispatch = useDispatch();
 
   //Currently hard coded for user 1. Add individual user functionality later.
+  // 'uHiPs9ZlgwPuLeLOIhdsfTUBqCM2'
   useEffect(() => {
-    dispatch(fetchAllMoles(1));
+    dispatch(fetchAllMoles(user.uid));
   }, []);
 
   const list = () => {
+    console.log("moles", moles)
+    console.log("user", user)
     return bodyParts.map((bodyPart, index) => {
       let molesInBodyPart = moles.filter((mole) => mole.bodyPart === bodyPart);
 

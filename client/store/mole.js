@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IP_ADDRESS } from "../../secrets";
+import {firebaseAuth} from "../firebase-auth/config";
 
 /**
  * ACTION TYPES
@@ -15,13 +16,19 @@ const setAllMoles = (allMoles) => ({ type: SET_ALL_MOLES, allMoles });
  * THUNK CREATORS
  */
 export const fetchAllMoles = (userId) => {
+
   return async (dispatch) => {
     try {
+      const idToken = await firebaseAuth.currentUser.getIdToken(true);
+      if(idToken){
       const { data } = await axios.get(
-        `http://${IP_ADDRESS}:8080/api/mole/${userId}`
+        `http://${IP_ADDRESS}:8080/api/mole/${userId}`,
+        {headers: {authtoken : idToken }}
       );
       dispatch(setAllMoles(data));
-    } catch (error) {
+      }
+    }
+    catch (error) {
       console.log("THUNK ERROR: ", error);
     }
   };
