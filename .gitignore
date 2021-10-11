@@ -11,6 +11,6 @@ web-build/
 secrets.js
 secret.json
 .env
-mole-tracks-firebase-adminsdk.json
 # macOS
 .DS_Store
+firebase-admin-sdk.json
