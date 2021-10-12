@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    fontFamily: "OpenSans",
   },
   image: {
     width: 325,
