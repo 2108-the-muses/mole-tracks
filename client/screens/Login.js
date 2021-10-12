@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   View,
   Text,
@@ -11,13 +11,16 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {authenticate} from "../store/auth";
-
-import {useFonts} from "@use-expo/font";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { authenticate } from "../store/auth";
+import { firebaseAuth } from "../firebase-auth/config";
+import { useFonts } from "@use-expo/font";
 import AppLoading from "expo-app-loading";
 
 const Login = (props) => {
+  // firebaseAuth.onAuthStateChanged((user) => {
+  //   props.navigation.navigate(user ? "Body" : "SignUp");
+  // });
   const dispatch = useDispatch();
   const [email, setEmail] = useState("cody@moletracks.com");
   const [password, setPassword] = useState("123456");
@@ -36,16 +39,18 @@ const Login = (props) => {
   const handleLogin = async () => {
     try {
       const response = await dispatch(
-        authenticate({email: email, password: password, method: "login"})
+        authenticate({ email: email, password: password, method: "login" })
       );
-      response === true ? props.navigation.navigate("Main") : setError(response);
+      if (!response === true) {
+        setError(response);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <KeyboardAwareScrollView style={{flex: 1}}>
+    <KeyboardAwareScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/images/face-with-mole.png")}
@@ -67,20 +72,24 @@ const Login = (props) => {
             onChangeText={(password) => setPassword(password)}
             value={password}
           />
-          {error && <Text style={{color: "red", marginTop: 10}}>{error}</Text>}
+          {error && (
+            <Text style={{ color: "red", marginTop: 10 }}>{error}</Text>
+          )}
           <View style={styles.buttonBox}>
             <TouchableOpacity onPress={handleLogin}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>login</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => props.navigation.navigate("SignUp")}>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("SignUp")}
+            >
               <View style={[styles.button, styles.fade]}>
                 <Text style={styles.buttonText}>sign up</Text>
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{marginTop: 10}}>or</Text>
+          <Text style={{ marginTop: 10 }}>or</Text>
           <View style={styles.googleButtonBox}>
             <TouchableOpacity>
               <View style={styles.googleButton}>
@@ -88,7 +97,9 @@ const Login = (props) => {
                   style={styles.googleImage}
                   source={require("../../assets/images/google-logo.png")}
                 />
-                <Text style={styles.googleButtonText}>Continue with Google</Text>
+                <Text style={styles.googleButtonText}>
+                  Continue with Google
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -147,7 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },
@@ -177,7 +188,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
     flexDirection: "row",

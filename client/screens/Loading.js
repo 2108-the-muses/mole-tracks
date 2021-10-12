@@ -5,11 +5,6 @@ import {firebaseAuth} from "../firebase-auth/config";
 import {getAuth} from "firebase/auth";
 
 class Loading extends React.Component {
-  componentDidMount() {
-    firebaseAuth.onAuthStateChanged((user) => {
-      this.props.navigation.navigate(user ? "Main" : "SignUp");
-    });
-  }
   render() {
     return (
       <View style={styles.container}>
