@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: {Mole, User},
+  models: {Mole, User, Entry},
 } = require("../db");
 module.exports = router;
 const {checkAuth} = require("../auth-middleware");
@@ -11,6 +11,9 @@ router.get("/", checkAuth, async (req, res, next) => {
     const moles = await Mole.findAll({
       where: {
         userUid: req.user.uid,
+      },
+      include: {
+        model: Entry,
       },
     });
     res.json(moles);

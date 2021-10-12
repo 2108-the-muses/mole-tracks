@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {WellArchitected} from "aws-sdk";
 import React from "react";
 import {
@@ -11,8 +12,12 @@ import {
 } from "react-native";
 
 const Moles = ({moles, navigation}) => {
+  console.log("MOLES************", moles);
+
   const list = () => {
     return moles.map((mole, index) => {
+      const image = mole.entries[mole.entries.length - 1].imgUrl;
+
       return (
         <TouchableOpacity
           onPress={() => {
@@ -21,11 +26,8 @@ const Moles = ({moles, navigation}) => {
           key={index}
         >
           <View style={styles.container}>
-            <Text style={styles.titleText}>{mole.nickname}</Text>
-            <Image
-              style={styles.image}
-              source={require("../../assets/images/naked_mole_rat.png")}
-            />
+            <Text style={styles.titleText}>{mole.nickname}!!!</Text>
+            <Image style={styles.image} source={require(image)} />
           </View>
         </TouchableOpacity>
       );
