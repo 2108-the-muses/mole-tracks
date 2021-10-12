@@ -1,21 +1,33 @@
 import React from "react";
-import {StyleSheet, View, Text} from "react-native";
+import { StyleSheet, View, SafeAreaView, ScrollView, ImageBackground } from "react-native";
+import BodyPartsList from "../components/bodyPartsList";
 
-const Moles = () => {
+const AllMoles = () => {
   return (
-    <View style={styles.container}>
-      <Text>Moles</Text>
-    </View>
+    <ImageBackground
+    source={require("../../assets/images/genZbackgroundImage.png")}
+    resizeMode="cover"
+    style={styles.image}
+    >
+    <SafeAreaView style={styles.scrollView}>
+      <ScrollView>
+        <View style={styles.container}>
+          <BodyPartsList />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
+  image: {
+    flex: 1,
+    justifyContent: "center"
+  }
 });
 
-export default Moles;
+export default AllMoles;

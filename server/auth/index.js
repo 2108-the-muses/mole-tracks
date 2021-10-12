@@ -32,6 +32,7 @@ router.get("/me", checkAuth, async (req, res, next) => {
     const user = await User.findByPk(req.user.uid);
     res.send(user);
   } catch (ex) {
+    console.log("error in me")
     next(ex);
   }
 });
