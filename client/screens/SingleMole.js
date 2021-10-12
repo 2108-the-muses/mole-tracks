@@ -9,42 +9,13 @@ import AppLoading from "expo-app-loading";
 const SingleMole = (props) => {
   const mole = props.route.params.mole;
 
-  // const mole = {
-  //   name: "Fuzzy",
-  //   side: "front",
-  //   bodyPart: "arm-l",
-  //   entries: [
-  //     {
-  //       id: 1,
-  //       notes: "Came out of nowhere. So fuzzy!!!",
-  //       imgUrl: "https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg",
-  //       createdAt: "2021-10-11 19:36:48.842-04",
-  //     },
-  //     {
-  //       id: 2,
-  //       notes: "It's getting fuzzier!",
-  //       imgUrl:
-  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
-  //       createdAt: "2021-10-12 19:36:48.842-04",
-  //     },
-  //     {
-  //       id: 3,
-  //       notes: "Somehow even more fuzzy?",
-  //       imgUrl:
-  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
-  //       createdAt: "2021-10-13 19:36:48.842-04",
-  //     },
-  //     {
-  //       id: 4,
-  //       notes: "Gonna make an appointment. Too much fuzz.",
-  //       imgUrl:
-  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
-  //       createdAt: "2021-10-14 19:36:48.842-04",
-  //     },
-  //   ],
-  // };
+  let recentPhoto;
+  mole.entries.length
+    ? (recentPhoto = mole.entries[mole.entries.length - 1].imgUrl)
+    : (recentPhoto =
+        "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
-  const recentPhoto = mole.entries[mole.entries.length - 1].imgUrl;
+  // const recentPhoto = mole.entries[mole.entries.length - 1].imgUrl;
 
   const [isLoaded] = useFonts({
     "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
@@ -83,19 +54,25 @@ const SingleMole = (props) => {
           {mole.side} || {mole.bodyPart}
         </Text>
       </View>
-      <KeyboardAwareScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-        {mole.entries.map((entry) => {
-          return (
-            <TouchableOpacity
-              key={entry.id}
-              style={styles.entryBox}
-              onPress={() => props.navigation.navigate("Entry", {entry: entry, name: mole.name})}
-            >
-              <Text style={styles.entry}>Entry: {date(entry.createdAt)}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </KeyboardAwareScrollView>
+      {mole.entries.length ? (
+        <KeyboardAwareScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+          {mole.entries.map((entry) => {
+            return (
+              <TouchableOpacity
+                key={entry.id}
+                style={styles.entryBox}
+                onPress={() => props.navigation.navigate("Entry", {entry: entry, name: mole.name})}
+              >
+                <Text style={styles.entry}>Entry: {date(entry.createdAt)}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </KeyboardAwareScrollView>
+      ) : (
+        <View>
+          <Text> You have no entries! </Text>
+        </View>
+      )}
     </View>
   );
 };

@@ -13,7 +13,11 @@ import {
 const Moles = ({moles, navigation}) => {
   const list = () => {
     return moles.map((mole, index) => {
-      const image = mole.entries[mole.entries.length - 1].imgUrl;
+      let image;
+      mole.entries.length
+        ? (image = mole.entries[mole.entries.length - 1].imgUrl)
+        : (image =
+            "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
       return (
         <TouchableOpacity
           onPress={() => {
@@ -23,7 +27,7 @@ const Moles = ({moles, navigation}) => {
         >
           <View style={styles.container}>
             <Image style={styles.image} source={{uri: image}} />
-            <Text style={styles.titleText}>{mole.nickname}!!</Text>
+            <Text style={styles.titleText}>{mole.nickname}</Text>
           </View>
         </TouchableOpacity>
       );
@@ -45,6 +49,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 10,
+    marginRight: 10,
   },
   titleText: {
     color: "black",
@@ -61,8 +66,14 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     marginTop: 10,
     marginHorizontal: 10,
+    backgroundColor: "white",
   },
-  scrollview: {padding: 10, backgroundColor: "#FFB6C1", width: widthConst, opacity: 0.8},
+  scrollview: {
+    padding: 10,
+    // backgroundColor: "#FFB6C1",
+    width: widthConst,
+    // opacity: 0.8,
+  },
 });
 
 export default Moles;
