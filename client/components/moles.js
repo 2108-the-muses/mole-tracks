@@ -10,11 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const Moles = ({ moles }) => {
+const Moles = ({ moles,navigation }) => {
+  console.log(navigation)
   const list = () => {
     return moles.map((mole, index) => {
       return (
-        <TouchableOpacity key={index}>
+        <TouchableOpacity onPress= {()=>{navigation.navigate("SingleMole",{mole})}}key={index}>
         <View style={styles.container}>
 
           <Text style={styles.titleText}>{mole.nickname}</Text>

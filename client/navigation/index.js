@@ -22,7 +22,6 @@ import Loading from "../screens/Loading";
 import SignUp from "../screens/SignUp";
 import Logout from "../components/Logout"
 import Add from "../screens/Add";
-import {BodyTemp,MolesTemp} from '../screens/tempScreens'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -32,10 +31,9 @@ const Stack = createNativeStackNavigator();
 
 const BodyStack = () => {
   return (
-    <Stack.Navigator initialRouteName={"body-temp"}>
+    <Stack.Navigator initialRouteName={BODY}>
       <Stack.Screen name={BODY} component={Body} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
-      <Stack.Screen name = "body-temp" component = {BodyTemp}/>
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
   );
@@ -43,10 +41,10 @@ const BodyStack = () => {
 
 const MolesStack = () => {
   return (
-    <Stack.Navigator initialRouteName={"moles-temp"}>
-      <Stack.Screen name = "moles-temp" component = {MolesTemp}/>
+    <Stack.Navigator initialRouteName={MOLES}>
       <Stack.Screen name={MOLES} component={Moles} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
+      <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
   );
@@ -58,7 +56,6 @@ const AddStack = () => {
       <Stack.Screen name={ADD} component={Add} initialParams={{ selected: "" }} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ENTRY} component={Entry} />
-
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
   );

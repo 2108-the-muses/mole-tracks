@@ -4,7 +4,7 @@ import { fetchAllMoles } from "../store/mole";
 import { useDispatch, useSelector } from "react-redux";
 import Moles from "./moles";
 
-const BodyPartsList = () => {
+const BodyPartsList = ({navigation}) => {
   let moles = useSelector((state) => state.allMoles);
   let user = useSelector((state) => state.auth.user);
 
@@ -40,7 +40,7 @@ const BodyPartsList = () => {
             </TouchableOpacity>
 
             <Text>
-              <Moles moles={molesInBodyPart} />
+              <Moles navigation={navigation} moles={molesInBodyPart} />
             </Text>
           </View>
         );
