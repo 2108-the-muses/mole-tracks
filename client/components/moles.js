@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import {WellArchitected} from "aws-sdk";
 import React from "react";
 import {
   StyleSheet,
@@ -12,12 +11,9 @@ import {
 } from "react-native";
 
 const Moles = ({moles, navigation}) => {
-  console.log("MOLES************", moles);
-
   const list = () => {
     return moles.map((mole, index) => {
       const image = mole.entries[mole.entries.length - 1].imgUrl;
-
       return (
         <TouchableOpacity
           onPress={() => {
@@ -26,8 +22,8 @@ const Moles = ({moles, navigation}) => {
           key={index}
         >
           <View style={styles.container}>
-            <Text style={styles.titleText}>{mole.nickname}!!!</Text>
-            <Image style={styles.image} source={require(image)} />
+            <Image style={styles.image} source={{uri: image}} />
+            <Text style={styles.titleText}>{mole.nickname}</Text>
           </View>
         </TouchableOpacity>
       );
@@ -45,32 +41,26 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#E59F71",
     alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
+    justifyContent: "flex-start",
     width: 150,
     height: 150,
-    justifyContent: "space-between",
-    marginRight: 10,
-    marginTop: 1,
-    marginBottom: 5,
-    padding: 10,
     borderRadius: 10,
   },
   titleText: {
     color: "black",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 15,
-    position: "absolute",
-    right: 15,
-    bottom: "5%",
+    fontFamily: "SulphurPoint-Bold",
+    fontSize: 20,
+    alignSelf: "flex-end",
+    marginTop: 5,
+    marginRight: 10,
   },
   image: {
-    flex: 1,
     alignItems: "center",
-    width: 100,
-    height: 100,
-    resizeMode: "contain",
+    width: 130,
+    height: 110,
+    resizeMode: "cover",
+    marginTop: 10,
+    marginHorizontal: 10,
   },
   scrollview: {padding: 10, backgroundColor: "#FFB6C1", width: widthConst, opacity: 0.8},
 });

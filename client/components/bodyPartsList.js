@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
 import {fetchAllMoles} from "../store/mole";
 import {useDispatch, useSelector} from "react-redux";
-import Moles from "./moles";
+import Moles from "./Moles";
 
 const BodyPartsList = ({navigation}) => {
   let moles = useSelector((state) => state.allMoles);
