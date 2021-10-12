@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { fetchAllMoles } from "../store/mole";
 import { useDispatch, useSelector } from "react-redux";
 import Moles from "./moles";
@@ -31,11 +31,13 @@ const BodyPartsList = () => {
       if (molesInBodyPart.length)
         return (
           <View key={index} style={styles.bodyParts}>
+            <TouchableOpacity>
             <View style={styles.titleBox}>
               <View style={styles.title}>
                 <Text style={styles.titleText}>{bodyPart}</Text>
               </View>
             </View>
+            </TouchableOpacity>
 
             <Text>
               <Moles moles={molesInBodyPart} />

@@ -7,19 +7,24 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 
 const Moles = ({ moles }) => {
   const list = () => {
     return moles.map((mole, index) => {
       return (
-        <View key={index} style={styles.container}>
+        <TouchableOpacity key={index}>
+        <View style={styles.container}>
+
           <Text style={styles.titleText}>{mole.nickname}</Text>
           <Image
             style={styles.image}
             source={require("../../assets/images/naked_mole_rat.png")}
           />
+
         </View>
+        </TouchableOpacity>
       );
     });
   };
@@ -52,8 +57,8 @@ const styles = StyleSheet.create({
     fontFamily: "SulphurPoint-Regular",
     fontSize: 15,
     position: "absolute",
-    right: 10,
-    bottom: "7%",
+    right: 15,
+    bottom: "5%",
   },
   image: {
     flex: 1,
