@@ -48,18 +48,19 @@ const BodyPartsList = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  // container: {
+  //   flex: 1,
+  //   // backgroundColor: "#fff",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // },
   titleBox: {
     flexDirection: "row",
     width: 260,
     justifyContent: "space-between",
     marginTop: 20,
     marginLeft: 20,
+    marginBottom: 13
   },
   title: {
     borderRadius: 10,

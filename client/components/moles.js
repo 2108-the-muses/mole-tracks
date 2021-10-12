@@ -1,3 +1,4 @@
+import { WellArchitected } from "aws-sdk";
 import React from "react";
 import {
   StyleSheet,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode: "contain",
   },
-  scrollview: { padding: 10, backgroundColor: "#FFB6C1", width: widthConst },
+  scrollview: { padding: 10, backgroundColor: "#FFB6C1", width: widthConst, opacity: 0.8 },
 });
 
 export default Moles;
