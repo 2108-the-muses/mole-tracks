@@ -9,7 +9,6 @@ npm-debug.*
 *.orig.*
 web-build/
 secrets.js
-secret.json
 .env
 # macOS
 .DS_Store

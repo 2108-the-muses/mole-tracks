@@ -1,10 +1,10 @@
 //this is the access point for all things database related!
 
-const db = require('./db');
+const db = require("./db");
 
-const User = require('./models/User');
-const Mole = require('./models/Mole');
-const Entry = require('./models/Entry');
+const User = require("./models/User");
+const Mole = require("./models/Mole");
+const Entry = require("./models/Entry");
 
 User.hasMany(Mole);
 Mole.belongsTo(User);
