@@ -58,7 +58,7 @@ const SingleMole = (props) => {
 
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
-    let orderedDate = [splitDate[1], splitDate[2].split(" ")[0], splitDate[0]];
+    let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
     orderedDate = orderedDate.join(" · ");
     return orderedDate;
   };

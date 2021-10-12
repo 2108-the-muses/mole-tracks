@@ -36,7 +36,16 @@ const BodyPartsList = ({navigation}) => {
         );
     });
   };
-  return <View>{list()}</View>;
+
+  if (moles.length) {
+    return <View>{list()}</View>;
+  } else {
+    return (
+      <View>
+        <Text>You have no moles!</Text>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
