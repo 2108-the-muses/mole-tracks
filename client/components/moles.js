@@ -23,7 +23,7 @@ const Moles = ({moles, navigation}) => {
         >
           <View style={styles.container}>
             <Image style={styles.image} source={{uri: image}} />
-            <Text style={styles.titleText}>{mole.nickname}</Text>
+            <Text style={styles.titleText}>{mole.nickname}!!</Text>
           </View>
         </TouchableOpacity>
       );
