@@ -57,6 +57,20 @@ const styles = StyleSheet.create({
     fontFamily: "SulphurPoint-Regular",
     fontSize: 22,
   },
+  background: {
+    width: "100%",
+    height: "100%",
+    opacity: 0.5,
+    position: "absolute",
+  },
+  imageBox: {
+    width: 300,
+    height: 275,
+    backgroundColor: "#E59F71",
+    borderRadius: 15,
+    alignItems: "center",
+    marginVertical: 25,
+  },
 });
 
 export default styles

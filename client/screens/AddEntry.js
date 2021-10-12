@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
-mport {StyleSheet, View, Text, Image, ImageBackground} from "react-native";
+import {StyleSheet, View, Text,TextInput, Image, ImageBackground} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import styles from '../styles'
+import * as ImagePicker from 'expo-image-picker'
+
 
 const AddEntry = ()=>{
+  return(
     <View style={styles.container}>
       <ImageBackground
         source={require("../../assets/images/background.png")}
@@ -20,8 +24,13 @@ const AddEntry = ()=>{
         <Text style={styles.name}>{name}</Text>
         </View>
         <View style={styles.notesBox}>
-          <Text style={styles.notes}>{entry.notes}</Text>
+          <TextInput style={styles.form} placeholder= "notes"/>
         </View>
       </View>
-    </View>
+      <TouchableOpacity style>
+        Update
+      </TouchableOpacity>
+    </View>)
 }
+
+export default AddEntry

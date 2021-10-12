@@ -1,16 +1,17 @@
 import React from "react";
 import {
-  MAIN,
+
   LOGIN,
   SIGNUP,
   LOADING,
-  HOME,
+
   BODY,
   MOLES,
   SINGLEMOLE,
   ENTRY,
   ADD,
-  LOGOUT
+  LOGOUT,
+  ADDENTRY
 } from "../NavigationConstants";
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Login from "../screens/Login";
@@ -22,6 +23,7 @@ import Loading from "../screens/Loading";
 import SignUp from "../screens/SignUp";
 import Logout from "../components/Logout"
 import Add from "../screens/Add";
+import AddEntry from "../screens/AddEntry"
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -55,6 +57,7 @@ const AddStack = () => {
     <Stack.Navigator initialRouteName={ADD}>
       <Stack.Screen name={ADD} component={Add} initialParams={{ selected: "" }} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
+      <Stack.Screen name={ADDENTRY} component={AddEntry}/>
       <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
