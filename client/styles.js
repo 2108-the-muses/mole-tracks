@@ -71,6 +71,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 25,
   },
+  name: {
+    fontFamily: "SulphurPoint-Bold",
+    color: "black",
+    fontSize: 22,
+    marginTop: 11,
+    alignSelf: "flex-end",
+    right: 25,
+  },
+  notes: {
+    fontFamily: "SulphurPoint-Bold",
+    color: "black",
+    fontSize: 22,
+  },
+  notesBox: {
+    width: 275,
+  },
 });
 
 export default styles
