@@ -31,7 +31,7 @@ const AddEntry = ()=>{
     const ref = app
       .storage()
       .ref()
-      .child(uuidv4());
+      .child(uri);
 
     const snapshot = await ref.put(blob);
     blob.close();
@@ -41,7 +41,7 @@ const AddEntry = ()=>{
 
   const handleImagePicked = async pickerResult => {
 		try {
-      setUpload(true)
+      setUploading(true)
 			if (!pickerResult.cancelled) {
 				uploadUrl = await uploadImageAsync(pickerResult.uri);
         setImage(uploadUrl)
@@ -62,9 +62,13 @@ const AddEntry = ()=>{
     
 	};
 
-  useEffect(async ()=>{
-    await MediaLibrary.requestPermissionsAsync()
+  useEffect(()=>{
+    const permissions = async ()=>{
+      await MediaLibrary.requestPermissionsAsync()
     await Camera.requestPermissionsAsync();
+    }
+    permissions();
+    
   },[])
 
   return(
