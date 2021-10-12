@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, SafeAreaView, ScrollView, ImageBackground } from "react-native";
 import BodyPartsList from "../components/bodyPartsList";
 
-const AllMoles = () => {
+const AllMoles = ({navigation}) => {
   return (
     <ImageBackground
     source={require("../../assets/images/genZbackgroundImage.png")}
@@ -12,7 +12,7 @@ const AllMoles = () => {
     <SafeAreaView style={styles.scrollView}>
       <ScrollView>
         <View style={styles.container}>
-          <BodyPartsList />
+          <BodyPartsList navigation= {navigation}/>
         </View>
       </ScrollView>
     </SafeAreaView>
