@@ -6,6 +6,8 @@ import {useFonts} from "@use-expo/font";
 import AppLoading from "expo-app-loading";
 
 const SingleMole = (props) => {
+  // const mole = props.route.params.mole
+
   const mole = {
     name: "Fuzzy",
     side: "front",
@@ -71,7 +73,7 @@ const SingleMole = (props) => {
           <Text style={styles.name}>{mole.name}</Text>
         </View>
         <View style={styles.edit}>
-          <Text style={styles.name}>edit</Text>
+          <Text style={styles.name}>+</Text>
         </View>
       </View>
       <View style={styles.imageBox}>
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
   header: {
     borderRadius: 10,
     backgroundColor: "#FF7379",
-    width: 185,
+    width: 195,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
   edit: {
     borderRadius: 10,
     backgroundColor: "#FF7379",
-    width: 100,
+    width: 90,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
