@@ -9,8 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 secrets.js
-secret.json
 .env
-mole-tracks-firebase-adminsdk.json
+firebase-admin-sdk.json
 # macOS
 .DS_Store
