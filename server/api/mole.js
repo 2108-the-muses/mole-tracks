@@ -3,13 +3,15 @@ const {
   models: { Mole },
 } = require("../db");
 module.exports = router;
+const {checkAuth} = require("../auth-middleware")
 
 // GET /api/mole/:userId
-router.get("/:userId", async (req, res, next) => {
+router.get("/:userId", checkAuth, async (req, res, next) => {
+  console.log("req params", req.params.userId)
   try {
     const moles = await Mole.findAll({
       where: {
-        userId: req.params.userId,
+        userUid: req.params.userId,
       },
     });
     res.json(moles);
@@ -19,7 +21,7 @@ router.get("/:userId", async (req, res, next) => {
 });
 
 // PUT /api/mole/:moleId
-router.put("/:moleId", async (req, res, next) => {
+router.put("/:moleId", checkAuth, async (req, res, next) => {
   try {
     const mole = await Mole.findByPk(req.params.moleId);
     res.json(await mole.update(req.body));
@@ -29,7 +31,7 @@ router.put("/:moleId", async (req, res, next) => {
 });
 
 //POST /api/mole/ -- //Pass User ID in req.body (in related thunk -- ask GIGI)
-router.post("/", async (req, res, next) => {
+router.post("/", checkAuth, async (req, res, next) => {
   try {
     res.status(201).json(await Mole.create(req.body));
   } catch (err) {
@@ -38,7 +40,7 @@ router.post("/", async (req, res, next) => {
 });
 
 //DELETE /api/mole/:moleId
-router.delete("/:moleId", async (req, res, next) => {
+router.delete("/:moleId", checkAuth, async (req, res, next) => {
   try {
     const mole = await Mole.findByPk(req.params.moleId);
     res.json(await mole.destroy());
