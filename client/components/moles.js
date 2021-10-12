@@ -1,4 +1,4 @@
-import { WellArchitected } from "aws-sdk";
+import {WellArchitected} from "aws-sdk";
 import React from "react";
 import {
   StyleSheet,
@@ -10,21 +10,23 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const Moles = ({ moles,navigation }) => {
-  console.log(navigation)
+const Moles = ({moles, navigation}) => {
   const list = () => {
     return moles.map((mole, index) => {
       return (
-        <TouchableOpacity onPress= {()=>{navigation.navigate("SingleMole",{mole})}}key={index}>
-        <View style={styles.container}>
-
-          <Text style={styles.titleText}>{mole.nickname}</Text>
-          <Image
-            style={styles.image}
-            source={require("../../assets/images/naked_mole_rat.png")}
-          />
-
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("SingleMole", {mole});
+          }}
+          key={index}
+        >
+          <View style={styles.container}>
+            <Text style={styles.titleText}>{mole.nickname}</Text>
+            <Image
+              style={styles.image}
+              source={require("../../assets/images/naked_mole_rat.png")}
+            />
+          </View>
         </TouchableOpacity>
       );
     });
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode: "contain",
   },
-  scrollview: { padding: 10, backgroundColor: "#FFB6C1", width: widthConst, opacity: 0.8 },
+  scrollview: {padding: 10, backgroundColor: "#FFB6C1", width: widthConst, opacity: 0.8},
 });
 
 export default Moles;
