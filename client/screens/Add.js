@@ -36,7 +36,7 @@ const Add = ({ navigation }) => {
     <KeyboardAwareScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.buttonBox}>
-          <TouchableOpacity onPress={() => navigation.navigate(TAKEPHOTO)}>
+          <TouchableOpacity onPress={() => navigation.navigate(TAKEPHOTO, {moleId: undefined})}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>entry</Text>
             </View>

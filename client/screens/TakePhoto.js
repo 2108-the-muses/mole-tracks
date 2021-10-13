@@ -17,7 +17,7 @@ const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
 
 import { CLOUDINARY_URL, upload_preset } from "../../secrets";
 
-const TakePhoto = ({ navigation }) => {
+const TakePhoto = ({ navigation, route }) => {
   const cameraRef = useRef();
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
@@ -65,7 +65,9 @@ const TakePhoto = ({ navigation }) => {
 
   const onAcceptPhoto = async () => {
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
-    navigation.navigate("AddEntry", { base64Img: base64Img });
+
+    
+    navigation.navigate("AddEntry", { base64Img: base64Img, moleId: route.params.moleId });
   };
   // const onAcceptPhoto = async () => {
   //   let base64Img = `data:image/jpg;base64,${sourceInfo}`;

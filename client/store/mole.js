@@ -6,12 +6,10 @@ import {firebaseAuth} from "../firebase-auth/config";
  * ACTION TYPES
  */
 const SET_ALL_MOLES = "SET_ALL_MOLES";
-
 /**
  * ACTION CREATORS
  */
 const setAllMoles = (allMoles) => ({type: SET_ALL_MOLES, allMoles});
-
 /**
  * THUNK CREATORS
  */
