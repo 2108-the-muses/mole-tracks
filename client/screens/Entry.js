@@ -2,21 +2,8 @@
 import React from "react";
 import {StyleSheet, View, Text, Image, ImageBackground} from "react-native";
 
-import {useFonts} from "@use-expo/font";
-import AppLoading from "expo-app-loading";
-
 const Entry = (props) => {
   const {entry, name} = props.route.params;
-
-  const [isLoaded] = useFonts({
-    "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
-    "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
-    "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
-  });
-
-  if (!isLoaded) {
-    return <AppLoading />;
-  }
 
   // renders fine on web, not in expo
   // const date = (createdAt) => {
@@ -29,7 +16,7 @@ const Entry = (props) => {
   //
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
-    let orderedDate = [splitDate[1], splitDate[2].split(" ")[0], splitDate[0]];
+    let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
     orderedDate = orderedDate.join(" · ");
     return orderedDate;
   };

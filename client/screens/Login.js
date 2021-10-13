@@ -4,7 +4,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   ImageBackground,
   Image,
@@ -13,25 +12,12 @@ import {
 } from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {authenticateLogin} from "../store/auth";
-import {firebaseAuth} from "../firebase-auth/config";
-import {useFonts} from "@use-expo/font";
-import AppLoading from "expo-app-loading";
 
 const Login = (props) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("cody@moletracks.com");
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
-
-  const [isLoaded] = useFonts({
-    "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
-    "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
-    "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
-  });
-
-  if (!isLoaded) {
-    return <AppLoading />;
-  }
 
   const handleLogin = async () => {
     try {
@@ -126,6 +112,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "100%",
     bottom: 150,
+    // paddingBottom: "5%",
   },
   textInput: {
     height: 40,

@@ -1,17 +1,19 @@
 const router = require("express").Router();
 const {
-  models: { Mole },
+  models: {Mole, User, Entry},
 } = require("../db");
 module.exports = router;
-const {checkAuth} = require("../auth-middleware")
+const {checkAuth} = require("../auth-middleware");
 
-// GET /api/mole/:userId
-router.get("/:userId", checkAuth, async (req, res, next) => {
-  console.log("req params", req.params.userId)
+// GET /api/mole/
+router.get("/", checkAuth, async (req, res, next) => {
   try {
     const moles = await Mole.findAll({
       where: {
-        userUid: req.params.userId,
+        userUid: req.user.uid,
+      },
+      include: {
+        model: Entry,
       },
     });
     res.json(moles);
@@ -20,20 +22,33 @@ router.get("/:userId", checkAuth, async (req, res, next) => {
   }
 });
 
-// PUT /api/mole/:moleId
-router.put("/:moleId", checkAuth, async (req, res, next) => {
+//POST /api/mole/
+router.post("/", checkAuth, async (req, res, next) => {
   try {
-    const mole = await Mole.findByPk(req.params.moleId);
-    res.json(await mole.update(req.body));
+    console.log(req.body);
+    const user = await User.findByPk(req.user.uid);
+    const mole = await Mole.create(req.body);
+    res.status(201).json(await mole.setUser(user));
   } catch (err) {
     next(err);
   }
 });
 
-//POST /api/mole/ -- //Pass User ID in req.body (in related thunk -- ask GIGI)
-router.post("/", checkAuth, async (req, res, next) => {
+// PUT /api/mole/:moleId
+router.put("/:moleId", checkAuth, async (req, res, next) => {
   try {
-    res.status(201).json(await Mole.create(req.body));
+    const mole = await Mole.findOne({
+      where: {
+        id: req.params.moleId,
+        userUid: req.user.uid,
+      },
+    });
+
+    if (mole) {
+      res.json(await mole.update(req.body));
+    } else {
+      throw {status: 401, message: "Mole Not Found!"};
+    }
   } catch (err) {
     next(err);
   }
@@ -42,8 +57,18 @@ router.post("/", checkAuth, async (req, res, next) => {
 //DELETE /api/mole/:moleId
 router.delete("/:moleId", checkAuth, async (req, res, next) => {
   try {
-    const mole = await Mole.findByPk(req.params.moleId);
-    res.json(await mole.destroy());
+    const mole = await Mole.destroy({
+      where: {
+        id: req.params.moleId,
+        userUid: req.user.uid,
+      },
+    });
+
+    if (mole) {
+      res.sendStatus(200);
+    } else {
+      throw {status: 401, message: "Mole Not Found!"};
+    }
   } catch (err) {
     next(err);
   }
