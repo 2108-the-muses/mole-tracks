@@ -1,13 +1,26 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
 import {StyleSheet, View, Text, ImageBackground, TextInput, TouchableOpacity} from "react-native";
+import SelectDropdown from "react-native-select-dropdown";
 
 import {useFonts} from "@use-expo/font";
 import AppLoading from "expo-app-loading";
+import {addMoleThunk} from "../store/mole";
 
 const AddMole = (props) => {
+  const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
   const [side, setSide] = useState("");
   const [bodyPart, setBodyPart] = useState("");
+  console.log(props);
+  const sides = ["front", "back"];
+  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
+  side === "front" ? (bodyParts = [...bodyParts, "groin"]) : (bodyParts = [...bodyParts, "butt"]);
+
+  const handleSubmit = () => {
+    dispatch(addMoleThunk({nickname, bodyPart, side}));
+    props.navigation.navigate("AllMoles");
+  };
 
   const [isLoaded] = useFonts({
     "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
@@ -38,7 +51,34 @@ const AddMole = (props) => {
             onChangeText={(nickname) => setNickname(nickname)}
             value={nickname}
           />
+          <SelectDropdown
+            data={sides}
+            defaultButtonText={"select side"}
+            buttonStyle={styles.dropdown2BtnStyle}
+            buttonTextStyle={styles.dropdown2BtnTxtStyle}
+            dropdownStyle={styles.dropdown2DropdownStyle}
+            rowStyle={styles.dropdown2RowStyle}
+            rowTextStyle={styles.dropdown2RowTxtStyle}
+            onSelect={(selected) => setSide(selected)}
+          />
+          {side !== "" && (
+            <SelectDropdown
+              data={bodyParts}
+              defaultButtonText={"select body part"}
+              buttonStyle={styles.dropdown2BtnStyle}
+              buttonTextStyle={styles.dropdown2BtnTxtStyle}
+              dropdownStyle={styles.dropdown2DropdownStyle}
+              rowStyle={styles.dropdown2RowStyle}
+              rowTextStyle={styles.dropdown2RowTxtStyle}
+              onSelect={(selected) => setBodyPart(selected)}
+            />
+          )}
         </View>
+        {bodyPart !== "" && (
+          <TouchableOpacity style={styles.header} onPress={handleSubmit}>
+            <Text style={styles.title}>add mole</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -84,9 +124,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   form: {
-    width: "80%",
-    // height: "100%",
-    bottom: 150,
+    flexDirection: "column",
+    alignContent: "center",
+    justifyContent: "center",
   },
   textInput: {
     height: 40,
@@ -97,8 +137,8 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "SulphurPoint-Regular",
     fontSize: 22,
+    textAlign: "center",
   },
-
   location: {
     fontFamily: "SulphurPoint-Bold",
     color: "black",
@@ -119,5 +159,37 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 22,
     marginLeft: 25,
+  },
+  dropdown2BtnStyle: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "#E59F71",
+    borderRadius: 15,
+    alignSelf: "center",
+    marginTop: 20,
+  },
+  dropdown2BtnTxtStyle: {
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontFamily: "SulphurPoint-Bold",
+    fontSize: 22,
+  },
+  dropdown2DropdownStyle: {
+    backgroundColor: "#E59F71",
+    height: 50,
+  },
+  dropdown2RowStyle: {
+    backgroundColor: "#E59F71",
+    borderBottomColor: "#BA5A31",
+    height: 50,
+  },
+  dropdown2RowTxtStyle: {
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontFamily: "SulphurPoint-Bold",
+    fontSize: 22,
+    marginVertical: 12,
   },
 });

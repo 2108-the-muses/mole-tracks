@@ -9,6 +9,7 @@ admin.initializeApp({
 const checkAuth = async (req, res, next) => {
   try {
     if (req.headers.authtoken) {
+      console.log("here");
       req.user = await admin.auth().verifyIdToken(req.headers.authtoken);
       next();
     } else {

@@ -57,6 +57,7 @@ const AddStack = () => {
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
+      <Stack.Screen name={ALLMOLES} component={AllMoles} />
     </Stack.Navigator>
   );
 };

@@ -8,7 +8,7 @@ import AppLoading from "expo-app-loading";
 
 const Add = (props) => {
   const [selected, setSelected] = useState("");
-
+  console.log(props);
   const [isLoaded] = useFonts({
     "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
     "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
@@ -26,7 +26,7 @@ const Add = (props) => {
       </View>
     );
   } else if (selected === "mole") {
-    return <AddMole />;
+    return <AddMole navigation={props.navigation} />;
   } else if (selected === "") {
     return (
       <KeyboardAwareScrollView style={{flex: 1}}>

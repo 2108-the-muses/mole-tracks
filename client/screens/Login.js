@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: "100%",
     bottom: 150,
+    // paddingBottom: "5%",
   },
   textInput: {
     height: 40,
