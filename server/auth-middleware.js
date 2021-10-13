@@ -19,7 +19,7 @@ const checkAuth = async (req, res, next) => {
   }
 };
 
-// Use this version if testing with Postman and Bearer Token!
+//Use this version if testing with Postman and Bearer Token!
 // const checkAuth = async (req, res, next) => {
 //   try {
 //     if (req.headers.authorization) {

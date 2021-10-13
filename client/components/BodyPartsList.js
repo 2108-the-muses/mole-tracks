@@ -1,27 +1,17 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { fetchAllMoles } from "../store/mole";
-import { useDispatch, useSelector } from "react-redux";
-import Moles from "./moles";
+import React, {useEffect} from "react";
+import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
+import {fetchAllMoles} from "../store/mole";
+import {useDispatch, useSelector} from "react-redux";
+import Moles from "./Moles";
 
 const BodyPartsList = ({navigation}) => {
   let moles = useSelector((state) => state.allMoles);
-  let user = useSelector((state) => state.auth.user);
 
-  let bodyParts = [
-    "head",
-    "torso",
-    "arm-l",
-    "arm-r",
-    "leg-l",
-    "leg-r",
-    "groin",
-    "butt",
-  ];
+  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r", "groin", "butt"];
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllMoles(user.uid));
+    dispatch(fetchAllMoles());
   }, []);
 
   const list = () => {
@@ -32,11 +22,11 @@ const BodyPartsList = ({navigation}) => {
         return (
           <View key={index} style={styles.bodyParts}>
             <TouchableOpacity>
-            <View style={styles.titleBox}>
-              <View style={styles.title}>
-                <Text style={styles.titleText}>{bodyPart}</Text>
+              <View style={styles.titleBox}>
+                <View style={styles.title}>
+                  <Text style={styles.titleText}>{bodyPart}</Text>
+                </View>
               </View>
-            </View>
             </TouchableOpacity>
 
             <Text>
@@ -46,7 +36,16 @@ const BodyPartsList = ({navigation}) => {
         );
     });
   };
-  return <View>{list()}</View>;
+
+  if (moles.length) {
+    return <View>{list()}</View>;
+  } else {
+    return (
+      <View>
+        <Text>You have no moles!</Text>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 20,
     marginLeft: 20,
-    marginBottom: 13
+    marginBottom: 13,
   },
   title: {
     borderRadius: 10,
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: {width: 0, height: 1},
     shadowRadius: 3,
     elevation: 1,
   },

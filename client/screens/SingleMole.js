@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import {StyleSheet, View, Text, Image, ImageBackground, TouchableOpacity} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
@@ -6,42 +7,42 @@ import {useFonts} from "@use-expo/font";
 import AppLoading from "expo-app-loading";
 
 const SingleMole = (props) => {
-  // const mole = props.route.params.mole
+  const mole = props.route.params.mole;
 
-  const mole = {
-    name: "Fuzzy",
-    side: "front",
-    bodyPart: "arm-l",
-    entries: [
-      {
-        id: 1,
-        notes: "Came out of nowhere. So fuzzy!!!",
-        imgUrl: "https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg",
-        createdAt: "2021-10-11 19:36:48.842-04",
-      },
-      {
-        id: 2,
-        notes: "It's getting fuzzier!",
-        imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
-        createdAt: "2021-10-12 19:36:48.842-04",
-      },
-      {
-        id: 3,
-        notes: "Somehow even more fuzzy?",
-        imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
-        createdAt: "2021-10-13 19:36:48.842-04",
-      },
-      {
-        id: 4,
-        notes: "Gonna make an appointment. Too much fuzz.",
-        imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
-        createdAt: "2021-10-14 19:36:48.842-04",
-      },
-    ],
-  };
+  // const mole = {
+  //   name: "Fuzzy",
+  //   side: "front",
+  //   bodyPart: "arm-l",
+  //   entries: [
+  //     {
+  //       id: 1,
+  //       notes: "Came out of nowhere. So fuzzy!!!",
+  //       imgUrl: "https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg",
+  //       createdAt: "2021-10-11 19:36:48.842-04",
+  //     },
+  //     {
+  //       id: 2,
+  //       notes: "It's getting fuzzier!",
+  //       imgUrl:
+  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
+  //       createdAt: "2021-10-12 19:36:48.842-04",
+  //     },
+  //     {
+  //       id: 3,
+  //       notes: "Somehow even more fuzzy?",
+  //       imgUrl:
+  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
+  //       createdAt: "2021-10-13 19:36:48.842-04",
+  //     },
+  //     {
+  //       id: 4,
+  //       notes: "Gonna make an appointment. Too much fuzz.",
+  //       imgUrl:
+  //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
+  //       createdAt: "2021-10-14 19:36:48.842-04",
+  //     },
+  //   ],
+  // };
 
   const recentPhoto = mole.entries[mole.entries.length - 1].imgUrl;
 
@@ -57,7 +58,7 @@ const SingleMole = (props) => {
 
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
-    let orderedDate = [splitDate[1], splitDate[2].split(" ")[0], splitDate[0]];
+    let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
     orderedDate = orderedDate.join(" · ");
     return orderedDate;
   };
@@ -70,7 +71,7 @@ const SingleMole = (props) => {
       />
       <View style={styles.headerBox}>
         <View style={styles.header}>
-          <Text style={styles.name}>{mole.name}</Text>
+          <Text style={styles.name}>{mole.nickname}</Text>
         </View>
         <View style={styles.edit}>
           <Text style={styles.name}>+</Text>
