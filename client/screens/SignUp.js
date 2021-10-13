@@ -27,7 +27,7 @@ const SignUp = (props) => {
   const handleSignUp = async () => {
     try {
       const response = await dispatch(authenticateSignUp({email, firstName, lastName, password}));
-      if (!response === true) setError(response);
+      if (response !== true) setError(response);
     } catch (error) {
       console.log(error);
     }
