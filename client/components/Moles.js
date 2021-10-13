@@ -18,6 +18,7 @@ const Moles = ({moles, navigation}) => {
         ? (image = mole.entries[mole.entries.length - 1].imgUrl)
         : (image =
             "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
+
       return (
         <TouchableOpacity
           onPress={() => {
@@ -34,7 +35,7 @@ const Moles = ({moles, navigation}) => {
     });
   };
   return (
-    <ScrollView horizontal={true} style={styles.scrollview}>
+    <ScrollView horizontal={true} style={styles.scrollview} showsHorizontalScrollIndicator={false}>
       {list()}
     </ScrollView>
   );

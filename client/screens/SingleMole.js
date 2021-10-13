@@ -3,9 +3,6 @@ import React from "react";
 import {StyleSheet, View, Text, Image, ImageBackground, TouchableOpacity} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
-import {useFonts} from "@use-expo/font";
-import AppLoading from "expo-app-loading";
-
 const SingleMole = (props) => {
   const mole = props.route.params.mole;
 
@@ -15,17 +12,15 @@ const SingleMole = (props) => {
     : (recentPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
-  // const recentPhoto = mole.entries[mole.entries.length - 1].imgUrl;
+  // const [isLoaded] = useFonts({
+  //   "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
+  //   "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
+  //   "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
+  // });
 
-  const [isLoaded] = useFonts({
-    "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
-    "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
-    "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
-  });
-
-  if (!isLoaded) {
-    return <AppLoading />;
-  }
+  // if (!isLoaded) {
+  //   return <AppLoading />;
+  // }
 
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");

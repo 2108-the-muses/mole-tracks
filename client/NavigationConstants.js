@@ -9,3 +9,4 @@ export const LOADING = "Loading";
 export const MAIN = "Main";
 export const ADD = "Add";
 export const LOGOUT = "Logout";
+export const ADDMOLE = "AddMole";

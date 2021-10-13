@@ -21,16 +21,6 @@ const Login = (props) => {
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
 
-  const [isLoaded] = useFonts({
-    "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
-    "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
-    "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
-  });
-
-  if (!isLoaded) {
-    return <AppLoading />;
-  }
-
   const handleLogin = async () => {
     try {
       const response = await dispatch(

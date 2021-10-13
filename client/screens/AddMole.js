@@ -2,9 +2,7 @@ import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {StyleSheet, View, Text, ImageBackground, TextInput, TouchableOpacity} from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
-
-import {useFonts} from "@use-expo/font";
-import AppLoading from "expo-app-loading";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {addMoleThunk} from "../store/mole";
 
 const AddMole = (props) => {
@@ -12,25 +10,15 @@ const AddMole = (props) => {
   const [nickname, setNickname] = useState("");
   const [side, setSide] = useState("");
   const [bodyPart, setBodyPart] = useState("");
-  console.log(props);
+
   const sides = ["front", "back"];
   let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
   side === "front" ? (bodyParts = [...bodyParts, "groin"]) : (bodyParts = [...bodyParts, "butt"]);
 
   const handleSubmit = () => {
     dispatch(addMoleThunk({nickname, bodyPart, side}));
-    // props.navigation.navigate("AddEntry");
+    // props.navigation.navigate("TakePhoto", {moleId});
   };
-
-  const [isLoaded] = useFonts({
-    "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
-    "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
-    "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
-  });
-
-  if (!isLoaded) {
-    return <AppLoading />;
-  }
 
   return (
     <View style={styles.container}>
@@ -38,48 +26,50 @@ const AddMole = (props) => {
         source={require("../../assets/images/background.png")}
         style={styles.background}
       />
-      <View style={styles.content}>
-        <View style={styles.header}>
-          <Text style={styles.title}>new mole</Text>
-        </View>
+      <KeyboardAwareScrollView>
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={styles.title}>new mole</Text>
+          </View>
 
-        <View style={styles.form}>
-          <TextInput
-            placeholder="nickname"
-            autoCapitalize="none"
-            style={styles.textInput}
-            onChangeText={(nickname) => setNickname(nickname)}
-            value={nickname}
-          />
-          <SelectDropdown
-            data={sides}
-            defaultButtonText={"select side"}
-            buttonStyle={styles.dropdown2BtnStyle}
-            buttonTextStyle={styles.dropdown2BtnTxtStyle}
-            dropdownStyle={styles.dropdown2DropdownStyle}
-            rowStyle={styles.dropdown2RowStyle}
-            rowTextStyle={styles.dropdown2RowTxtStyle}
-            onSelect={(selected) => setSide(selected)}
-          />
-          {side !== "" && (
+          <View style={styles.form}>
+            <TextInput
+              placeholder="nickname"
+              autoCapitalize="none"
+              style={styles.textInput}
+              onChangeText={(nickname) => setNickname(nickname)}
+              value={nickname}
+            />
             <SelectDropdown
-              data={bodyParts}
-              defaultButtonText={"select body part"}
+              data={sides}
+              defaultButtonText={"select side"}
               buttonStyle={styles.dropdown2BtnStyle}
               buttonTextStyle={styles.dropdown2BtnTxtStyle}
               dropdownStyle={styles.dropdown2DropdownStyle}
               rowStyle={styles.dropdown2RowStyle}
               rowTextStyle={styles.dropdown2RowTxtStyle}
-              onSelect={(selected) => setBodyPart(selected)}
+              onSelect={(selected) => setSide(selected)}
             />
+            {side !== "" && (
+              <SelectDropdown
+                data={bodyParts}
+                defaultButtonText={"select body part"}
+                buttonStyle={styles.dropdown2BtnStyle}
+                buttonTextStyle={styles.dropdown2BtnTxtStyle}
+                dropdownStyle={styles.dropdown2DropdownStyle}
+                rowStyle={styles.dropdown2RowStyle}
+                rowTextStyle={styles.dropdown2RowTxtStyle}
+                onSelect={(selected) => setBodyPart(selected)}
+              />
+            )}
+          </View>
+          {bodyPart !== "" && (
+            <TouchableOpacity style={styles.header} onPress={handleSubmit}>
+              <Text style={styles.title}>add mole</Text>
+            </TouchableOpacity>
           )}
         </View>
-        {bodyPart !== "" && (
-          <TouchableOpacity style={styles.header} onPress={handleSubmit}>
-            <Text style={styles.title}>add mole</Text>
-          </TouchableOpacity>
-        )}
-      </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 };
@@ -177,7 +167,7 @@ const styles = StyleSheet.create({
   },
   dropdown2DropdownStyle: {
     backgroundColor: "#E59F71",
-    height: 50,
+    height: 150,
   },
   dropdown2RowStyle: {
     backgroundColor: "#E59F71",

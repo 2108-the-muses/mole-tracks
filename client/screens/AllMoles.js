@@ -4,29 +4,38 @@ import BodyPartsList from "../components/BodyPartsList";
 
 const AllMoles = ({navigation}) => {
   return (
-    <ImageBackground
-      source={require("../../assets/images/genZbackgroundImage.png")}
-      resizeMode="cover"
-      style={styles.image}
-    >
+    <View style={styles.container}>
+      <ImageBackground
+        source={require("../../assets/images/genZbackgroundImage.png")}
+        resizeMode="cover"
+        style={styles.image}
+      />
       <SafeAreaView style={styles.scrollView}>
         <ScrollView>
-          <View style={styles.container}>
-            <BodyPartsList navigation={navigation} />
-          </View>
+          <BodyPartsList navigation={navigation} />
         </ScrollView>
       </SafeAreaView>
-    </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
   scrollView: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
-    flex: 1,
-    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    position: "absolute",
   },
 });
 
