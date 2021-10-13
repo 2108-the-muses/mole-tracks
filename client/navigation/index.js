@@ -10,6 +10,7 @@ import {
   ADD,
   LOGOUT,
   ADDENTRY,
+  TAKEPHOTO,
 } from "../NavigationConstants";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Login from "../screens/Login";
@@ -22,6 +23,7 @@ import SignUp from "../screens/SignUp";
 import Logout from "../components/Logout";
 import Add from "../screens/Add";
 import AddEntry from "../screens/AddEntry";
+import TakePhoto from "../screens/TakePhoto";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -60,6 +62,7 @@ const AddStack = () => {
       />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
+      <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
       <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>

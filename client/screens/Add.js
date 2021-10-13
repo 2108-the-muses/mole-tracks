@@ -11,8 +11,8 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import styles from '../styles'
-import { ADDENTRY } from "../NavigationConstants";
+import styles from "../styles";
+import { TAKEPHOTO } from "../NavigationConstants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { authenticate } from "../store/auth";
 
@@ -21,7 +21,7 @@ import AppLoading from "expo-app-loading";
 
 const Add = ({ navigation }) => {
   const [selected, setSelected] = useState("");
-
+  console.log("IN ADD>JS");
   const [isLoaded] = useFonts({
     "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
     "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
@@ -36,7 +36,7 @@ const Add = ({ navigation }) => {
     <KeyboardAwareScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.buttonBox}>
-          <TouchableOpacity onPress={() => navigation.navigate(ADDENTRY)}>
+          <TouchableOpacity onPress={() => navigation.navigate(TAKEPHOTO)}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>entry</Text>
             </View>

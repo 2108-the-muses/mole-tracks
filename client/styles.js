@@ -1,4 +1,4 @@
-import {Dimensions,StyleSheet} from 'react-native'
+import { Dimensions, StyleSheet } from "react-native";
 
 const heightConst = Dimensions.get("screen").height;
 const styles = StyleSheet.create({
@@ -12,6 +12,12 @@ const styles = StyleSheet.create({
   image: {
     width: 325,
     height: 325,
+    position: "absolute",
+    top: 20,
+  },
+  entryImage: {
+    width: 100,
+    height: 100,
     position: "absolute",
     top: 20,
   },
@@ -47,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },
@@ -71,6 +77,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 25,
   },
+  // entryimageBox: {
+  //   width: 300,
+  //   height: 275,
+  //   backgroundColor: "#E59F71",
+  //   borderRadius: 15,
+  //   alignItems: "center",
+  //   marginVertical: 25,
+  // },
   name: {
     fontFamily: "SulphurPoint-Bold",
     color: "black",
@@ -89,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles
+export default styles;
