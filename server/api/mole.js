@@ -25,6 +25,7 @@ router.get("/", checkAuth, async (req, res, next) => {
 //POST /api/mole/
 router.post("/", checkAuth, async (req, res, next) => {
   try {
+    console.log(req.body);
     const user = await User.findByPk(req.user.uid);
     const mole = await Mole.create(req.body);
     res.status(201).json(await mole.setUser(user));

@@ -2,21 +2,8 @@
 import React from "react";
 import {StyleSheet, View, Text, Image, ImageBackground} from "react-native";
 
-import {useFonts} from "@use-expo/font";
-import AppLoading from "expo-app-loading";
-
 const Entry = (props) => {
   const {entry, name} = props.route.params;
-
-  const [isLoaded] = useFonts({
-    "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
-    "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
-    "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
-  });
-
-  if (!isLoaded) {
-    return <AppLoading />;
-  }
 
   // renders fine on web, not in expo
   // const date = (createdAt) => {

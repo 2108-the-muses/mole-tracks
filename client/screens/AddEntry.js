@@ -18,7 +18,7 @@ const AddEntry = ({ route }) => {
   const [notes, setNotes] = useState(null);
   const [moleId, setMoleId] = useState(route.params.moleId);
   const [bodyPart, setBodyPart] = useState("");
-  let moles = useSelector((state) => state.allMoles);
+  let moles = useSelector((state) => state.allMoles.moles);
   const [bodyPartMoles, setBodyPartMoles] = useState([]);
 
   const handleSubmit = () => {

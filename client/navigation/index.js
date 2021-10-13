@@ -11,6 +11,7 @@ import {
   LOGOUT,
   ADDENTRY,
   TAKEPHOTO,
+  ADDMOLE,
 } from "../NavigationConstants";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Login from "../screens/Login";
@@ -26,6 +27,7 @@ import AddEntry from "../screens/AddEntry";
 import TakePhoto from "../screens/TakePhoto";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AddMole from "../screens/AddMole";
 
 // this is a dummy component for now
 
@@ -48,6 +50,7 @@ const MolesStack = () => {
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
+      <Stack.Screen name={ADDMOLE} component={AddMole} />
     </Stack.Navigator>
   );
 };
@@ -65,6 +68,7 @@ const AddStack = () => {
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
       <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
+      <Stack.Screen name={ALLMOLES} component={AllMoles} />
     </Stack.Navigator>
   );
 };
