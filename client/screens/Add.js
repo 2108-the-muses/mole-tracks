@@ -21,7 +21,6 @@ import AppLoading from "expo-app-loading";
 
 const Add = ({ navigation }) => {
   const [selected, setSelected] = useState("");
-  console.log("IN ADD>JS");
   const [isLoaded] = useFonts({
     "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
     "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
@@ -36,7 +35,11 @@ const Add = ({ navigation }) => {
     <KeyboardAwareScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.buttonBox}>
-          <TouchableOpacity onPress={() => navigation.navigate(TAKEPHOTO, {moleId: undefined})}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(TAKEPHOTO, { moleId: undefined })
+            }
+          >
             <View style={styles.button}>
               <Text style={styles.buttonText}>entry</Text>
             </View>

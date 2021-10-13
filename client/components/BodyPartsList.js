@@ -1,13 +1,21 @@
-import React, {useEffect} from "react";
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
-import {fetchAllMoles} from "../store/mole";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { fetchAllMoles } from "../store/mole";
+import { useDispatch, useSelector } from "react-redux";
 import Moles from "./Moles";
 
-const BodyPartsList = ({navigation}) => {
+const BodyPartsList = ({ navigation }) => {
   let moles = useSelector((state) => state.allMoles);
-
-  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r", "groin", "butt"];
+  let bodyParts = [
+    "head",
+    "torso",
+    "arm-l",
+    "arm-r",
+    "leg-l",
+    "leg-r",
+    "groin",
+    "butt",
+  ];
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -72,7 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },
