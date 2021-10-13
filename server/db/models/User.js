@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const axios = require("axios");
 
 const User = db.define("user", {
   // username: {
@@ -29,3 +28,7 @@ const User = db.define("user", {
 });
 
 module.exports = User;
+<<<<<<< HEAD
+=======
+
+>>>>>>> new-new-index

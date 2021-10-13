@@ -13,21 +13,14 @@ import {
   TAKEPHOTO,
   ADDMOLE,
 } from "../NavigationConstants";
+import cIndex from '../components'
+const {Logout} = cIndex
+import sIndex from '../screens'
+const  {Add,AddMole,AllMoles,Body,Entry,Loading,Login,SignUp,SingleMole} = sIndex
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Login from "../screens/Login";
-import Entry from "../screens/Entry";
-import Body from "../screens/Body";
-import AllMoles from "../screens/AllMoles";
-import SingleMole from "../screens/SingleMole";
-import Loading from "../screens/Loading";
-import SignUp from "../screens/SignUp";
-import Logout from "../components/Logout";
-import Add from "../screens/Add";
-import AddEntry from "../screens/AddEntry";
-import TakePhoto from "../screens/TakePhoto";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AddMole from "../screens/AddMole";
+
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 // this is a dummy component for now
 
