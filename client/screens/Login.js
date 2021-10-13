@@ -36,7 +36,7 @@ const Login = (props) => {
   const handleLogin = async () => {
     try {
       const response = await dispatch(authenticateLogin({email: email, password: password}));
-      if (!response === true) {
+      if (response !== true) {
         setError(response);
       }
     } catch (error) {
@@ -96,6 +96,11 @@ const Login = (props) => {
       </View>
     </KeyboardAwareScrollView>
   );
+};
+
+Login.navigationOptions = {
+  headerTitle: "login",
+  headerLeft: null,
 };
 
 export default Login;

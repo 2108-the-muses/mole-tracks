@@ -111,6 +111,11 @@ const SignUp = (props) => {
   );
 };
 
+SignUp.navigationOptions = {
+  headerTitle: "mole tracks",
+  headerLeft: null,
+};
+
 export default SignUp;
 
 const heightConst = Dimensions.get("screen").height;
