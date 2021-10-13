@@ -1,93 +1,208 @@
-import React, { useEffect,useState } from "react";
-import {StyleSheet, View, Text,TextInput,TouchableOpacity, Image, ImageBackground} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import styles from '../styles'
-import * as ImagePicker from "expo-image-picker";
-import { app } from "../firebase-auth/config";
-import { v4 as uuidv4 } from "uuid";
-import * as MediaLibrary from "expo-media-library";
-import * as Camera from "expo-camera";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+} from "react-native";
+import { Camera } from "expo-camera";
+//This is the reducer to add to our DB. Currently not working.
+// import { addEntry } from "../store/addEntry";
 
+const WINDOW_HEIGHT = Dimensions.get("window").height;
+const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
 
-const AddEntry = ()=>{
-  const [image, setImage] = useState(null)
-  const [uploading,setUploading] = useState(false)
+import { CLOUDINARY_URL, upload_preset } from "../../secrets";
 
-  const uploadImageAsync= async (uri) =>{
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function(e) {
-        console.log(e);
-        reject(new TypeError('Network request failed'));
-      };
-      xhr.responseType = 'blob';
-      xhr.open('GET', uri, true);
-      xhr.send(null);
-    });
-  
-    const ref = app
-      .storage()
-      .ref()
-      .child(uri);
+const AddEntry = () => {
+  const cameraRef = useRef();
+  const [hasPermission, setHasPermission] = useState(null);
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [isPreview, setIsPreview] = useState(false);
+  const [isCameraReady, setIsCameraReady] = useState(false);
+  const [sourceInfo, setSourceInfo] = useState(null);
 
-    const snapshot = await ref.put(blob);
-    blob.close();
-  
-    return await snapshot.ref.getDownloadURL();
+  useEffect(() => {
+    onHandlePermission();
+  }, []);
+
+  const onHandlePermission = async () => {
+    const { status } = await Camera.requestPermissionsAsync();
+    setHasPermission(status === "granted");
+  };
+
+  const onCameraReady = () => {
+    setIsCameraReady(true);
+  };
+
+  const switchCamera = () => {
+    if (isPreview) {
+      return;
+    }
+    setCameraType((prevCameraType) =>
+      prevCameraType === Camera.Constants.Type.back
+        ? Camera.Constants.Type.front
+        : Camera.Constants.Type.back
+    );
+  };
+
+  const onSnap = async () => {
+    if (cameraRef.current) {
+      const options = { quality: 0.7, base64: true };
+      const data = await cameraRef.current.takePictureAsync(options);
+      const source = data.base64;
+
+      if (source) {
+        await cameraRef.current.pausePreview();
+        setIsPreview(true);
+        setSourceInfo(source);
+      }
+    }
+  };
+
+  const onAcceptPhoto = async () => {
+    let base64Img = `data:image/jpg;base64,${sourceInfo}`;
+    let apiUrl = CLOUDINARY_URL;
+    let data = {
+      file: base64Img,
+      upload_preset: upload_preset,
+    };
+
+    fetch(apiUrl, {
+      body: JSON.stringify(data),
+      headers: {
+        "content-type": "application/json",
+      },
+      method: "POST",
+    })
+      .then(async (response) => {
+        let data = await response.json();
+        if (data.secure_url) {
+          alert("Upload to Cloudinary successful");
+        }
+      })
+      .catch((err) => {
+        alert("Cannot upload");
+        console.log(err);
+      });
+  };
+
+  const retakePic = async () => {
+    await cameraRef.current.resumePreview();
+    setIsPreview(false);
+  };
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text style={styles.text}>No access to camera</Text>;
   }
 
-  const handleImagePicked = async pickerResult => {
-		try {
-      setUploading(true)
-			if (!pickerResult.cancelled) {
-				uploadUrl = await uploadImageAsync(pickerResult.uri);
-        setImage(uploadUrl)
-			}
-		} catch (e) {
-			console.log(e);
-			alert('Upload failed, sorry :(');
-		} finally {
-			setUploading(false)
-		}
-	};
-  const takePhoto = async () => {
-		let pickerResult = await ImagePicker.launchCameraAsync({
-			allowsEditing: true,
-			aspect: [4, 3]
-		});
-		handleImagePicked(pickerResult);
-    
-	};
-
-  useEffect(()=>{
-    const permissions = async ()=>{
-      await MediaLibrary.requestPermissionsAsync()
-    await Camera.requestPermissionsAsync();
-    }
-    permissions();
-    
-  },[])
-
-  return(
+  return (
     <View style={styles.container}>
-    <ImageBackground
-      source={require("../../assets/images/background.png")}
-      style={styles.background}
-    />
-    <TouchableOpacity onPress= {takePhoto}>
-    <View style={styles.content}>
-      <View style={styles.imageBox}>
-        <Text style={styles.name}>click here to upload</Text>
-      </View>
-      <View style={styles.notesBox}>
-        <TextInput placeholder= 'notes'></TextInput>
+      <Camera
+        ref={cameraRef}
+        style={styles.container}
+        type={cameraType}
+        onCameraReady={onCameraReady}
+        useCamera2Api={true}
+      />
+      <View style={styles.container}>
+        {isPreview && (
+          <View>
+            <TouchableOpacity
+              onPress={onAcceptPhoto}
+              style={styles.closeButton}
+              activeOpacity={0.7}
+              style={styles.capture}
+            >
+              <Text>Accept Photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={retakePic} activeOpacity={0.7}>
+              <Text>Retake Image</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {!isPreview && (
+          <View style={styles.bottomButtonsContainer}>
+            <TouchableOpacity disabled={!isCameraReady} onPress={switchCamera}>
+              <Text>FLIP CAMERA</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              disabled={!isCameraReady}
+              onPress={onSnap}
+              style={styles.capture}
+            >
+              <Text>TAKE PIC</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
-    </TouchableOpacity>
-  </View>)
-}
+  );
+};
 
-export default AddEntry
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  text: {
+    color: "#fff",
+  },
+  bottomButtonsContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    bottom: 28,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 35,
+    right: 20,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#5A45FF",
+    opacity: 0.7,
+  },
+  capture: {
+    backgroundColor: "#5A45FF",
+    borderRadius: 5,
+    height: CAPTURE_SIZE,
+    width: CAPTURE_SIZE,
+    borderRadius: Math.floor(CAPTURE_SIZE / 2),
+    marginBottom: 28,
+    marginHorizontal: 30,
+  },
+});
+
+//////////////This is the user interface we probably want.//////////////
+//////////////Need to incorporate it into functioning code above.//////////////
+// return (
+//   <View style={styles.container}>
+//     <ImageBackground
+//       source={require("../../assets/images/background.png")}
+//       style={styles.background}
+//     />
+//     <TouchableOpacity onPress={() => useCamera()}>
+//       <View style={styles.content}>
+//         <View style={styles.imageBox}>
+//           <Text style={styles.name}>click here to upload</Text>
+//         </View>
+//         <View style={styles.notesBox}>
+//           <TextInput placeholder="notes"></TextInput>
+//         </View>
+//       </View>
+//     </TouchableOpacity>
+//   </View>
+// );
+//};
+
+export default AddEntry;
