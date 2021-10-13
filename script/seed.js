@@ -36,7 +36,7 @@ async function seed() {
   ]);
 
   // Creating Moles
-  const [Fuzzy, Bumpy, Slimy] = await Mole.bulkCreate([
+  const [Fuzzy, Bumpy, Slimy, Bigs, Backy, Humps, Lumps] = await Mole.bulkCreate([
     {
       nickname: "Fuzzy",
       side: "front",
@@ -51,6 +51,26 @@ async function seed() {
       nickname: "Slimy",
       side: "back",
       bodyPart: "butt",
+    },
+    {
+      nickname: "Bigs",
+      side: "front",
+      bodyPart: "leg-r",
+    },
+    {
+      nickname: "Backy",
+      side: "back",
+      bodyPart: "torso",
+    },
+    {
+      nickname: "Humps",
+      side: "back",
+      bodyPart: "torso",
+    },
+    {
+      nickname: "Lumps",
+      side: "back",
+      bodyPart: "torso",
     },
   ]);
 
@@ -76,7 +96,7 @@ async function seed() {
   ]);
 
   // Associations via Magic Methods
-  await Cody.setMoles([Fuzzy, Bumpy]);
+  await Cody.setMoles([Fuzzy, Bumpy, Bigs, Backy, Humps, Lumps]);
   await Sally.setMoles(Slimy);
 
   await Fuzzy.setEntries([March1, June1]);

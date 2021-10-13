@@ -1,25 +1,14 @@
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet,
-  ImageBackground,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {authenticate} from "../store/auth";
+import AddMole from "./AddMole";
 
 import {useFonts} from "@use-expo/font";
 import AppLoading from "expo-app-loading";
 
 const Add = (props) => {
   const [selected, setSelected] = useState("");
-
+  console.log(props);
   const [isLoaded] = useFonts({
     "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
     "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
@@ -37,11 +26,7 @@ const Add = (props) => {
       </View>
     );
   } else if (selected === "mole") {
-    return (
-      <View>
-        <Text>Add Mole</Text>
-      </View>
-    );
+    return <AddMole navigation={props.navigation} />;
   } else if (selected === "") {
     return (
       <KeyboardAwareScrollView style={{flex: 1}}>

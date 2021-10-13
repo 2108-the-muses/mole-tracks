@@ -1,19 +1,35 @@
-import React from "react";
-import {Provider, useSelector} from "react-redux";
+import React, {useState, useEffect} from "react";
+import {Provider} from "react-redux";
 import store from "./client/store";
-import {NavigationContainer} from "@react-navigation/native";
-import {useFonts} from "@use-expo/font";
-import {AppLoading} from "expo";
-import {LOGIN, SIGNUP, LOADING} from "./client/NavigationConstants";
-import Login from "./client/screens/Login";
-import Main from "./client/screens/Main"
-import Loading from "./client/screens/Loading";
-import SignUp from "./client/screens/SignUp";
+import Main from "./client/screens/Main";
+
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
 
 export default function App() {
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  const fetchFonts = () => {
+    return Font.loadAsync({
+      "SulphurPoint-Bold": require("./assets/fonts/SulphurPoint-Bold.ttf"),
+      "SulphurPoint-Light": require("./assets/fonts/SulphurPoint-Light.ttf"),
+      "SulphurPoint-Regular": require("./assets/fonts/SulphurPoint-Regular.ttf"),
+    });
+  };
+
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
+        onError={(err) => console.log(err)}
+      />
+    );
+  }
+
   return (
     <Provider store={store}>
-      <Main/>
+      <Main />
     </Provider>
   );
 }
