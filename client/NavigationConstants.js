@@ -10,4 +10,3 @@ export const MAIN = "Main";
 export const ADD = "Add";
 export const LOGOUT = "Logout";
 export const ADDENTRY = "AddEntry";
-export const LOGOUT = "Logout";

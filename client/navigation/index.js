@@ -24,8 +24,6 @@ import Add from "../screens/Add";
 import AddEntry from "../screens/AddEntry";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // this is a dummy component for now
 
