@@ -19,7 +19,7 @@ const AddMole = (props) => {
 
   const handleSubmit = () => {
     dispatch(addMoleThunk({nickname, bodyPart, side}));
-    props.navigation.navigate("AllMoles");
+    // props.navigation.navigate("AddEntry");
   };
 
   const [isLoaded] = useFonts({

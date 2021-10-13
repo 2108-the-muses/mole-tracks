@@ -10,7 +10,7 @@ const SingleMole = (props) => {
   const mole = props.route.params.mole;
 
   let recentPhoto;
-  mole.entries
+  mole.entries.length
     ? (recentPhoto = mole.entries[mole.entries.length - 1].imgUrl)
     : (recentPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
