@@ -13,4 +13,8 @@ secrets.js
 # macOS
 .DS_Store
 firebase-admin-sdk.json
+<<<<<<< HEAD
+cloudinarysecrets.js
+=======
 package-lock.json
+>>>>>>> 842151d58691a0236eed9c8e58afeae1bd20d40f

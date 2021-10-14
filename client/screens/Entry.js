@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import {StyleSheet, View, Text, Image, ImageBackground} from "react-native";
+import { StyleSheet, View, Text, Image, ImageBackground } from "react-native";
+import { addStatus } from "../store/entry";
+import { useDispatch } from "react-redux";
 
 const Entry = (props) => {
-  const {entry, name} = props.route.params;
-
+  const { entry, name } = props.route.params;
+  const dispatch = useDispatch();
+  dispatch(addStatus(null));
   // renders fine on web, not in expo
   // const date = (createdAt) => {
   //   const newDate = new Date(createdAt);
@@ -32,7 +35,7 @@ const Entry = (props) => {
           <Text style={styles.date}>{date(entry.createdAt)}</Text>
         </View>
         <View style={styles.imageBox}>
-          <Image source={{uri: entry.imgUrl}} style={styles.image}></Image>
+          <Image source={{ uri: entry.imgUrl }} style={styles.image}></Image>
           <Text style={styles.name}>{name}</Text>
         </View>
         <View style={styles.notesBox}>
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },
