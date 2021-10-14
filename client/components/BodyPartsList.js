@@ -1,16 +1,25 @@
-import React, {useEffect} from "react";
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
-import {fetchAllMoles} from "../store/mole";
-import {FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS} from "../store/mole";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { fetchAllMoles } from "../store/mole";
+import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
+import { useDispatch, useSelector } from "react-redux";
 import Moles from "./Moles";
 import Loading from "../screens/Loading";
 
-const BodyPartsList = ({navigation}) => {
+const BodyPartsList = ({ navigation }) => {
   let moles = useSelector((state) => state.allMoles.moles);
   const fetchStatus = useSelector((state) => state.allMoles.fetchStatus);
 
-  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r", "groin", "butt"];
+  let bodyParts = [
+    "head",
+    "torso",
+    "arm-l",
+    "arm-r",
+    "leg-l",
+    "leg-r",
+    "groin",
+    "butt",
+  ];
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,9 +56,12 @@ const BodyPartsList = ({navigation}) => {
       return <View>{list()}</View>;
     } else {
       return (
-        <View style={{marginTop: 25}}>
+        <View style={{ marginTop: 25 }}>
           <Text style={styles.alertText}>You have no moles!</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("AddMole")} style={styles.button}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AddMole")}
+            style={styles.button}
+          >
             <Text style={styles.buttonText}>add a mole!</Text>
           </TouchableOpacity>
         </View>
@@ -82,7 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },
@@ -110,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },
