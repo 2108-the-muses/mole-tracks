@@ -57,6 +57,7 @@ router.put("/:moleId", checkAuth, async (req, res, next) => {
 //DELETE /api/mole/:moleId
 router.delete("/:moleId", checkAuth, async (req, res, next) => {
   try {
+      console.log("in the delete route")
     const mole = await Mole.destroy({
       where: {
         id: req.params.moleId,
