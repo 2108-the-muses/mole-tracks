@@ -115,7 +115,7 @@ export const AuthNavigator = () => {
   return (
     <Auth.Navigator initialRouteName={LOGIN}>
       <Auth.Screen name={LOGIN} component={Login} />
-      <Auth.Screen name={SIGNUP} component={SignUp} />
+      <Auth.Screen name={SIGNUP} options={{headerShown: false}}component={SignUp} />
       <Auth.Screen name={LOADING} component={Loading} />
       <Auth.Screen name={BODY} options={{title:"Body"}} component={Body} />
     </Auth.Navigator>
