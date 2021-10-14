@@ -33,11 +33,9 @@ export const addEntry = (notes, base64Img, moleId) => {
           const { data } = await axios.post(
             `http://${IP_ADDRESS}:8080/api/entries/`,
             {
-              body: {
                 notes: notes,
                 imgUrl: secure_url,
                 moleId: moleId,
-              },
             },
             {
               headers: {
