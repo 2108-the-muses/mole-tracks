@@ -29,7 +29,7 @@ const Stack = createNativeStackNavigator();
 const BodyStack = () => {
   return (
     <Stack.Navigator initialRouteName={BODY}>
-      <Stack.Screen name={BODY} component={Body} />
+      <Stack.Screen name={BODY} options={{title:"Body"}} component={Body} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
@@ -54,7 +54,7 @@ const AddStack = () => {
       <Stack.Screen
         name={ADD}
         component={Add}
-        initialParams={{ selected: "" }}
+        options={{title:"Add"}}
       />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
@@ -117,7 +117,7 @@ export const AuthNavigator = () => {
       <Auth.Screen name={LOGIN} component={Login} />
       <Auth.Screen name={SIGNUP} component={SignUp} />
       <Auth.Screen name={LOADING} component={Loading} />
-      <Auth.Screen name={BODY} component={Body} />
+      <Auth.Screen name={BODY} options={{title:"Body"}} component={Body} />
     </Auth.Navigator>
   );
 };
