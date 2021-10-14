@@ -2,9 +2,10 @@
 import React from "react";
 import {StyleSheet, View, Text, Image, ImageBackground, TouchableOpacity} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {TAKEPHOTO} from '../NavigationConstants'
 
-const SingleMole = (props) => {
-  const mole = props.route.params.mole;
+const SingleMole = ({route,navigation}) => {
+  const mole = route.params.mole;
 
   let recentPhoto;
   mole.entries.length
@@ -40,7 +41,7 @@ const SingleMole = (props) => {
           <Text style={styles.name}>{mole.nickname}</Text>
         </View>
         <View style={styles.edit}>
-          <Text style={styles.name}>+</Text>
+          <Text style={styles.name} onPress= {()=>{navigation.navigate(TAKEPHOTO, {moleId: mole.id})}}>+</Text>
         </View>
       </View>
       <View style={styles.imageBox}>
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 25,
-    opacity: 0.5,
+    opacity: 1,
   },
   imageBox: {
     width: 300,

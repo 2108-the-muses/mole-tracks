@@ -7,14 +7,13 @@ import {
   StyleSheet,
 } from "react-native";
 // import styles from "../styles"
-import ADDENTRY from "../NavigationConstants";
+import {ADDENTRY} from "../NavigationConstants";
 import { Camera } from "expo-camera";
 //This is the reducer to add to our DB. Currently not working.
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
 
-import { CLOUDINARY_URL, upload_preset } from "../../secrets";
 
 const TakePhoto = ({ navigation, route }) => {
   const cameraRef = useRef();
@@ -64,40 +63,15 @@ const TakePhoto = ({ navigation, route }) => {
 
   const onAcceptPhoto = async () => {
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
-
-    navigation.navigate("AddEntry", {
-      base64Img: base64Img,
+    navigation.reset({
+      index: 0,
+      routes: [{ name: ADDENTRY,params:{
+          base64Img: base64Img,
       moleId: route.params.moleId,
+      } }],
     });
   };
-  // const onAcceptPhoto = async () => {
-  //   let base64Img = `data:image/jpg;base64,${sourceInfo}`;
-  //   let apiUrl = CLOUDINARY_URL;
-  //   let data = {
-  //     file: base64Img,
-  //     upload_preset: upload_preset,
-  //   };
-
-  //   fetch(apiUrl, {
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     method: "POST",
-  //   })
-  //     .then(async (response) => {
-  //       let data = await response.json();
-  //       if (data.secure_url) {
-  //         alert("Upload to Cloudinary successful");
-  //         navigation.navigate("AddEntry", { imgUrl: data.secure_url });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       alert("Cannot upload");
-  //       console.log(err);
-  //     });
-  // };
-
+  
   const retakePic = async () => {
     await cameraRef.current.resumePreview();
     setIsPreview(false);

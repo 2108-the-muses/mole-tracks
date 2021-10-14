@@ -27,7 +27,6 @@ const AddMole = (props) => {
 
   const handleSubmit = async () => {
     await dispatch(addMoleThunk({ nickname, bodyPart, side }));
-    console.log("CURRENT MOLE ID", currentMoleId);
     props.navigation.navigate("TakePhoto", { moleId: currentMoleId });
   };
 

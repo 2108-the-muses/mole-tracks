@@ -71,6 +71,18 @@ const AddEntry = ({ route, navigation }) => {
       name: moleNameForEntryRouteParam,
       entry: entryForEntryRouteParam,
     });
+    navigation.reset({
+      index: 0,
+      routes: [
+        {
+          name: ENTRY,
+          params: {
+            name: moleNameForEntryRouteParam,
+      entry: entryForEntryRouteParam,
+          },
+        },
+      ],
+    });
   } else if (status === ADD_FAILED) {
     alert("Upload failed");
     dispatch(addStatus(null));
@@ -95,7 +107,7 @@ const AddEntry = ({ route, navigation }) => {
           />
         </View>
         <View>
-          {gotMoleId===false && (
+          {gotMoleId === false && (
             <SelectDropdown
               data={bodyParts}
               defaultButtonText={"Select Body Part"}
@@ -105,7 +117,7 @@ const AddEntry = ({ route, navigation }) => {
             />
           )}
           {/* Front butt bug */}
-          {gotMoleId ===false && Object.keys(bodyPartMoles).length > 0 && (
+          {gotMoleId === false && Object.keys(bodyPartMoles).length > 0 && (
             <SelectDropdown
               data={Object.keys(bodyPartMoles)}
               defaultButtonText={"Select Mole"}
