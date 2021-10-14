@@ -10,7 +10,6 @@ import {
 import ADDENTRY from "../NavigationConstants";
 import { Camera } from "expo-camera";
 //This is the reducer to add to our DB. Currently not working.
-import { addEntry } from "../store/addEntry";
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
@@ -66,8 +65,10 @@ const TakePhoto = ({ navigation, route }) => {
   const onAcceptPhoto = async () => {
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
 
-    
-    navigation.navigate("AddEntry", { base64Img: base64Img, moleId: route.params.moleId });
+    navigation.navigate("AddEntry", {
+      base64Img: base64Img,
+      moleId: route.params.moleId,
+    });
   };
   // const onAcceptPhoto = async () => {
   //   let base64Img = `data:image/jpg;base64,${sourceInfo}`;
