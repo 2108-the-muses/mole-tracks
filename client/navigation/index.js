@@ -16,7 +16,7 @@ import {
 import cIndex from '../components'
 const {Logout} = cIndex
 import sIndex from '../screens'
-const  {Add,AddMole,AllMoles,Body,Entry,Loading,Login,SignUp,SingleMole} = sIndex
+const  {Add,AddMole,AllMoles,Body,Entry,Loading,Login,SignUp,SingleMole,TakePhoto,AddEntry} = sIndex
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import {createNativeStackNavigator} from "@react-navigation/native-stack";

@@ -28,7 +28,4 @@ const User = db.define("user", {
 });
 
 module.exports = User;
-<<<<<<< HEAD
-=======
 
->>>>>>> new-new-index
