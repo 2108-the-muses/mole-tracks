@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   View,
   TouchableOpacity,
@@ -11,39 +11,54 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SelectDropdown from "react-native-select-dropdown";
 import styles from "../styles";
+import { fetchAllMoles } from "../store/mole";
+import { addEntry } from "../store/entry";
 
 const AddEntry = ({ route }) => {
   const base64Img = route.params.base64Img;
-  const bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
+  const [bodyParts, setBodyParts] = useState([]);
   const [notes, setNotes] = useState(null);
   const [moleId, setMoleId] = useState(route.params.moleId);
   const [bodyPart, setBodyPart] = useState("");
   let moles = useSelector((state) => state.allMoles.moles);
-  const [bodyPartMoles, setBodyPartMoles] = useState([]);
+  const [bodyPartMoles, setBodyPartMoles] = useState({});
+  const fetchStatus = useSelector((state) => state.allMoles.fetchStatus);
 
-  const handleSubmit = () => {
-    //upload photo to cloudinary
-    //axios request that includes creating mole (possibly),
-    // create entry with image and notes
-    //Redirect to that entry
-    //NOT IN HANDLE SUBMIT => RENDER DIFF TAKEPHOTO PROPS
-    ////Pass moleID through takephoto, then pass moleID and img to AddEntry
-    //Add mole needs to connect w/ takephoto
-    //AddEntry conditional render if moleID is present or not
-  };
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(fetchAllMoles());
+  }, []);
+
+  useEffect(() => {
+    let bodyPartsArr = moles.map((mole) => {
+      return mole.bodyPart;
+    });
+    setBodyParts(bodyPartsArr);
+  }, [moles]);
+
+  useEffect(() => {
+    //moles - an array of mole objects
+    //bodyPartMoles - a dictionary of nicknames and ids
     let molesArray = moles.filter((mole) => {
       return mole.bodyPart === bodyPart;
     });
     console.log("molesArray", molesArray.length);
-    molesArray = molesArray.map((mole) => {
-      return mole.nickname;
+    let molesDictionary = {}
+    molesArray.forEach((mole) => {
+      molesDictionary[mole.nickname]=mole.id
     });
-    setBodyPartMoles(molesArray);
+    setBodyPartMoles(molesDictionary);
   }, [bodyPart]);
 
+  const handleSubmit = () => {
+    console.log('notes',notes)
+    console.log('moleId',moleId)
+    dispatch(addEntry(notes,base64Img,moleId))
+  };
+
   return (
-    <View style={{ ...styles.container, flex: 1 }}>
+    <KeyboardAwareScrollView>
       <ImageBackground
         source={require("../../assets/images/background.png")}
         style={styles.background}
@@ -72,45 +87,25 @@ const AddEntry = ({ route }) => {
             />
           )}
 
-          {bodyPartMoles.length > 0 && (
+          {Object.keys(bodyPartMoles).length > 0 && (
             <SelectDropdown
-              data={bodyPartMoles}
+            //create object {"bumpy":2}
+            //data = thatobject.objectkeys
+            //setmoleid object[selected]
+              data={Object.keys(bodyPartMoles)}
               defaultButtonText={"Select Mole"}
               onSelect={(selected) => {
-                setMoleId(selected.id);
+                setMoleId(bodyPartMoles[selected]);
               }}
             />
           )}
         </View>
-        <TouchableOpacity onPress={handleSubmit}></TouchableOpacity>
+        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
 export default AddEntry;
-
-// let apiUrl = CLOUDINARY_URL;
-//     let data = {
-//       file: base64Img,
-//       upload_preset: upload_preset,
-//     };
-
-//     fetch(apiUrl, {
-//       body: JSON.stringify(data),
-//       headers: {
-//         "content-type": "application/json",
-//       },
-//       method: "POST",
-//     })
-//       .then(async (response) => {
-//         let data = await response.json();
-//         if (data.secure_url) {
-//           alert("Upload to Cloudinary successful");
-//           navigation.navigate("AddEntry", { imgUrl: data.secure_url });
-//         }
-//       })
-//       .catch((err) => {
-//         alert("Cannot upload");
-//         console.log(err);
-//       });

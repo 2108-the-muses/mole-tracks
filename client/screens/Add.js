@@ -5,7 +5,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { View, Text, TouchableOpacity } from "react-native";
 
 const Add = ({ navigation }) => {
-  const [selected, setSelected] = useState("");
 
   return (
     <KeyboardAwareScrollView style={{ flex: 1 }}>
