@@ -13,38 +13,14 @@ import {
   TAKEPHOTO,
   ADDMOLE,
 } from "../NavigationConstants";
-import cIndex from "../components";
-const { Logout } = cIndex;
-import sIndex from "../screens";
-const {
-  Add,
-  AddMole,
-  AllMoles,
-  Body,
-  Entry,
-  Loading,
-  Login,
-  SignUp,
-  SingleMole,
-} = sIndex;
+import cIndex from '../components'
+const {Logout} = cIndex
+import sIndex from '../screens'
+const  {Add,AddMole,AllMoles,Body,Entry,Loading,Login,SignUp,SingleMole,TakePhoto,AddEntry} = sIndex
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Login from "../screens/Login";
-import Entry from "../screens/Entry";
-import Body from "../screens/Body";
-import AllMoles from "../screens/AllMoles";
-import SingleMole from "../screens/SingleMole";
-import Loading from "../screens/Loading";
-import SignUp from "../screens/SignUp";
-import Logout from "../components/Logout";
-import Add from "../screens/Add";
-import AddEntry from "../screens/AddEntry";
-import TakePhoto from "../screens/TakePhoto";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import AddMole from "../screens/AddMole";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 // this is a dummy component for now
 
@@ -53,7 +29,7 @@ const Stack = createNativeStackNavigator();
 const BodyStack = () => {
   return (
     <Stack.Navigator initialRouteName={BODY}>
-      <Stack.Screen name={BODY} component={Body} />
+      <Stack.Screen name={BODY} options={{title:"Body"}} component={Body} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
@@ -78,7 +54,7 @@ const AddStack = () => {
       <Stack.Screen
         name={ADD}
         component={Add}
-        initialParams={{ selected: "" }}
+        options={{title:"Add"}}
       />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
@@ -141,7 +117,7 @@ export const AuthNavigator = () => {
       <Auth.Screen name={LOGIN} component={Login} />
       <Auth.Screen name={SIGNUP} component={SignUp} />
       <Auth.Screen name={LOADING} component={Loading} />
-      <Auth.Screen name={BODY} component={Body} />
+      <Auth.Screen name={BODY} options={{title:"Body"}} component={Body} />
     </Auth.Navigator>
   );
 };
