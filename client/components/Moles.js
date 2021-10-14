@@ -8,9 +8,17 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Button
 } from "react-native";
+import { deleteMoleThunk } from "../store/mole";
+import {useDispatch} from "react-redux"
+import { deleteMole} from "../store/mole"
+
 
 const Moles = ({moles, navigation}) => {
+
+  const dispatch = useDispatch();
+
   const list = () => {
     return moles.map((mole, index) => {
       let image;
@@ -19,6 +27,7 @@ const Moles = ({moles, navigation}) => {
         : (image =
             "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
+              console.log ("mole id in list before return statement", mole.id)
       return (
         <TouchableOpacity
           onPress={() => {
@@ -28,6 +37,10 @@ const Moles = ({moles, navigation}) => {
         >
           <View style={styles.container}>
             <Image style={styles.image} source={{uri: image}} />
+            <Button style={styles.deleteButton}
+            title={"X"}
+             onPress={() => dispatch(deleteMoleThunk(mole.id))}
+             />
             <Text style={styles.titleText}>{mole.nickname}</Text>
           </View>
         </TouchableOpacity>

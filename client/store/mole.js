@@ -15,12 +15,19 @@ export const FETCH_SUCCESS = "FETCH_SUCCESS";
 const SET_ALL_MOLES = "SET_ALL_MOLES";
 const ADD_MOLE = "ADD_MOLE";
 const SET_MOLES_FETCH_STATUS = "SET_MOLES_FETCH_STATUS";
+const DELETE_MOLE = "DELETE_MOLE"
 
 /**
  * ACTION CREATORS
  */
 const setAllMoles = (allMoles) => ({type: SET_ALL_MOLES, allMoles});
+
 const addMole = (mole) => ({type: ADD_MOLE, mole});
+
+const deleteMole = (moleId) => {
+  return {type: DELETE_MOLE, moleId }
+}
+
 const setMolesFetchStatus = (status) => {
   return {type: SET_MOLES_FETCH_STATUS, status};
 };
@@ -68,6 +75,23 @@ export const addMoleThunk = ({nickname, bodyPart, side}) => {
   };
 };
 
+export const deleteMoleThunk = (moleId) => async (dispatch) => {
+  try{
+    const idToken = await firebaseAuth.currentUser.getIdToken(true);
+    if(idToken){
+    console.log("in the delete thunk")
+    const response = await axios.delete(`http://${IP_ADDRESS}:8080/api/mole/${moleId}`, {headers: {authtoken: idToken}});
+    // dispatch(fetchAllMoles());
+    if(response.status === 200){
+    dispatch(deleteMole(moleId))
+    }
+  }
+  } catch (err) {
+    console.log('error in delete mole thunk', err)
+  }
+
+}
+
 const initialState = {
   fetchStatus: FETCH_PENDING,
   moles: [],
@@ -82,6 +106,8 @@ export default function (state = initialState, action) {
       return {...state, moles: action.allMoles};
     case ADD_MOLE:
       return {...state, moles: [...state.moles, action.mole]};
+    case DELETE_MOLE:
+      return {...state, moles: state.moles.filter(mole => mole.id !== action.moleId)}
     case SET_MOLES_FETCH_STATUS:
       return {...state, fetchStatus: action.status};
     default:
