@@ -28,7 +28,3 @@ const User = db.define("user", {
 });
 
 module.exports = User;
-<<<<<<< HEAD
-=======
-
->>>>>>> 8afec54813b09ed00412c6806faab1a7872470c5
