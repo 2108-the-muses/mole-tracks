@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import styles from "../styles";
-import { TAKEPHOTO ,ADDMOLE} from "../NavigationConstants";
+import { TAKEPHOTO, ADDMOLE } from "../NavigationConstants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text, TouchableOpacity } from "react-native";
 
 const Add = ({ navigation }) => {
-
   return (
     <KeyboardAwareScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.buttonBox}>
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(TAKEPHOTO, { moleId: undefined })
-            }
+            onPress={() => navigation.navigate(TAKEPHOTO, { moleId: false })}
           >
             <View style={styles.button}>
               <Text style={styles.buttonText}>entry</Text>

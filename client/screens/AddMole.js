@@ -1,23 +1,34 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {StyleSheet, View, Text, ImageBackground, TextInput, TouchableOpacity} from "react-native";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {addMoleThunk} from "../store/mole";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { addMoleThunk } from "../store/mole";
 
 const AddMole = (props) => {
   const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
   const [side, setSide] = useState("");
   const [bodyPart, setBodyPart] = useState("");
+  let currentMoleId = useSelector((state) => state.allMoles.currentMoleId);
 
   const sides = ["front", "back"];
   let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
-  side === "front" ? (bodyParts = [...bodyParts, "groin"]) : (bodyParts = [...bodyParts, "butt"]);
+  side === "front"
+    ? (bodyParts = [...bodyParts, "groin"])
+    : (bodyParts = [...bodyParts, "butt"]);
 
-  const handleSubmit = () => {
-    dispatch(addMoleThunk({nickname, bodyPart, side}));
-    // props.navigation.navigate("TakePhoto", {moleId});
+  const handleSubmit = async () => {
+    await dispatch(addMoleThunk({ nickname, bodyPart, side }));
+    console.log("CURRENT MOLE ID", currentMoleId);
+    props.navigation.navigate("TakePhoto", { moleId: currentMoleId });
   };
 
   return (
@@ -104,7 +115,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 25,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },

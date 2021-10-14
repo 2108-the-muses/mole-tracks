@@ -74,6 +74,7 @@ export const addMoleThunk = ({ nickname, bodyPart, side }) => {
 const initialState = {
   fetchStatus: FETCH_PENDING,
   moles: [],
+  currentMoleId: null,
 };
 
 /**
@@ -84,7 +85,12 @@ export default function (state = initialState, action) {
     case SET_ALL_MOLES:
       return { ...state, moles: action.allMoles };
     case ADD_MOLE:
-      return { ...state, moles: [...state.moles, action.mole] };
+      console.log("STATE", action.mole.id);
+      return {
+        ...state,
+        moles: [...state.moles, action.mole],
+        currentMoleId: action.mole.id,
+      };
     case SET_MOLES_FETCH_STATUS:
       return { ...state, fetchStatus: action.status };
     default:

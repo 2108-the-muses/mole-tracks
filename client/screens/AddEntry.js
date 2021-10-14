@@ -12,10 +12,16 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import SelectDropdown from "react-native-select-dropdown";
 import styles from "../styles";
 import { fetchAllMoles } from "../store/mole";
-import { addEntry, addStatus, ADD_FAILED, ADD_PENDING,ADD_SUCCESS } from "../store/entry";
+import {
+  addEntry,
+  addStatus,
+  ADD_FAILED,
+  ADD_PENDING,
+  ADD_SUCCESS,
+} from "../store/entry";
 import Loading from "./Loading";
 
-const AddEntry = ({ route,navigation }) => {
+const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
   const [bodyParts, setBodyParts] = useState([]);
   const [notes, setNotes] = useState(null);
@@ -26,7 +32,8 @@ const AddEntry = ({ route,navigation }) => {
   const status = useSelector((state) => state.entry.addStatus);
   const entryForEntryRouteParam = useSelector((state) => state.entry.entry);
   let moleNameForEntryRouteParam;
-
+  const gotMoleId = route.params.moleId; //false if nothing passed in
+  console.log("GOT MOLE ID", gotMoleId);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,7 +73,7 @@ const AddEntry = ({ route,navigation }) => {
     });
   } else if (status === ADD_FAILED) {
     alert("Upload failed");
-    dispatch(addStatus(null))
+    dispatch(addStatus(null));
   }
   return (
     <KeyboardAwareScrollView>
@@ -88,7 +95,7 @@ const AddEntry = ({ route,navigation }) => {
           />
         </View>
         <View>
-          {!moleId && (
+          {!gotMoleId && (
             <SelectDropdown
               data={bodyParts}
               defaultButtonText={"Select Body Part"}
@@ -97,8 +104,8 @@ const AddEntry = ({ route,navigation }) => {
               }}
             />
           )}
-
-          {Object.keys(bodyPartMoles).length > 0 && (
+          {/* Front butt bug */}
+          {!gotMoleId && Object.keys(bodyPartMoles).length > 0 && (
             <SelectDropdown
               data={Object.keys(bodyPartMoles)}
               defaultButtonText={"Select Mole"}
