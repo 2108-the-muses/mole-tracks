@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: {Entry},
+  models: { Entry },
 } = require("../db");
 module.exports = router;
 
@@ -41,6 +41,7 @@ router.put("/:entryId", async (req, res, next) => {
 // POST /api/entries
 router.post("/", async (req, res, next) => {
   try {
+    console.log(req.body)
     res.status(201).json(await Entry.create(req.body));
   } catch (err) {
     next(err);
