@@ -95,7 +95,7 @@ const AddEntry = ({ route, navigation }) => {
           />
         </View>
         <View>
-          {!gotMoleId && (
+          {gotMoleId===false && (
             <SelectDropdown
               data={bodyParts}
               defaultButtonText={"Select Body Part"}
@@ -105,7 +105,7 @@ const AddEntry = ({ route, navigation }) => {
             />
           )}
           {/* Front butt bug */}
-          {!gotMoleId && Object.keys(bodyPartMoles).length > 0 && (
+          {gotMoleId ===false && Object.keys(bodyPartMoles).length > 0 && (
             <SelectDropdown
               data={Object.keys(bodyPartMoles)}
               defaultButtonText={"Select Mole"}
