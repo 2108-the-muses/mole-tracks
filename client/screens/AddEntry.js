@@ -12,9 +12,10 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import SelectDropdown from "react-native-select-dropdown";
 import styles from "../styles";
 import { fetchAllMoles } from "../store/mole";
-import { addEntry } from "../store/entry";
+import { addEntry, addStatus, ADD_FAILED, ADD_PENDING,ADD_SUCCESS } from "../store/entry";
+import Loading from "./Loading";
 
-const AddEntry = ({ route }) => {
+const AddEntry = ({ route,navigation }) => {
   const base64Img = route.params.base64Img;
   const [bodyParts, setBodyParts] = useState([]);
   const [notes, setNotes] = useState(null);
@@ -22,7 +23,9 @@ const AddEntry = ({ route }) => {
   const [bodyPart, setBodyPart] = useState("");
   let moles = useSelector((state) => state.allMoles.moles);
   const [bodyPartMoles, setBodyPartMoles] = useState({});
-  const fetchStatus = useSelector((state) => state.allMoles.fetchStatus);
+  const status = useSelector((state) => state.entry.addStatus);
+  const entryForEntryRouteParam = useSelector((state) => state.entry.entry);
+  let moleNameForEntryRouteParam;
 
   const dispatch = useDispatch();
 
@@ -38,25 +41,33 @@ const AddEntry = ({ route }) => {
   }, [moles]);
 
   useEffect(() => {
-    //moles - an array of mole objects
-    //bodyPartMoles - a dictionary of nicknames and ids
     let molesArray = moles.filter((mole) => {
       return mole.bodyPart === bodyPart;
     });
     console.log("molesArray", molesArray.length);
-    let molesDictionary = {}
+    let molesDictionary = {};
     molesArray.forEach((mole) => {
-      molesDictionary[mole.nickname]=mole.id
+      molesDictionary[mole.nickname] = mole.id;
     });
     setBodyPartMoles(molesDictionary);
   }, [bodyPart]);
 
   const handleSubmit = () => {
-    console.log('notes',notes)
-    console.log('moleId',moleId)
-    dispatch(addEntry(notes,base64Img,moleId))
+    //loading starts
+    dispatch(addEntry(notes, base64Img, moleId));
+    //loading finished
   };
-
+  if (status === ADD_PENDING) {
+    return <Loading />;
+  } else if (status === ADD_SUCCESS) {
+    navigation.navigate("Entry", {
+      name: moleNameForEntryRouteParam,
+      entry: entryForEntryRouteParam,
+    });
+  } else if (status === ADD_FAILED) {
+    alert("Upload failed");
+    dispatch(addStatus(null))
+  }
   return (
     <KeyboardAwareScrollView>
       <ImageBackground
@@ -89,13 +100,11 @@ const AddEntry = ({ route }) => {
 
           {Object.keys(bodyPartMoles).length > 0 && (
             <SelectDropdown
-            //create object {"bumpy":2}
-            //data = thatobject.objectkeys
-            //setmoleid object[selected]
               data={Object.keys(bodyPartMoles)}
               defaultButtonText={"Select Mole"}
               onSelect={(selected) => {
                 setMoleId(bodyPartMoles[selected]);
+                moleNameForEntryRouteParam = selected;
               }}
             />
           )}
