@@ -9,27 +9,23 @@ import {
   Dimensions,
   TouchableOpacity,
   Button,
-  Alert
+  Alert,
 } from "react-native";
-import { deleteMoleThunk } from "../store/mole";
-import {useDispatch} from "react-redux"
+import {deleteMoleThunk} from "../store/mole";
+import {useDispatch} from "react-redux";
 
 const Moles = ({moles, navigation}) => {
   const dispatch = useDispatch();
 
-  const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+  const deleteAlert = (moleId) =>
+    Alert.alert("Delete Mole", "Are you sure you want to delete this mole?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {text: "Delete", onPress: () => dispatch(deleteMoleThunk(moleId)), style: "destructive"},
+    ]);
 
   const list = () => {
     return moles.map((mole, index) => {
@@ -39,7 +35,6 @@ const Moles = ({moles, navigation}) => {
         : (image =
             "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
-              console.log ("mole id in list before return statement", mole.id)
       return (
         <TouchableOpacity
           onPress={() => {
@@ -50,14 +45,11 @@ const Moles = ({moles, navigation}) => {
           <View style={styles.container}>
             <Image style={styles.image} source={{uri: image}} />
             <View style={styles.label}>
-            <Text style={styles.titleText}>{mole.nickname}</Text>
-            <TouchableOpacity style={styles.deleteButton}
-            //  onPress={() => dispatch(deleteMoleThunk(mole.id))}
-            onPress={createTwoButtonAlert}
-             >
-               <Text style={styles.deleteText}>-</Text>
-             </TouchableOpacity>
-             </View>
+              <Text style={styles.titleText}>{mole.nickname}</Text>
+              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteAlert(mole.id)}>
+                <Text style={styles.deleteText}>delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </TouchableOpacity>
       );
@@ -78,7 +70,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     width: 150,
     height: 150,
-    borderRadius: 10,
+    borderRadius: 1,
     marginRight: 10,
   },
   titleText: {
@@ -99,9 +91,10 @@ const styles = StyleSheet.create({
     padding: 10,
     // backgroundColor: "#FFB6C1",
     width: widthConst,
+    height: 170,
     // opacity: 0.8,
   },
-  label:{
+  label: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -109,19 +102,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     width: "100%",
   },
-  deleteButton:{
-    width: 17,
-    height: 17,
-    backgroundColor: "red",
-    color: "white",
-    borderRadius: 17,
+  deleteButton: {
+    width: 36,
+    height: 18,
+    backgroundColor: "#BC2020",
+    borderRadius: 1,
     justifyContent: "center",
+    alignItems: "center",
   },
-  deleteText:{
-    fontSize: 15,
-    textAlign: "center",
+  deleteText: {
+    fontSize: 8,
     fontWeight: "bold",
-  }
+    color: "white",
+    alignSelf: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
 });
 
 export default Moles;

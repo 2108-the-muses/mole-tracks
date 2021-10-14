@@ -36,7 +36,7 @@ async function seed() {
   ]);
 
   // Creating Moles
-  const [Fuzzy, Bumpy, Slimy, Bigs, Backy, Humps, Lumps] = await Mole.bulkCreate([
+  const [Fuzzy, Bumpy, Slimy, Backy, Humps, Lumps, Bigs] = await Mole.bulkCreate([
     {
       nickname: "Fuzzy",
       side: "front",
@@ -52,11 +52,7 @@ async function seed() {
       side: "back",
       bodyPart: "butt",
     },
-    {
-      nickname: "Bigs",
-      side: "front",
-      bodyPart: "leg-r",
-    },
+
     {
       nickname: "Backy",
       side: "back",
@@ -70,6 +66,11 @@ async function seed() {
     {
       nickname: "Lumps",
       side: "back",
+      bodyPart: "torso",
+    },
+    {
+      nickname: "Bigs",
+      side: "front",
       bodyPart: "torso",
     },
   ]);

@@ -44,7 +44,7 @@ const BodyPartsList = ({navigation}) => {
     return <Loading />;
   } else if (fetchStatus === FETCH_SUCCESS) {
     if (moles.length) {
-      return <View>{list()}</View>;
+      return <View style={{marginTop: 10}}>{list()}</View>;
     } else {
       return (
         <View style={{marginTop: 25}}>
@@ -58,20 +58,24 @@ const BodyPartsList = ({navigation}) => {
   } else if (fetchStatus === FETCH_FAILED) {
     return (
       <View>
-        <Text>FETCH STATUS FAILED</Text>
+        <Text>Uh oh! We were unable to fetch your moles!</Text>
       </View>
     );
   }
 };
 
 const styles = StyleSheet.create({
+  bodyParts: {
+    // flex: 1,
+    // marginTop: 10,
+  },
   titleBox: {
     flexDirection: "row",
     width: 260,
     justifyContent: "space-between",
-    marginTop: 20,
-    marginLeft: 20,
-    marginBottom: 13,
+    // marginTop: 20,
+    marginLeft: 10,
+    // marginBottom: 13,
   },
   title: {
     borderRadius: 10,
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
+    // marginTop: 10,
     shadowColor: "gray",
     shadowOffset: {width: 0, height: 1},
     shadowRadius: 3,

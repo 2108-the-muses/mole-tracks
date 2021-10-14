@@ -1,26 +1,36 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import {StyleSheet, View, Text, Image, ImageBackground, TouchableOpacity} from "react-native";
+import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  Alert,
+  TextInput,
+} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {FontAwesome5} from "@expo/vector-icons";
+import {Entypo} from "@expo/vector-icons";
+import {deleteMoleThunk} from "../store/mole";
+import {ALLMOLES} from "../NavigationConstants";
 
 const SingleMole = (props) => {
+  const dispatch = useDispatch();
   const mole = props.route.params.mole;
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [nickname, setNickname] = useState(mole.nickname);
+  const [side, setSide] = useState(mole.side);
+  const [bodyPart, setBodyPart] = useState(mole.bodyPart);
 
   let recentPhoto;
   mole.entries.length
     ? (recentPhoto = mole.entries[mole.entries.length - 1].imgUrl)
     : (recentPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
-
-  // const [isLoaded] = useFonts({
-  //   "SulphurPoint-Bold": require("../../assets/fonts/SulphurPoint-Bold.ttf"),
-  //   "SulphurPoint-Light": require("../../assets/fonts/SulphurPoint-Light.ttf"),
-  //   "SulphurPoint-Regular": require("../../assets/fonts/SulphurPoint-Regular.ttf"),
-  // });
-
-  // if (!isLoaded) {
-  //   return <AppLoading />;
-  // }
 
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
@@ -29,25 +39,82 @@ const SingleMole = (props) => {
     return orderedDate;
   };
 
+  const deleteAlert = (moleId) =>
+    Alert.alert("Delete Mole", "Are you sure you want to delete this mole?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        onPress: () => {
+          dispatch(deleteMoleThunk(moleId));
+          props.navigation.navigate(ALLMOLES);
+        },
+        style: "destructive",
+      },
+    ]);
+
   return (
     <View style={styles.container}>
       <ImageBackground
         source={require("../../assets/images/background.png")}
         style={styles.background}
       />
-      <View style={styles.headerBox}>
-        <View style={styles.header}>
-          <Text style={styles.name}>{mole.nickname}</Text>
-        </View>
-        <View style={styles.edit}>
-          <Text style={styles.name}>+</Text>
-        </View>
-      </View>
+
       <View style={styles.imageBox}>
+        <View style={styles.headerBox}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              style={styles.icon}
+              onPress={() => console.log("ADD ENTRY FUNCTION/ROUTE HERE")}
+            >
+              <FontAwesome5 name="plus" size={20} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.icon} onPress={() => setIsEdit(true)}>
+              <Entypo name="edit" size={20} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.icon} onPress={() => deleteAlert(mole.id)}>
+              <FontAwesome5 name="minus" size={20} color="black" />
+            </TouchableOpacity>
+          </View>
+        </View>
         <Image source={{uri: recentPhoto}} style={styles.image}></Image>
-        <Text style={styles.location}>
-          {mole.side} || {mole.bodyPart}
-        </Text>
+        {isEdit ? (
+          <Text style={styles.location}>
+            <TextInput
+              autoCapitalize="none"
+              // style={styles.textInput}
+              onChangeText={(nickname) => setNickname(nickname)}
+              value={nickname}
+            >
+              {mole.nickname}
+            </TextInput>
+            <TextInput
+              autoCapitalize="none"
+              // style={styles.textInput}
+              onChangeText={(side) => setSide(side)}
+              value={side}
+            >
+              {mole.side}
+            </TextInput>
+            <TextInput
+              autoCapitalize="none"
+              // style={styles.textInput}
+              onChangeText={(bodyPart) => setBodyPart(bodyPart)}
+              value={bodyPart}
+            >
+              {mole.bodyPart}
+            </TextInput>
+          </Text>
+        ) : (
+          <Text style={styles.location}>
+            <Text>{mole.nickname}</Text>
+            <Text>{mole.side}</Text>
+            <Text>{mole.bodyPart}</Text>
+          </Text>
+        )}
       </View>
       {mole.entries.length ? (
         <KeyboardAwareScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
@@ -89,27 +156,25 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   headerBox: {
-    width: 300,
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
   header: {
-    borderRadius: 10,
     backgroundColor: "#FF7379",
-    width: 195,
-    height: 50,
+    flexDirection: "row",
+    width: "100%",
+    height: 35,
     alignItems: "center",
-    justifyContent: "center",
-    marginTop: 25,
-    shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
-    shadowRadius: 3,
-    elevation: 1,
+    justifyContent: "flex-end",
+  },
+  icon: {
+    marginHorizontal: 10,
   },
   edit: {
     borderRadius: 10,
     backgroundColor: "#FF7379",
-    width: 90,
+    width: 50,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -117,17 +182,17 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   imageBox: {
-    width: 300,
-    height: 275,
+    width: 350,
+    height: 350,
     backgroundColor: "#E59F71",
-    borderRadius: 15,
+    borderRadius: 1,
     alignItems: "center",
     marginVertical: 25,
   },
   image: {
-    width: 250,
-    height: 200,
-    marginTop: 25,
+    width: 350,
+    height: 250,
+    // marginTop: 25,
   },
   name: {
     fontFamily: "SulphurPoint-Bold",
@@ -144,7 +209,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 75,
     backgroundColor: "#E59F71",
-    borderRadius: 15,
+    borderRadius: 1,
     marginBottom: 25,
     justifyContent: "center",
     alignItems: "flex-start",
