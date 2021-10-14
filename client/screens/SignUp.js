@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {authenticate} from "../store/auth";
+import {authenticateSignUp} from "../store/auth";
 
 import {useFonts} from "@use-expo/font";
 import AppLoading from "expo-app-loading";
@@ -26,10 +26,8 @@ const SignUp = (props) => {
 
   const handleSignUp = async () => {
     try {
-      const response = await dispatch(
-        authenticate({email, firstName, lastName, password, method: "signup"})
-      );
-      response === true ? props.navigation.navigate("Main") : setError(response);
+      const response = await dispatch(authenticateSignUp({email, firstName, lastName, password}));
+      if (response !== true) setError(response);
     } catch (error) {
       console.log(error);
     }
@@ -101,6 +99,11 @@ const SignUp = (props) => {
       </View>
     </KeyboardAwareScrollView>
   );
+};
+
+SignUp.navigationOptions = {
+  headerTitle: "mole tracks",
+  headerLeft: null,
 };
 
 export default SignUp;

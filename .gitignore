@@ -13,3 +13,4 @@ secrets.js
 # macOS
 .DS_Store
 firebase-admin-sdk.json
+package-lock.json

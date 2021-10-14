@@ -11,9 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {authenticate} from "../store/auth";
-import {useFonts} from "@use-expo/font";
-import AppLoading from "expo-app-loading";
+import {authenticateLogin} from "../store/auth";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -23,10 +21,8 @@ const Login = (props) => {
 
   const handleLogin = async () => {
     try {
-      const response = await dispatch(
-        authenticate({email: email, password: password, method: "login"})
-      );
-      if (!response === true) {
+      const response = await dispatch(authenticateLogin({email: email, password: password}));
+      if (response !== true) {
         setError(response);
       }
     } catch (error) {
@@ -86,6 +82,11 @@ const Login = (props) => {
       </View>
     </KeyboardAwareScrollView>
   );
+};
+
+Login.navigationOptions = {
+  headerTitle: "login",
+  headerLeft: null,
 };
 
 export default Login;
