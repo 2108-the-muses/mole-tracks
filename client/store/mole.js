@@ -1,6 +1,6 @@
 import axios from "axios";
-import {IP_ADDRESS} from "../../secrets";
-import {firebaseAuth} from "../firebase-auth/config";
+import { IP_ADDRESS } from "../../secrets";
+import { firebaseAuth } from "../firebase-auth/config";
 
 /**
  * FETCH CONSTANTS
@@ -19,10 +19,10 @@ const SET_MOLES_FETCH_STATUS = "SET_MOLES_FETCH_STATUS";
 /**
  * ACTION CREATORS
  */
-const setAllMoles = (allMoles) => ({type: SET_ALL_MOLES, allMoles});
-const addMole = (mole) => ({type: ADD_MOLE, mole});
+const setAllMoles = (allMoles) => ({ type: SET_ALL_MOLES, allMoles });
+const addMole = (mole) => ({ type: ADD_MOLE, mole });
 const setMolesFetchStatus = (status) => {
-  return {type: SET_MOLES_FETCH_STATUS, status};
+  return { type: SET_MOLES_FETCH_STATUS, status };
 };
 
 /**
@@ -34,9 +34,12 @@ export const fetchAllMoles = () => {
       dispatch(setMolesFetchStatus(FETCH_PENDING));
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const {data} = await axios.get(`http://${IP_ADDRESS}:8080/api/mole/`, {
-          headers: {authtoken: idToken},
-        });
+        const { data } = await axios.get(
+          `http://${IP_ADDRESS}:8080/api/mole/`,
+          {
+            headers: { authtoken: idToken },
+          }
+        );
         console.log("DATE FOR MURPHY", data);
         dispatch(setAllMoles(data));
       }
@@ -48,19 +51,19 @@ export const fetchAllMoles = () => {
   };
 };
 
-export const addMoleThunk = ({nickname, bodyPart, side}) => {
+export const addMoleThunk = ({ nickname, bodyPart, side }) => {
   return async (dispatch) => {
     try {
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const {data} = await axios.post(
+        const { data } = await axios.post(
           `http://${IP_ADDRESS}:8080/api/mole/`,
           {
             nickname,
             bodyPart,
             side,
           },
-          {headers: {authtoken: idToken}}
+          { headers: { authtoken: idToken } }
         );
         dispatch(addMole(data));
       }
@@ -79,11 +82,11 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_ALL_MOLES:
-      return {...state, moles: action.allMoles};
+      return { ...state, moles: action.allMoles };
     case ADD_MOLE:
-      return {...state, moles: [...state.moles, action.mole]};
+      return { ...state, moles: [...state.moles, action.mole] };
     case SET_MOLES_FETCH_STATUS:
-      return {...state, fetchStatus: action.status};
+      return { ...state, fetchStatus: action.status };
     default:
       return state;
   }
