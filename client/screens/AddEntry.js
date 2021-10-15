@@ -20,6 +20,7 @@ import {
   ADD_SUCCESS,
 } from "../store/entry";
 import Loading from "./Loading";
+import { ENTRY } from "../NavigationConstants";
 
 const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
@@ -32,8 +33,7 @@ const AddEntry = ({ route, navigation }) => {
   const status = useSelector((state) => state.entry.addStatus);
   const entryForEntryRouteParam = useSelector((state) => state.entry.entry);
   let moleNameForEntryRouteParam;
-  const gotMoleId = route.params.moleId; //false if nothing passed in
-  console.log("GOT MOLE ID", gotMoleId);
+  const gotMoleId = route.params.moleId;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -60,17 +60,15 @@ const AddEntry = ({ route, navigation }) => {
   }, [bodyPart]);
 
   const handleSubmit = () => {
-    //loading starts
     dispatch(addEntry(notes, base64Img, moleId));
-    //loading finished
   };
   if (status === ADD_PENDING) {
     return <Loading />;
   } else if (status === ADD_SUCCESS) {
-    navigation.navigate("Entry", {
-      name: moleNameForEntryRouteParam,
-      entry: entryForEntryRouteParam,
-    });
+    // navigation.navigate("Entry", {
+    //   name: moleNameForEntryRouteParam,
+    //   entry: entryForEntryRouteParam,
+    // });
     navigation.reset({
       index: 0,
       routes: [
@@ -78,7 +76,7 @@ const AddEntry = ({ route, navigation }) => {
           name: ENTRY,
           params: {
             name: moleNameForEntryRouteParam,
-      entry: entryForEntryRouteParam,
+            entry: entryForEntryRouteParam,
           },
         },
       ],
@@ -88,51 +86,65 @@ const AddEntry = ({ route, navigation }) => {
     dispatch(addStatus(null));
   }
   return (
-    <KeyboardAwareScrollView>
+    <View style={styles.container}>
       <ImageBackground
         source={require("../../assets/images/background.png")}
         style={styles.background}
       />
-
-      <View style={styles.content}>
-        <View style={styles.imageBox}>
-          <Image style={styles.entryImage} source={{ uri: base64Img }} />
-        </View>
-        <View style={styles.notesBox}>
-          <TextInput
-            placeholder="notes"
-            style={styles.textInput}
-            onChangeText={(notes) => setNotes(notes)}
-            value={notes}
-          />
-        </View>
-        <View>
-          {gotMoleId === false && (
-            <SelectDropdown
-              data={bodyParts}
-              defaultButtonText={"Select Body Part"}
-              onSelect={(selected) => {
-                setBodyPart(selected);
-              }}
+      <KeyboardAwareScrollView>
+        <View style={styles.content}>
+          <View style={styles.entryimageBox}>
+            <Image style={styles.entryImage} source={{ uri: base64Img }} />
+          </View>
+          <View style={styles.notesBox}>
+            <TextInput
+              placeholder="notes"
+              style={styles.textInput}
+              onChangeText={(notes) => setNotes(notes)}
+              value={notes}
             />
-          )}
-          {/* Front butt bug */}
-          {gotMoleId === false && Object.keys(bodyPartMoles).length > 0 && (
-            <SelectDropdown
-              data={Object.keys(bodyPartMoles)}
-              defaultButtonText={"Select Mole"}
-              onSelect={(selected) => {
-                setMoleId(bodyPartMoles[selected]);
-                moleNameForEntryRouteParam = selected;
-              }}
-            />
-          )}
+          </View>
+          <View>
+            {gotMoleId === false && (
+              <SelectDropdown
+                buttonStyle={styles.dropdown2BtnStyle}
+                buttonTextStyle={styles.dropdown2BtnTxtStyle}
+                dropdownStyle={styles.dropdown2DropdownStyle}
+                rowStyle={styles.dropdown2RowStyle}
+                rowTextStyle={styles.dropdown2RowTxtStyle}
+                data={bodyParts}
+                defaultButtonText={"Select Body Part"}
+                onSelect={(selected) => {
+                  setBodyPart(selected);
+                }}
+              />
+            )}
+            {/* Front butt bug */}
+            {gotMoleId === false && Object.keys(bodyPartMoles).length > 0 && (
+              <SelectDropdown
+                buttonStyle={styles.dropdown2BtnStyle}
+                buttonTextStyle={styles.dropdown2BtnTxtStyle}
+                dropdownStyle={styles.dropdown2DropdownStyle}
+                rowStyle={styles.dropdown2RowStyle}
+                rowTextStyle={styles.dropdown2RowTxtStyle}
+                data={Object.keys(bodyPartMoles)}
+                defaultButtonText={"Select Mole"}
+                onSelect={(selected) => {
+                  setMoleId(bodyPartMoles[selected]);
+                  moleNameForEntryRouteParam = selected;
+                }}
+              />
+            )}
+          </View>
+          <TouchableOpacity
+            onPress={handleSubmit}
+            style={styles.submitEntryButton}
+          >
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-          <Text>Submit</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

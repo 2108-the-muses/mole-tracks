@@ -56,6 +56,8 @@ const MolesStack = () => {
       <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={ADDMOLE} component={AddMole} />
+      <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
+      <Stack.Screen name={ADDENTRY} component={AddEntry} />
     </Stack.Navigator>
   );
 };

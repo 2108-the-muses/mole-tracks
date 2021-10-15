@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import {StyleSheet, View, Text, Image, ImageBackground, TouchableOpacity} from "react-native";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {TAKEPHOTO} from '../NavigationConstants'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const SingleMole = ({route,navigation}) => {
+const SingleMole = ({ route, navigation }) => {
   const mole = route.params.mole;
 
   let recentPhoto;
@@ -40,24 +46,37 @@ const SingleMole = ({route,navigation}) => {
         <View style={styles.header}>
           <Text style={styles.name}>{mole.nickname}</Text>
         </View>
-        <View style={styles.edit}>
-          <Text style={styles.name} onPress= {()=>{navigation.navigate(TAKEPHOTO, {moleId: mole.id})}}>+</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.edit}
+          onPress={() => {
+            navigation.navigate("TakePhoto", { moleId: mole.id });
+          }}
+        >
+          <Text style={styles.name}>+</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.imageBox}>
-        <Image source={{uri: recentPhoto}} style={styles.image}></Image>
+        <Image source={{ uri: recentPhoto }} style={styles.image}></Image>
         <Text style={styles.location}>
           {mole.side} || {mole.bodyPart}
         </Text>
       </View>
       {mole.entries.length ? (
-        <KeyboardAwareScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <KeyboardAwareScrollView
+          style={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
+        >
           {mole.entries.map((entry) => {
             return (
               <TouchableOpacity
                 key={entry.id}
                 style={styles.entryBox}
-                onPress={() => props.navigation.navigate("Entry", {entry: entry, name: mole.name})}
+                onPress={() =>
+                  navigation.navigate("Entry", {
+                    entry: entry,
+                    name: mole.name,
+                  })
+                }
               >
                 <Text style={styles.entry}>Entry: {date(entry.createdAt)}</Text>
               </TouchableOpacity>
@@ -103,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 25,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },
