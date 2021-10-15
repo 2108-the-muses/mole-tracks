@@ -194,6 +194,23 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginVertical: 12,
   },
+  profileContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  profileText: {
+    fontFamily: "SulphurPoint-Bold",
+    fontSize: 22,
+  },
+  userInfoSection: {
+    paddingHorizontal: 30,
+    marginBottom: 25,
+  },
+  tinyImage: {
+    width: 75,
+    height: 75,
+    shadowColor: "black",
+  },
 });
 
 export default styles;

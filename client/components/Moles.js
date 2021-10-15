@@ -8,27 +8,48 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+import {deleteMoleThunk} from "../store/mole";
+import {useDispatch} from "react-redux";
 
 const Moles = ({moles, navigation}) => {
+  const dispatch = useDispatch();
+
+  const deleteAlert = (moleId) =>
+    Alert.alert("Delete Mole", "Are you sure you want to delete this mole?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {text: "Delete", onPress: () => dispatch(deleteMoleThunk(moleId)), style: "destructive"},
+    ]);
+
   const list = () => {
     return moles.map((mole, index) => {
       let image;
-      mole.entries.length
-        ? (image = mole.entries[mole.entries.length - 1].imgUrl)
+      const entries = mole.entries || [];
+      entries.length
+        ? (image = entries[entries.length - 1].imgUrl)
         : (image =
             "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("SingleMole", {mole});
+            navigation.push("SingleMole", {mole});
           }}
           key={index}
         >
           <View style={styles.container}>
             <Image style={styles.image} source={{uri: image}} />
-            <Text style={styles.titleText}>{mole.nickname}</Text>
+            <View style={styles.label}>
+              <Text style={styles.titleText}>{mole.nickname}</Text>
+              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteAlert(mole.id)}>
+                <Text style={styles.deleteText}>delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </TouchableOpacity>
       );
@@ -49,16 +70,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     width: 150,
     height: 150,
-    borderRadius: 10,
+    borderRadius: 1,
     marginRight: 10,
   },
   titleText: {
     color: "black",
     fontFamily: "SulphurPoint-Bold",
     fontSize: 20,
-    alignSelf: "flex-end",
-    marginTop: 5,
-    marginRight: 10,
   },
   image: {
     alignItems: "center",
@@ -73,7 +91,32 @@ const styles = StyleSheet.create({
     padding: 10,
     // backgroundColor: "#FFB6C1",
     width: widthConst,
+    height: 170,
     // opacity: 0.8,
+  },
+  label: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 5,
+    paddingHorizontal: 10,
+    width: "100%",
+  },
+  deleteButton: {
+    width: 36,
+    height: 18,
+    backgroundColor: "#BC2020",
+    borderRadius: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  deleteText: {
+    fontSize: 8,
+    fontWeight: "bold",
+    color: "white",
+    alignSelf: "center",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
 });
 
