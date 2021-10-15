@@ -12,11 +12,13 @@ import {
   ADDENTRY,
   TAKEPHOTO,
   ADDMOLE,
+  INFO,
+  PROFILE
 } from "../NavigationConstants";
 import cIndex from '../components'
 const {Logout} = cIndex
 import sIndex from '../screens'
-const  {Add,AddMole,AllMoles,Body,Entry,Loading,Login,SignUp,SingleMole,TakePhoto,AddEntry} = sIndex
+const  {Add,AddMole,AllMoles,Body,Entry,Loading,Login,SignUp,SingleMole,TakePhoto,AddEntry, Info, Profile} = sIndex
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
@@ -72,6 +74,8 @@ const UserStack = () => {
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={LOGOUT} component={Logout} />
       <Stack.Screen name={LOGIN} component={Login} />
+      <Stack.Screen name={INFO} component={Info} />
+      <Stack.Screen name={PROFILE} component={Profile} />
     </Stack.Navigator>
   );
 };
