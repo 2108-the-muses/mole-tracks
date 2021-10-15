@@ -106,6 +106,7 @@ export const addMoleThunk = ({ nickname, bodyPart, side }) => {
         );
         dispatch(addMole(data));
         dispatch(setSingleMole(data));
+        return data;
       }
     } catch (error) {
       console.log("THUNK ERROR: ", error);

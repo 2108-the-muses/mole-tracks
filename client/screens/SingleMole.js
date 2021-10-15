@@ -67,8 +67,6 @@ const SingleMole = (props) => {
     ? (recentPhoto = entries[entries.length - 1].imgUrl)
     : (recentPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
-
-  console.log("ENTRIES", entries);
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
     let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];

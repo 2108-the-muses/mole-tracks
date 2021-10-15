@@ -27,9 +27,11 @@ const AddMole = (props) => {
     ? (bodyParts = [...bodyParts, "groin"])
     : (bodyParts = [...bodyParts, "butt"]);
 
-  const handleSubmit = () => {
-    dispatch(addMoleThunk({ nickname, bodyPart, side }));
-    props.navigation.push("SingleMole", { mole: singleMole });
+  const handleSubmit = async () => {
+    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side }));
+    if (newMole) {
+      props.navigation.push("SingleMole", { mole: newMole });
+    }
   };
 
   return (

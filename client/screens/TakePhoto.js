@@ -60,7 +60,6 @@ const TakePhoto = ({ navigation, route }) => {
   };
 
   const onAcceptPhoto = () => {
-    console.log("MOLEID IN TAKE PHOTO", route.params.moleId);
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
     // navigation.reset({
     //   index: 0,

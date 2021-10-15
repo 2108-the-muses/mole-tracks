@@ -21,7 +21,6 @@ export const _addEntry = (newEntry) => ({
 export const addStatus = (status) => ({ type: ADD_STATUS, status });
 
 export const addEntry = (notes, base64Img, moleId) => {
-  console.log("MOLEID IN ADD ENTRY THUNK", moleId);
   return async (dispatch) => {
     try {
       dispatch(addStatus(ADD_PENDING));
