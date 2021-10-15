@@ -12,6 +12,8 @@ import {
   ADDENTRY,
   TAKEPHOTO,
   ADDMOLE,
+  INFO,
+  PROFILE,
 } from "../NavigationConstants";
 import cIndex from "../components";
 const {Logout} = cIndex;
@@ -28,6 +30,8 @@ const {
   SingleMole,
   TakePhoto,
   AddEntry,
+  Info,
+  Profile,
 } = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -81,6 +85,8 @@ const UserStack = () => {
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={LOGOUT} component={Logout} />
       <Stack.Screen name={LOGIN} component={Login} />
+      <Stack.Screen name={INFO} component={Info} />
+      <Stack.Screen name={PROFILE} component={Profile} />
     </Stack.Navigator>
   );
 };
