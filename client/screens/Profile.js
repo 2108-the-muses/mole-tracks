@@ -19,6 +19,19 @@ import styles from '../styles';
 const Profile = (props) => {
 	const user = useSelector((state) => state.auth.user);
 
+	const [isEdit, setIsEdit] = useState(false);
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [bodyPart, setBodyPart] = useState(mole.bodyPart);
+
+
+
+
+
+
+
+
+
 	return (
 		<SafeAreaView style={styles.profileContainer}>
 			<View style={styles.userInfoSection}>
@@ -36,7 +49,7 @@ const Profile = (props) => {
 							First Name: {user.firstName} {'\n'}
 						</Text>
 						<Text>
-							Last Name: {user.firstName} {'\n'}
+							Last Name: {user.lastName} {'\n'}
 						</Text>
 						<Text>Email: {user.email} </Text>
 					</Text>
