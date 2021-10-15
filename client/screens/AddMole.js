@@ -17,7 +17,7 @@ const AddMole = (props) => {
   const [nickname, setNickname] = useState("");
   const [side, setSide] = useState("");
   const [bodyPart, setBodyPart] = useState("");
-  let currentMoleId = useSelector((state) => state.allMoles.currentMoleId);
+  let currentMoleId = useSelector((state) => state.allMoles.singleMole.id);
 
   const sides = ["front", "back"];
   let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
@@ -27,8 +27,7 @@ const AddMole = (props) => {
 
   const handleSubmit = () => {
     const response = dispatch(addMoleThunk({ nickname, bodyPart, side }));
-    // props.navigation.push("TakePhoto", response);
-    props.navigation.push("AllMoles");
+    props.navigation.push("TakePhoto", { moleId: currentMoleId });
   };
 
   return (
