@@ -12,11 +12,27 @@ import {
   ADDENTRY,
   TAKEPHOTO,
   ADDMOLE,
+  INFO,
+  PROFILE,
 } from "../NavigationConstants";
-import cIndex from '../components'
-const {Logout} = cIndex
-import sIndex from '../screens'
-const  {Add,AddMole,AllMoles,Body,Entry,Loading,Login,SignUp,SingleMole,TakePhoto,AddEntry} = sIndex
+import cIndex from "../components";
+const {Logout} = cIndex;
+import sIndex from "../screens";
+const {
+  Add,
+  AddMole,
+  AllMoles,
+  Body,
+  Entry,
+  Loading,
+  Login,
+  SignUp,
+  SingleMole,
+  TakePhoto,
+  AddEntry,
+  Info,
+  Profile,
+} = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
@@ -29,7 +45,7 @@ const Stack = createNativeStackNavigator();
 const BodyStack = () => {
   return (
     <Stack.Navigator initialRouteName={BODY}>
-      <Stack.Screen name={BODY} options={{title:"Body"}} component={Body} />
+      <Stack.Screen name={BODY} options={{title: "Body"}} component={Body} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
@@ -51,13 +67,10 @@ const MolesStack = () => {
 const AddStack = () => {
   return (
     <Stack.Navigator initialRouteName={ADD}>
-      <Stack.Screen
-        name={ADD}
-        component={Add}
-        options={{title:"Add"}}
-      />
+      <Stack.Screen name={ADD} component={Add} options={{title: "Add"}} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
+      <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
       <Stack.Screen name={ENTRY} component={Entry} />
       <Stack.Screen name={LOADING} component={Loading} />
@@ -72,6 +85,8 @@ const UserStack = () => {
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={LOGOUT} component={Logout} />
       <Stack.Screen name={LOGIN} component={Login} />
+      <Stack.Screen name={INFO} component={Info} />
+      <Stack.Screen name={PROFILE} component={Profile} />
     </Stack.Navigator>
   );
 };
@@ -81,9 +96,9 @@ const Tab = createBottomTabNavigator();
 export const TabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({route}) => ({
         headerShown: false,
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
           if (route.name === "Body") {
@@ -115,9 +130,9 @@ export const AuthNavigator = () => {
   return (
     <Auth.Navigator initialRouteName={LOGIN}>
       <Auth.Screen name={LOGIN} component={Login} />
-      <Auth.Screen name={SIGNUP} options={{headerShown: false}}component={SignUp} />
+      <Auth.Screen name={SIGNUP} options={{headerShown: false}} component={SignUp} />
       <Auth.Screen name={LOADING} component={Loading} />
-      <Auth.Screen name={BODY} options={{title:"Body"}} component={Body} />
+      <Auth.Screen name={BODY} options={{title: "Body"}} component={Body} />
     </Auth.Navigator>
   );
 };
