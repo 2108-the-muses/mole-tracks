@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -12,19 +12,25 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SelectDropdown from "react-native-select-dropdown";
-import {FontAwesome5} from "@expo/vector-icons";
-import {Entypo} from "@expo/vector-icons";
-import {ALLMOLES} from "../NavigationConstants";
-import {deleteMoleThunk, updateMoleThunk, fetchSingleMole} from "../store/mole";
-import {FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS} from "../store/mole";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { ALLMOLES } from "../NavigationConstants";
+import {
+  deleteMoleThunk,
+  updateMoleThunk,
+  fetchSingleMole,
+} from "../store/mole";
+import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import Loading from "./Loading";
 
 const SingleMole = (props) => {
   const moleId = props.route.params.mole.id;
 
-  const fetchStatus = useSelector((state) => state.allMoles.singleMoleFetchStatus);
+  const fetchStatus = useSelector(
+    (state) => state.allMoles.singleMoleFetchStatus
+  );
   const mole = useSelector((state) => state.allMoles.singleMole);
 
   const [isEdit, setIsEdit] = useState(false);
@@ -51,7 +57,9 @@ const SingleMole = (props) => {
 
   const sides = ["front", "back"];
   let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
-  side === "front" ? (bodyParts = [...bodyParts, "groin"]) : (bodyParts = [...bodyParts, "butt"]);
+  side === "front"
+    ? (bodyParts = [...bodyParts, "groin"])
+    : (bodyParts = [...bodyParts, "butt"]);
 
   let recentPhoto;
   const entries = mole.entries || [];
@@ -59,8 +67,6 @@ const SingleMole = (props) => {
     ? (recentPhoto = entries[entries.length - 1].imgUrl)
     : (recentPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
-
-  console.log("ENTRIES", entries);
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
     let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
@@ -70,7 +76,7 @@ const SingleMole = (props) => {
 
   const handleSubmit = () => {
     setIsEdit(false);
-    dispatch(updateMoleThunk(mole.id, {nickname, bodyPart, side}));
+    dispatch(updateMoleThunk(mole.id, { nickname, bodyPart, side }));
   };
 
   const deleteAlert = (moleId) =>
@@ -109,7 +115,7 @@ const SingleMole = (props) => {
         />
         <View style={styles.contentBox}>
           <View style={styles.headerBox}>
-            <View style={{marginLeft: 10}}>
+            <View style={{ marginLeft: 10 }}>
               {isEdit ? (
                 <SafeAreaView>
                   <TextInput
@@ -133,14 +139,17 @@ const SingleMole = (props) => {
               >
                 <Entypo name="edit" size={16} color="black" />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.icon} onPress={() => deleteAlert(mole.id)}>
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => deleteAlert(mole.id)}
+              >
                 <FontAwesome5 name="minus" size={16} color="black" />
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{flexDirection: "row"}}>
+          <View style={{ flexDirection: "row" }}>
             <View>
-              <Image source={{uri: recentPhoto}} style={styles.image}></Image>
+              <Image source={{ uri: recentPhoto }} style={styles.image}></Image>
             </View>
 
             <View style={styles.infoColumn}>
@@ -189,7 +198,7 @@ const SingleMole = (props) => {
               {isEdit && (
                 <TouchableOpacity
                   onPress={handleSubmit}
-                  style={{alignItems: "center", marginTop: 10}}
+                  style={{ alignItems: "center", marginTop: 10 }}
                 >
                   <Text>UPDATE MOLE</Text>
                 </TouchableOpacity>
@@ -199,26 +208,34 @@ const SingleMole = (props) => {
         </View>
         <View style={styles.contentBox}>
           <View style={styles.headerBox}>
-            <View style={{marginLeft: 10}}>
+            <View style={{ marginLeft: 10 }}>
               <Text style={styles.nickname}>Entries</Text>
             </View>
             <View style={styles.iconBox}>
               <TouchableOpacity
                 style={styles.icon}
-                onPress={() => console.log("ADD ENTRY FUNCTION/ROUTE HERE")}
+                onPress={() => props.navigation.push("TakePhoto", { moleId })}
               >
                 <FontAwesome5 name="plus" size={16} color="black" />
               </TouchableOpacity>
             </View>
           </View>
           {entries.length ? (
-            <KeyboardAwareScrollView style={{width: "100%"}} showsVerticalScrollIndicator={false}>
+            <KeyboardAwareScrollView
+              style={{ width: "100%" }}
+              showsVerticalScrollIndicator={false}
+            >
               {entries.reverse().map((entry) => {
                 return (
                   <TouchableOpacity
                     key={entry.id}
                     style={styles.entryBox}
-                    onPress={() => props.navigation.push("Entry", {entry: entry, name: mole.name})}
+                    onPress={() =>
+                      props.navigation.push("Entry", {
+                        entry: entry,
+                        name: mole.name,
+                      })
+                    }
                   >
                     <Text style={styles.entry}>{date(entry.createdAt)}</Text>
                   </TouchableOpacity>

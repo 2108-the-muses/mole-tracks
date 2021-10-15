@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   imageBox: {
     width: 300,
-    height: 275,
+    height: 250,
     backgroundColor: "#E59F71",
     borderRadius: 15,
     alignItems: "center",

@@ -1,24 +1,37 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {StyleSheet, View, Text, ImageBackground, TextInput, TouchableOpacity} from "react-native";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {addMoleThunk} from "../store/mole";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { addMoleThunk } from "../store/mole";
 
 const AddMole = (props) => {
   const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
   const [side, setSide] = useState("");
   const [bodyPart, setBodyPart] = useState("");
+  const singleMole = useSelector((state) => {
+    return state.allMoles.singleMole;
+  });
 
   const sides = ["front", "back"];
   let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
-  side === "front" ? (bodyParts = [...bodyParts, "groin"]) : (bodyParts = [...bodyParts, "butt"]);
+  side === "front"
+    ? (bodyParts = [...bodyParts, "groin"])
+    : (bodyParts = [...bodyParts, "butt"]);
 
-  const handleSubmit = () => {
-    const response = dispatch(addMoleThunk({nickname, bodyPart, side}));
-    // props.navigation.push("TakePhoto", response);
-    props.navigation.push("AllMoles");
+  const handleSubmit = async () => {
+    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side }));
+    if (newMole) {
+      props.navigation.push("SingleMole", { mole: newMole });
+    }
   };
 
   return (
@@ -105,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 25,
     shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 0, height: 1 },
     shadowRadius: 3,
     elevation: 1,
   },

@@ -16,10 +16,9 @@ const styles = StyleSheet.create({
     top: 20,
   },
   entryImage: {
-    width: 100,
-    height: 100,
-    position: "absolute",
-    top: 20,
+    width: 250,
+    height: 200,
+    marginTop: 25,
   },
   form: {
     alignItems: "center",
@@ -57,6 +56,19 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 1,
   },
+  submitEntryButton: {
+    borderRadius: 10,
+    backgroundColor: "#FF7379",
+    width: 115,
+    height: 50,
+    alignSelf: "center",
+    justifyContent: "center",
+    marginTop: 25,
+    shadowColor: "gray",
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 3,
+    elevation: 1,
+  },
   buttonText: {
     color: "white",
     textAlign: "center",
@@ -77,14 +89,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 25,
   },
-  // entryimageBox: {
-  //   width: 300,
-  //   height: 275,
-  //   backgroundColor: "#E59F71",
-  //   borderRadius: 15,
-  //   alignItems: "center",
-  //   marginVertical: 25,
-  // },
+  entryimageBox: {
+    width: 300,
+    height: 250,
+    backgroundColor: "#E59F71",
+    borderRadius: 15,
+    alignItems: "center",
+    marginVertical: 25,
+  },
   name: {
     fontFamily: "SulphurPoint-Bold",
     color: "black",
@@ -101,23 +113,104 @@ const styles = StyleSheet.create({
   notesBox: {
     width: 275,
   },
-  profileContainer:{
-    flex: 1,
-    backgroundColor: "white"
+  photoContainer: {
+    ...StyleSheet.absoluteFillObject,
   },
-  profileText:{
+  photoTopContainer: {
+    backgroundColor: "#E59F71",
+    position: "absolute",
+    flexDirection: "row",
+    top: 28,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    opacity: 0.7,
+  },
+  photoBottomButtonsContainer: {
+    position: "absolute",
+    flexDirection: "row",
+    bottom: 28,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  photoCapture: {
+    marginTop: 20,
+    marginLeft: 20,
+    marginBottom: 13,
+    borderRadius: 10,
+    backgroundColor: "#FF7379",
+    width: 120,
+    height: 45,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    shadowColor: "gray",
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 3,
+    elevation: 1,
+  },
+  photoCaptureText: {
+    color: "white",
+    textAlign: "center",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 20,
+  },
+  photoCaptureDimeAdvice: {
+    color: "black",
+    textAlign: "center",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 25,
+  },
+  dropdown2BtnStyle: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "#E59F71",
+    borderRadius: 15,
+    alignSelf: "center",
+    marginTop: 20,
+  },
+  dropdown2BtnTxtStyle: {
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
     fontFamily: "SulphurPoint-Bold",
-    fontSize: 22
+    fontSize: 22,
   },
-  userInfoSection:{
+  dropdown2DropdownStyle: {
+    backgroundColor: "#E59F71",
+    height: 150,
+  },
+  dropdown2RowStyle: {
+    backgroundColor: "#E59F71",
+    borderBottomColor: "#BA5A31",
+    height: 50,
+  },
+  dropdown2RowTxtStyle: {
+    color: "#FFF",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontFamily: "SulphurPoint-Bold",
+    fontSize: 22,
+    marginVertical: 12,
+  },
+  profileContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  profileText: {
+    fontFamily: "SulphurPoint-Bold",
+    fontSize: 22,
+  },
+  userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 25,
   },
-  tinyImage:{
+  tinyImage: {
     width: 75,
     height: 75,
-    shadowColor: 'black'
-  }
+    shadowColor: "black",
+  },
 });
 
 export default styles;
