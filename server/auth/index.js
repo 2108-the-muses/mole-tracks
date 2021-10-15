@@ -36,3 +36,19 @@ router.get("/me", checkAuth, async (req, res, next) => {
     next(ex);
   }
 });
+
+
+// PUT /auth/update
+router.put('/update', checkAuth, async (req, res, next) => {
+	try {
+		const user = await User.findByPk(req.user.uid);
+
+		if (user) {
+			res.json(await user.update(req.body));
+		} else {
+			throw { status: 401, message: 'User not Found!' };
+		}
+	} catch (err) {
+		next(err);
+	}
+});
