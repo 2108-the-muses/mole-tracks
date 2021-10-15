@@ -10,7 +10,6 @@ import {
 	Image,
 } from 'react-native';
 import styles from '../styles';
-import { Avatar } from 'react-native-paper';
 
 {
 	/* <TouchableOpacity onPress={() => props.navigation.navigate("Entry")}> */

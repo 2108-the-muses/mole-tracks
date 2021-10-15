@@ -116,10 +116,14 @@ export const TabNavigator = () => {
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="Body" component={BodyStack} />
-      <Tab.Screen name="Moles" component={MolesStack} />
-      <Tab.Screen name="Add" component={AddStack} />
-      <Tab.Screen name="User" component={UserStack} />
+      <Tab.Screen name="Body" component={BodyStack} unmountOnBlur={true}
+    options={{unmountOnBlur: true}} />
+      <Tab.Screen name="Moles" component={MolesStack} unmountOnBlur={true}
+    options={{unmountOnBlur: true}} />
+      <Tab.Screen name="Add" component={AddStack} unmountOnBlur={true}
+    options={{unmountOnBlur: true}}/>
+      <Tab.Screen name="User" component={UserStack} unmountOnBlur={true}
+    options={{unmountOnBlur: true}} />
     </Tab.Navigator>
   );
 };
