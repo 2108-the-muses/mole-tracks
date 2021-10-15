@@ -12,3 +12,6 @@ export const LOGOUT = "Logout";
 export const TAKEPHOTO = "TakePhoto";
 export const ADDENTRY = "AddEntry";
 export const ADDMOLE = "AddMole";
+export const INFO = "Info";
+export const PROFILE = "Profile";
+
