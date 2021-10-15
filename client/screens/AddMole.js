@@ -16,8 +16,9 @@ const AddMole = (props) => {
   side === "front" ? (bodyParts = [...bodyParts, "groin"]) : (bodyParts = [...bodyParts, "butt"]);
 
   const handleSubmit = () => {
-    dispatch(addMoleThunk({nickname, bodyPart, side}));
-    // props.navigation.navigate("TakePhoto", {moleId});
+    const response = dispatch(addMoleThunk({nickname, bodyPart, side}));
+    // props.navigation.push("TakePhoto", response);
+    props.navigation.push("AllMoles");
   };
 
   return (

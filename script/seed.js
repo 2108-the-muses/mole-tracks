@@ -36,7 +36,7 @@ async function seed() {
   ]);
 
   // Creating Moles
-  const [Fuzzy, Bumpy, Slimy, Bigs, Backy, Humps, Lumps] = await Mole.bulkCreate([
+  const [Fuzzy, Bumpy, Slimy, Backy, Humps, Lumps, Bigs] = await Mole.bulkCreate([
     {
       nickname: "Fuzzy",
       side: "front",
@@ -52,11 +52,7 @@ async function seed() {
       side: "back",
       bodyPart: "butt",
     },
-    {
-      nickname: "Bigs",
-      side: "front",
-      bodyPart: "leg-r",
-    },
+
     {
       nickname: "Backy",
       side: "back",
@@ -72,10 +68,15 @@ async function seed() {
       side: "back",
       bodyPart: "torso",
     },
+    {
+      nickname: "Bigs",
+      side: "front",
+      bodyPart: "torso",
+    },
   ]);
 
   // Creating Entries
-  const [March1, June1, July1] = await Entry.bulkCreate([
+  const [March1, June1, July1, August1, September1, October1] = await Entry.bulkCreate([
     {
       notes: "Came out of nowhere. So fuzzy!!!",
       tags: ["border", "elevation"],
@@ -93,13 +94,31 @@ async function seed() {
       imgUrl:
         "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
     },
+    {
+      notes: "So much fuzz.",
+      tags: ["asymmetry", "elevation"],
+      imgUrl:
+        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+    },
+    {
+      notes: "The fuzziest",
+      tags: ["asymmetry", "elevation"],
+      imgUrl:
+        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+    },
+    {
+      notes: "SOS",
+      tags: ["asymmetry", "elevation"],
+      imgUrl:
+        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+    },
   ]);
 
   // Associations via Magic Methods
   await Cody.setMoles([Fuzzy, Bumpy, Bigs, Backy, Humps, Lumps]);
   await Sally.setMoles(Slimy);
 
-  await Fuzzy.setEntries([March1, June1]);
+  await Fuzzy.setEntries([March1, June1, August1, September1, October1]);
   await Bumpy.setEntries(July1);
 
   console.log(`seeded successfully`);
