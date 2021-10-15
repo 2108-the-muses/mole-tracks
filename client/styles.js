@@ -102,25 +102,21 @@ const styles = StyleSheet.create({
     width: 275,
   },
   profileContainer:{
-    height: heightConst - 50,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  profileImage:{
-    width: 325,
-    height: 325,
-    position: "absolute",
-    top: 20,
+    flex: 1,
+    backgroundColor: "white"
   },
   profileText:{
     fontFamily: "SulphurPoint-Bold",
-    fontSize: 22,
+    fontSize: 22
   },
-  profileViewContainer:{
-    flex: 1,
-    padding: 20,
-    margin:10
+  userInfoSection:{
+    paddingHorizontal: 30,
+    marginBottom: 25,
+  },
+  tinyImage:{
+    width: 75,
+    height: 75,
+    shadowColor: 'black'
   }
 });
 
