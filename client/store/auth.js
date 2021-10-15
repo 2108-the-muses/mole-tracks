@@ -36,6 +36,43 @@ export const setUserThunk = () => async (dispatch) => {
   }
 };
 
+export const updateUserThunk =
+  ({ firstName, lastName }) =>
+  async (dispatch) => {
+    try {
+      const idToken = await firebaseAuth.currentUser.getIdToken(true);
+      if (idToken) {
+        const { data } = await axios.put(
+          `http://${IP_ADDRESS}:8080/auth/update`,
+          {
+            firstName,
+            lastName,
+          },
+          {
+            headers: {
+              authtoken: idToken,
+            },
+          }
+        );
+        dispatch(setUser(data));
+        return true;
+      }
+    } catch (err) {
+      console.log("THUNK ERROR: ", err);
+    }
+  };
+
+export const updatePassword = async (password) => {
+  try {
+    const user = await firebaseAuth.currentUser;
+    await user.updatePassword(password);
+    return true;
+  } catch (err) {
+    console.log("UPDATE PASSWORD: err");
+    return err.message;
+  }
+};
+
 const verify = (data, dispatch) => {
   if (data.uid) {
     dispatch(setUserThunk());

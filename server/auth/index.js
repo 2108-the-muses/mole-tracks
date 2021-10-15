@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const {checkAuth} = require("../auth-middleware.js");
+const { checkAuth } = require("../auth-middleware.js");
 const {
-  models: {User},
+  models: { User },
 } = require("../db");
 module.exports = router;
 
@@ -32,7 +32,23 @@ router.get("/me", checkAuth, async (req, res, next) => {
     const user = await User.findByPk(req.user.uid);
     res.send(user);
   } catch (ex) {
-    console.log("error in me")
+    console.log("error in me");
     next(ex);
+  }
+});
+
+// PUT /auth/update
+router.put("/update", checkAuth, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.user.uid);
+
+    if (user) {
+      console.log(await user.update(req.body));
+      res.json(await user.update(req.body));
+    } else {
+      throw { status: 401, message: "User not Found!" };
+    }
+  } catch (err) {
+    next(err);
   }
 });
