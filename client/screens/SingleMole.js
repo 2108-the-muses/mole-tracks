@@ -60,6 +60,7 @@ const SingleMole = (props) => {
     : (recentPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
+  console.log("ENTRIES", entries);
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
     let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
@@ -106,81 +107,130 @@ const SingleMole = (props) => {
           source={require("../../assets/images/background.png")}
           style={styles.background}
         />
-        <View style={styles.imageBox}>
+        <View style={styles.contentBox}>
           <View style={styles.headerBox}>
-            <View style={styles.header}>
-              <TouchableOpacity
-                style={styles.icon}
-                onPress={() => console.log("ADD ENTRY FUNCTION/ROUTE HERE")}
-              >
-                <FontAwesome5 name="plus" size={20} color="black" />
-              </TouchableOpacity>
+            <View style={{marginLeft: 10}}>
+              {isEdit ? (
+                <SafeAreaView>
+                  <TextInput
+                    autoCapitalize="none"
+                    style={styles.nicknameInput}
+                    placeholder={nickname}
+                    onChangeText={(nickname) => setNickname(nickname)}
+                    value={nickname}
+                  ></TextInput>
+                </SafeAreaView>
+              ) : (
+                <Text style={styles.nickname}>{nickname}</Text>
+              )}
+            </View>
+            <View style={styles.iconBox}>
               <TouchableOpacity
                 style={styles.icon}
                 onPress={() => {
                   setIsEdit(true);
                 }}
               >
-                <Entypo name="edit" size={20} color="black" />
+                <Entypo name="edit" size={16} color="black" />
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon} onPress={() => deleteAlert(mole.id)}>
-                <FontAwesome5 name="minus" size={20} color="black" />
+                <FontAwesome5 name="minus" size={16} color="black" />
               </TouchableOpacity>
             </View>
           </View>
-          <Image source={{uri: recentPhoto}} style={styles.image}></Image>
-          {isEdit ? (
-            <Text style={styles.location}>
-              <SafeAreaView>
-                <TextInput
-                  autoCapitalize="none"
-                  // style={styles.textInput}
-                  placeholder={nickname}
-                  onChangeText={(nickname) => setNickname(nickname)}
-                  value={nickname}
-                ></TextInput>
-              </SafeAreaView>
-              <SelectDropdown
-                data={sides}
-                defaultButtonText={side}
-                onSelect={(selected) => setSide(selected)}
-              />
-              <SelectDropdown
-                data={bodyParts}
-                defaultButtonText={bodyPart}
-                onSelect={(selected) => setBodyPart(selected)}
-              />
-              <TouchableOpacity onPress={handleSubmit}>
-                <Text>DONE</Text>
+          <View style={{flexDirection: "row"}}>
+            <View>
+              <Image source={{uri: recentPhoto}} style={styles.image}></Image>
+            </View>
+
+            <View style={styles.infoColumn}>
+              <View>
+                {isEdit ? (
+                  <SelectDropdown
+                    buttonStyle={styles.dropdownBtnStyle}
+                    buttonTextStyle={styles.dropdownBtnTxtStyle}
+                    dropdownStyle={styles.dropdownDropdownStyle}
+                    rowStyle={styles.dropdownRowStyle}
+                    rowTextStyle={styles.dropdownRowTxtStyle}
+                    data={sides}
+                    defaultButtonText={side}
+                    onSelect={(selected) => setSide(selected)}
+                  />
+                ) : (
+                  <View style={styles.selectBox}>
+                    <Text style={styles.select}>{side}</Text>
+                  </View>
+                )}
+                <View style={styles.labelBox}>
+                  <Text style={styles.label}>side</Text>
+                </View>
+              </View>
+              <View>
+                {isEdit ? (
+                  <SelectDropdown
+                    buttonStyle={styles.dropdownBtnStyle}
+                    buttonTextStyle={styles.dropdownBtnTxtStyle}
+                    dropdownStyle={styles.dropdownDropdownStyle}
+                    rowStyle={styles.dropdownRowStyle}
+                    rowTextStyle={styles.dropdownRowTxtStyle}
+                    data={bodyParts}
+                    defaultButtonText={bodyPart}
+                    onSelect={(selected) => setBodyPart(selected)}
+                  />
+                ) : (
+                  <View style={styles.selectBox}>
+                    <Text style={styles.select}>{bodyPart}</Text>
+                  </View>
+                )}
+                <View style={styles.labelBox}>
+                  <Text style={styles.label}>location</Text>
+                </View>
+              </View>
+              {isEdit && (
+                <TouchableOpacity
+                  onPress={handleSubmit}
+                  style={{alignItems: "center", marginTop: 10}}
+                >
+                  <Text>UPDATE MOLE</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        </View>
+        <View style={styles.contentBox}>
+          <View style={styles.headerBox}>
+            <View style={{marginLeft: 10}}>
+              <Text style={styles.nickname}>Entries</Text>
+            </View>
+            <View style={styles.iconBox}>
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => console.log("ADD ENTRY FUNCTION/ROUTE HERE")}
+              >
+                <FontAwesome5 name="plus" size={16} color="black" />
               </TouchableOpacity>
-            </Text>
+            </View>
+          </View>
+          {entries.length ? (
+            <KeyboardAwareScrollView style={{width: "100%"}} showsVerticalScrollIndicator={false}>
+              {entries.reverse().map((entry) => {
+                return (
+                  <TouchableOpacity
+                    key={entry.id}
+                    style={styles.entryBox}
+                    onPress={() => props.navigation.push("Entry", {entry: entry, name: mole.name})}
+                  >
+                    <Text style={styles.entry}>{date(entry.createdAt)}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </KeyboardAwareScrollView>
           ) : (
-            <Text style={styles.location}>
-              <Text>{nickname}</Text>
-              <Text>{side}</Text>
-              <Text>{bodyPart}</Text>
-            </Text>
+            <View style={styles.entryBox}>
+              <Text style={styles.entry}> You have no entries! </Text>
+            </View>
           )}
         </View>
-        {entries.length ? (
-          <KeyboardAwareScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-            {entries.map((entry) => {
-              return (
-                <TouchableOpacity
-                  key={entry.id}
-                  style={styles.entryBox}
-                  onPress={() => props.navigation.push("Entry", {entry: entry, name: mole.name})}
-                >
-                  <Text style={styles.entry}>Entry: {date(entry.createdAt)}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </KeyboardAwareScrollView>
-        ) : (
-          <View>
-            <Text> You have no entries! </Text>
-          </View>
-        )}
       </View>
     );
   } else if (fetchStatus === FETCH_FAILED) {
@@ -217,65 +267,114 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  header: {
-    backgroundColor: "#FF7379",
-    flexDirection: "row",
-    width: "100%",
     height: 35,
     alignItems: "center",
+    backgroundColor: "#E59F71",
+  },
+  iconBox: {
+    flexDirection: "row",
     justifyContent: "flex-end",
+    width: 150,
   },
   icon: {
     marginHorizontal: 10,
   },
-  edit: {
-    borderRadius: 10,
-    backgroundColor: "#FF7379",
-    width: 50,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 25,
-    opacity: 0.5,
-  },
-  imageBox: {
-    width: 350,
-    height: 350,
-    backgroundColor: "#E59F71",
+  contentBox: {
+    width: "100%",
     borderRadius: 1,
-    alignItems: "center",
-    marginVertical: 25,
-  },
-  image: {
-    width: 350,
-    height: 250,
-    // marginTop: 25,
-  },
-  name: {
-    fontFamily: "SulphurPoint-Bold",
-    color: "white",
-    fontSize: 22,
-  },
-  location: {
-    fontFamily: "SulphurPoint-Bold",
-    color: "black",
-    fontSize: 22,
-    marginTop: 12,
-  },
-  entryBox: {
-    width: 300,
-    height: 75,
-    backgroundColor: "#E59F71",
-    borderRadius: 1,
-    marginBottom: 25,
-    justifyContent: "center",
     alignItems: "flex-start",
   },
-  entry: {
-    fontFamily: "SulphurPoint-Bold",
+  image: {
+    width: 150,
+    height: 150,
+    margin: 10,
+    backgroundColor: "white",
+  },
+  nickname: {
+    fontFamily: "SF-Pro",
     color: "black",
-    fontSize: 22,
-    marginLeft: 25,
+    fontSize: 20,
+    padding: 3,
+    width: 160,
+  },
+  nicknameInput: {
+    fontFamily: "SF-Pro",
+    color: "black",
+    fontSize: 20,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    padding: 3,
+    paddingBottom: 2,
+    width: 160,
+  },
+  infoColumn: {
+    margin: 10,
+    flex: 1,
+  },
+  entryBox: {
+    width: "100%",
+    height: 50,
+    borderColor: "#E59F71",
+    borderBottomWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  entry: {
+    fontFamily: "SF-Pro",
+    color: "black",
+    fontSize: 18,
+  },
+  labelBox: {
+    borderTopWidth: 1,
+    borderColor: "black",
+    alignItems: "flex-start",
+    paddingTop: 4,
+  },
+  label: {
+    fontFamily: "SF-Pro",
+    color: "gray",
+    fontSize: 14,
+  },
+  selectBox: {
+    width: "100%",
+    height: 30,
+    fontSize: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 0,
+    padding: 0,
+  },
+  select: {
+    height: 30,
+    fontSize: 18,
+    flex: 1,
+
+    fontFamily: "SF-Pro",
+  },
+  dropdownBtnStyle: {
+    width: "100%",
+    height: 30,
+    alignSelf: "center",
+  },
+  dropdownBtnTxtStyle: {
+    textAlign: "center",
+
+    fontFamily: "SF-Pro",
+    fontSize: 18,
+  },
+  dropdownDropdownStyle: {
+    backgroundColor: "#E59F71",
+  },
+  dropdownRowStyle: {
+    borderBottomColor: "#BA5A31",
+    height: 30,
+  },
+  dropdownRowTxtStyle: {
+    color: "#FFF",
+    textAlign: "center",
+
+    fontFamily: "SF-Pro",
+    fontSize: 18,
+    marginVertical: 6,
   },
 });
