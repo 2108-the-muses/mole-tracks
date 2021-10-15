@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {
   StyleSheet,
   View,
@@ -10,25 +10,53 @@ import {
   TouchableOpacity,
   Alert,
   TextInput,
+  SafeAreaView,
 } from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import SelectDropdown from "react-native-select-dropdown";
 import {FontAwesome5} from "@expo/vector-icons";
 import {Entypo} from "@expo/vector-icons";
-import {deleteMoleThunk} from "../store/mole";
 import {ALLMOLES} from "../NavigationConstants";
+import {deleteMoleThunk, updateMoleThunk, fetchSingleMole} from "../store/mole";
+import {FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS} from "../store/mole";
+import Loading from "./Loading";
 
 const SingleMole = (props) => {
-  const dispatch = useDispatch();
-  const mole = props.route.params.mole;
+  const moleId = props.route.params.mole.id;
+
+  const fetchStatus = useSelector((state) => state.allMoles.singleMoleFetchStatus);
+  const mole = useSelector((state) => state.allMoles.singleMole);
 
   const [isEdit, setIsEdit] = useState(false);
   const [nickname, setNickname] = useState(mole.nickname);
   const [side, setSide] = useState(mole.side);
   const [bodyPart, setBodyPart] = useState(mole.bodyPart);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchSingleMole(moleId));
+  }, []);
+
+  useEffect(() => {
+    setNickname(mole.nickname);
+  }, [mole.nickname]);
+
+  useEffect(() => {
+    setSide(mole.side);
+  }, [mole.side]);
+
+  useEffect(() => {
+    setBodyPart(mole.bodyPart);
+  }, [mole.bodyPart]);
+
+  const sides = ["front", "back"];
+  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
+  side === "front" ? (bodyParts = [...bodyParts, "groin"]) : (bodyParts = [...bodyParts, "butt"]);
+
   let recentPhoto;
-  mole.entries.length
-    ? (recentPhoto = mole.entries[mole.entries.length - 1].imgUrl)
+  const entries = mole.entries || [];
+  entries.length
+    ? (recentPhoto = entries[entries.length - 1].imgUrl)
     : (recentPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
@@ -37,6 +65,11 @@ const SingleMole = (props) => {
     let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
     orderedDate = orderedDate.join(" · ");
     return orderedDate;
+  };
+
+  const handleSubmit = () => {
+    setIsEdit(false);
+    dispatch(updateMoleThunk(mole.id, {nickname, bodyPart, side}));
   };
 
   const deleteAlert = (moleId) =>
@@ -50,93 +83,118 @@ const SingleMole = (props) => {
         text: "Delete",
         onPress: () => {
           dispatch(deleteMoleThunk(moleId));
-          props.navigation.navigate(ALLMOLES);
+          props.navigation.push(ALLMOLES);
         },
         style: "destructive",
       },
     ]);
 
-  return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../../assets/images/background.png")}
-        style={styles.background}
-      />
-
-      <View style={styles.imageBox}>
-        <View style={styles.headerBox}>
-          <View style={styles.header}>
-            <TouchableOpacity
-              style={styles.icon}
-              onPress={() => console.log("ADD ENTRY FUNCTION/ROUTE HERE")}
-            >
-              <FontAwesome5 name="plus" size={20} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.icon} onPress={() => setIsEdit(true)}>
-              <Entypo name="edit" size={20} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.icon} onPress={() => deleteAlert(mole.id)}>
-              <FontAwesome5 name="minus" size={20} color="black" />
-            </TouchableOpacity>
+  if (fetchStatus === FETCH_PENDING) {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../../assets/images/background.png")}
+          style={styles.background}
+        />
+        <Loading />
+      </View>
+    );
+  } else if (fetchStatus === FETCH_SUCCESS) {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../../assets/images/background.png")}
+          style={styles.background}
+        />
+        <View style={styles.imageBox}>
+          <View style={styles.headerBox}>
+            <View style={styles.header}>
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => console.log("ADD ENTRY FUNCTION/ROUTE HERE")}
+              >
+                <FontAwesome5 name="plus" size={20} color="black" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={() => {
+                  setIsEdit(true);
+                }}
+              >
+                <Entypo name="edit" size={20} color="black" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.icon} onPress={() => deleteAlert(mole.id)}>
+                <FontAwesome5 name="minus" size={20} color="black" />
+              </TouchableOpacity>
+            </View>
           </View>
+          <Image source={{uri: recentPhoto}} style={styles.image}></Image>
+          {isEdit ? (
+            <Text style={styles.location}>
+              <SafeAreaView>
+                <TextInput
+                  autoCapitalize="none"
+                  // style={styles.textInput}
+                  placeholder={nickname}
+                  onChangeText={(nickname) => setNickname(nickname)}
+                  value={nickname}
+                ></TextInput>
+              </SafeAreaView>
+              <SelectDropdown
+                data={sides}
+                defaultButtonText={side}
+                onSelect={(selected) => setSide(selected)}
+              />
+              <SelectDropdown
+                data={bodyParts}
+                defaultButtonText={bodyPart}
+                onSelect={(selected) => setBodyPart(selected)}
+              />
+              <TouchableOpacity onPress={handleSubmit}>
+                <Text>DONE</Text>
+              </TouchableOpacity>
+            </Text>
+          ) : (
+            <Text style={styles.location}>
+              <Text>{nickname}</Text>
+              <Text>{side}</Text>
+              <Text>{bodyPart}</Text>
+            </Text>
+          )}
         </View>
-        <Image source={{uri: recentPhoto}} style={styles.image}></Image>
-        {isEdit ? (
-          <Text style={styles.location}>
-            <TextInput
-              autoCapitalize="none"
-              // style={styles.textInput}
-              onChangeText={(nickname) => setNickname(nickname)}
-              value={nickname}
-            >
-              {mole.nickname}
-            </TextInput>
-            <TextInput
-              autoCapitalize="none"
-              // style={styles.textInput}
-              onChangeText={(side) => setSide(side)}
-              value={side}
-            >
-              {mole.side}
-            </TextInput>
-            <TextInput
-              autoCapitalize="none"
-              // style={styles.textInput}
-              onChangeText={(bodyPart) => setBodyPart(bodyPart)}
-              value={bodyPart}
-            >
-              {mole.bodyPart}
-            </TextInput>
-          </Text>
+        {entries.length ? (
+          <KeyboardAwareScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+            {entries.map((entry) => {
+              return (
+                <TouchableOpacity
+                  key={entry.id}
+                  style={styles.entryBox}
+                  onPress={() => props.navigation.push("Entry", {entry: entry, name: mole.name})}
+                >
+                  <Text style={styles.entry}>Entry: {date(entry.createdAt)}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </KeyboardAwareScrollView>
         ) : (
-          <Text style={styles.location}>
-            <Text>{mole.nickname}</Text>
-            <Text>{mole.side}</Text>
-            <Text>{mole.bodyPart}</Text>
-          </Text>
+          <View>
+            <Text> You have no entries! </Text>
+          </View>
         )}
       </View>
-      {mole.entries.length ? (
-        <KeyboardAwareScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-          {mole.entries.map((entry) => {
-            return (
-              <TouchableOpacity
-                key={entry.id}
-                style={styles.entryBox}
-                onPress={() => props.navigation.navigate("Entry", {entry: entry, name: mole.name})}
-              >
-                <Text style={styles.entry}>Entry: {date(entry.createdAt)}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </KeyboardAwareScrollView>
-      ) : (
-        <View>
-          <Text> You have no entries! </Text>
-        </View>
-      )}
-    </View>
-  );
+    );
+  } else if (fetchStatus === FETCH_FAILED) {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../../assets/images/background.png")}
+          style={styles.background}
+        />
+
+        <Text>Uh oh! We were unable to fetch your mole!</Text>
+      </View>
+    );
+  }
 };
 
 export default SingleMole;

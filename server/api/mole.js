@@ -22,10 +22,26 @@ router.get("/", checkAuth, async (req, res, next) => {
   }
 });
 
+router.get("/:moleId", checkAuth, async (req, res, next) => {
+  try {
+    const mole = await Mole.findOne({
+      where: {
+        userUid: req.user.uid,
+        id: req.params.moleId,
+      },
+      include: {
+        model: Entry,
+      },
+    });
+    res.json(mole);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //POST /api/mole/
 router.post("/", checkAuth, async (req, res, next) => {
   try {
-    console.log(req.body);
     const user = await User.findByPk(req.user.uid);
     const mole = await Mole.create(req.body);
     res.status(201).json(await mole.setUser(user));
@@ -57,14 +73,12 @@ router.put("/:moleId", checkAuth, async (req, res, next) => {
 //DELETE /api/mole/:moleId
 router.delete("/:moleId", checkAuth, async (req, res, next) => {
   try {
-      console.log("in the delete route")
     const mole = await Mole.destroy({
       where: {
         id: req.params.moleId,
         userUid: req.user.uid,
       },
     });
-
     if (mole) {
       res.sendStatus(200);
     } else {

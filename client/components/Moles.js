@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, {useState} from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
@@ -8,7 +8,6 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  Button,
   Alert,
 } from "react-native";
 import {deleteMoleThunk} from "../store/mole";
@@ -30,15 +29,16 @@ const Moles = ({moles, navigation}) => {
   const list = () => {
     return moles.map((mole, index) => {
       let image;
-      mole.entries.length
-        ? (image = mole.entries[mole.entries.length - 1].imgUrl)
+      const entries = mole.entries || [];
+      entries.length
+        ? (image = entries[entries.length - 1].imgUrl)
         : (image =
             "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
 
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("SingleMole", {mole});
+            navigation.push("SingleMole", {mole});
           }}
           key={index}
         >
