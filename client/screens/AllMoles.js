@@ -2,7 +2,8 @@ import React from "react";
 import {StyleSheet, View, SafeAreaView, ScrollView, ImageBackground} from "react-native";
 import BodyPartsList from "../components/BodyPartsList";
 
-const AllMoles = ({navigation}) => {
+const AllMoles = ({navigation, route}) => {
+  console.log("route params",route.params)
   return (
     <View style={styles.container}>
       <ImageBackground
