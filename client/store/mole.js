@@ -1,6 +1,6 @@
 import axios from "axios";
-import {IP_ADDRESS} from "../../secrets";
-import {firebaseAuth} from "../firebase-auth/config";
+import { IP_ADDRESS } from "../../secrets";
+import { firebaseAuth } from "../firebase-auth/config";
 
 /**
  * FETCH CONSTANTS
@@ -24,23 +24,23 @@ const DELETE_MOLE = "DELETE_MOLE";
  * ACTION CREATORS
  */
 const setMolesFetchStatus = (status) => {
-  return {type: SET_MOLES_FETCH_STATUS, status};
+  return { type: SET_MOLES_FETCH_STATUS, status };
 };
 
 const setSingleMoleFetchStatus = (status) => {
-  return {type: SET_SINGLE_MOLE_FETCH_STATUS, status};
+  return { type: SET_SINGLE_MOLE_FETCH_STATUS, status };
 };
 
-const setAllMoles = (allMoles) => ({type: SET_ALL_MOLES, allMoles});
+const setAllMoles = (allMoles) => ({ type: SET_ALL_MOLES, allMoles });
 
-const setSingleMole = (singleMole) => ({type: SET_SINGLE_MOLE, singleMole});
+const setSingleMole = (singleMole) => ({ type: SET_SINGLE_MOLE, singleMole });
 
-const addMole = (mole) => ({type: ADD_MOLE, mole});
+const addMole = (mole) => ({ type: ADD_MOLE, mole });
 
-const updateMole = (mole) => ({type: UPDATE_MOLE, mole});
+const updateMole = (mole) => ({ type: UPDATE_MOLE, mole });
 
 const deleteMole = (moleId) => {
-  return {type: DELETE_MOLE, moleId};
+  return { type: DELETE_MOLE, moleId };
 };
 
 /**
@@ -52,9 +52,12 @@ export const fetchAllMoles = () => {
       dispatch(setMolesFetchStatus(FETCH_PENDING));
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const {data} = await axios.get(`http://${IP_ADDRESS}:8080/api/mole/`, {
-          headers: {authtoken: idToken},
-        });
+        const { data } = await axios.get(
+          `http://${IP_ADDRESS}:8080/api/mole/`,
+          {
+            headers: { authtoken: idToken },
+          }
+        );
         dispatch(setAllMoles(data));
       }
       dispatch(setMolesFetchStatus(FETCH_SUCCESS));
@@ -71,9 +74,12 @@ export const fetchSingleMole = (moleId) => {
       dispatch(setSingleMoleFetchStatus(FETCH_PENDING));
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const {data} = await axios.get(`http://${IP_ADDRESS}:8080/api/mole/${moleId}`, {
-          headers: {authtoken: idToken},
-        });
+        const { data } = await axios.get(
+          `http://${IP_ADDRESS}:8080/api/mole/${moleId}`,
+          {
+            headers: { authtoken: idToken },
+          }
+        );
         dispatch(setSingleMole(data));
       }
       dispatch(setSingleMoleFetchStatus(FETCH_SUCCESS));
@@ -84,22 +90,23 @@ export const fetchSingleMole = (moleId) => {
   };
 };
 
-export const addMoleThunk = ({nickname, bodyPart, side}) => {
+export const addMoleThunk = ({ nickname, bodyPart, side }) => {
   return async (dispatch) => {
     try {
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const {data} = await axios.post(
+        const { data } = await axios.post(
           `http://${IP_ADDRESS}:8080/api/mole/`,
           {
             nickname,
             bodyPart,
             side,
           },
-          {headers: {authtoken: idToken}}
+          { headers: { authtoken: idToken } }
         );
         dispatch(addMole(data));
-        return data.id;
+        dispatch(setSingleMole(data));
+        return data;
       }
     } catch (error) {
       console.log("THUNK ERROR: ", error);
@@ -107,19 +114,19 @@ export const addMoleThunk = ({nickname, bodyPart, side}) => {
   };
 };
 
-export const updateMoleThunk = (moleId, {nickname, bodyPart, side}) => {
+export const updateMoleThunk = (moleId, { nickname, bodyPart, side }) => {
   return async (dispatch) => {
     try {
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const {data} = await axios.put(
+        const { data } = await axios.put(
           `http://${IP_ADDRESS}:8080/api/mole/${moleId}`,
           {
             nickname,
             bodyPart,
             side,
           },
-          {headers: {authtoken: idToken}}
+          { headers: { authtoken: idToken } }
         );
         dispatch(updateMole(data));
       }
@@ -133,9 +140,12 @@ export const deleteMoleThunk = (moleId) => async (dispatch) => {
   try {
     const idToken = await firebaseAuth.currentUser.getIdToken(true);
     if (idToken) {
-      const response = await axios.delete(`http://${IP_ADDRESS}:8080/api/mole/${moleId}`, {
-        headers: {authtoken: idToken},
-      });
+      const response = await axios.delete(
+        `http://${IP_ADDRESS}:8080/api/mole/${moleId}`,
+        {
+          headers: { authtoken: idToken },
+        }
+      );
       if (response.status === 200) {
         dispatch(deleteMole(moleId));
       }
@@ -158,15 +168,18 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_ALL_MOLES:
-      return {...state, moles: action.allMoles};
+      return { ...state, moles: action.allMoles };
     case SET_SINGLE_MOLE:
-      return {...state, singleMole: action.singleMole};
+      return { ...state, singleMole: action.singleMole };
     case ADD_MOLE:
-      return {...state, moles: [...state.moles, action.mole]};
+      return { ...state, moles: [...state.moles, action.mole] };
     case UPDATE_MOLE:
       return {
         ...state,
-        moles: [...state.moles.filter((mole) => mole.id !== action.mole.id), action.mole],
+        moles: [
+          ...state.moles.filter((mole) => mole.id !== action.mole.id),
+          action.mole,
+        ],
       };
     case DELETE_MOLE:
       return {
@@ -174,9 +187,9 @@ export default function (state = initialState, action) {
         moles: state.moles.filter((mole) => mole.id !== action.moleId),
       };
     case SET_MOLES_FETCH_STATUS:
-      return {...state, fetchStatus: action.status};
+      return { ...state, fetchStatus: action.status };
     case SET_SINGLE_MOLE_FETCH_STATUS:
-      return {...state, singleMoleFetchStatus: action.status};
+      return { ...state, singleMoleFetchStatus: action.status };
     default:
       return state;
   }

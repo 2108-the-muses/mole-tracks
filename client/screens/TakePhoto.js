@@ -6,15 +6,12 @@ import {
   Dimensions,
   StyleSheet,
 } from "react-native";
-// import styles from "../styles"
-import ADDENTRY from "../NavigationConstants";
+import { ADDENTRY } from "../NavigationConstants";
 import { Camera } from "expo-camera";
-//This is the reducer to add to our DB. Currently not working.
+import styles from "../styles";
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
-
-import { CLOUDINARY_URL, upload_preset } from "../../secrets";
 
 const TakePhoto = ({ navigation, route }) => {
   const cameraRef = useRef();
@@ -62,41 +59,25 @@ const TakePhoto = ({ navigation, route }) => {
     }
   };
 
-  const onAcceptPhoto = async () => {
+  const onAcceptPhoto = () => {
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
-
-    navigation.navigate("AddEntry", {
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [
+    //     {
+    //       name: ADDENTRY,
+    //       params: {
+    //         base64Img: base64Img,
+    //         moleId: route.params.moleId,
+    //       },
+    //     },
+    //   ],
+    // });
+    navigation.push(ADDENTRY, {
       base64Img: base64Img,
       moleId: route.params.moleId,
     });
   };
-  // const onAcceptPhoto = async () => {
-  //   let base64Img = `data:image/jpg;base64,${sourceInfo}`;
-  //   let apiUrl = CLOUDINARY_URL;
-  //   let data = {
-  //     file: base64Img,
-  //     upload_preset: upload_preset,
-  //   };
-
-  //   fetch(apiUrl, {
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     method: "POST",
-  //   })
-  //     .then(async (response) => {
-  //       let data = await response.json();
-  //       if (data.secure_url) {
-  //         alert("Upload to Cloudinary successful");
-  //         navigation.navigate("AddEntry", { imgUrl: data.secure_url });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       alert("Cannot upload");
-  //       console.log(err);
-  //     });
-  // };
 
   const retakePic = async () => {
     await cameraRef.current.resumePreview();
@@ -111,86 +92,63 @@ const TakePhoto = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.photoContainer}>
       <Camera
         ref={cameraRef}
-        style={styles.container}
+        style={styles.photoContainer}
         type={cameraType}
         onCameraReady={onCameraReady}
         useCamera2Api={true}
       />
-      <View style={styles.container}>
+      <View style={styles.photoContainer}>
         {isPreview && (
-          <View>
+          <View style={styles.photoBottomButtonsContainer}>
             <TouchableOpacity
+              activeOpacity={0.3}
               onPress={onAcceptPhoto}
-              style={styles.closeButton}
-              activeOpacity={0.7}
-              style={styles.capture}
+              style={styles.photoCapture}
             >
-              <Text>Accept Photo</Text>
+              <Text style={styles.photoCaptureText}>Accept Photo</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={retakePic} activeOpacity={0.7}>
-              <Text>Retake Image</Text>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={retakePic}
+              style={styles.photoCapture}
+            >
+              <Text style={styles.photoCaptureText}>Retake Photo</Text>
             </TouchableOpacity>
           </View>
         )}
         {!isPreview && (
-          <View style={styles.bottomButtonsContainer}>
-            <TouchableOpacity disabled={!isCameraReady} onPress={switchCamera}>
-              <Text>FLIP CAMERA</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              disabled={!isCameraReady}
-              onPress={onSnap}
-              style={styles.capture}
-            >
-              <Text>TAKE PIC</Text>
-            </TouchableOpacity>
+          <View style={styles.photoContainer}>
+            <View style={styles.photoBottomButtonsContainer}>
+              <TouchableOpacity
+                activeOpacity={0.3}
+                disabled={!isCameraReady}
+                onPress={switchCamera}
+                style={styles.photoCapture}
+              >
+                <Text style={styles.photoCaptureText}>Flip Camera</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.3}
+                disabled={!isCameraReady}
+                onPress={onSnap}
+                style={styles.photoCapture}
+              >
+                <Text style={styles.photoCaptureText}>Take Photo</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.photoTopContainer}>
+              <Text style={styles.photoCaptureDimeAdvice}>
+                Please include a dime next to your mole!
+              </Text>
+            </View>
           </View>
         )}
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  text: {
-    color: "#fff",
-  },
-  bottomButtonsContainer: {
-    position: "absolute",
-    flexDirection: "row",
-    bottom: 28,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  closeButton: {
-    position: "absolute",
-    top: 35,
-    right: 20,
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#5A45FF",
-    opacity: 0.7,
-  },
-  capture: {
-    backgroundColor: "#5A45FF",
-    borderRadius: 5,
-    height: CAPTURE_SIZE,
-    width: CAPTURE_SIZE,
-    borderRadius: Math.floor(CAPTURE_SIZE / 2),
-    marginBottom: 28,
-    marginHorizontal: 30,
-  },
-});
 
 export default TakePhoto;
