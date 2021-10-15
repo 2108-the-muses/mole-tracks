@@ -60,15 +60,12 @@ const AddEntry = ({ route, navigation }) => {
   }, [bodyPart]);
 
   const handleSubmit = () => {
+    console.log("MOLEID IN ADDENTRY", moleId);
     dispatch(addEntry(notes, base64Img, moleId));
   };
   if (status === ADD_PENDING) {
     return <Loading />;
   } else if (status === ADD_SUCCESS) {
-    // navigation.navigate("Entry", {
-    //   name: moleNameForEntryRouteParam,
-    //   entry: entryForEntryRouteParam,
-    // });
     navigation.reset({
       index: 0,
       routes: [

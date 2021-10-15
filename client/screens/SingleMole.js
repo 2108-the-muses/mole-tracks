@@ -216,7 +216,7 @@ const SingleMole = (props) => {
             <View style={styles.iconBox}>
               <TouchableOpacity
                 style={styles.icon}
-                onPress={() => console.log("ADD ENTRY FUNCTION/ROUTE HERE")}
+                onPress={() => props.navigation.push("TakePhoto", { moleId })}
               >
                 <FontAwesome5 name="plus" size={16} color="black" />
               </TouchableOpacity>
