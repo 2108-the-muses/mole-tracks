@@ -105,7 +105,7 @@ export const addMoleThunk = ({ nickname, bodyPart, side }) => {
           { headers: { authtoken: idToken } }
         );
         dispatch(addMole(data));
-        return data.id;
+        dispatch(setSingleMole(data));
       }
     } catch (error) {
       console.log("THUNK ERROR: ", error);

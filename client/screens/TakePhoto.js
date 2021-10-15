@@ -62,17 +62,21 @@ const TakePhoto = ({ navigation, route }) => {
   const onAcceptPhoto = async () => {
     console.log("MOLEID IN TAKE PHOTO", moleId);
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: ADDENTRY,
-          params: {
-            base64Img: base64Img,
-            moleId: route.params.moleId,
-          },
-        },
-      ],
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [
+    //     {
+    //       name: ADDENTRY,
+    //       params: {
+    //         base64Img: base64Img,
+    //         moleId: route.params.moleId,
+    //       },
+    //     },
+    //   ],
+    // });
+    navigation.push(ADDENTRY, {
+      base64Img: base64Img,
+      moleId: route.params.moleId,
     });
   };
 
