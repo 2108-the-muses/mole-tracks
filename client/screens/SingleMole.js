@@ -291,14 +291,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   nickname: {
-    fontFamily: "SF-Pro",
+    fontFamily: "SulphurPoint-Regular",
     color: "black",
     fontSize: 20,
     padding: 3,
     width: 160,
   },
   nicknameInput: {
-    fontFamily: "SF-Pro",
+    fontFamily: "SulphurPoint-Regular",
     color: "black",
     fontSize: 20,
     borderBottomWidth: 1,
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   entry: {
-    fontFamily: "SF-Pro",
+    fontFamily: "SulphurPoint-Regular",
     color: "black",
     fontSize: 18,
   },
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
   label: {
-    fontFamily: "SF-Pro",
+    fontFamily: "SulphurPoint-Regular",
     color: "gray",
     fontSize: 14,
   },
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
 
-    fontFamily: "SF-Pro",
+    fontFamily: "SulphurPoint-Regular",
   },
   dropdownBtnStyle: {
     width: "100%",
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   dropdownBtnTxtStyle: {
     textAlign: "center",
 
-    fontFamily: "SF-Pro",
+    fontFamily: "SulphurPoint-Regular",
     fontSize: 18,
   },
   dropdownDropdownStyle: {
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     textAlign: "center",
 
-    fontFamily: "SF-Pro",
+    fontFamily: "SulphurPoint-Regular",
     fontSize: 18,
     marginVertical: 6,
   },

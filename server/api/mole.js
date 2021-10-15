@@ -22,6 +22,7 @@ router.get("/", checkAuth, async (req, res, next) => {
   }
 });
 
+// GET /api/mole/:moleId
 router.get("/:moleId", checkAuth, async (req, res, next) => {
   try {
     const mole = await Mole.findOne({
