@@ -25,10 +25,10 @@ const AddMole = (props) => {
     ? (bodyParts = [...bodyParts, "groin"])
     : (bodyParts = [...bodyParts, "butt"]);
 
-  const handleSubmit = async () => {
-    await dispatch(addMoleThunk({ nickname, bodyPart, side }));
-    console.log("CURRENT MOLE ID", currentMoleId);
-    props.navigation.navigate("TakePhoto", { moleId: currentMoleId });
+  const handleSubmit = () => {
+    const response = dispatch(addMoleThunk({ nickname, bodyPart, side }));
+    // props.navigation.push("TakePhoto", response);
+    props.navigation.push("AllMoles");
   };
 
   return (

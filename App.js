@@ -14,6 +14,7 @@ export default function App() {
       "SulphurPoint-Bold": require("./assets/fonts/SulphurPoint-Bold.ttf"),
       "SulphurPoint-Light": require("./assets/fonts/SulphurPoint-Light.ttf"),
       "SulphurPoint-Regular": require("./assets/fonts/SulphurPoint-Regular.ttf"),
+      "SF-Pro": require("./assets/fonts/SF-Pro.ttf"),
     });
   };
 
