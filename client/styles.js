@@ -101,6 +101,27 @@ const styles = StyleSheet.create({
   notesBox: {
     width: 275,
   },
+  profileContainer:{
+    height: heightConst - 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+  profileImage:{
+    width: 325,
+    height: 325,
+    position: "absolute",
+    top: 20,
+  },
+  profileText:{
+    fontFamily: "SulphurPoint-Bold",
+    fontSize: 22,
+  },
+  profileViewContainer:{
+    flex: 1,
+    padding: 20,
+    margin:10
+  }
 });
 
 export default styles;
