@@ -15,7 +15,7 @@ import { authenticateLogin } from "../store/auth";
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("gina@moletracks.com");
+  const [email, setEmail] = useState("sally@moletracks.com");
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
 

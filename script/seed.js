@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: {User, Mole, Entry},
+  models: { User, Mole, Entry },
 } = require("../server/db");
 
 /**
@@ -10,7 +10,7 @@ const {
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({force: true}); // clears db and matches models to tables
+  await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
 
   // Creating Users
@@ -36,87 +36,90 @@ async function seed() {
   ]);
 
   // Creating Moles
-  const [Fuzzy, Bumpy, Slimy, Backy, Humps, Lumps, Bigs] = await Mole.bulkCreate([
-    {
-      nickname: "Fuzzy",
-      side: "front",
-      bodyPart: "arm-l",
-    },
-    {
-      nickname: "Bumpy",
-      side: "back",
-      bodyPart: "head",
-    },
-    {
-      nickname: "Slimy",
-      side: "back",
-      bodyPart: "butt",
-    },
+  const [Fuzzy, Bumpy, Slimy, Backy, Humps, Lumps, Bigs] =
+    await Mole.bulkCreate([
+      {
+        nickname: "Fuzzy",
+        side: "front",
+        bodyPart: "arm-l",
+      },
+      {
+        nickname: "Bumpy",
+        side: "back",
+        bodyPart: "head",
+      },
+      {
+        nickname: "Slimy",
+        side: "back",
+        bodyPart: "butt",
+      },
 
-    {
-      nickname: "Backy",
-      side: "back",
-      bodyPart: "torso",
-    },
-    {
-      nickname: "Humps",
-      side: "back",
-      bodyPart: "torso",
-    },
-    {
-      nickname: "Lumps",
-      side: "back",
-      bodyPart: "torso",
-    },
-    {
-      nickname: "Bigs",
-      side: "front",
-      bodyPart: "torso",
-    },
-  ]);
+      {
+        nickname: "Backy",
+        side: "back",
+        bodyPart: "torso",
+      },
+      {
+        nickname: "Humps",
+        side: "back",
+        bodyPart: "torso",
+      },
+      {
+        nickname: "Lumps",
+        side: "back",
+        bodyPart: "torso",
+      },
+      {
+        nickname: "Bigs",
+        side: "front",
+        bodyPart: "torso",
+      },
+    ]);
 
   // Creating Entries
-  const [March1, June1, July1, August1, September1, October1] = await Entry.bulkCreate([
-    {
-      notes: "Came out of nowhere. So fuzzy!!!",
-      tags: ["border", "elevation"],
-      imgUrl: "https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg",
-    },
-    {
-      notes: "It's getting fuzzier!",
-      tags: ["border", "elevation"],
-      imgUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
-    },
-    {
-      notes: "It's bumpin'",
-      tags: ["asymmetry", "elevation"],
-      imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
-    },
-    {
-      notes: "So much fuzz.",
-      tags: ["asymmetry", "elevation"],
-      imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
-    },
-    {
-      notes: "The fuzziest",
-      tags: ["asymmetry", "elevation"],
-      imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
-    },
-    {
-      notes: "SOS",
-      tags: ["asymmetry", "elevation"],
-      imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
-    },
-  ]);
+  const [March1, June1, July1, August1, September1, October1] =
+    await Entry.bulkCreate([
+      {
+        notes: "Came out of nowhere. So fuzzy!!!",
+        tags: ["border", "elevation"],
+        imgUrl:
+          "https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg",
+      },
+      {
+        notes: "It's getting fuzzier!",
+        tags: ["border", "elevation"],
+        imgUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
+      },
+      {
+        notes: "It's bumpin'",
+        tags: ["asymmetry", "elevation"],
+        imgUrl:
+          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+      },
+      {
+        notes: "So much fuzz.",
+        tags: ["asymmetry", "elevation"],
+        imgUrl:
+          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+      },
+      {
+        notes: "The fuzziest",
+        tags: ["asymmetry", "elevation"],
+        imgUrl:
+          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+      },
+      {
+        notes: "SOS",
+        tags: ["asymmetry", "elevation"],
+        imgUrl:
+          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+      },
+    ]);
 
   // Associations via Magic Methods
-  await Cody.setMoles([Fuzzy, Bumpy, Bigs, Backy, Humps, Lumps]);
-  await Sally.setMoles(Slimy);
+  await Sally.setMoles([Fuzzy, Bumpy, Bigs, Backy, Humps, Lumps]);
+  // await Sally.setMoles(Slimy);
 
   await Fuzzy.setEntries([March1, June1, August1, September1, October1]);
   await Bumpy.setEntries(July1);
