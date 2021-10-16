@@ -2,13 +2,28 @@ import { Dimensions, StyleSheet } from "react-native";
 
 const heightConst = Dimensions.get("screen").height;
 const styles = StyleSheet.create({
+  /***********************
+   All                   *
+  ***********************/
   container: {
-    height: heightConst - 50,
+    // height: heightConst - 50,
+    height: heightConst,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    fontFamily: "OpenSans",
   },
+  navHeader: {
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 30,
+    color: "white",
+    backgroundColor: "#BA5A31",
+  },
+  /***********************
+   Multiple              *
+  ***********************/
+  /***********************
+   Login/Sign Up         *
+  ***********************/
   image: {
     width: 325,
     height: 325,

@@ -37,6 +37,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import styles from "../styles";
 
 // this is a dummy component for now
 
@@ -118,14 +119,30 @@ export const TabNavigator = () => {
         tabBarInactiveTintColor: "gray",
       })}
     >
-      <Tab.Screen name="Body" component={BodyStack} unmountOnBlur={true}
-    options={{unmountOnBlur: true}} />
-      <Tab.Screen name="Moles" component={MolesStack} unmountOnBlur={true}
-    options={{unmountOnBlur: true}} />
-      <Tab.Screen name="Add" component={AddStack} unmountOnBlur={true}
-    options={{unmountOnBlur: true}}/>
-      <Tab.Screen name="User" component={UserStack} unmountOnBlur={true}
-    options={{unmountOnBlur: true}} />
+      <Tab.Screen
+        name="Body"
+        component={BodyStack}
+        unmountOnBlur={true}
+        options={{ unmountOnBlur: true }}
+      />
+      <Tab.Screen
+        name="Moles"
+        component={MolesStack}
+        unmountOnBlur={true}
+        options={{ unmountOnBlur: true }}
+      />
+      <Tab.Screen
+        name="Add"
+        component={AddStack}
+        unmountOnBlur={true}
+        options={{ unmountOnBlur: true }}
+      />
+      <Tab.Screen
+        name="User"
+        component={UserStack}
+        unmountOnBlur={true}
+        options={{ unmountOnBlur: true }}
+      />
     </Tab.Navigator>
   );
 };
@@ -134,13 +151,17 @@ const Auth = createNativeStackNavigator();
 
 export const AuthNavigator = () => {
   return (
-    <Auth.Navigator initialRouteName={LOGIN}>
+    <Auth.Navigator
+      initialRouteName={LOGIN}
+      screenOptions={{
+        headerStyle: { backgroundColor: "#BA5A31" },
+        headerTitle: "mole tracks",
+        headerTitleStyle: styles.navHeader,
+        headerBackVisible: false,
+      }}
+    >
       <Auth.Screen name={LOGIN} component={Login} />
-      <Auth.Screen
-        name={SIGNUP}
-        options={{ headerShown: false }}
-        component={SignUp}
-      />
+      <Auth.Screen name={SIGNUP} component={SignUp} />
       <Auth.Screen name={LOADING} component={Loading} />
       <Auth.Screen name={BODY} options={{ title: "Body" }} component={Body} />
     </Auth.Navigator>

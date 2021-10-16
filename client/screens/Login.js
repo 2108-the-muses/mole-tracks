@@ -34,12 +34,12 @@ const Login = (props) => {
 
   return (
     <KeyboardAwareScrollView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <ImageBackground
+      <View style={styles.containerFlexStart}>
+        <Image
           source={require("../../assets/images/face-with-mole.png")}
-          style={styles.image}
+          style={styles.logoLarge}
         />
-        <View style={styles.form}>
+        <View style={styles.authForm}>
           <TextInput
             placeholder="Email"
             autoCapitalize="none"
@@ -100,27 +100,34 @@ Login.navigationOptions = {
 export default Login;
 
 const heightConst = Dimensions.get("screen").height;
+const widthConst = Dimensions.get("screen").width;
+const ratio = (0.9 * widthConst) / 621;
 const styles = StyleSheet.create({
-  container: {
-    height: heightConst - 50,
+  containerCenter: {
+    height: heightConst,
+    width: widthConst,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    fontFamily: "OpenSans",
   },
-  image: {
-    width: 325,
-    height: 325,
-    position: "absolute",
-    top: 20,
+  containerFlexStart: {
+    height: heightConst,
+    width: widthConst,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "white",
   },
-  form: {
+  logoLarge: {
+    width: "90%",
+    height: 621 * ratio,
+    // position: "absolute",
+    top: "2%",
+  },
+  authForm: {
     alignItems: "center",
     justifyContent: "flex-end",
     width: "80%",
-    height: "100%",
-    bottom: 150,
-    // paddingBottom: "5%",
+    bottom: "2%",
   },
   textInput: {
     height: 40,
