@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  StyleSheet,
   View,
   Text,
   TouchableOpacity,
   ImageBackground,
-  SafeAreaView,
   Image,
   TextInput,
 } from "react-native";
 import styles from "../styles";
 import { updateUserThunk, updatePassword } from "../store/auth";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Profile = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -21,8 +20,8 @@ const Profile = (props) => {
   const [isEditPassword, setIsEditPassword] = useState(false);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [password, setPassword] = useState("***");
-  const [passwordDuplicate, setPasswordDuplicate] = useState("***");
+  const [password, setPassword] = useState("123456");
+  const [passwordDuplicate, setPasswordDuplicate] = useState("123456");
 
   const dispatch = useDispatch();
 
@@ -59,84 +58,163 @@ const Profile = (props) => {
   };
 
   return (
-    <SafeAreaView style={styles.profileContainer}>
-      <View style={styles.userInfoSection}>
-        <View style={{ flexDirection: "row", marginTop: 15 }}>
+    <View style={styles.containerScroll}>
+      <ImageBackground
+        source={require("../../assets/images/background.png")}
+        style={styles.backgroundImage}
+      />
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ ...styles.headerBoxLarge, paddingHorizontal: 20 }}>
+          <Text style={styles.fontExtraLarge}>Welcome {user.firstName}</Text>
           <Image
-            style={styles.tinyImage}
+            style={styles.logoSmall}
             source={require("../../assets/images/face-with-mole.png")}
           ></Image>
         </View>
-      </View>
-      <View style={{ marginLeft: 20 }}>
-        <View>
-          {isEdit ? (
-            <View style={styles.profileText}>
-              <Text>Email: {user.email}</Text>
-              <TextInput
-                onChangeText={(firstName) => setFirstName(firstName)}
-                value={firstName}
-                style={{ borderBottomWidth: 1, borderColor: "black" }}
-              ></TextInput>
-              <TextInput
-                onChangeText={(lastName) => setLastName(lastName)}
-                value={lastName}
-                style={{ borderBottomWidth: 1, borderColor: "black" }}
-              ></TextInput>
-              <TouchableOpacity onPress={handleUpdateUser}>
-                <Text>Update</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View style={styles.profileText}>
-              <Text>Email: {user.email}</Text>
-              <Text>First Name: {user.firstName}</Text>
-              <Text>Last Name: {user.lastName}</Text>
 
-              <TouchableOpacity onPress={() => setIsEdit(true)}>
-                <Text>Edit Profile</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
         <View>
-          {isEditPassword ? (
-            <View>
-              <TextInput
-                secureTextEntry
-                onChangeText={(password) => setPassword(password)}
-                value={password}
-                style={{ borderBottomWidth: 1, borderColor: "black" }}
-              ></TextInput>
-              <TextInput
-                secureTextEntry
-                onChangeText={(passwordDuplicate) =>
-                  setPasswordDuplicate(passwordDuplicate)
-                }
-                value={passwordDuplicate}
-                style={{ borderBottomWidth: 1, borderColor: "black" }}
-              ></TextInput>
-              {error && (
-                <Text style={{ color: "red", marginTop: 10 }}>{error}</Text>
-              )}
-              {password !== passwordDuplicate ? (
-                <Text>Passwords must match!</Text>
-              ) : (
-                <TouchableOpacity onPress={handleUpdatePassword}>
-                  <Text>Update Password</Text>
+          <View>
+            {isEdit ? (
+              <View style={{ margin: 20 }}>
+                <TextInput
+                  style={{
+                    ...styles.textInputLarge,
+                    borderBottomWidth: 0,
+                  }}
+                >
+                  Email: {user.email}
+                </TextInput>
+                <TextInput
+                  onChangeText={(firstName) => setFirstName(firstName)}
+                  value={firstName}
+                  style={styles.textInputLarge}
+                ></TextInput>
+                <TextInput
+                  onChangeText={(lastName) => setLastName(lastName)}
+                  value={lastName}
+                  style={styles.textInputLarge}
+                ></TextInput>
+                <TouchableOpacity
+                  onPress={handleUpdateUser}
+                  style={{ ...styles.buttonLarge, marginTop: 20 }}
+                >
+                  <Text style={styles.buttonLargeText}>Update</Text>
                 </TouchableOpacity>
-              )}
-            </View>
-          ) : (
-            <View>
-              <TouchableOpacity onPress={() => setIsEditPassword(true)}>
-                <Text>Edit Password</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+              </View>
+            ) : (
+              <View style={{ margin: 20 }}>
+                <TextInput
+                  style={{
+                    ...styles.textInputLarge,
+                    borderBottomWidth: 0,
+                  }}
+                >
+                  Email: {user.email}
+                </TextInput>
+                <TextInput
+                  style={{
+                    ...styles.textInputLarge,
+                    borderBottomWidth: 0,
+                  }}
+                >
+                  First Name: {user.firstName}
+                </TextInput>
+                <TextInput
+                  style={{
+                    ...styles.textInputLarge,
+                    borderBottomWidth: 0,
+                  }}
+                >
+                  Last Name: {user.lastName}
+                </TextInput>
+
+                <TouchableOpacity
+                  onPress={() => setIsEdit(true)}
+                  style={{ ...styles.buttonLarge, marginTop: 20 }}
+                >
+                  <Text style={styles.buttonLargeText}>Edit Profile</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+          <View>
+            {isEditPassword ? (
+              <View style={{ margin: 20 }}>
+                <TextInput
+                  secureTextEntry
+                  onChangeText={(password) => setPassword(password)}
+                  value={password}
+                  style={styles.textInputLarge}
+                ></TextInput>
+                <TextInput
+                  secureTextEntry
+                  onChangeText={(passwordDuplicate) =>
+                    setPasswordDuplicate(passwordDuplicate)
+                  }
+                  value={passwordDuplicate}
+                  style={styles.textInputLarge}
+                ></TextInput>
+                {error && (
+                  <Text
+                    style={{
+                      ...styles.fontExtraSmall,
+                      color: "red",
+                      marginTop: 10,
+                    }}
+                  >
+                    {error}
+                  </Text>
+                )}
+                {password !== passwordDuplicate ? (
+                  <Text
+                    style={{
+                      ...styles.fontExtraSmall,
+                      color: "red",
+                      marginTop: 10,
+                    }}
+                  >
+                    Passwords must match!
+                  </Text>
+                ) : (
+                  <TouchableOpacity
+                    onPress={handleUpdatePassword}
+                    style={{ ...styles.buttonLarge, marginTop: 20 }}
+                  >
+                    <Text style={styles.buttonLargeText}>Update Password</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            ) : (
+              <View style={{ margin: 20 }}>
+                <TextInput
+                  style={{
+                    ...styles.textInputLarge,
+                    borderBottomWidth: 0,
+                  }}
+                >
+                  Password
+                </TextInput>
+                <TextInput
+                  secureTextEntry
+                  style={{
+                    ...styles.textInputLarge,
+                    borderBottomColor: "none",
+                  }}
+                >
+                  {password}
+                </TextInput>
+                <TouchableOpacity
+                  onPress={() => setIsEditPassword(true)}
+                  style={{ ...styles.buttonLarge, marginTop: 20 }}
+                >
+                  <Text style={styles.buttonLargeText}>Change Password</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

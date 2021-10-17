@@ -99,7 +99,7 @@ const SingleMole = (props) => {
 
   if (fetchStatus === FETCH_PENDING) {
     return (
-      <View style={styles.containerFlexStart}>
+      <View style={styles.containerCenter}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
           style={styles.backgroundImage}
@@ -170,9 +170,13 @@ const SingleMole = (props) => {
                 style={styles.polaroidImage}
               ></Image>
               <View style={styles.polaroidLabel}>
-                <Text style={styles.headerText}>
-                  {date(entries[0].createdAt)}
-                </Text>
+                {entries.length ? (
+                  <Text style={styles.headerText}>
+                    {date(entries[0].createdAt)}
+                  </Text>
+                ) : (
+                  <Text style={styles.headerText}></Text>
+                )}
               </View>
             </View>
 
@@ -291,10 +295,10 @@ const SingleMole = (props) => {
     );
   } else if (fetchStatus === FETCH_FAILED) {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerCenter}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
-          style={styles.background}
+          style={styles.backgroundImage}
         />
 
         <Text>Uh oh! We were unable to fetch your mole!</Text>

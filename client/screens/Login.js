@@ -25,7 +25,10 @@ const Login = (props) => {
   };
 
   return (
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+    <KeyboardAwareScrollView
+      showsVerticalScrollIndicator={false}
+      style={{ backgroundColor: "white" }}
+    >
       <View style={styles.containerFlexStart}>
         <Image
           source={require("../../assets/images/face-with-mole.png")}

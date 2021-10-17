@@ -25,7 +25,10 @@ const SignUp = (props) => {
   };
 
   return (
-    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+    <KeyboardAwareScrollView
+      showsVerticalScrollIndicator={false}
+      style={{ flex: 1 }}
+    >
       <View style={styles.containerFlexStart}>
         <Image
           source={require("../../assets/images/face-with-mole.png")}

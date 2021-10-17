@@ -1,7 +1,8 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet, StatusBar } from "react-native";
 
 const heightConst = Dimensions.get("screen").height;
 const widthConst = Dimensions.get("screen").width;
+const statusHeight = StatusBar.currentHeight;
 const logoRatio = (0.9 * widthConst) / 621;
 const styles = StyleSheet.create({
   /***********************
@@ -13,8 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   containerCenter: {
-    height: heightConst - 50,
-    width: widthConst,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
@@ -22,9 +22,33 @@ const styles = StyleSheet.create({
   containerFlexStart: {
     height: heightConst,
     width: widthConst,
+    flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "white",
+  },
+  /***********************
+   Fonts               *
+  ***********************/
+  fontExtraSmall: {
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 16,
+  },
+  fontSmall: {
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 18,
+  },
+  fontMedium: {
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 20,
+  },
+  fontLarge: {
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 22,
+  },
+  fontExtraLarge: {
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 24,
   },
   /***********************
    Headers               *
@@ -49,6 +73,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     padding: 3,
   },
+  headerBoxLarge: {
+    // width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 100,
+    alignItems: "center",
+    backgroundColor: "#E59F71",
+  },
   /***********************
    Images                *
   ***********************/
@@ -57,6 +89,10 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "absolute",
     opacity: 0.5,
+  },
+  logoSmall: {
+    width: 75,
+    height: 75,
   },
   /***********************
    Buttons               *
@@ -149,7 +185,6 @@ const styles = StyleSheet.create({
   },
   dropdown2DropdownStyle: {
     backgroundColor: "#E59F71",
-    height: 150,
   },
   dropdown2RowStyle: {
     backgroundColor: "#E59F71",
@@ -193,6 +228,33 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     borderColor: "#F3EAD3",
     borderWidth: 1,
+  },
+  polaroidContainerLarge: {
+    backgroundColor: "#F8F2ED",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: 300,
+    height: 325,
+    borderColor: "#F3EAD3",
+    borderWidth: 2,
+  },
+  polaroidLabelLarge: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 22,
+    width: "100%",
+  },
+  polaroidImageLarge: {
+    alignItems: "center",
+    width: 260,
+    height: 220,
+    resizeMode: "cover",
+    marginTop: 20,
+    marginHorizontal: 20,
+    backgroundColor: "black",
+    borderColor: "#F3EAD3",
+    borderWidth: 2,
   },
   /***********************
    Login/Sign Up         *
@@ -294,113 +356,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "SulphurPoint-Regular",
   },
-
-  // OTHER
-
-  image: {
-    width: 325,
-    height: 325,
-    position: "absolute",
-    top: 20,
-  },
-  entryImage: {
-    width: 250,
-    height: 200,
-    marginTop: 25,
-  },
-  form: {
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "80%",
-    height: "100%",
-    bottom: 150,
-  },
-  textInput: {
-    height: 40,
-    width: 290,
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginTop: 15,
-    color: "black",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-  buttonBox: {
-    flexDirection: "row",
-    width: 260,
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  button: {
-    borderRadius: 10,
-    backgroundColor: "#FF7379",
-    width: 115,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 1,
-  },
-  submitEntryButton: {
-    borderRadius: 10,
-    backgroundColor: "#FF7379",
-    width: 115,
-    height: 50,
-    alignSelf: "center",
-    justifyContent: "center",
-    marginTop: 25,
-    shadowColor: "gray",
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 1,
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-  background: {
-    width: "100%",
-    height: "100%",
-    opacity: 0.5,
-    position: "absolute",
-  },
-  imageBox: {
-    width: 300,
-    height: 275,
-    backgroundColor: "#E59F71",
-    borderRadius: 15,
-    alignItems: "center",
-    marginVertical: 25,
-  },
-  entryimageBox: {
-    width: 300,
-    height: 250,
-    backgroundColor: "#E59F71",
-    borderRadius: 15,
-    alignItems: "center",
-    marginVertical: 25,
-  },
-  name: {
-    fontFamily: "SulphurPoint-Bold",
-    color: "black",
-    fontSize: 22,
-    marginTop: 11,
-    alignSelf: "flex-end",
-    right: 25,
-  },
-  notes: {
-    fontFamily: "SulphurPoint-Bold",
-    color: "black",
-    fontSize: 22,
-  },
-  notesBox: {
-    width: 275,
-  },
+  /***********************
+   Take Photo            *
+  ***********************/
   photoContainer: {
     ...StyleSheet.absoluteFillObject,
   },
@@ -433,10 +391,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 1,
   },
   photoCaptureText: {
     color: "white",
@@ -450,24 +404,9 @@ const styles = StyleSheet.create({
     fontFamily: "SulphurPoint-Regular",
     fontSize: 25,
   },
-
-  profileContainer: {
-    flex: 1,
-    backgroundColor: "white",
-  },
-  profileText: {
-    fontFamily: "SulphurPoint-Bold",
-    fontSize: 22,
-  },
-  userInfoSection: {
-    paddingHorizontal: 30,
-    marginBottom: 25,
-  },
-  tinyImage: {
-    width: 75,
-    height: 75,
-    shadowColor: "black",
-  },
+  /***********************
+   MISC                  *
+  ***********************/
 });
 
 export default styles;
