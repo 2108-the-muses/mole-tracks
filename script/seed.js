@@ -83,37 +83,37 @@ async function seed() {
         notes: "Came out of nowhere. So fuzzy!!!",
         tags: ["border", "elevation"],
         imgUrl:
-          "https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg",
+          "https://health.clevelandclinic.org/wp-content/uploads/sites/3/2021/04/moleSkinCancer-1150885505-770x533-1.jpg",
       },
       {
         notes: "It's getting fuzzier!",
         tags: ["border", "elevation"],
         imgUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
+          "https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/326201_2200-800x1200.jpg",
       },
       {
         notes: "It's bumpin'",
         tags: ["asymmetry", "elevation"],
         imgUrl:
-          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+          "https://www.aimatmelanoma.org/wp-content/uploads/Untitled-design-70-300x300.png",
       },
       {
         notes: "So much fuzz.",
         tags: ["asymmetry", "elevation"],
         imgUrl:
-          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF29r09PgMSnnFCcVJ_l58T8XfDqpI36C1ug&usqp=CAU",
       },
       {
         notes: "The fuzziest",
         tags: ["asymmetry", "elevation"],
         imgUrl:
-          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7Ak3m4CLmt8Ns6lHDUIVJTEXOPQRyPoYg-g&usqp=CAU",
       },
       {
         notes: "SOS",
         tags: ["asymmetry", "elevation"],
         imgUrl:
-          "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrjYOeda-idI7TDaFHCJHlBlDkTVSsQY2zig&usqp=CAU",
       },
     ]);
 

@@ -24,6 +24,7 @@ import {
 } from "../store/mole";
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import Loading from "./Loading";
+import styles from "../styles";
 
 const SingleMole = (props) => {
   const moleId = props.route.params.mole.id;
@@ -61,11 +62,11 @@ const SingleMole = (props) => {
     ? (bodyParts = [...bodyParts, "groin"])
     : (bodyParts = [...bodyParts, "butt"]);
 
-  let recentPhoto;
+  let firstPhoto;
   const entries = mole.entries || [];
   entries.length
-    ? (recentPhoto = entries[entries.length - 1].imgUrl)
-    : (recentPhoto =
+    ? (firstPhoto = entries[0].imgUrl)
+    : (firstPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
@@ -98,41 +99,49 @@ const SingleMole = (props) => {
 
   if (fetchStatus === FETCH_PENDING) {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerFlexStart}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
-          style={styles.background}
+          style={styles.backgroundImage}
         />
         <Loading />
       </View>
     );
   } else if (fetchStatus === FETCH_SUCCESS) {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerScroll}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
-          style={styles.background}
+          style={styles.backgroundImage}
         />
-        <View style={styles.contentBox}>
+        <View>
           <View style={styles.headerBox}>
             <View style={{ marginLeft: 10 }}>
               {isEdit ? (
                 <SafeAreaView>
                   <TextInput
                     autoCapitalize="none"
-                    style={styles.nicknameInput}
+                    style={styles.headerInput}
                     placeholder={nickname}
                     onChangeText={(nickname) => setNickname(nickname)}
                     value={nickname}
                   ></TextInput>
                 </SafeAreaView>
               ) : (
-                <Text style={styles.nickname}>{nickname}</Text>
+                <Text style={{ ...styles.headerText, width: 160 }}>
+                  {nickname}
+                </Text>
               )}
             </View>
-            <View style={styles.iconBox}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                width: 150,
+              }}
+            >
               <TouchableOpacity
-                style={styles.icon}
+                style={{ marginHorizontal: 10 }}
                 onPress={() => {
                   setIsEdit(true);
                 }}
@@ -140,20 +149,35 @@ const SingleMole = (props) => {
                 <Entypo name="edit" size={16} color="black" />
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.icon}
+                style={{ marginHorizontal: 10 }}
                 onPress={() => deleteAlert(mole.id)}
               >
                 <FontAwesome5 name="minus" size={16} color="black" />
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{ flexDirection: "row" }}>
-            <View>
-              <Image source={{ uri: recentPhoto }} style={styles.image}></Image>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "100%",
+              alignItems: "flex-start",
+              padding: "2%",
+            }}
+          >
+            <View style={styles.polaroidContainer}>
+              <Image
+                source={{ uri: firstPhoto }}
+                style={styles.polaroidImage}
+              ></Image>
+              <View style={styles.polaroidLabel}>
+                <Text style={styles.headerText}>
+                  {date(entries[0].createdAt)}
+                </Text>
+              </View>
             </View>
 
-            <View style={styles.infoColumn}>
-              <View>
+            <View style={{ margin: 10, flex: 1, alignItems: "center" }}>
+              <View style={{ width: "90%" }}>
                 {isEdit ? (
                   <SelectDropdown
                     buttonStyle={styles.dropdownBtnStyle}
@@ -171,10 +195,10 @@ const SingleMole = (props) => {
                   </View>
                 )}
                 <View style={styles.labelBox}>
-                  <Text style={styles.label}>side</Text>
+                  <Text style={styles.labelText}>side</Text>
                 </View>
               </View>
-              <View>
+              <View style={{ width: "90%" }}>
                 {isEdit ? (
                   <SelectDropdown
                     buttonStyle={styles.dropdownBtnStyle}
@@ -192,28 +216,41 @@ const SingleMole = (props) => {
                   </View>
                 )}
                 <View style={styles.labelBox}>
-                  <Text style={styles.label}>location</Text>
+                  <Text style={styles.labelText}>location</Text>
                 </View>
               </View>
               {isEdit && (
-                <TouchableOpacity
-                  onPress={handleSubmit}
-                  style={{ alignItems: "center", marginTop: 10 }}
+                <View
+                  style={{
+                    alignItems: "flex-end",
+                    width: "95%",
+                  }}
                 >
-                  <Text>UPDATE MOLE</Text>
-                </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleSubmit}
+                    style={styles.buttonSmall}
+                  >
+                    <Text style={styles.buttonSmallText}>update</Text>
+                  </TouchableOpacity>
+                </View>
               )}
             </View>
           </View>
         </View>
-        <View style={styles.contentBox}>
+        <View style={{ width: "100%", alignItems: "flex-start" }}>
           <View style={styles.headerBox}>
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.nickname}>Entries</Text>
+              <Text style={{ ...styles.headerText, width: 160 }}>Entries</Text>
             </View>
-            <View style={styles.iconBox}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                width: 150,
+              }}
+            >
               <TouchableOpacity
-                style={styles.icon}
+                style={{ marginHorizontal: 10 }}
                 onPress={() => props.navigation.push("TakePhoto", { moleId })}
               >
                 <FontAwesome5 name="plus" size={16} color="black" />
@@ -237,7 +274,9 @@ const SingleMole = (props) => {
                       })
                     }
                   >
-                    <Text style={styles.entry}>{date(entry.createdAt)}</Text>
+                    <Text style={styles.entryText}>
+                      {date(entry.createdAt)}
+                    </Text>
                   </TouchableOpacity>
                 );
               })}
@@ -265,133 +304,3 @@ const SingleMole = (props) => {
 };
 
 export default SingleMole;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    height: "100%",
-  },
-  background: {
-    width: "100%",
-    height: "100%",
-    opacity: 0.5,
-    position: "absolute",
-  },
-  headerBox: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    height: 35,
-    alignItems: "center",
-    backgroundColor: "#E59F71",
-  },
-  iconBox: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    width: 150,
-  },
-  icon: {
-    marginHorizontal: 10,
-  },
-  contentBox: {
-    width: "100%",
-    borderRadius: 1,
-    alignItems: "flex-start",
-  },
-  image: {
-    width: 150,
-    height: 150,
-    margin: 10,
-    backgroundColor: "white",
-  },
-  nickname: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "black",
-    fontSize: 20,
-    padding: 3,
-    width: 160,
-  },
-  nicknameInput: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "black",
-    fontSize: 20,
-    borderBottomWidth: 1,
-    borderColor: "white",
-    padding: 3,
-    paddingBottom: 2,
-    width: 160,
-  },
-  infoColumn: {
-    margin: 10,
-    flex: 1,
-  },
-  entryBox: {
-    width: "100%",
-    height: 50,
-    borderColor: "#E59F71",
-    borderBottomWidth: 2,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  entry: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "black",
-    fontSize: 18,
-  },
-  labelBox: {
-    borderTopWidth: 1,
-    borderColor: "black",
-    alignItems: "flex-start",
-    paddingTop: 4,
-  },
-  label: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "gray",
-    fontSize: 14,
-  },
-  selectBox: {
-    width: "100%",
-    height: 30,
-    fontSize: 18,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 0,
-    padding: 0,
-  },
-  select: {
-    height: 30,
-    fontSize: 18,
-    flex: 1,
-
-    fontFamily: "SulphurPoint-Regular",
-  },
-  dropdownBtnStyle: {
-    width: "100%",
-    height: 30,
-    alignSelf: "center",
-  },
-  dropdownBtnTxtStyle: {
-    textAlign: "center",
-
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 18,
-  },
-  dropdownDropdownStyle: {
-    backgroundColor: "#E59F71",
-  },
-  dropdownRowStyle: {
-    borderBottomColor: "#BA5A31",
-    height: 30,
-  },
-  dropdownRowTxtStyle: {
-    color: "#FFF",
-    textAlign: "center",
-
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 18,
-    marginVertical: 6,
-  },
-});

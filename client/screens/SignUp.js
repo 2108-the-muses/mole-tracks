@@ -1,20 +1,9 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ImageBackground,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {authenticateSignUp} from "../store/auth";
-
-import {useFonts} from "@use-expo/font";
-import AppLoading from "expo-app-loading";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { authenticateSignUp } from "../store/auth";
+import styles from "../styles";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
@@ -26,7 +15,9 @@ const SignUp = (props) => {
 
   const handleSignUp = async () => {
     try {
-      const response = await dispatch(authenticateSignUp({email, firstName, lastName, password}));
+      const response = await dispatch(
+        authenticateSignUp({ email, firstName, lastName, password })
+      );
       if (response !== true) setError(response);
     } catch (error) {
       console.log(error);
@@ -34,31 +25,31 @@ const SignUp = (props) => {
   };
 
   return (
-    <KeyboardAwareScrollView style={{flex: 1}}>
-      <View style={styles.container}>
-        <ImageBackground
+    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.containerFlexStart}>
+        <Image
           source={require("../../assets/images/face-with-mole.png")}
-          style={styles.image}
+          style={{ ...styles.logoLarge, position: "absolute" }}
         />
-        <View style={styles.form}>
+        <View style={styles.authForm}>
           <TextInput
             placeholder="Email"
             autoCapitalize="none"
-            style={styles.textInput}
+            style={styles.textInputLarge}
             onChangeText={(email) => setEmail(email)}
             value={email}
           />
           <TextInput
             placeholder="First Name"
             autoCapitalize="none"
-            style={styles.textInput}
+            style={styles.textInputLarge}
             onChangeText={(firstName) => setFirstName(firstName)}
             value={firstName}
           />
           <TextInput
             placeholder="Last Name"
             autoCapitalize="none"
-            style={styles.textInput}
+            style={styles.textInputLarge}
             onChangeText={(lastName) => setLastName(lastName)}
             value={lastName}
           />
@@ -66,32 +57,53 @@ const SignUp = (props) => {
             secureTextEntry
             placeholder="Password"
             autoCapitalize="none"
-            style={styles.textInput}
+            style={styles.textInputLarge}
             onChangeText={(password) => setPassword(password)}
             value={password}
           />
-          {error && <Text style={{color: "red", marginTop: 10}}>{error}</Text>}
-          <View style={styles.buttonBox}>
-            <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
-              <View style={[styles.button, styles.fade]}>
-                <Text style={styles.buttonText}>login</Text>
+          {error && (
+            <Text style={{ color: "red", marginTop: 10 }}>{error}</Text>
+          )}
+          <View
+            style={{
+              flexDirection: "row",
+              width: "85%",
+              justifyContent: "space-between",
+              marginTop: 20,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Login")}
+            >
+              <View
+                style={{ ...styles.buttonLarge, opacity: 0.3, marginTop: 5 }}
+              >
+                <Text style={styles.buttonLargeText}>login</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleSignUp}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>sign up</Text>
+              <View style={{ ...styles.buttonLarge, marginTop: 5 }}>
+                <Text style={styles.buttonLargeText}>sign up</Text>
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{marginTop: 10}}>or</Text>
-          <View style={styles.googleButtonBox}>
+          <Text style={{ marginTop: 10 }}>or</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "85%",
+              marginTop: 10,
+            }}
+          >
             <TouchableOpacity>
               <View style={styles.googleButton}>
                 <Image
                   style={styles.googleImage}
                   source={require("../../assets/images/google-logo.png")}
                 />
-                <Text style={styles.googleButtonText}>Continue With Google</Text>
+                <Text style={styles.googleButtonText}>
+                  Continue With Google
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -101,104 +113,4 @@ const SignUp = (props) => {
   );
 };
 
-SignUp.navigationOptions = {
-  headerTitle: "mole tracks",
-  headerLeft: null,
-};
-
 export default SignUp;
-
-const heightConst = Dimensions.get("screen").height;
-const styles = StyleSheet.create({
-  container: {
-    height: heightConst - 50,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  image: {
-    width: 325,
-    height: 325,
-    position: "absolute",
-    top: 20,
-  },
-  form: {
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "80%",
-    height: "100%",
-    bottom: 150,
-  },
-  textInput: {
-    height: 40,
-    width: 290,
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginTop: 15,
-    color: "black",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-  buttonBox: {
-    flexDirection: "row",
-    width: 260,
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  button: {
-    borderRadius: 10,
-    backgroundColor: "#FF7379",
-    width: 115,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
-    shadowRadius: 3,
-    elevation: 1,
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-  fade: {
-    opacity: 0.3,
-  },
-  googleButtonBox: {
-    flexDirection: "row",
-    width: 260,
-    justifyContent: "center",
-    marginTop: 10,
-  },
-  googleButton: {
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: "#FF7379",
-    backgroundColor: "white",
-    width: 260,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
-    shadowRadius: 3,
-    elevation: 1,
-    flexDirection: "row",
-  },
-  googleButtonText: {
-    color: "black",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 16,
-  },
-  googleImage: {
-    width: 25,
-    height: 25,
-    position: "absolute",
-    left: 12,
-  },
-});

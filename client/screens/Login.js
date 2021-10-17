@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ImageBackground,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { authenticateLogin } from "../store/auth";
+import styles from "../styles";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -33,17 +25,17 @@ const Login = (props) => {
   };
 
   return (
-    <KeyboardAwareScrollView style={{ flex: 1 }}>
+    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.containerFlexStart}>
         <Image
           source={require("../../assets/images/face-with-mole.png")}
-          style={styles.logoLarge}
+          style={{ ...styles.logoLarge, position: "absolute" }}
         />
-        <View style={styles.authForm}>
+        <View style={{ ...styles.authForm, top: styles.authForm.top + 110 }}>
           <TextInput
             placeholder="Email"
             autoCapitalize="none"
-            style={styles.textInput}
+            style={styles.textInputLarge}
             onChangeText={(email) => setEmail(email)}
             value={email}
           />
@@ -51,29 +43,44 @@ const Login = (props) => {
             secureTextEntry
             placeholder="Password"
             autoCapitalize="none"
-            style={styles.textInput}
+            style={styles.textInputLarge}
             onChangeText={(password) => setPassword(password)}
             value={password}
           />
           {error && (
             <Text style={{ color: "red", marginTop: 10 }}>{error}</Text>
           )}
-          <View style={styles.buttonBox}>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "85%",
+              justifyContent: "space-between",
+              marginTop: 20,
+            }}
+          >
             <TouchableOpacity onPress={handleLogin}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>login</Text>
+              <View style={{ ...styles.buttonLarge, marginTop: 5 }}>
+                <Text style={styles.buttonLargeText}>login</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.navigation.navigate("SignUp")}
             >
-              <View style={[styles.button, styles.fade]}>
-                <Text style={styles.buttonText}>sign up</Text>
+              <View
+                style={{ ...styles.buttonLarge, opacity: 0.3, marginTop: 5 }}
+              >
+                <Text style={styles.buttonLargeText}>sign up</Text>
               </View>
             </TouchableOpacity>
           </View>
           <Text style={{ marginTop: 10 }}>or</Text>
-          <View style={styles.googleButtonBox}>
+          <View
+            style={{
+              flexDirection: "row",
+              width: "85%",
+              marginTop: 10,
+            }}
+          >
             <TouchableOpacity>
               <View style={styles.googleButton}>
                 <Image
@@ -92,113 +99,4 @@ const Login = (props) => {
   );
 };
 
-Login.navigationOptions = {
-  headerTitle: "login",
-  headerLeft: null,
-};
-
 export default Login;
-
-const heightConst = Dimensions.get("screen").height;
-const widthConst = Dimensions.get("screen").width;
-const ratio = (0.9 * widthConst) / 621;
-const styles = StyleSheet.create({
-  containerCenter: {
-    height: heightConst,
-    width: widthConst,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  containerFlexStart: {
-    height: heightConst,
-    width: widthConst,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  logoLarge: {
-    width: "90%",
-    height: 621 * ratio,
-    // position: "absolute",
-    top: "2%",
-  },
-  authForm: {
-    alignItems: "center",
-    justifyContent: "flex-end",
-    width: "80%",
-    bottom: "2%",
-  },
-  textInput: {
-    height: 40,
-    width: 290,
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
-    marginTop: 15,
-    color: "black",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-  buttonBox: {
-    flexDirection: "row",
-    width: 260,
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  button: {
-    borderRadius: 10,
-    backgroundColor: "#FF7379",
-    width: 115,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 1,
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-  fade: {
-    opacity: 0.3,
-  },
-  googleButtonBox: {
-    flexDirection: "row",
-    width: 260,
-    justifyContent: "center",
-    marginTop: 10,
-  },
-  googleButton: {
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: "#FF7379",
-    backgroundColor: "white",
-    width: 260,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 3,
-    elevation: 1,
-    flexDirection: "row",
-  },
-  googleButtonText: {
-    color: "black",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 16,
-  },
-  googleImage: {
-    width: 25,
-    height: 25,
-    position: "absolute",
-    left: 12,
-  },
-});

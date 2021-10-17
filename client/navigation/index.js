@@ -55,7 +55,15 @@ const BodyStack = () => {
 
 const MolesStack = () => {
   return (
-    <Stack.Navigator initialRouteName={ALLMOLES}>
+    <Stack.Navigator
+      initialRouteName={ALLMOLES}
+      screenOptions={{
+        headerStyle: { backgroundColor: "#BA5A31" },
+        headerTitle: "mole tracks",
+        headerTitleStyle: styles.navHeader,
+        // headerBackVisible: false,
+      }}
+    >
       <Stack.Screen name={ALLMOLES} component={AllMoles} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ENTRY} component={Entry} />

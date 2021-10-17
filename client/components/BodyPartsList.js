@@ -1,16 +1,28 @@
-import React, {useEffect} from "react";
-import {StyleSheet, View, Text, TouchableOpacity} from "react-native";
-import {fetchAllMoles} from "../store/mole";
-import {FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS} from "../store/mole";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from "react";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { fetchAllMoles } from "../store/mole";
+import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
+import { useDispatch, useSelector } from "react-redux";
 import Moles from "./Moles";
 import Loading from "../screens/Loading";
+import styles from "../styles";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-const BodyPartsList = ({navigation}) => {
+const BodyPartsList = ({ navigation }) => {
   let moles = useSelector((state) => state.allMoles.moles);
   const fetchStatus = useSelector((state) => state.allMoles.fetchStatus);
 
-  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r", "groin", "butt"];
+  let bodyParts = [
+    "head",
+    "torso",
+    "arm-l",
+    "arm-r",
+    "leg-l",
+    "leg-r",
+    "groin",
+    "butt",
+  ];
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,18 +35,15 @@ const BodyPartsList = ({navigation}) => {
 
       if (molesInBodyPart.length)
         return (
-          <View key={index} style={styles.bodyParts}>
-            <TouchableOpacity>
-              <View style={styles.titleBox}>
-                <View style={styles.title}>
-                  <Text style={styles.titleText}>{bodyPart}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+          <View key={index} style={{ marginBottom: 0 }}>
+            <View style={{ ...styles.headerBox, paddingHorizontal: "3%" }}>
+              <Text style={styles.headerText}>{bodyPart}</Text>
+              <FontAwesome5 name="plus" size={12} color="black" />
+            </View>
 
-            <Text>
+            <View>
               <Moles navigation={navigation} moles={molesInBodyPart} />
-            </Text>
+            </View>
           </View>
         );
     });
@@ -44,13 +53,16 @@ const BodyPartsList = ({navigation}) => {
     return <Loading />;
   } else if (fetchStatus === FETCH_SUCCESS) {
     if (moles.length) {
-      return <View style={{marginTop: 10}}>{list()}</View>;
+      return list();
     } else {
       return (
-        <View style={{marginTop: 25}}>
-          <Text style={styles.alertText}>You have no moles!</Text>
-          <TouchableOpacity onPress={() => navigation.push("AddMole")} style={styles.button}>
-            <Text style={styles.buttonText}>add a mole!</Text>
+        <View style={{ marginTop: 25 }}>
+          <Text style={styles.headerText}>You have no moles!</Text>
+          <TouchableOpacity
+            onPress={() => navigation.push("AddMole")}
+            style={styles.buttonLarge}
+          >
+            <Text style={styles.buttonLargeText}>add a mole!</Text>
           </TouchableOpacity>
         </View>
       );
@@ -63,73 +75,5 @@ const BodyPartsList = ({navigation}) => {
     );
   }
 };
-
-const styles = StyleSheet.create({
-  bodyParts: {
-    // flex: 1,
-    // marginTop: 10,
-  },
-  titleBox: {
-    flexDirection: "row",
-    width: 260,
-    justifyContent: "space-between",
-    // marginTop: 20,
-    marginLeft: 10,
-    // marginBottom: 13,
-  },
-  title: {
-    borderRadius: 10,
-    backgroundColor: "#FF7379",
-    width: 115,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    // marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
-    shadowRadius: 3,
-    elevation: 1,
-  },
-  titleText: {
-    color: "white",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 25,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  buttonBox: {
-    flexDirection: "row",
-    width: 260,
-    justifyContent: "space-between",
-    marginTop: 20,
-  },
-  button: {
-    borderRadius: 10,
-    backgroundColor: "#FF7379",
-    width: 250,
-    height: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    shadowColor: "gray",
-    shadowOffset: {width: 0, height: 1},
-    shadowRadius: 3,
-    elevation: 1,
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-  alertText: {
-    color: "black",
-    textAlign: "center",
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 22,
-  },
-});
 
 export default BodyPartsList;
