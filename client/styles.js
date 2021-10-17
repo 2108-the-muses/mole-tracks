@@ -211,6 +211,38 @@ const styles = StyleSheet.create({
     height: 75,
     shadowColor: "black",
   },
+  photoMiddleContainer: {
+    flexDirection: "row",
+    top: 28,
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    // backgroundColor: "red",
+    borderRadius: 15,
+    alignItems: "center",
+    // opacity: 0.2,
+    marginTop: 50,
+    marginBottom: 50,
+  },
+
+  photoGuide: {
+    width: 250,
+    height: 200,
+    marginHorizontal: "50%",
+    marginVertical: "50%",
+    // backgroundColor: "white",
+    // borderRadius: 15,
+    alignItems: "center",
+    borderWidth: 4,
+    borderLeftColor: "black",
+  },
+  dimeImage: {
+    width: 90,
+    height: 90,
+    opacity: 0.6,
+    marginTop: 100,
+    marginLeft: 20,
+  },
 });
 
 export default styles;

@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import { ADDENTRY } from "../NavigationConstants";
 import { Camera } from "expo-camera";
 import styles from "../styles";
@@ -121,6 +115,25 @@ const TakePhoto = ({ navigation, route }) => {
         )}
         {!isPreview && (
           <View style={styles.photoContainer}>
+            <View style={styles.photoTopContainer}>
+              <Text style={styles.photoCaptureDimeAdvice}>
+                Please match your dime with the image below!
+              </Text>
+            </View>
+
+            <View style={styles.photoMiddleContainer}>
+              <View>
+                <Text style={styles.photoGuide}></Text>
+              </View>
+
+              <View>
+                <Image
+                  style={styles.dimeImage}
+                  source={require("../../assets/images/dime_image.png")}
+                />
+              </View>
+            </View>
+
             <View style={styles.photoBottomButtonsContainer}>
               <TouchableOpacity
                 activeOpacity={0.3}
@@ -138,11 +151,6 @@ const TakePhoto = ({ navigation, route }) => {
               >
                 <Text style={styles.photoCaptureText}>Take Photo</Text>
               </TouchableOpacity>
-            </View>
-            <View style={styles.photoTopContainer}>
-              <Text style={styles.photoCaptureDimeAdvice}>
-                Please include a dime next to your mole!
-              </Text>
             </View>
           </View>
         )}
