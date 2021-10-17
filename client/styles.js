@@ -246,6 +246,15 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     alignItems: "center",
     justifyContent: "center",
+    opacity: 0.2,
+  },
+  tagsActiveButton: {
+    marginLeft: 5,
+    backgroundColor: "#FF7379",
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    alignItems: "center",
+    justifyContent: "center",
   },
   moreInfoButton: {
     borderColor: "black",

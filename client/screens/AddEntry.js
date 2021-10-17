@@ -51,7 +51,6 @@ const AddEntry = ({ route, navigation }) => {
     let molesArray = moles.filter((mole) => {
       return mole.bodyPart === bodyPart;
     });
-    console.log("molesArray", molesArray.length);
     let molesDictionary = {};
     molesArray.forEach((mole) => {
       molesDictionary[mole.nickname] = mole.id;
@@ -76,6 +75,26 @@ const AddEntry = ({ route, navigation }) => {
     alert("Upload failed");
     dispatch(addStatus(null));
   }
+
+  ////////////////////////////TAGS STUFF (below)////////////////////////////
+  const tagsMemo = {
+    Symmetric: false,
+    Asymmetric: false,
+    Defined: false,
+    Fuzzy: false,
+    Solid: false,
+    "Multiple Colors": false,
+    Flat: false,
+    Raised: false,
+    "Under 6mm": false,
+    "Above 6mm": false,
+  };
+
+  const tagSelect = () => {
+    tagsMemo.Symmetric = !tagsMemo.Symmetric;
+  };
+
+  ////////////////////////////TAGS STUFF (above)////////////////////////////
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -95,11 +114,23 @@ const AddEntry = ({ route, navigation }) => {
               value={notes}
             />
           </View>
+
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TAGS (below) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    */}
+          {/* onPress for tags => 
+              1. make button appear active =>
+                not working, but set up styles => styles.tagsInAddEntryButtons vs styles.tagsActiveButton;
+              2. change to true or false => 
+                this is currently working using tagSelect 
+          */}
+
           <View style={styles.tagsInAddEntryContainer}>
-            {/* TAGS    */}
             <View style={styles.tagsCategoryContainer}>
               <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+              <TouchableOpacity
+                style={styles.tagsInAddEntryButtons}
+                onPress={tagSelect}
+                value="Symmetric"
+              >
                 <Text>Symmetric</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.tagsInAddEntryButtons}>
@@ -147,6 +178,7 @@ const AddEntry = ({ route, navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
+          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TAGS (above)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    */}
           <TouchableOpacity
             style={styles.moreInfoButton}
             onPress={() => navigation.push("Info")}
