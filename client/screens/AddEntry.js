@@ -65,7 +65,13 @@ const AddEntry = ({ route, navigation }) => {
   if (status === ADD_PENDING) {
     return <Loading />;
   } else if (status === ADD_SUCCESS) {
-    navigation.navigate("Moles",{screen: ENTRY, params:{entry: entryForEntryRouteParam, name: moleNameForEntryRouteParam}})
+    navigation.navigate("Moles", {
+      screen: ENTRY,
+      params: {
+        entry: entryForEntryRouteParam,
+        name: moleNameForEntryRouteParam,
+      },
+    });
   } else if (status === ADD_FAILED) {
     alert("Upload failed");
     dispatch(addStatus(null));
@@ -89,6 +95,65 @@ const AddEntry = ({ route, navigation }) => {
               value={notes}
             />
           </View>
+          <View style={styles.tagsInAddEntryContainer}>
+            {/* TAGS    */}
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Symmetric</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Asymmetric</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Defined</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Fuzzy</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Solid/One Color</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Many Colors</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Elevation:</Text>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Flat</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Raised</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Under 6mm</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
+                <Text>Above 6mm</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={styles.moreInfoButton}
+            onPress={() => navigation.push("Info")}
+          >
+            <Text style={styles.tagsInAddEntryTitle}>More Information</Text>
+          </TouchableOpacity>
+
           <View>
             {gotMoleId === false && (
               <SelectDropdown

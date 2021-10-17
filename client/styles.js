@@ -229,6 +229,34 @@ const styles = StyleSheet.create({
     fontFamily: "SulphurPoint-Regular",
     fontSize: 20,
   },
+  tagsInAddEntryContainer: {
+    padding: 10,
+  },
+  tagsInAddEntryTitle: {
+    fontWeight: "bold",
+  },
+  tagsCategoryContainer: {
+    flexDirection: "row",
+    padding: 5,
+  },
+  tagsInAddEntryButtons: {
+    marginLeft: 5,
+    backgroundColor: "#FF7379",
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  moreInfoButton: {
+    borderColor: "black",
+    borderWidth: 2,
+    width: 200,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    alignItems: "center",
+    alignSelf: "center",
+    fontWeight: "bold",
+  },
 });
 
 export default styles;
