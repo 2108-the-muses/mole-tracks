@@ -124,250 +124,258 @@ const SingleMole = (props) => {
           source={require("../../assets/images/background.png")}
           style={styles.backgroundImage}
         />
-        <View>
-          <View style={styles.headerBox}>
-            <View style={{ marginLeft: 10 }}>
-              {isEdit ? (
-                <SafeAreaView>
-                  <TextInput
-                    autoCapitalize="none"
-                    style={styles.headerInput}
-                    placeholder={nickname}
-                    onChangeText={(nickname) => setNickname(nickname)}
-                    value={nickname}
-                  ></TextInput>
-                </SafeAreaView>
-              ) : (
-                <Text style={{ ...styles.headerText, width: 160 }}>
-                  {nickname}
-                </Text>
-              )}
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                width: 150,
-              }}
-            >
-              <TouchableOpacity
-                style={{ marginHorizontal: 10 }}
-                onPress={() => {
-                  setIsEdit(true);
+
+        <KeyboardAwareScrollView
+          style={{ width: "100%" }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View>
+            <View style={styles.headerBox}>
+              <View style={{ marginLeft: 10 }}>
+                {isEdit ? (
+                  <SafeAreaView>
+                    <TextInput
+                      autoCapitalize="none"
+                      style={styles.headerInput}
+                      placeholder={nickname}
+                      onChangeText={(nickname) => setNickname(nickname)}
+                      value={nickname}
+                    ></TextInput>
+                  </SafeAreaView>
+                ) : (
+                  <Text style={{ ...styles.headerText, width: 160 }}>
+                    {nickname}
+                  </Text>
+                )}
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  width: 150,
                 }}
               >
-                <Entypo name="edit" size={16} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ marginHorizontal: 10 }}
-                onPress={() => deleteAlert(mole.id)}
-              >
-                <FontAwesome5 name="minus" size={16} color="black" />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              alignItems: "flex-start",
-              padding: "2%",
-            }}
-          >
-            <View style={styles.polaroidContainer}>
-              <Image
-                source={{ uri: firstPhoto }}
-                style={styles.polaroidImage}
-              ></Image>
-              <View style={styles.polaroidLabel}>
-                {entries.length ? (
-                  <Text style={styles.headerText}>
-                    {date(entries[0].createdAt)}
-                  </Text>
-                ) : (
-                  <Text style={styles.headerText}></Text>
-                )}
-              </View>
-            </View>
-
-            <View style={{ margin: 10, flex: 1, alignItems: "center" }}>
-              <View style={{ width: "90%" }}>
-                {isEdit ? (
-                  <SelectDropdown
-                    buttonStyle={styles.dropdownBtnStyle}
-                    buttonTextStyle={styles.dropdownBtnTxtStyle}
-                    dropdownStyle={styles.dropdownDropdownStyle}
-                    rowStyle={styles.dropdownRowStyle}
-                    rowTextStyle={styles.dropdownRowTxtStyle}
-                    data={sides}
-                    defaultButtonText={side}
-                    onSelect={(selected) => setSide(selected)}
-                  />
-                ) : (
-                  <View style={styles.selectBox}>
-                    <Text style={styles.select}>{side}</Text>
-                  </View>
-                )}
-                <View style={styles.labelBox}>
-                  <Text style={styles.labelText}>side</Text>
-                </View>
-              </View>
-              <View style={{ width: "90%" }}>
-                {isEdit ? (
-                  <SelectDropdown
-                    buttonStyle={styles.dropdownBtnStyle}
-                    buttonTextStyle={styles.dropdownBtnTxtStyle}
-                    dropdownStyle={styles.dropdownDropdownStyle}
-                    rowStyle={styles.dropdownRowStyle}
-                    rowTextStyle={styles.dropdownRowTxtStyle}
-                    data={bodyParts}
-                    defaultButtonText={bodyPart}
-                    onSelect={(selected) => setBodyPart(selected)}
-                  />
-                ) : (
-                  <View style={styles.selectBox}>
-                    <Text style={styles.select}>{bodyPart}</Text>
-                  </View>
-                )}
-                <View style={styles.labelBox}>
-                  <Text style={styles.labelText}>location</Text>
-                </View>
-              </View>
-              {isEdit && (
-                <View
-                  style={{
-                    alignItems: "flex-end",
-                    width: "95%",
+                <TouchableOpacity
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() => {
+                    setIsEdit(true);
                   }}
                 >
-                  <TouchableOpacity
-                    onPress={handleSubmit}
-                    style={styles.buttonSmall}
-                  >
-                    <Text style={styles.buttonSmallText}>update</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          </View>
-        </View>
-        <View style={{ width: "100%", alignItems: "flex-start" }}>
-          <View style={styles.headerBox}>
-            <View style={{ marginLeft: 10 }}>
-              <Text style={{ ...styles.headerText, width: 160 }}>Entries</Text>
+                  <Entypo name="edit" size={16} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() => deleteAlert(mole.id)}
+                >
+                  <FontAwesome5 name="minus" size={16} color="black" />
+                </TouchableOpacity>
+              </View>
             </View>
             <View
               style={{
                 flexDirection: "row",
-                justifyContent: "flex-end",
-                width: 150,
+                width: "100%",
+                alignItems: "flex-start",
+                padding: "2%",
               }}
             >
-              {/* @todo reverse button */}
-              <TouchableOpacity
-                style={{ marginHorizontal: 10 }}
-                onPress={() =>
-                  console.log(
-                    "This button should reverse the order - newest to oldest/oldest to newest, etc."
-                  )
-                }
-              >
-                <Entypo name="select-arrows" size={16} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ marginHorizontal: 10 }}
-                onPress={() => props.navigation.push("TakePhoto", { moleId })}
-              >
-                <FontAwesome5 name="plus" size={16} color="black" />
-              </TouchableOpacity>
+              <View style={styles.polaroidContainer}>
+                <Image
+                  source={{ uri: firstPhoto }}
+                  style={styles.polaroidImage}
+                ></Image>
+                <View style={styles.polaroidLabel}>
+                  {entries.length ? (
+                    <Text style={styles.headerText}>
+                      {date(entries[0].createdAt)}
+                    </Text>
+                  ) : (
+                    <Text style={styles.headerText}></Text>
+                  )}
+                </View>
+              </View>
+
+              <View style={{ margin: 10, flex: 1, alignItems: "center" }}>
+                <View style={{ width: "90%" }}>
+                  {isEdit ? (
+                    <SelectDropdown
+                      buttonStyle={styles.dropdownBtnStyle}
+                      buttonTextStyle={styles.dropdownBtnTxtStyle}
+                      dropdownStyle={styles.dropdownDropdownStyle}
+                      rowStyle={styles.dropdownRowStyle}
+                      rowTextStyle={styles.dropdownRowTxtStyle}
+                      data={sides}
+                      defaultButtonText={side}
+                      onSelect={(selected) => setSide(selected)}
+                    />
+                  ) : (
+                    <View style={styles.selectBox}>
+                      <Text style={styles.select}>{side}</Text>
+                    </View>
+                  )}
+                  <View style={styles.labelBox}>
+                    <Text style={styles.labelText}>side</Text>
+                  </View>
+                </View>
+                <View style={{ width: "90%" }}>
+                  {isEdit ? (
+                    <SelectDropdown
+                      buttonStyle={styles.dropdownBtnStyle}
+                      buttonTextStyle={styles.dropdownBtnTxtStyle}
+                      dropdownStyle={styles.dropdownDropdownStyle}
+                      rowStyle={styles.dropdownRowStyle}
+                      rowTextStyle={styles.dropdownRowTxtStyle}
+                      data={bodyParts}
+                      defaultButtonText={bodyPart}
+                      onSelect={(selected) => setBodyPart(selected)}
+                    />
+                  ) : (
+                    <View style={styles.selectBox}>
+                      <Text style={styles.select}>{bodyPart}</Text>
+                    </View>
+                  )}
+                  <View style={styles.labelBox}>
+                    <Text style={styles.labelText}>location</Text>
+                  </View>
+                </View>
+                {isEdit && (
+                  <View
+                    style={{
+                      alignItems: "flex-end",
+                      width: "95%",
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={handleSubmit}
+                      style={styles.buttonSmall}
+                    >
+                      <Text style={styles.buttonSmallText}>update</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
             </View>
           </View>
-          {entries.length ? (
-            <KeyboardAwareScrollView
-              style={{ width: "100%" }}
-              showsVerticalScrollIndicator={false}
-            >
-              {entries.reverse().map((entry) => {
-                return (
-                  <TouchableOpacity
-                    key={entry.id}
-                    style={styles.entryBox}
-                    onPress={() =>
-                      props.navigation.push("Entry", {
-                        entry: entry,
-                        name: mole.nickname,
-                      })
-                    }
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        width: "100%",
-                        paddingHorizontal: 10,
-                      }}
+          <View style={{ width: "100%", alignItems: "flex-start" }}>
+            <View style={styles.headerBox}>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={{ ...styles.headerText, width: 160 }}>
+                  Entries
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  width: 150,
+                }}
+              >
+                {/* @todo reverse button */}
+                <TouchableOpacity
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() =>
+                    console.log(
+                      "This button should reverse the order - newest to oldest/oldest to newest, etc."
+                    )
+                  }
+                >
+                  <Entypo name="select-arrows" size={16} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() => props.navigation.push("TakePhoto", { moleId })}
+                >
+                  <FontAwesome5 name="plus" size={16} color="black" />
+                </TouchableOpacity>
+              </View>
+            </View>
+            {entries.length ? (
+              <KeyboardAwareScrollView
+                style={{ width: "100%" }}
+                showsVerticalScrollIndicator={false}
+              >
+                {entries.reverse().map((entry) => {
+                  return (
+                    <TouchableOpacity
+                      key={entry.id}
+                      style={styles.entryBox}
+                      onPress={() =>
+                        props.navigation.push("Entry", {
+                          entry: entry,
+                          name: mole.nickname,
+                        })
+                      }
                     >
                       <View
                         style={{
                           flexDirection: "row",
-                          justifyContent: "flex-start",
                           alignItems: "center",
+                          justifyContent: "space-between",
+                          width: "100%",
+                          paddingHorizontal: 10,
                         }}
                       >
-                        <Image
-                          source={{ uri: entry.imgUrl }}
+                        <View
                           style={{
-                            height: 41,
-                            width: 49,
-                            resizeMode: "cover",
-                            marginRight: 10,
+                            flexDirection: "row",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
                           }}
-                        />
+                        >
+                          <Image
+                            source={{ uri: entry.imgUrl }}
+                            style={{
+                              height: 41,
+                              width: 49,
+                              resizeMode: "cover",
+                              marginRight: 10,
+                            }}
+                          />
 
-                        {entry.notes.length > 20 ? (
-                          <Text style={styles.entryText}>
-                            {entry.notes.slice(0, 20)}...
-                          </Text>
-                        ) : (
-                          <Text style={styles.entryText}>
-                            {entry.notes.slice(0, 20)}
-                          </Text>
-                        )}
+                          {entry.notes.length > 20 ? (
+                            <Text style={styles.entryText}>
+                              {entry.notes.slice(0, 20)}...
+                            </Text>
+                          ) : (
+                            <Text style={styles.entryText}>
+                              {entry.notes.slice(0, 20)}
+                            </Text>
+                          )}
+                        </View>
+                        <Text style={styles.entryText}>
+                          {dateTruncated(entry.createdAt)}
+                        </Text>
                       </View>
-                      <Text style={styles.entryText}>
-                        {dateTruncated(entry.createdAt)}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-            </KeyboardAwareScrollView>
-          ) : (
-            <View style={styles.entryBox}>
-              <Text style={styles.entry}> You have no entries! </Text>
-            </View>
-          )}
-        </View>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 20,
-          }}
-        >
-          <TouchableOpacity
-            style={styles.buttonLarge}
-            onPress={() =>
-              props.navigation.push("CompareEntries", {
-                entries,
-                name: mole.nickname,
-              })
-            }
+                    </TouchableOpacity>
+                  );
+                })}
+              </KeyboardAwareScrollView>
+            ) : (
+              <View style={styles.entryBox}>
+                <Text style={styles.entry}> You have no entries! </Text>
+              </View>
+            )}
+          </View>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginVertical: 20,
+            }}
           >
-            <Text style={styles.buttonLargeText}>compare entries</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={styles.buttonLarge}
+              onPress={() =>
+                props.navigation.push("CompareEntries", {
+                  entries,
+                  name: mole.nickname,
+                })
+              }
+            >
+              <Text style={styles.buttonLargeText}>compare entries</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   } else if (fetchStatus === FETCH_FAILED) {

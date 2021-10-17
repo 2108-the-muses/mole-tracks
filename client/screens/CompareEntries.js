@@ -109,9 +109,7 @@ const CompareEntries = (props) => {
             flexDirection: "row",
           }}
         >
-          <View
-            style={{ width: "50%", alignItems: "center", marginVertical: 10 }}
-          >
+          <View style={{ width: "50%", alignItems: "center", padding: 10 }}>
             {entryOne && (
               <>
                 <View style={styles.polaroidContainer}>
@@ -144,9 +142,7 @@ const CompareEntries = (props) => {
               </>
             )}
           </View>
-          <View
-            style={{ width: "50%", alignItems: "center", marginVertical: 10 }}
-          >
+          <View style={{ width: "50%", alignItems: "center", padding: 10 }}>
             {entryTwo && (
               <>
                 <View style={styles.polaroidContainer}>
