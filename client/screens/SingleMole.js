@@ -74,6 +74,17 @@ const SingleMole = (props) => {
     return orderedDate;
   };
 
+  const dateTruncated = (createdAt) => {
+    const splitDate = createdAt.split("-");
+    let orderedDate = [
+      splitDate[1],
+      splitDate[2].split("T")[0],
+      splitDate[0].slice(2),
+    ];
+    orderedDate = orderedDate.join("/");
+    return orderedDate;
+  };
+
   const handleSubmit = () => {
     setIsEdit(false);
     dispatch(updateMoleThunk(mole.id, { nickname, bodyPart, side }));
@@ -252,6 +263,17 @@ const SingleMole = (props) => {
                 width: 150,
               }}
             >
+              {/* @todo reverse button */}
+              <TouchableOpacity
+                style={{ marginHorizontal: 10 }}
+                onPress={() =>
+                  console.log(
+                    "This button should reverse the order - newest to oldest/oldest to newest, etc."
+                  )
+                }
+              >
+                <Entypo name="select-arrows" size={16} color="black" />
+              </TouchableOpacity>
               <TouchableOpacity
                 style={{ marginHorizontal: 10 }}
                 onPress={() => props.navigation.push("TakePhoto", { moleId })}
@@ -273,13 +295,50 @@ const SingleMole = (props) => {
                     onPress={() =>
                       props.navigation.push("Entry", {
                         entry: entry,
-                        name: mole.name,
+                        name: mole.nickname,
                       })
                     }
                   >
-                    <Text style={styles.entryText}>
-                      {date(entry.createdAt)}
-                    </Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        paddingHorizontal: 10,
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "flex-start",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Image
+                          source={{ uri: entry.imgUrl }}
+                          style={{
+                            height: 41,
+                            width: 49,
+                            resizeMode: "cover",
+                            marginRight: 10,
+                          }}
+                        />
+
+                        {entry.notes.length > 20 ? (
+                          <Text style={styles.entryText}>
+                            {entry.notes.slice(0, 20)}...
+                          </Text>
+                        ) : (
+                          <Text style={styles.entryText}>
+                            {entry.notes.slice(0, 20)}
+                          </Text>
+                        )}
+                      </View>
+                      <Text style={styles.entryText}>
+                        {dateTruncated(entry.createdAt)}
+                      </Text>
+                    </View>
                   </TouchableOpacity>
                 );
               })}
@@ -289,6 +348,25 @@ const SingleMole = (props) => {
               <Text style={styles.entry}> You have no entries! </Text>
             </View>
           )}
+        </View>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginVertical: 20,
+          }}
+        >
+          <TouchableOpacity
+            style={styles.buttonLarge}
+            onPress={() =>
+              props.navigation.push("CompareEntries", {
+                entries,
+                name: mole.nickname,
+              })
+            }
+          >
+            <Text style={styles.buttonLargeText}>compare entries</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -300,7 +378,9 @@ const SingleMole = (props) => {
           style={styles.backgroundImage}
         />
 
-        <Text>Uh oh! We were unable to fetch your mole!</Text>
+        <Text style={{ ...styles.fontExtraLarge, alignText: "center" }}>
+          Uh oh! We were unable to fetch your mole!
+        </Text>
       </View>
     );
   }

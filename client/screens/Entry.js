@@ -17,17 +17,10 @@ import styles from "../styles";
 
 const Entry = (props) => {
   const { entry, name } = props.route.params;
+
   const dispatch = useDispatch();
   dispatch(addStatus(null));
-  // renders fine on web, not in expo
-  // const date = (createdAt) => {
-  //   const newDate = new Date(createdAt);
-  //   const stringDate = newDate.toString().slice(4,16);
-  //   console.log(stringDate);
-  //   return stringDate;
-  // };
 
-  //
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
     let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
@@ -77,6 +70,7 @@ const Entry = (props) => {
               width: 150,
             }}
           >
+            {/* @todo ability to edit entry */}
             <TouchableOpacity
               style={{ marginHorizontal: 10 }}
               onPress={() => {
@@ -85,6 +79,7 @@ const Entry = (props) => {
             >
               <Entypo name="edit" size={16} color="black" />
             </TouchableOpacity>
+            {/* @todo ability to delete entry */}
             <TouchableOpacity
               style={{ marginHorizontal: 10 }}
               onPress={() => console.log("Do a deleteAlert(entry.id) here")}
@@ -100,9 +95,23 @@ const Entry = (props) => {
               source={{ uri: entry.imgUrl }}
               style={styles.polaroidImageLarge}
             ></Image>
-            <Text>{name}</Text>
+            <View
+              style={{
+                ...styles.polaroidLabelLarge,
+                marginVertical: 27,
+                justifyContent: "flex-end",
+              }}
+            >
+              <Text style={styles.fontExtraLarge}>{name}</Text>
+            </View>
           </View>
-          <View style={{ marginVertical: "3%" }}>
+          <View
+            style={{
+              marginVertical: "3%",
+              alignItems: "flex-start",
+              width: "80%",
+            }}
+          >
             <Text
               style={{
                 fontFamily: "SulphurPoint-Bold",

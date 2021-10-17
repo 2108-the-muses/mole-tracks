@@ -14,6 +14,7 @@ import {
   ADDMOLE,
   INFO,
   PROFILE,
+  COMPAREENTRIES,
 } from "../NavigationConstants";
 import cIndex from "../components";
 const { Logout } = cIndex;
@@ -32,6 +33,7 @@ const {
   AddEntry,
   Info,
   Profile,
+  CompareEntries,
 } = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -81,6 +83,7 @@ const MolesStack = () => {
       <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
+      <Stack.Screen name={COMPAREENTRIES} component={CompareEntries} />
     </Stack.Navigator>
   );
 };

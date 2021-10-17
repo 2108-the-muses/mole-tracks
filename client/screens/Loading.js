@@ -5,7 +5,7 @@ import styles from "../styles";
 class Loading extends React.Component {
   render() {
     return (
-      <View style={styles.containerCenter}>
+      <View style={{ ...styles.containerCenter, backgroundColor: "none" }}>
         <ActivityIndicator size="large" color="#FF7379" />
       </View>
     );
