@@ -45,7 +45,16 @@ const Stack = createNativeStackNavigator();
 
 const BodyStack = () => {
   return (
-    <Stack.Navigator initialRouteName={BODY}>
+    <Stack.Navigator
+      initialRouteName={BODY}
+      screenOptions={{
+        headerStyle: { backgroundColor: "#BA5A31" },
+        headerTitle: "mole tracks",
+        headerTitleStyle: styles.navHeader,
+        headerBackTitleVisible: false,
+        headerTintColor: "white",
+      }}
+    >
       <Stack.Screen name={BODY} options={{ title: "Body" }} component={Body} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={LOADING} component={Loading} />
@@ -61,7 +70,8 @@ const MolesStack = () => {
         headerStyle: { backgroundColor: "#BA5A31" },
         headerTitle: "mole tracks",
         headerTitleStyle: styles.navHeader,
-        // headerBackVisible: false,
+        headerBackTitleVisible: false,
+        headerTintColor: "white",
       }}
     >
       <Stack.Screen name={ALLMOLES} component={AllMoles} />
@@ -77,7 +87,16 @@ const MolesStack = () => {
 
 const AddStack = () => {
   return (
-    <Stack.Navigator initialRouteName={ADD}>
+    <Stack.Navigator
+      initialRouteName={ADD}
+      screenOptions={{
+        headerStyle: { backgroundColor: "#BA5A31" },
+        headerTitle: "mole tracks",
+        headerTitleStyle: styles.navHeader,
+        headerBackTitleVisible: false,
+        headerTintColor: "white",
+      }}
+    >
       <Stack.Screen name={ADD} component={Add} options={{ title: "Add" }} />
       <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
@@ -92,7 +111,16 @@ const AddStack = () => {
 
 const UserStack = () => {
   return (
-    <Stack.Navigator initialRouteName={LOGOUT}>
+    <Stack.Navigator
+      initialRouteName={LOGOUT}
+      screenOptions={{
+        headerStyle: { backgroundColor: "#BA5A31" },
+        headerTitle: "mole tracks",
+        headerTitleStyle: styles.navHeader,
+        headerBackTitleVisible: false,
+        headerTintColor: "white",
+      }}
+    >
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={LOGOUT} component={Logout} />
       <Stack.Screen name={LOGIN} component={Login} />
@@ -123,8 +151,9 @@ export const TabNavigator = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "black",
+        tabBarStyle: { backgroundColor: "#BA5A31" },
       })}
     >
       <Tab.Screen

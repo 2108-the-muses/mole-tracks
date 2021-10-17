@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, ImageBackground } from "react-native";
 import { LOGIN, INFO, PROFILE } from "../NavigationConstants";
 import { logout } from "../store/auth";
 import { firebaseAuth } from "../firebase-auth/config";
@@ -40,15 +40,11 @@ const Logout = (props) => {
   };
 
   return (
-    <View style={styles.containerCenter}>
-      <Text>Hello {user.firstName} </Text>
-      <Text>{user.email} </Text>
-      {error && <Text style={{ color: "red" }}>{error}</Text>}
-      <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton}>
-        <Text style={styles.buttonLargeText}>Logout</Text>
-      </TouchableOpacity>
-
-      {/* TemporaryButtons for Profile and Info Page  */}
+    <View style={{ ...styles.containerCenter, justifyContent: "space-around" }}>
+      <ImageBackground
+        source={require("../../assets/images/background.png")}
+        style={styles.backgroundImage}
+      />
       <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton1}>
         <Text style={styles.buttonLargeText}>Profile</Text>
       </TouchableOpacity>
@@ -56,6 +52,11 @@ const Logout = (props) => {
       <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton2}>
         <Text style={styles.buttonLargeText}>Info</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton}>
+        <Text style={styles.buttonLargeText}>Logout</Text>
+      </TouchableOpacity>
+      {error && <Text style={{ color: "red" }}>{error}</Text>}
     </View>
   );
 };
