@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import {
-  StyleSheet,
   View,
   Text,
   ScrollView,
   Image,
-  Dimensions,
   TouchableOpacity,
   Alert,
 } from "react-native";

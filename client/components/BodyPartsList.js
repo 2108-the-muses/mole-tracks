@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { fetchAllMoles } from "../store/mole";
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,8 +69,10 @@ const BodyPartsList = ({ navigation }) => {
     }
   } else if (fetchStatus === FETCH_FAILED) {
     return (
-      <View>
-        <Text>Uh oh! We were unable to fetch your moles!</Text>
+      <View style={styles.containerCenter}>
+        <Text style={styles.fontExtraLarge}>
+          Uh oh! We were unable to fetch your moles!
+        </Text>
       </View>
     );
   }

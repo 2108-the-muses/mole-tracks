@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../styles";
 import { TAKEPHOTO, ADDMOLE } from "../NavigationConstants";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 
 const Add = ({ navigation }) => {
@@ -11,7 +10,6 @@ const Add = ({ navigation }) => {
         source={require("../../assets/images/background.png")}
         style={styles.backgroundImage}
       />
-      {/* <View style={{ flex: 1, justifyContent: "center" }}> */}
       <TouchableOpacity
         style={styles.buttonLarge}
         onPress={() => navigation.navigate(TAKEPHOTO, { moleId: false })}
@@ -24,7 +22,6 @@ const Add = ({ navigation }) => {
       >
         <Text style={styles.buttonLargeText}>mole</Text>
       </TouchableOpacity>
-      {/* </View> */}
     </View>
   );
 };
