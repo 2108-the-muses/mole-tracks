@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: {User, Mole, Entry},
+  models: { User, Mole, Entry },
 } = require("../server/db");
 
 /**
@@ -10,7 +10,7 @@ const {
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({force: true}); // clears db and matches models to tables
+  await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
 
   // Creating Users
@@ -36,90 +36,157 @@ async function seed() {
   ]);
 
   // Creating Moles
-  const [Fuzzy, Bumpy, Slimy, Backy, Humps, Lumps, Bigs] = await Mole.bulkCreate([
-    {
-      nickname: "Fuzzy",
-      side: "front",
-      bodyPart: "arm-l",
-    },
-    {
-      nickname: "Bumpy",
-      side: "back",
-      bodyPart: "head",
-    },
-    {
-      nickname: "Slimy",
-      side: "back",
-      bodyPart: "butt",
-    },
+  const [Jinx, Bumpy, Sienna, Backy, Becky, Lumps, Bigs, Smalls, Reardon] =
+    await Mole.bulkCreate([
+      {
+        nickname: "Jinx",
+        side: "front",
+        bodyPart: "arm-l",
+      },
+      {
+        nickname: "Bumpy",
+        side: "back",
+        bodyPart: "torso",
+      },
+      {
+        nickname: "Sienna",
+        side: "back",
+        bodyPart: "butt",
+      },
 
-    {
-      nickname: "Backy",
-      side: "back",
-      bodyPart: "torso",
-    },
-    {
-      nickname: "Humps",
-      side: "back",
-      bodyPart: "torso",
-    },
-    {
-      nickname: "Lumps",
-      side: "back",
-      bodyPart: "torso",
-    },
-    {
-      nickname: "Bigs",
-      side: "front",
-      bodyPart: "torso",
-    },
-  ]);
+      {
+        nickname: "Backy",
+        side: "back",
+        bodyPart: "torso",
+      },
+      {
+        nickname: "Becky",
+        side: "back",
+        bodyPart: "torso",
+      },
+      {
+        nickname: "Lumps",
+        side: "back",
+        bodyPart: "torso",
+      },
+      {
+        nickname: "Bigs",
+        side: "front",
+        bodyPart: "leg-l",
+      },
+      {
+        nickname: "Smalls",
+        side: "front",
+        bodyPart: "leg-r",
+      },
+      {
+        nickname: "Reardon",
+        side: "back",
+        bodyPart: "butt",
+      },
+    ]);
 
   // Creating Entries
-  const [March1, June1, July1, August1, September1, October1] = await Entry.bulkCreate([
+  const [
+    Entry11,
+    Entry12,
+    Entry13,
+    Entry14,
+    Entry15,
+    Entry16,
+    Entry17,
+    Entry21,
+    Entry22,
+    Entry23,
+  ] = await Entry.bulkCreate([
     {
-      notes: "Came out of nowhere. So fuzzy!!!",
-      tags: ["border", "elevation"],
-      imgUrl: "https://i.natgeofe.com/n/677bf565-9bbf-43a2-b1ba-888a9c270828/63927_3x2.jpg",
+      notes: "New mole. A little asymmetrical, not much else to note.",
+      imgUrl:
+        "https://live.staticflickr.com/65535/51599636232_d4b486378f_o.png",
     },
     {
-      notes: "It's getting fuzzier!",
-      tags: ["border", "elevation"],
+      notes:
+        "I think it's growing a little bit, but it's hard to tell. No symptoms to note.",
       imgUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXFp3E2Fk1h_GvlCVrPdEM7Wnj5gkFtGNNfQ&usqp=CAU",
+        "https://live.staticflickr.com/65535/51600675958_c942c03acd_o.png",
     },
     {
-      notes: "It's bumpin'",
-      tags: ["asymmetry", "elevation"],
+      notes: "Felt just a little itchy today, taking a pic to make note.",
       imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+        "https://live.staticflickr.com/65535/51600463476_d66d7d7759_o.png",
     },
     {
-      notes: "So much fuzz.",
-      tags: ["asymmetry", "elevation"],
+      notes:
+        "Sigh. It's definitely getting itchier, but I don't think it's growing? Could be wrong.",
       imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+        "https://live.staticflickr.com/65535/51601354370_526e13b2e6_o.png",
     },
     {
-      notes: "The fuzziest",
-      tags: ["asymmetry", "elevation"],
+      notes: "Mole seems a little darker now than it was before.",
       imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+        "https://live.staticflickr.com/65535/51601354355_a45204b819_o.png",
     },
     {
-      notes: "SOS",
-      tags: ["asymmetry", "elevation"],
+      notes:
+        "No longer itchy, but it is getting darker/bigger. Not sure what's going on.",
       imgUrl:
-        "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mole_600x300.ashx",
+        "https://live.staticflickr.com/65535/51601354350_1fa4b8f471_o.png",
+    },
+    {
+      notes:
+        "Good new! Saw the doctor - he said the itching might have just been a sign of 'minor trauma' and not skin cancer. We will continue to monitor this mole regardless.",
+      imgUrl:
+        "https://live.staticflickr.com/65535/51601354345_deca64dbd2_o.png",
+    },
+    {
+      notes:
+        "An old mole I've been monitoring for a while. No symptoms, just large.",
+      imgUrl:
+        "https://live.staticflickr.com/65535/51601122064_62e0d113e7_o.png",
+    },
+    {
+      notes: "Need to check growth - seems to be getting bigger.",
+      imgUrl:
+        "https://live.staticflickr.com/65535/51600675908_013c9438fd_o.png",
+    },
+    {
+      notes: "Starting to get redness and swelling.",
+      imgUrl:
+        "https://live.staticflickr.com/65535/51601122049_282824f464_o.png",
     },
   ]);
 
   // Associations via Magic Methods
-  await Cody.setMoles([Fuzzy, Bumpy, Bigs, Backy, Humps, Lumps]);
-  await Sally.setMoles(Slimy);
+  await Sally.setMoles([
+    Jinx,
+    Bumpy,
+    Sienna,
+    Backy,
+    Becky,
+    Lumps,
+    Bigs,
+    Smalls,
+    Reardon,
+  ]);
 
-  await Fuzzy.setEntries([March1, June1, August1, September1, October1]);
-  await Bumpy.setEntries(July1);
+  await Jinx.setEntries([
+    Entry11,
+    Entry12,
+    Entry13,
+    Entry14,
+    Entry15,
+    Entry16,
+    Entry17,
+  ]);
+  await Sienna.setEntries([Entry21, Entry22, Entry23]);
+  // @todo need to create these entries above and find photos
+  // await Bumpy.setEntries([Entry31])
+  // await Backy.setEntries([Entry41, Entry42])
+  // await Becky.setEntries([Entry51])
+  // await Lumps.setEntries([Entry61, Entry62])
+  // await Bigs.setEntries([Entry71])
+  // await Smalls.setEntries([Entry81])
+  // await Reardon.setEntries([Entry91])
 
   console.log(`seeded successfully`);
 }

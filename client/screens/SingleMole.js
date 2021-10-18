@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  StyleSheet,
   View,
   Text,
   Image,
@@ -24,6 +23,7 @@ import {
 } from "../store/mole";
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import Loading from "./Loading";
+import styles from "../styles";
 
 const SingleMole = (props) => {
   const moleId = props.route.params.mole.id;
@@ -61,16 +61,27 @@ const SingleMole = (props) => {
     ? (bodyParts = [...bodyParts, "groin"])
     : (bodyParts = [...bodyParts, "butt"]);
 
-  let recentPhoto;
+  let firstPhoto;
   const entries = mole.entries || [];
   entries.length
-    ? (recentPhoto = entries[entries.length - 1].imgUrl)
-    : (recentPhoto =
+    ? (firstPhoto = entries[0].imgUrl)
+    : (firstPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
   const date = (createdAt) => {
     const splitDate = createdAt.split("-");
     let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
     orderedDate = orderedDate.join(" · ");
+    return orderedDate;
+  };
+
+  const dateTruncated = (createdAt) => {
+    const splitDate = createdAt.split("-");
+    let orderedDate = [
+      splitDate[1],
+      splitDate[2].split("T")[0],
+      splitDate[0].slice(2),
+    ];
+    orderedDate = orderedDate.join("/");
     return orderedDate;
   };
 
@@ -98,300 +109,292 @@ const SingleMole = (props) => {
 
   if (fetchStatus === FETCH_PENDING) {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerCenter}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
-          style={styles.background}
+          style={styles.backgroundImage}
         />
         <Loading />
       </View>
     );
   } else if (fetchStatus === FETCH_SUCCESS) {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerScroll}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
-          style={styles.background}
+          style={styles.backgroundImage}
         />
-        <View style={styles.contentBox}>
-          <View style={styles.headerBox}>
-            <View style={{ marginLeft: 10 }}>
-              {isEdit ? (
-                <SafeAreaView>
-                  <TextInput
-                    autoCapitalize="none"
-                    style={styles.nicknameInput}
-                    placeholder={nickname}
-                    onChangeText={(nickname) => setNickname(nickname)}
-                    value={nickname}
-                  ></TextInput>
-                </SafeAreaView>
-              ) : (
-                <Text style={styles.nickname}>{nickname}</Text>
-              )}
-            </View>
-            <View style={styles.iconBox}>
-              <TouchableOpacity
-                style={styles.icon}
-                onPress={() => {
-                  setIsEdit(true);
+
+        <KeyboardAwareScrollView
+          style={{ width: "100%" }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View>
+            <View style={styles.headerBox}>
+              <View style={{ marginLeft: 10 }}>
+                {isEdit ? (
+                  <SafeAreaView>
+                    <TextInput
+                      autoCapitalize="none"
+                      style={styles.headerInput}
+                      placeholder={nickname}
+                      onChangeText={(nickname) => setNickname(nickname)}
+                      value={nickname}
+                    ></TextInput>
+                  </SafeAreaView>
+                ) : (
+                  <Text style={{ ...styles.headerText, width: 160 }}>
+                    {nickname}
+                  </Text>
+                )}
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  width: 150,
                 }}
               >
-                <Entypo name="edit" size={16} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.icon}
-                onPress={() => deleteAlert(mole.id)}
-              >
-                <FontAwesome5 name="minus" size={16} color="black" />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <View>
-              <Image source={{ uri: recentPhoto }} style={styles.image}></Image>
-            </View>
-
-            <View style={styles.infoColumn}>
-              <View>
-                {isEdit ? (
-                  <SelectDropdown
-                    buttonStyle={styles.dropdownBtnStyle}
-                    buttonTextStyle={styles.dropdownBtnTxtStyle}
-                    dropdownStyle={styles.dropdownDropdownStyle}
-                    rowStyle={styles.dropdownRowStyle}
-                    rowTextStyle={styles.dropdownRowTxtStyle}
-                    data={sides}
-                    defaultButtonText={side}
-                    onSelect={(selected) => setSide(selected)}
-                  />
-                ) : (
-                  <View style={styles.selectBox}>
-                    <Text style={styles.select}>{side}</Text>
-                  </View>
-                )}
-                <View style={styles.labelBox}>
-                  <Text style={styles.label}>side</Text>
-                </View>
-              </View>
-              <View>
-                {isEdit ? (
-                  <SelectDropdown
-                    buttonStyle={styles.dropdownBtnStyle}
-                    buttonTextStyle={styles.dropdownBtnTxtStyle}
-                    dropdownStyle={styles.dropdownDropdownStyle}
-                    rowStyle={styles.dropdownRowStyle}
-                    rowTextStyle={styles.dropdownRowTxtStyle}
-                    data={bodyParts}
-                    defaultButtonText={bodyPart}
-                    onSelect={(selected) => setBodyPart(selected)}
-                  />
-                ) : (
-                  <View style={styles.selectBox}>
-                    <Text style={styles.select}>{bodyPart}</Text>
-                  </View>
-                )}
-                <View style={styles.labelBox}>
-                  <Text style={styles.label}>location</Text>
-                </View>
-              </View>
-              {isEdit && (
                 <TouchableOpacity
-                  onPress={handleSubmit}
-                  style={{ alignItems: "center", marginTop: 10 }}
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() => {
+                    setIsEdit(true);
+                  }}
                 >
-                  <Text>UPDATE MOLE</Text>
+                  <Entypo name="edit" size={16} color="black" />
                 </TouchableOpacity>
-              )}
+                <TouchableOpacity
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() => deleteAlert(mole.id)}
+                >
+                  <FontAwesome5 name="minus" size={16} color="black" />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </View>
-        <View style={styles.contentBox}>
-          <View style={styles.headerBox}>
-            <View style={{ marginLeft: 10 }}>
-              <Text style={styles.nickname}>Entries</Text>
-            </View>
-            <View style={styles.iconBox}>
-              <TouchableOpacity
-                style={styles.icon}
-                onPress={() => props.navigation.push("TakePhoto", { moleId })}
-              >
-                <FontAwesome5 name="plus" size={16} color="black" />
-              </TouchableOpacity>
-            </View>
-          </View>
-          {entries.length ? (
-            <KeyboardAwareScrollView
-              style={{ width: "100%" }}
-              showsVerticalScrollIndicator={false}
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                alignItems: "flex-start",
+                padding: "2%",
+              }}
             >
-              {entries.reverse().map((entry) => {
-                return (
-                  <TouchableOpacity
-                    key={entry.id}
-                    style={styles.entryBox}
-                    onPress={() =>
-                      props.navigation.push("Entry", {
-                        entry: entry,
-                        name: mole.name,
-                      })
-                    }
+              <View style={styles.polaroidContainer}>
+                <Image
+                  source={{ uri: firstPhoto }}
+                  style={styles.polaroidImage}
+                ></Image>
+                <View style={styles.polaroidLabel}>
+                  {entries.length ? (
+                    <Text style={styles.headerText}>
+                      {date(entries[0].createdAt)}
+                    </Text>
+                  ) : (
+                    <Text style={styles.headerText}></Text>
+                  )}
+                </View>
+              </View>
+
+              <View style={{ margin: 10, flex: 1, alignItems: "center" }}>
+                <View style={{ width: "90%" }}>
+                  {isEdit ? (
+                    <SelectDropdown
+                      buttonStyle={styles.dropdownBtnStyle}
+                      buttonTextStyle={styles.dropdownBtnTxtStyle}
+                      dropdownStyle={styles.dropdownDropdownStyle}
+                      rowStyle={styles.dropdownRowStyle}
+                      rowTextStyle={styles.dropdownRowTxtStyle}
+                      data={sides}
+                      defaultButtonText={side}
+                      onSelect={(selected) => setSide(selected)}
+                    />
+                  ) : (
+                    <View style={styles.selectBox}>
+                      <Text style={styles.select}>{side}</Text>
+                    </View>
+                  )}
+                  <View style={styles.labelBox}>
+                    <Text style={styles.labelText}>side</Text>
+                  </View>
+                </View>
+                <View style={{ width: "90%" }}>
+                  {isEdit ? (
+                    <SelectDropdown
+                      buttonStyle={styles.dropdownBtnStyle}
+                      buttonTextStyle={styles.dropdownBtnTxtStyle}
+                      dropdownStyle={styles.dropdownDropdownStyle}
+                      rowStyle={styles.dropdownRowStyle}
+                      rowTextStyle={styles.dropdownRowTxtStyle}
+                      data={bodyParts}
+                      defaultButtonText={bodyPart}
+                      onSelect={(selected) => setBodyPart(selected)}
+                    />
+                  ) : (
+                    <View style={styles.selectBox}>
+                      <Text style={styles.select}>{bodyPart}</Text>
+                    </View>
+                  )}
+                  <View style={styles.labelBox}>
+                    <Text style={styles.labelText}>location</Text>
+                  </View>
+                </View>
+                {isEdit && (
+                  <View
+                    style={{
+                      alignItems: "flex-end",
+                      width: "95%",
+                    }}
                   >
-                    <Text style={styles.entry}>{date(entry.createdAt)}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </KeyboardAwareScrollView>
-          ) : (
-            <View style={styles.entryBox}>
-              <Text style={styles.entry}> You have no entries! </Text>
+                    <TouchableOpacity
+                      onPress={handleSubmit}
+                      style={styles.buttonSmall}
+                    >
+                      <Text style={styles.buttonSmallText}>update</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            </View>
+          </View>
+          <View style={{ width: "100%", alignItems: "flex-start" }}>
+            <View style={styles.headerBox}>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={{ ...styles.headerText, width: 160 }}>
+                  Entries
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  width: 150,
+                }}
+              >
+                {/* @todo reverse button */}
+                <TouchableOpacity
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() =>
+                    console.log(
+                      "This button should reverse the order - newest to oldest/oldest to newest, etc."
+                    )
+                  }
+                >
+                  <Entypo name="select-arrows" size={16} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ marginHorizontal: 10 }}
+                  onPress={() => props.navigation.push("TakePhoto", { moleId })}
+                >
+                  <FontAwesome5 name="plus" size={16} color="black" />
+                </TouchableOpacity>
+              </View>
+            </View>
+            {entries.length ? (
+              <KeyboardAwareScrollView
+                style={{ width: "100%" }}
+                showsVerticalScrollIndicator={false}
+              >
+                {entries.reverse().map((entry) => {
+                  return (
+                    <TouchableOpacity
+                      key={entry.id}
+                      style={styles.entryBox}
+                      onPress={() =>
+                        props.navigation.push("Entry", {
+                          entry: entry,
+                          name: mole.nickname,
+                        })
+                      }
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          width: "100%",
+                          paddingHorizontal: 10,
+                        }}
+                      >
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Image
+                            source={{ uri: entry.imgUrl }}
+                            style={{
+                              height: 41,
+                              width: 49,
+                              resizeMode: "cover",
+                              marginRight: 10,
+                            }}
+                          />
+
+                          {entry.notes.length > 20 ? (
+                            <Text style={styles.entryText}>
+                              {entry.notes.slice(0, 20)}...
+                            </Text>
+                          ) : (
+                            <Text style={styles.entryText}>
+                              {entry.notes.slice(0, 20)}
+                            </Text>
+                          )}
+                        </View>
+                        <Text style={styles.entryText}>
+                          {dateTruncated(entry.createdAt)}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
+              </KeyboardAwareScrollView>
+            ) : (
+              <View style={styles.entryBox}>
+                <Text style={styles.fontSmall}> You have no entries! </Text>
+              </View>
+            )}
+          </View>
+
+          {entries.length > 0 && (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginVertical: 20,
+              }}
+            >
+              <TouchableOpacity
+                style={styles.buttonLarge}
+                onPress={() =>
+                  props.navigation.push("CompareEntries", {
+                    entries,
+                    name: mole.nickname,
+                  })
+                }
+              >
+                <Text style={styles.buttonLargeText}>compare entries</Text>
+              </TouchableOpacity>
             </View>
           )}
-        </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   } else if (fetchStatus === FETCH_FAILED) {
     return (
-      <View style={styles.container}>
+      <View style={styles.containerCenter}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
-          style={styles.background}
+          style={styles.backgroundImage}
         />
 
-        <Text>Uh oh! We were unable to fetch your mole!</Text>
+        <Text style={{ ...styles.fontExtraLarge, alignText: "center" }}>
+          Uh oh! We were unable to fetch your mole!
+        </Text>
       </View>
     );
   }
 };
 
 export default SingleMole;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    height: "100%",
-  },
-  background: {
-    width: "100%",
-    height: "100%",
-    opacity: 0.5,
-    position: "absolute",
-  },
-  headerBox: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    height: 35,
-    alignItems: "center",
-    backgroundColor: "#E59F71",
-  },
-  iconBox: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    width: 150,
-  },
-  icon: {
-    marginHorizontal: 10,
-  },
-  contentBox: {
-    width: "100%",
-    borderRadius: 1,
-    alignItems: "flex-start",
-  },
-  image: {
-    width: 150,
-    height: 150,
-    margin: 10,
-    backgroundColor: "white",
-  },
-  nickname: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "black",
-    fontSize: 20,
-    padding: 3,
-    width: 160,
-  },
-  nicknameInput: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "black",
-    fontSize: 20,
-    borderBottomWidth: 1,
-    borderColor: "white",
-    padding: 3,
-    paddingBottom: 2,
-    width: 160,
-  },
-  infoColumn: {
-    margin: 10,
-    flex: 1,
-  },
-  entryBox: {
-    width: "100%",
-    height: 50,
-    borderColor: "#E59F71",
-    borderBottomWidth: 2,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  entry: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "black",
-    fontSize: 18,
-  },
-  labelBox: {
-    borderTopWidth: 1,
-    borderColor: "black",
-    alignItems: "flex-start",
-    paddingTop: 4,
-  },
-  label: {
-    fontFamily: "SulphurPoint-Regular",
-    color: "gray",
-    fontSize: 14,
-  },
-  selectBox: {
-    width: "100%",
-    height: 30,
-    fontSize: 18,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 0,
-    padding: 0,
-  },
-  select: {
-    height: 30,
-    fontSize: 18,
-    flex: 1,
-
-    fontFamily: "SulphurPoint-Regular",
-  },
-  dropdownBtnStyle: {
-    width: "100%",
-    height: 30,
-    alignSelf: "center",
-  },
-  dropdownBtnTxtStyle: {
-    textAlign: "center",
-
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 18,
-  },
-  dropdownDropdownStyle: {
-    backgroundColor: "#E59F71",
-  },
-  dropdownRowStyle: {
-    borderBottomColor: "#BA5A31",
-    height: 30,
-  },
-  dropdownRowTxtStyle: {
-    color: "#FFF",
-    textAlign: "center",
-
-    fontFamily: "SulphurPoint-Regular",
-    fontSize: 18,
-    marginVertical: 6,
-  },
-});

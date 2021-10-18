@@ -14,4 +14,4 @@ export const ADDENTRY = "AddEntry";
 export const ADDMOLE = "AddMole";
 export const INFO = "Info";
 export const PROFILE = "Profile";
-
+export const COMPAREENTRIES = "CompareEntries";
