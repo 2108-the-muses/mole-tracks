@@ -11,9 +11,10 @@ import {
 import styles from '../styles'
 
 const ClickBody = ()=>{
-  return(<View>
+  return(<View >
     <Text>where the body goes</Text>
   </View>)
 }
 
 export default ClickBody
+
