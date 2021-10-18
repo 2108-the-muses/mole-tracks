@@ -18,8 +18,9 @@ import {
 } from "../store/mole";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from './Loading'
+import { NavigationContainer } from "@react-navigation/native";
 
-const Body = () => {
+const Body = ({navigation}) => {
   const [viewFront, setViewFront] = useState(true);
   const frontBody = "../../assets/images/body-front.png";
   const backBody = "../../assets/images/body-back.png";
@@ -33,6 +34,9 @@ const Body = () => {
   useEffect(() => {
     dispatch(fetchAllMoles());
   }, []);
+  const goToMole = (mole)=>{
+    navigation.navigate("Moles", {screen:"SingleMole",params:{mole}})
+  }
   if (fetchStatus === FETCH_PENDING) {
     return <Loading />;}
   else if ((fetchStatus === FETCH_SUCCESS)) {
@@ -59,7 +63,7 @@ const Body = () => {
         {moles.length===0 && <Text>You have no moles!</Text>}
         {moles.map(mole=>{
           if(mole.x && mole.y)
-          {return <View key = {mole.nickname}style={{ ...styles.moleDot, top: mole.y, left: mole.x}} />}
+          {return <TouchableOpacity key = {mole.nickname}style={{ ...styles.moleDot, top: mole.y, left: mole.x}} onPress= {()=>goToMole(mole)}/>}
         })}
         </KeyboardAwareScrollView>
       </View>)
