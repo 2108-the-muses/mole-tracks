@@ -11,6 +11,8 @@ import SelectDropdown from "react-native-select-dropdown";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { addMoleThunk } from "../store/mole";
 import styles from "../styles";
+import { SINGLEMOLE } from "../NavigationConstants";
+
 const AddMole = (props) => {
   const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
@@ -29,7 +31,10 @@ const AddMole = (props) => {
   const handleSubmit = async () => {
     const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side }));
     if (newMole) {
-      props.navigation.push("SingleMole", { mole: newMole });
+      props.navigation.navigate("Moles", {
+        screen: SINGLEMOLE,
+        params: { mole: newMole },
+      });
     }
   };
 

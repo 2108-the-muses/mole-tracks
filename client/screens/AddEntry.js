@@ -61,24 +61,12 @@ const AddEntry = ({ route, navigation }) => {
   }, [bodyPart]);
 
   const handleSubmit = () => {
-    console.log("MOLEID IN ADDENTRY", moleId);
     dispatch(addEntry(notes, base64Img, moleId));
   };
   if (status === ADD_PENDING) {
     return <Loading />;
   } else if (status === ADD_SUCCESS) {
-    navigation.reset({
-      index: 0,
-      routes: [
-        {
-          name: ENTRY,
-          params: {
-            name: moleNameForEntryRouteParam,
-            entry: entryForEntryRouteParam,
-          },
-        },
-      ],
-    });
+    navigation.navigate("Moles",{screen: ENTRY, params:{entry: entryForEntryRouteParam, name: moleNameForEntryRouteParam}})
   } else if (status === ADD_FAILED) {
     alert("Upload failed");
     dispatch(addStatus(null));
