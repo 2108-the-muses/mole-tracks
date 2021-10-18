@@ -86,7 +86,18 @@ const AddEntry = ({ route, navigation }) => {
   }, [bodyPart]);
 
   const handleSubmit = () => {
-    dispatch(addEntry(notes, base64Img, moleId));
+    dispatch(
+      addEntry(
+        notes,
+        base64Img,
+        moleId,
+        asymmetryTag,
+        borderTag,
+        colorTag,
+        elevationTag,
+        diameterTag
+      )
+    );
   };
   if (status === ADD_PENDING) {
     return <Loading />;
