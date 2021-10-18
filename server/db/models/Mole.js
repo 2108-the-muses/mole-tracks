@@ -16,10 +16,10 @@ const Mole = db.define('mole', {
     type: Sequelize.ENUM('head', 'torso', 'arm-l', 'arm-r', 'leg-l', 'leg-r', 'groin', 'butt'),
     allowNull: false,
   },
-  X:{
+  x:{
     type:Sequelize.INTEGER
   },
-  Y:{
+  y:{
     type:Sequelize.INTEGER
   }
 });

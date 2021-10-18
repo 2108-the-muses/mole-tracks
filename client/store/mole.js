@@ -71,6 +71,7 @@ export const fetchAllMoles = () => {
 export const fetchSingleMole = (moleId) => {
   return async (dispatch) => {
     try {
+      
       dispatch(setSingleMoleFetchStatus(FETCH_PENDING));
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
@@ -90,9 +91,10 @@ export const fetchSingleMole = (moleId) => {
   };
 };
 
-export const addMoleThunk = ({ nickname, bodyPart, side,coords }) => {
+export const addMoleThunk = ({ nickname, bodyPart, side, coords }) => {
   return async (dispatch) => {
     try {
+      console.log('thunk',coords)
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.post(

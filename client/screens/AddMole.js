@@ -26,9 +26,9 @@ const AddMole = (props) => {
   const singleMole = useSelector((state) => {
     return state.allMoles.singleMole;
   });
-  let coords = {}
+  const [coords, setCoords]= useState("")
   const handleSubmit = async () => {
-    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side,coords }));
+    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side, coords }));
     if (newMole) {
 
       props.navigation.navigate("Moles", {
@@ -37,10 +37,7 @@ const AddMole = (props) => {
       });
     }
   };
-const setCoords = (x,y)=>{
-  coords.x = x;
-  coords.y = y;
-}
+
   return (
     <View style={styles.containerScroll}>
       <ImageBackground

@@ -21,16 +21,17 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
   const frontBody = "../../assets/images/body-front.png";
   const backBody = "../../assets/images/body-back.png";
   const [viewFront, setViewFront] = useState(true);
-
-  const touchBody = (e) => {
-    setCoords({ x: e.nativeEvent.locationX, y: e.nativeEvent.locationY });
-  };
   const toggleSide = (front) => {
     if (viewFront !== front) setViewFront((viewFront) => !viewFront);
   };
+  
+  const touchBody = (e) => {
+    setCoords({ x: e.nativeEvent.locationX, y: e.nativeEvent.locationY });
+  };
+ 
   const whichBodyPart = (x, y) => {
     setSide(viewFront ? "front" : "back");
-    sendCoords({ x, y });
+    sendCoords({ x: Math.floor(x), y: Math.floor(y) });
     const BPC = Object.keys(BodyPartCoords);
     for (let bodyPart of BPC) {
       const part = BodyPartCoords[bodyPart];
@@ -50,6 +51,7 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
         alignItems: "center",
       }}
     >
+      <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
       <TouchableWithoutFeedback onPress={touchBody}>
         <View>
           <View style={{ ...styles.moleDot, top: coords.y, left: coords.x }} />
@@ -59,7 +61,7 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
           />
         </View>
       </TouchableWithoutFeedback>
-      <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
+      
     </View>
   );
 };

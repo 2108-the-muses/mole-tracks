@@ -42,13 +42,18 @@ async function seed() {
         nickname: "Jinx",
         side: "front",
         bodyPart: "arm-l",
+        X: 100,
+        Y: 100
       },
       {
+        X: 200,
+        Y: 200,
         nickname: "Bumpy",
         side: "back",
         bodyPart: "torso",
       },
-      {
+      {X: 300,
+        Y: 300,
         nickname: "Sienna",
         side: "back",
         bodyPart: "butt",
