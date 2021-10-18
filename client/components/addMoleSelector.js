@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
-  StyleSheet,
   View,
-  Text,
-  ImageBackground,
-  TextInput,
-  TouchableOpacity,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import styles from '../styles'

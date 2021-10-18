@@ -7,12 +7,14 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { addMoleThunk } from "../store/mole";
 import BodyPartSelector from "../components/addMoleSelector";
 import ClickBody from "../components/ClickBody";
+import Buttons from '../components/BodyPartSelectorButtons'
 
 const AddMole = (props) => {
   const dispatch = useDispatch();
@@ -51,13 +53,17 @@ const AddMole = (props) => {
               onChangeText={(nickname) => setNickname(nickname)}
               value={nickname}
             />
-            <BodyPartSelector
-              side={side}
-              setSide={setSide}
-              bodyPart={bodyPart}
-              setBodyPart={setBodyPart}
-            />
-            <ClickBody />
+            <Buttons setMoleLocationSelection={setMoleLocationSelection}/>
+            {moleLocationSelection === "dropdown" ? (
+              <BodyPartSelector
+                side={side}
+                setSide={setSide}
+                bodyPart={bodyPart}
+                setBodyPart={setBodyPart}
+              />
+            ) : (
+              moleLocationSelection === "body map" && <ClickBody />
+            )}
           </View>
           {bodyPart !== "" && (
             <TouchableOpacity style={styles.header} onPress={handleSubmit}>
