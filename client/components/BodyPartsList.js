@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Moles from "./Moles";
 import Loading from "../screens/Loading";
 import styles from "../styles";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 const BodyPartsList = ({ navigation }) => {
   let moles = useSelector((state) => state.allMoles.moles);
@@ -38,7 +38,14 @@ const BodyPartsList = ({ navigation }) => {
           <View key={index} style={{ marginBottom: 0 }}>
             <View style={{ ...styles.headerBox, paddingHorizontal: "3%" }}>
               <Text style={styles.headerText}>{bodyPart}</Text>
-              <FontAwesome5 name="plus" size={12} color="black" />
+              {/* @todo order the nicknames of moles alphabetically */}
+              <TouchableOpacity
+                onPress={() =>
+                  console.log("Orders alphabetically, forward and reverse")
+                }
+              >
+                <Entypo name="select-arrows" size={16} color="black" />
+              </TouchableOpacity>
             </View>
 
             <View>

@@ -178,7 +178,7 @@ async function seed() {
     Entry16,
     Entry17,
   ]);
-  await Sienna.setEntries(Entry21, Entry22, Entry23);
+  await Sienna.setEntries([Entry21, Entry22, Entry23]);
   // @todo need to create these entries above and find photos
   // await Bumpy.setEntries([Entry31])
   // await Backy.setEntries([Entry41, Entry42])

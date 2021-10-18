@@ -352,7 +352,7 @@ const SingleMole = (props) => {
               </KeyboardAwareScrollView>
             ) : (
               <View style={styles.entryBox}>
-                <Text style={styles.entry}> You have no entries! </Text>
+                <Text style={styles.fontSmall}> You have no entries! </Text>
               </View>
             )}
           </View>
