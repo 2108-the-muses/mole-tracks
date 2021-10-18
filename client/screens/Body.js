@@ -1,21 +1,19 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import styles from "../styles";
 
 const Body = (props) => {
   return (
-    <View style={styles.container}>
-      <Text>Body</Text>
+    <View style={styles.containerCenter}>
+      <ImageBackground
+        source={require("../../assets/images/background.png")}
+        style={styles.backgroundImage}
+      />
+      <View style={styles.buttonLarge}>
+        <Text style={styles.buttonLargeText}>Coming Soon!</Text>
+      </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default Body;
