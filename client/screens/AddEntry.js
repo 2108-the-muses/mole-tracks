@@ -36,6 +36,32 @@ const AddEntry = ({ route, navigation }) => {
   let moleNameForEntryRouteParam;
   const gotMoleId = route.params.moleId;
   const dispatch = useDispatch();
+  const [asymmetryTag, setAsymmetryTag] = useState("");
+  const [borderTag, setBorderTag] = useState("");
+  const [colorTag, setColorTag] = useState("");
+  const [elevationTag, setElevationTag] = useState("");
+  const [diameterTag, setDiameterTag] = useState("");
+  const asymmetryTagArray = ["Symmetric", "Asymmetric"];
+  const borderTagArray = ["Defined", "Fuzzy"];
+  const colorTagArray = ["Single Color", "Many Colors"];
+  const elevationTagArray = ["Flat", "Raised"];
+  const diameterTagArray = ["Under 6mm", "Over 6mm"];
+
+  const asymmetryTagSelect = (value) => {
+    value === asymmetryTag ? setAsymmetryTag("") : setAsymmetryTag(value);
+  };
+  const borderTagSelect = (value) => {
+    value === borderTag ? setBorderTag("") : setBorderTag(value);
+  };
+  const colorTagSelect = (value) => {
+    value === colorTag ? setColorTag("") : setColorTag(value);
+  };
+  const elevationTagSelect = (value) => {
+    value === elevationTag ? setElevationTag("") : setElevationTag(value);
+  };
+  const diameterTagSelect = (value) => {
+    value === diameterTag ? setDiameterTag("") : setDiameterTag(value);
+  };
 
   useEffect(() => {
     dispatch(fetchAllMoles());
@@ -77,25 +103,6 @@ const AddEntry = ({ route, navigation }) => {
     dispatch(addStatus(null));
   }
 
-  ////////////////////////////TAGS STUFF (below)////////////////////////////
-  const tagsMemo = {
-    Symmetric: false,
-    Asymmetric: false,
-    Defined: false,
-    Fuzzy: false,
-    Solid: false,
-    "Multiple Colors": false,
-    Flat: false,
-    Raised: false,
-    "Under 6mm": false,
-    "Above 6mm": false,
-  };
-
-  const tagSelect = () => {
-    tagsMemo.Symmetric = !tagsMemo.Symmetric;
-  };
-
-  ////////////////////////////TAGS STUFF (above)////////////////////////////
   return (
     <View style={styles.containerScroll}>
       <ImageBackground
@@ -140,70 +147,93 @@ const AddEntry = ({ route, navigation }) => {
             />
           </View>
 
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TAGS (below) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    */}
-          {/* onPress for tags => 
-              1. make button appear active =>
-                not working, but set up styles => styles.tagsInAddEntryButtons vs styles.tagsActiveButton;
-              2. change to true or false => 
-                this is currently working using tagSelect 
-          */}
-
           <View style={styles.tagsInAddEntryContainer}>
             <View style={styles.tagsCategoryContainer}>
               <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
-              <TouchableOpacity
-                style={styles.tagsInAddEntryButtons}
-                onPress={tagSelect}
-                value="Symmetric"
-              >
-                <Text>Symmetric</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Asymmetric</Text>
-              </TouchableOpacity>
+              {asymmetryTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === asymmetryTag && styles.tagsActiveButton}
+                      onPress={() => asymmetryTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
             </View>
 
             <View style={styles.tagsCategoryContainer}>
               <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Defined</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Fuzzy</Text>
-              </TouchableOpacity>
+              {borderTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === borderTag && styles.tagsActiveButton}
+                      onPress={() => borderTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
             </View>
 
             <View style={styles.tagsCategoryContainer}>
               <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Solid/One Color</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Many Colors</Text>
-              </TouchableOpacity>
+              {colorTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === colorTag && styles.tagsActiveButton}
+                      onPress={() => colorTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
             </View>
 
             <View style={styles.tagsCategoryContainer}>
               <Text style={styles.tagsInAddEntryTitle}>Elevation:</Text>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Flat</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Raised</Text>
-              </TouchableOpacity>
+              {elevationTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === elevationTag && styles.tagsActiveButton}
+                      onPress={() => elevationTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
             </View>
 
             <View style={styles.tagsCategoryContainer}>
               <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Under 6mm</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.tagsInAddEntryButtons}>
-                <Text>Above 6mm</Text>
-              </TouchableOpacity>
+              {diameterTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === diameterTag && styles.tagsActiveButton}
+                      onPress={() => diameterTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
             </View>
           </View>
-          {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TAGS (above)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~    */}
+
           <TouchableOpacity
             style={styles.moreInfoButton}
             onPress={() => navigation.push("Info")}

@@ -426,32 +426,39 @@ const styles = StyleSheet.create({
     fontFamily: "SulphurPoint-Regular",
     fontSize: 20,
   },
+
+  /***********************
+            Tags           
+  ***********************/
   tagsInAddEntryContainer: {
     padding: 10,
   },
   tagsInAddEntryTitle: {
-    fontWeight: "bold",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 18,
   },
   tagsCategoryContainer: {
     flexDirection: "row",
     padding: 5,
   },
-  tagsInAddEntryButtons: {
-    marginLeft: 5,
-    backgroundColor: "#FF7379",
-    paddingHorizontal: 7,
-    paddingVertical: 3,
+  tagsInactiveButton: {
+    marginHorizontal: 7,
+    width: 105,
+    backgroundColor: "#FFDEDF",
     alignItems: "center",
     justifyContent: "center",
-    opacity: 0.2,
   },
   tagsActiveButton: {
-    marginLeft: 5,
     backgroundColor: "#FF7379",
-    paddingHorizontal: 7,
-    paddingVertical: 3,
+    width: 105,
     alignItems: "center",
     justifyContent: "center",
+  },
+  tagText: {
+    marginHorizontal: 6,
+    marginVertical: 3,
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 15,
   },
   moreInfoButton: {
     borderColor: "black",
@@ -462,6 +469,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     fontWeight: "bold",
+    fontSize: 20,
   },
 });
 
