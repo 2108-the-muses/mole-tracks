@@ -10,20 +10,20 @@ import styles from '../styles'
 const Buttons = ({setMoleLocationSelection}) => {
   return (
     <View style = {styles.buttonBox}>
-      <TouchableOpacity style = {styles.button}
+      <TouchableOpacity style = {styles.buttonSmall}
         onPress={() => {
           setMoleLocationSelection("dropdown");
         }}
       >
-        <Text style={styles.buttonText}>Dropdown</Text>
+        <Text style={styles.buttonSmallText}>Dropdown</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button}
+        style={styles.buttonSmall}
         onPress={() => {
           setMoleLocationSelection("body map");
         }}
       >
-        <Text style={styles.buttonText}>body map</Text>
+        <Text style={styles.buttonSmallText}>body map</Text>
       </TouchableOpacity>
     </View>
   );
