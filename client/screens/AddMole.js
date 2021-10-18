@@ -11,21 +11,18 @@ import {
 import SelectDropdown from "react-native-select-dropdown";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { addMoleThunk } from "../store/mole";
+import BodyPartSelector from "../components/addMoleSelector";
+import ClickBody from "../components/ClickBody";
 
 const AddMole = (props) => {
   const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
-  const [side, setSide] = useState("");
   const [bodyPart, setBodyPart] = useState("");
+  const [side, setSide] = useState("");
+  const [moleLocationSelection, setMoleLocationSelection] = useState(null);
   const singleMole = useSelector((state) => {
     return state.allMoles.singleMole;
   });
-
-  const sides = ["front", "back"];
-  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
-  side === "front"
-    ? (bodyParts = [...bodyParts, "groin"])
-    : (bodyParts = [...bodyParts, "butt"]);
 
   const handleSubmit = async () => {
     const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side }));
@@ -54,28 +51,13 @@ const AddMole = (props) => {
               onChangeText={(nickname) => setNickname(nickname)}
               value={nickname}
             />
-            <SelectDropdown
-              data={sides}
-              defaultButtonText={"select side"}
-              buttonStyle={styles.dropdown2BtnStyle}
-              buttonTextStyle={styles.dropdown2BtnTxtStyle}
-              dropdownStyle={styles.dropdown2DropdownStyle}
-              rowStyle={styles.dropdown2RowStyle}
-              rowTextStyle={styles.dropdown2RowTxtStyle}
-              onSelect={(selected) => setSide(selected)}
+            <BodyPartSelector
+              side={side}
+              setSide={setSide}
+              bodyPart={bodyPart}
+              setBodyPart={setBodyPart}
             />
-            {side !== "" && (
-              <SelectDropdown
-                data={bodyParts}
-                defaultButtonText={"select body part"}
-                buttonStyle={styles.dropdown2BtnStyle}
-                buttonTextStyle={styles.dropdown2BtnTxtStyle}
-                dropdownStyle={styles.dropdown2DropdownStyle}
-                rowStyle={styles.dropdown2RowStyle}
-                rowTextStyle={styles.dropdown2RowTxtStyle}
-                onSelect={(selected) => setBodyPart(selected)}
-              />
-            )}
+            <ClickBody />
           </View>
           {bodyPart !== "" && (
             <TouchableOpacity style={styles.header} onPress={handleSubmit}>
