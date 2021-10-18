@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "./client/store";
 import Main from "./client/screens/Main";
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
