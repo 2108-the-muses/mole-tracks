@@ -356,25 +356,28 @@ const SingleMole = (props) => {
               </View>
             )}
           </View>
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginVertical: 20,
-            }}
-          >
-            <TouchableOpacity
-              style={styles.buttonLarge}
-              onPress={() =>
-                props.navigation.push("CompareEntries", {
-                  entries,
-                  name: mole.nickname,
-                })
-              }
+
+          {entries.length > 0 && (
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                marginVertical: 20,
+              }}
             >
-              <Text style={styles.buttonLargeText}>compare entries</Text>
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                style={styles.buttonLarge}
+                onPress={() =>
+                  props.navigation.push("CompareEntries", {
+                    entries,
+                    name: mole.nickname,
+                  })
+                }
+              >
+                <Text style={styles.buttonLargeText}>compare entries</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </KeyboardAwareScrollView>
       </View>
     );
