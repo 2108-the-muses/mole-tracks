@@ -36,6 +36,32 @@ const AddEntry = ({ route, navigation }) => {
   let moleNameForEntryRouteParam;
   const gotMoleId = route.params.moleId;
   const dispatch = useDispatch();
+  const [asymmetryTag, setAsymmetryTag] = useState("");
+  const [borderTag, setBorderTag] = useState("");
+  const [colorTag, setColorTag] = useState("");
+  const [elevationTag, setElevationTag] = useState("");
+  const [diameterTag, setDiameterTag] = useState("");
+  const asymmetryTagArray = ["Symmetric", "Asymmetric"];
+  const borderTagArray = ["Defined", "Fuzzy"];
+  const colorTagArray = ["Single Color", "Many Colors"];
+  const elevationTagArray = ["Flat", "Raised"];
+  const diameterTagArray = ["Under 6mm", "Over 6mm"];
+
+  const asymmetryTagSelect = (value) => {
+    value === asymmetryTag ? setAsymmetryTag("") : setAsymmetryTag(value);
+  };
+  const borderTagSelect = (value) => {
+    value === borderTag ? setBorderTag("") : setBorderTag(value);
+  };
+  const colorTagSelect = (value) => {
+    value === colorTag ? setColorTag("") : setColorTag(value);
+  };
+  const elevationTagSelect = (value) => {
+    value === elevationTag ? setElevationTag("") : setElevationTag(value);
+  };
+  const diameterTagSelect = (value) => {
+    value === diameterTag ? setDiameterTag("") : setDiameterTag(value);
+  };
 
   useEffect(() => {
     dispatch(fetchAllMoles());
@@ -52,7 +78,6 @@ const AddEntry = ({ route, navigation }) => {
     let molesArray = moles.filter((mole) => {
       return mole.bodyPart === bodyPart;
     });
-    console.log("molesArray", molesArray.length);
     let molesDictionary = {};
     molesArray.forEach((mole) => {
       molesDictionary[mole.nickname] = mole.id;
@@ -61,16 +86,34 @@ const AddEntry = ({ route, navigation }) => {
   }, [bodyPart]);
 
   const handleSubmit = () => {
-    dispatch(addEntry(notes, base64Img, moleId));
+    dispatch(
+      addEntry(
+        notes,
+        base64Img,
+        moleId,
+        asymmetryTag,
+        borderTag,
+        colorTag,
+        elevationTag,
+        diameterTag
+      )
+    );
   };
   if (status === ADD_PENDING) {
     return <Loading />;
   } else if (status === ADD_SUCCESS) {
-    navigation.navigate("Moles",{screen: ENTRY, params:{entry: entryForEntryRouteParam, name: moleNameForEntryRouteParam}})
+    navigation.navigate("Moles", {
+      screen: ENTRY,
+      params: {
+        entry: entryForEntryRouteParam,
+        name: moleNameForEntryRouteParam,
+      },
+    });
   } else if (status === ADD_FAILED) {
     alert("Upload failed");
     dispatch(addStatus(null));
   }
+
   return (
     <View style={styles.containerScroll}>
       <ImageBackground
@@ -114,7 +157,102 @@ const AddEntry = ({ route, navigation }) => {
               value={notes}
             />
           </View>
-          <View style={{ width: 300 }}>
+
+          <View style={styles.tagsInAddEntryContainer}>
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
+              {asymmetryTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === asymmetryTag && styles.tagsActiveButton}
+                      onPress={() => asymmetryTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
+              {borderTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === borderTag && styles.tagsActiveButton}
+                      onPress={() => borderTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
+              {colorTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === colorTag && styles.tagsActiveButton}
+                      onPress={() => colorTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Elevation:</Text>
+              {elevationTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === elevationTag && styles.tagsActiveButton}
+                      onPress={() => elevationTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
+              {diameterTagArray.map((tag, index) => {
+                return (
+                  <View style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      key={index}
+                      style={tag === diameterTag && styles.tagsActiveButton}
+                      onPress={() => diameterTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={styles.moreInfoButton}
+            onPress={() => navigation.push("Info")}
+          >
+            <Text style={styles.tagsInAddEntryTitle}>More Information</Text>
+          </TouchableOpacity>
+
+          <View>
             {gotMoleId === false && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}
@@ -129,7 +267,6 @@ const AddEntry = ({ route, navigation }) => {
                 }}
               />
             )}
-            {/* Front butt bug */}
             {gotMoleId === false && Object.keys(bodyPartMoles).length > 0 && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}

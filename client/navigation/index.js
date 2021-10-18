@@ -138,6 +138,7 @@ const AddStack = () => {
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
       <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
+      <Stack.Screen name={INFO} component={Info} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>
   );

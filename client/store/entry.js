@@ -20,7 +20,16 @@ export const _addEntry = (newEntry) => ({
 
 export const addStatus = (status) => ({ type: ADD_STATUS, status });
 
-export const addEntry = (notes, base64Img, moleId) => {
+export const addEntry = (
+  notes,
+  base64Img,
+  moleId,
+  asymmetryTag,
+  borderTag,
+  colorTag,
+  elevationTag,
+  diameterTag
+) => {
   return async (dispatch) => {
     try {
       dispatch(addStatus(ADD_PENDING));
@@ -46,6 +55,11 @@ export const addEntry = (notes, base64Img, moleId) => {
               notes: notes,
               imgUrl: secure_url,
               moleId: moleId,
+              asymmetryTag: asymmetryTag,
+              borderTag: borderTag,
+              colorTag: colorTag,
+              elevationTag: elevationTag,
+              diameterTag: diameterTag,
             },
             {
               headers: {
