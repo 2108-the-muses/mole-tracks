@@ -1,44 +1,40 @@
 import React from "react";
-import {StyleSheet, View, SafeAreaView, ScrollView, ImageBackground} from "react-native";
+import { View, Text, ScrollView, ImageBackground, Image } from "react-native";
 import BodyPartsList from "../components/BodyPartsList";
+import styles from "../styles";
 
-const AllMoles = ({navigation, route}) => {
-  console.log("route params",route.params)
+const AllMoles = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.containerScroll}>
       <ImageBackground
-        source={require("../../assets/images/genZbackgroundImage.png")}
-        resizeMode="cover"
-        style={styles.image}
+        source={require("../../assets/images/background.png")}
+        style={styles.backgroundImage}
       />
-      <SafeAreaView style={styles.scrollView}>
-        <ScrollView>
-          <BodyPartsList navigation={navigation} />
-        </ScrollView>
-      </SafeAreaView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            marginVertical: "3%",
+            flexDirection: "row",
+          }}
+        >
+          <Image
+            style={styles.moleSilhouette}
+            source={require("../../assets/images/mole-silhouette-flipped.png")}
+          />
+          <View style={styles.buttonLarge}>
+            <Text style={styles.buttonLargeText}>moles</Text>
+          </View>
+          <Image
+            style={styles.moleSilhouette}
+            source={require("../../assets/images/mole-silhouette.png")}
+          />
+        </View>
+        <BodyPartsList navigation={navigation} />
+      </ScrollView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  },
-  scrollView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    opacity: 0.5,
-  },
-});
 
 export default AllMoles;

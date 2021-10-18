@@ -11,6 +11,7 @@ import SingleMole from "./SingleMole";
 import TakePhoto from "./TakePhoto";
 import Profile from "./Profile";
 import Info from "./Info";
+import CompareEntries from "./CompareEntries";
 
 const index = {
   Add,
@@ -26,5 +27,6 @@ const index = {
   SingleMole,
   Profile,
   Info,
+  CompareEntries,
 };
 export default index;
