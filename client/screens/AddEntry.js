@@ -24,7 +24,7 @@ import {
 import Loading from "./Loading";
 import { ENTRY } from "../NavigationConstants";
 // NEW
-import DateTimePicker from "@react-native-community/datetimepicker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
 // NEW END
 
 const AddEntry = ({ route, navigation }) => {
@@ -40,6 +40,32 @@ const AddEntry = ({ route, navigation }) => {
   let moleNameForEntryRouteParam;
   const gotMoleId = route.params.moleId;
   const dispatch = useDispatch();
+  const [asymmetryTag, setAsymmetryTag] = useState("");
+  const [borderTag, setBorderTag] = useState("");
+  const [colorTag, setColorTag] = useState("");
+  const [elevationTag, setElevationTag] = useState("");
+  const [diameterTag, setDiameterTag] = useState("");
+  const asymmetryTagArray = ["Symmetric", "Asymmetric"];
+  const borderTagArray = ["Defined", "Fuzzy"];
+  const colorTagArray = ["Single Color", "Many Colors"];
+  const elevationTagArray = ["Flat", "Raised"];
+  const diameterTagArray = ["Under 6mm", "Over 6mm"];
+
+  const asymmetryTagSelect = (value) => {
+    value === asymmetryTag ? setAsymmetryTag("") : setAsymmetryTag(value);
+  };
+  const borderTagSelect = (value) => {
+    value === borderTag ? setBorderTag("") : setBorderTag(value);
+  };
+  const colorTagSelect = (value) => {
+    value === colorTag ? setColorTag("") : setColorTag(value);
+  };
+  const elevationTagSelect = (value) => {
+    value === elevationTag ? setElevationTag("") : setElevationTag(value);
+  };
+  const diameterTagSelect = (value) => {
+    value === diameterTag ? setDiameterTag("") : setDiameterTag(value);
+  };
 
   useEffect(() => {
     dispatch(fetchAllMoles());
@@ -56,7 +82,6 @@ const AddEntry = ({ route, navigation }) => {
     let molesArray = moles.filter((mole) => {
       return mole.bodyPart === bodyPart;
     });
-    console.log("molesArray", molesArray.length);
     let molesDictionary = {};
     molesArray.forEach((mole) => {
       molesDictionary[mole.nickname] = mole.id;
@@ -65,29 +90,40 @@ const AddEntry = ({ route, navigation }) => {
   }, [bodyPart]);
 
   const handleSubmit = () => {
-    dispatch(addEntry(notes, base64Img, moleId));
+    dispatch(
+      addEntry(
+        notes,
+        base64Img,
+        moleId,
+        asymmetryTag,
+        borderTag,
+        colorTag,
+        elevationTag,
+        diameterTag
+      )
+    );
   };
 
   // NEW
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+  // const [date, setDate] = useState(new Date());
+  // const [mode, setMode] = useState("date");
+  // const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    // setShow(Platform.OS === "ios");
-    setShow(false);
-    setDate(currentDate);
-  };
+  // const onChange = (event, selectedDate) => {
+  //   const currentDate = selectedDate || date;
+  //   // setShow(Platform.OS === "ios");
+  //   setShow(false);
+  //   setDate(currentDate);
+  // };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
+  // const showMode = (currentMode) => {
+  //   setShow(true);
+  //   setMode(currentMode);
+  // };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
+  // const showDatepicker = () => {
+  //   showMode("date");
+  // };
   // NEW END
 
   if (status === ADD_PENDING) {
@@ -104,6 +140,7 @@ const AddEntry = ({ route, navigation }) => {
     alert("Upload failed");
     dispatch(addStatus(null));
   }
+
   return (
     <View style={styles.containerScroll}>
       <ImageBackground
@@ -147,45 +184,136 @@ const AddEntry = ({ route, navigation }) => {
               value={notes}
             />
           </View>
-          <View style={{ width: 300 }}>
-            <View
-              style={{
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {show ? (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
-                  mode={mode}
-                  display="default"
-                  onChange={onChange}
-                  textColor="spinner"
-                  style={styles.dropdown2BtnStyle}
-                />
-              ) : (
-                <TouchableOpacity
+        </View>
+        {/* <View style={{ width: 300 }}>
+          <View
+            style={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {show ? (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                display="default"
+                onChange={onChange}
+                textColor="spinner"
+                style={styles.dropdown2BtnStyle}
+              />
+            ) : (
+              <TouchableOpacity
+                style={{
+                  ...styles.dropdown2BtnStyle,
+                  justifyContent: "center",
+                }}
+                onPress={showDatepicker}
+              >
+                <Text
                   style={{
-                    ...styles.dropdown2BtnStyle,
-                    justifyContent: "center",
+                    ...styles.dropdown2BtnTxtStyle,
+                    alignItems: "center",
                   }}
-                  onPress={showDatepicker}
                 >
-                  <Text
-                    style={{
-                      ...styles.dropdown2BtnTxtStyle,
-                      alignItems: "center",
-                    }}
-                  >
-                    {date}
-                  </Text>
-                </TouchableOpacity>
-              )}
+                  {date}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View> */}
+        <View style={{ width: 300 }}>
+          <View style={styles.tagsInAddEntryContainer}>
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
+              {asymmetryTagArray.map((tag, index) => {
+                return (
+                  <View key={index} style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      style={tag === asymmetryTag && styles.tagsActiveButton}
+                      onPress={() => asymmetryTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
+              {borderTagArray.map((tag, index) => {
+                return (
+                  <View key={index} style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      style={tag === borderTag && styles.tagsActiveButton}
+                      onPress={() => borderTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
+              {colorTagArray.map((tag, index) => {
+                return (
+                  <View key={index} style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      style={tag === colorTag && styles.tagsActiveButton}
+                      onPress={() => colorTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Elevation:</Text>
+              {elevationTagArray.map((tag, index) => {
+                return (
+                  <View key={index} style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      style={tag === elevationTag && styles.tagsActiveButton}
+                      onPress={() => elevationTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
+              {diameterTagArray.map((tag, index) => {
+                return (
+                  <View key={index} style={styles.tagsInactiveButton}>
+                    <TouchableOpacity
+                      style={tag === diameterTag && styles.tagsActiveButton}
+                      onPress={() => diameterTagSelect(tag)}
+                    >
+                      <Text style={styles.tagText}>{tag}</Text>
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
             </View>
           </View>
-          <View style={{ width: 300 }}>
+
+          <TouchableOpacity
+            style={styles.moreInfoButton}
+            onPress={() => navigation.push("Info")}
+          >
+            <Text style={styles.tagsInAddEntryTitle}>More Information</Text>
+          </TouchableOpacity>
+
+          <View>
             {gotMoleId === false && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}
@@ -200,7 +328,6 @@ const AddEntry = ({ route, navigation }) => {
                 }}
               />
             )}
-            {/* Front butt bug */}
             {gotMoleId === false && Object.keys(bodyPartMoles).length > 0 && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}

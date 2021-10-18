@@ -426,9 +426,51 @@ const styles = StyleSheet.create({
     fontFamily: "SulphurPoint-Regular",
     fontSize: 20,
   },
+
   /***********************
-   MISC                  *
+            Tags           
   ***********************/
+  tagsInAddEntryContainer: {
+    padding: 10,
+  },
+  tagsInAddEntryTitle: {
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 18,
+  },
+  tagsCategoryContainer: {
+    flexDirection: "row",
+    padding: 5,
+  },
+  tagsInactiveButton: {
+    marginHorizontal: 7,
+    width: 105,
+    backgroundColor: "#FFDEDF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tagsActiveButton: {
+    backgroundColor: "#FF7379",
+    width: 105,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tagText: {
+    marginHorizontal: 6,
+    marginVertical: 3,
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 15,
+  },
+  moreInfoButton: {
+    borderColor: "black",
+    borderWidth: 2,
+    width: 200,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    alignItems: "center",
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
 });
 
 export default styles;

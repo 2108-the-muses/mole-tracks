@@ -6,7 +6,7 @@ const cors = require("cors");
 
 module.exports = app;
 
-app.use(cors({origin: true}));
+app.use(cors({ origin: true }));
 
 // logging middleware
 app.use(morgan("dev"));

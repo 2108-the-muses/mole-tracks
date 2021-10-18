@@ -1,12 +1,9 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Entry = db.define('entry', {
+const Entry = db.define("entry", {
   notes: {
     type: Sequelize.TEXT,
-  },
-  tags: {
-    type: Sequelize.ARRAY(Sequelize.ENUM('asymmetry', 'border', 'color', 'elevation', 'diameter')),
   },
   // for dummy data purposes
   imgUrl: {
@@ -14,6 +11,26 @@ const Entry = db.define('entry', {
     validate: {
       isUrl: true,
     },
+  },
+  asymmetryTag: {
+    type: Sequelize.ENUM("Symmetric", "Asymmetric", ""),
+    defaultValue: "",
+  },
+  borderTag: {
+    type: Sequelize.ENUM("Defined", "Fuzzy", ""),
+    defaultValue: "",
+  },
+  colorTag: {
+    type: Sequelize.ENUM("Single Color", "Many Colors", ""),
+    defaultValue: "",
+  },
+  elevationTag: {
+    type: Sequelize.ENUM("Flat", "Raised", ""),
+    defaultValue: "",
+  },
+  diameterTag: {
+    type: Sequelize.ENUM("Under 6mm", "Over 6mm", ""),
+    defaultValue: "",
   },
 });
 

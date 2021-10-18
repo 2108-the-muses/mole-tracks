@@ -295,6 +295,7 @@ const SingleMole = (props) => {
                 showsVerticalScrollIndicator={false}
               >
                 {entries.reverse().map((entry) => {
+                  const notes = entry.notes || [];
                   return (
                     <TouchableOpacity
                       key={entry.id}
@@ -332,13 +333,13 @@ const SingleMole = (props) => {
                             }}
                           />
 
-                          {entry.notes.length > 20 ? (
+                          {notes.length > 20 ? (
                             <Text style={styles.entryText}>
-                              {entry.notes.slice(0, 20)}...
+                              {notes.slice(0, 20)}...
                             </Text>
                           ) : (
                             <Text style={styles.entryText}>
-                              {entry.notes.slice(0, 20)}
+                              {notes.slice(0, 20)}
                             </Text>
                           )}
                         </View>
