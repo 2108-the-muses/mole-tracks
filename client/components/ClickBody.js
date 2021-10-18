@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
@@ -13,14 +13,15 @@ import {
   Touchable,
 } from "react-native";
 import styles from "../styles";
-import ToggleSideButtons from './frontBackToggle'
+import ToggleSideButtons from "./frontBackToggle";
+import BodyPartCoords from "../misc/bodyPartCoords";
 
 const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
   const [coords, setCoords] = useState({ x: false });
   const frontBody = "../../assets/images/body-front.png";
   const backBody = "../../assets/images/body-back.png";
   const [viewFront, setViewFront] = useState(true);
-  
+
   const touchBody = (e) => {
     setCoords({ x: e.nativeEvent.locationX, y: e.nativeEvent.locationY });
   };
@@ -28,11 +29,14 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
     if (viewFront !== front) setViewFront((viewFront) => !viewFront);
   };
   const whichBodyPart = (x, y) => {
-   
     setSide(viewFront ? "front" : "back");
-    sendCoords({x,y})
-    if (y < 107 && y > 15 && x > 156 && x < 231) {
-      setBodyPart("head");
+    sendCoords({ x, y });
+    const BPC = Object.keys(BodyPartCoords);
+    for (let bodyPart of BPC) {
+      const part = BodyPartCoords[bodyPart];
+      if (y < part.yMax && y > part.yMin && x < part.xMax && x > part.xMin) {
+        setBodyPart(bodyPart);
+      }
     }
   };
   useEffect(() => {
@@ -55,7 +59,7 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
           />
         </View>
       </TouchableWithoutFeedback>
-      <ToggleSideButtons toggleSide={toggleSide} viewFront = {viewFront}/>
+      <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
     </View>
   );
 };
