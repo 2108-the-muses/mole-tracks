@@ -1,17 +1,26 @@
-import React from "react";
-import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import React,{useState} from "react";
+import { Image,View, Text, ImageBackground, TouchableOpacity } from "react-native";
 import styles from "../styles";
+import ToggleSideView from '../components/frontBackToggle'
 
 const Body = (props) => {
+  const [viewFront, setViewFront] = useState(true);
+  const toggleSide = (front) => {
+    if (viewFront !== front) setViewFront((viewFront) => !viewFront);
+  };
+  
   return (
-    <View style={styles.containerCenter}>
+    <View style={{
+      ...styles.flexStart,
+      justifyContent: "center",
+      alignItems: "center",
+    }}>
       <ImageBackground
         source={require("../../assets/images/background.png")}
         style={styles.backgroundImage}
       />
-      <View style={styles.buttonLarge}>
-        <Text style={styles.buttonLargeText}>Coming Soon!</Text>
-      </View>
+      <ToggleSideView toggleSide={toggleSide} viewFront={viewFront}/>
+       <Image/>
     </View>
   );
 };

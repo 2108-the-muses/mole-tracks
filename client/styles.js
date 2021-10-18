@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet, StatusBar } from "react-native";
-
+const brown = "#E59F71"
+const pink = "#FF7379"
 const heightConst = Dimensions.get("screen").height;
 const widthConst = Dimensions.get("screen").width;
 const statusHeight = StatusBar.currentHeight;
@@ -94,9 +95,19 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
   },
+  bodyMap:{
+    width: "100%",
+    height: "100%"
+  },
   /***********************
    Buttons               *
   ***********************/
+   buttonBox: {
+    flexDirection: "row",
+    width: 260,
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
   buttonLarge: {
     borderRadius: 10,
     backgroundColor: "#FF7379",
@@ -429,6 +440,16 @@ const styles = StyleSheet.create({
   /***********************
    MISC                  *
   ***********************/
+ moleDot:{
+   backgroundColor: brown,
+   height: 20,
+   width: 20,
+   borderRadius: 10,
+   position: "absolute",
+   top: 50,
+   bottom: 50,
+   zIndex: 1000
+ }
 });
 
 export default styles;

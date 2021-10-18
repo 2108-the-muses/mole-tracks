@@ -90,7 +90,7 @@ export const fetchSingleMole = (moleId) => {
   };
 };
 
-export const addMoleThunk = ({ nickname, bodyPart, side }) => {
+export const addMoleThunk = ({ nickname, bodyPart, side,coords }) => {
   return async (dispatch) => {
     try {
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
@@ -101,6 +101,8 @@ export const addMoleThunk = ({ nickname, bodyPart, side }) => {
             nickname,
             bodyPart,
             side,
+            x: coords.x,
+            y: coords.y
           },
           { headers: { authtoken: idToken } }
         );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   View,
@@ -26,17 +26,21 @@ const AddMole = (props) => {
   const singleMole = useSelector((state) => {
     return state.allMoles.singleMole;
   });
-
+  let coords = {}
   const handleSubmit = async () => {
-    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side }));
+    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side,coords }));
     if (newMole) {
+
       props.navigation.navigate("Moles", {
         screen: SINGLEMOLE,
         params: { mole: newMole },
       });
     }
   };
-
+const setCoords = (x,y)=>{
+  coords.x = x;
+  coords.y = y;
+}
   return (
     <View style={styles.containerScroll}>
       <ImageBackground
@@ -69,7 +73,7 @@ const AddMole = (props) => {
                 setBodyPart={setBodyPart}
               />
             ) : (
-              moleLocationSelection === "body map" && <ClickBody />)}
+              moleLocationSelection === "body map" && <ClickBody setBodyPart= {setBodyPart} setSide = {setSide} sendCoords={setCoords}/>)}
             </View>
             {bodyPart !== "" && (
               <TouchableOpacity
