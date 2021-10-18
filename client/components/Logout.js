@@ -1,9 +1,9 @@
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {StyleSheet, View, TouchableOpacity, Text} from "react-native";
-import {LOGIN, INFO, PROFILE} from "../NavigationConstants";
-import {logout} from "../store/auth";
-import {firebaseAuth} from "../firebase-auth/config";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { View, TouchableOpacity, Text, ImageBackground } from "react-native";
+import { LOGIN, INFO, PROFILE } from "../navigation/constants";
+import { logout } from "../store/auth";
+import { firebaseAuth } from "../firebase-auth/config";
 import styles from "../styles.js";
 
 const Logout = (props) => {
@@ -22,7 +22,6 @@ const Logout = (props) => {
     }
   };
 
-
   //Temporary Buttons for Profile Page and Info Page
   const onPressButton1 = async () => {
     try {
@@ -40,24 +39,24 @@ const Logout = (props) => {
     }
   };
 
-
   return (
-    <View style={styles.container}>
-      <Text>Hello {user.firstName} </Text>
-      <Text>{user.email} </Text>
-      {error && <Text style={{color: "red"}}>{error}</Text>}
-      <TouchableOpacity style={styles.button} onPress={onPressButton}>
-        <Text style={styles.buttonText}>Logout</Text>
+    <View style={{ ...styles.containerCenter, justifyContent: "space-around" }}>
+      <ImageBackground
+        source={require("../../assets/images/background.png")}
+        style={styles.backgroundImage}
+      />
+      <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton1}>
+        <Text style={styles.buttonLargeText}>Profile</Text>
       </TouchableOpacity>
 
-      {/* TemporaryButtons for Profile and Info Page  */}
-      <TouchableOpacity style={styles.button} onPress={onPressButton1}>
-        <Text style={styles.buttonText}>Profile</Text>
+      <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton2}>
+        <Text style={styles.buttonLargeText}>Info</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={onPressButton2}>
-        <Text style={styles.buttonText}>Info</Text>
+      <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton}>
+        <Text style={styles.buttonLargeText}>Logout</Text>
       </TouchableOpacity>
+      {error && <Text style={{ color: "red" }}>{error}</Text>}
     </View>
   );
 };

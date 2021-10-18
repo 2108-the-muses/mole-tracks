@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const {
-  models: {Mole, User, Entry},
+  models: { Mole, User, Entry },
 } = require("../db");
 module.exports = router;
-const {checkAuth} = require("../auth-middleware");
+const { checkAuth } = require("../auth-middleware");
 
 // GET /api/mole/
 router.get("/", checkAuth, async (req, res, next) => {
@@ -64,7 +64,7 @@ router.put("/:moleId", checkAuth, async (req, res, next) => {
     if (mole) {
       res.json(await mole.update(req.body));
     } else {
-      throw {status: 401, message: "Mole Not Found!"};
+      throw { status: 401, message: "Mole Not Found!" };
     }
   } catch (err) {
     next(err);
@@ -83,7 +83,7 @@ router.delete("/:moleId", checkAuth, async (req, res, next) => {
     if (mole) {
       res.sendStatus(200);
     } else {
-      throw {status: 401, message: "Mole Not Found!"};
+      throw { status: 401, message: "Mole Not Found!" };
     }
   } catch (err) {
     next(err);

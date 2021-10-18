@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import {
-  StyleSheet,
   View,
   Text,
   ScrollView,
   Image,
-  Dimensions,
   TouchableOpacity,
   Alert,
 } from "react-native";
-import {deleteMoleThunk} from "../store/mole";
-import {useDispatch} from "react-redux";
+import { deleteMoleThunk } from "../store/mole";
+import { useDispatch } from "react-redux";
+import { FontAwesome5 } from "@expo/vector-icons";
+import styles from "../styles";
 
-const Moles = ({moles, navigation}) => {
+const Moles = ({ moles, navigation }) => {
   const dispatch = useDispatch();
 
   const deleteAlert = (moleId) =>
@@ -23,7 +23,11 @@ const Moles = ({moles, navigation}) => {
         onPress: () => console.log("Cancel Pressed"),
         style: "cancel",
       },
-      {text: "Delete", onPress: () => dispatch(deleteMoleThunk(moleId)), style: "destructive"},
+      {
+        text: "Delete",
+        onPress: () => dispatch(deleteMoleThunk(moleId)),
+        style: "destructive",
+      },
     ]);
 
   const list = () => {
@@ -38,16 +42,19 @@ const Moles = ({moles, navigation}) => {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.push("SingleMole", {mole});
+            navigation.push("SingleMole", { mole });
           }}
           key={index}
         >
-          <View style={styles.container}>
-            <Image style={styles.image} source={{uri: image}} />
-            <View style={styles.label}>
-              <Text style={styles.titleText}>{mole.nickname}</Text>
-              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteAlert(mole.id)}>
-                <Text style={styles.deleteText}>delete</Text>
+          <View style={{ ...styles.polaroidContainer, marginRight: 10 }}>
+            <Image style={styles.polaroidImage} source={{ uri: image }} />
+            <View style={styles.polaroidLabel}>
+              <Text style={styles.headerText}>{mole.nickname}</Text>
+              <TouchableOpacity
+                style={{ justifyContent: "center", alignItems: "center" }}
+                onPress={() => deleteAlert(mole.id)}
+              >
+                <FontAwesome5 name="minus" size={12} color="black" />
               </TouchableOpacity>
             </View>
           </View>
@@ -56,68 +63,14 @@ const Moles = ({moles, navigation}) => {
     });
   };
   return (
-    <ScrollView horizontal={true} style={styles.scrollview} showsHorizontalScrollIndicator={false}>
+    <ScrollView
+      horizontal={true}
+      style={styles.horizontalScroll}
+      showsHorizontalScrollIndicator={false}
+    >
       {list()}
     </ScrollView>
   );
 };
-
-const widthConst = Dimensions.get("screen").width;
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#E59F71",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    width: 150,
-    height: 150,
-    borderRadius: 1,
-    marginRight: 10,
-  },
-  titleText: {
-    color: "black",
-    fontFamily: "SulphurPoint-Bold",
-    fontSize: 20,
-  },
-  image: {
-    alignItems: "center",
-    width: 130,
-    height: 110,
-    resizeMode: "cover",
-    marginTop: 10,
-    marginHorizontal: 10,
-    backgroundColor: "white",
-  },
-  scrollview: {
-    padding: 10,
-    // backgroundColor: "#FFB6C1",
-    width: widthConst,
-    height: 170,
-    // opacity: 0.8,
-  },
-  label: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 5,
-    paddingHorizontal: 10,
-    width: "100%",
-  },
-  deleteButton: {
-    width: 36,
-    height: 18,
-    backgroundColor: "#BC2020",
-    borderRadius: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  deleteText: {
-    fontSize: 8,
-    fontWeight: "bold",
-    color: "white",
-    alignSelf: "center",
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-});
 
 export default Moles;

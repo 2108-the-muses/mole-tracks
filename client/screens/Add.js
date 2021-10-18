@@ -1,30 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../styles";
-import { TAKEPHOTO, ADDMOLE } from "../NavigationConstants";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { View, Text, TouchableOpacity } from "react-native";
+import { TAKEPHOTO, ADDMOLE } from "../navigation/constants";
+import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 
 const Add = ({ navigation }) => {
   return (
-    <KeyboardAwareScrollView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <View style={styles.buttonBox}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate(TAKEPHOTO, { moleId: false })}
-          >
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>entry</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate(ADDMOLE)}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>mole</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <Text style={{ marginTop: 10 }}>or</Text>
-      </View>
-    </KeyboardAwareScrollView>
+    <View style={{ ...styles.containerCenter, justifyContent: "space-around" }}>
+      <ImageBackground
+        source={require("../../assets/images/background.png")}
+        style={styles.backgroundImage}
+      />
+      <TouchableOpacity
+        style={styles.buttonLarge}
+        onPress={() => navigation.navigate(TAKEPHOTO, { moleId: false })}
+      >
+        <Text style={styles.buttonLargeText}>entry</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonLarge}
+        onPress={() => navigation.navigate(ADDMOLE)}
+      >
+        <Text style={styles.buttonLargeText}>mole</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   View,
@@ -20,7 +21,7 @@ import {
   ADD_SUCCESS,
 } from "../store/entry";
 import Loading from "./Loading";
-import { ENTRY } from "../NavigationConstants";
+import { ENTRY } from "../navigation/constants";
 
 const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
@@ -71,25 +72,49 @@ const AddEntry = ({ route, navigation }) => {
     dispatch(addStatus(null));
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.containerScroll}>
       <ImageBackground
         source={require("../../assets/images/background.png")}
-        style={styles.background}
+        style={styles.backgroundImage}
       />
       <KeyboardAwareScrollView>
-        <View style={styles.content}>
-          <View style={styles.entryimageBox}>
-            <Image style={styles.entryImage} source={{ uri: base64Img }} />
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            marginVertical: "3%",
+            flexDirection: "row",
+          }}
+        >
+          <Image
+            style={styles.moleSilhouette}
+            source={require("../../assets/images/mole-silhouette-flipped.png")}
+          />
+          <View style={styles.buttonLarge}>
+            <Text style={styles.buttonLargeText}>new entry</Text>
           </View>
-          <View style={styles.notesBox}>
+          <Image
+            style={styles.moleSilhouette}
+            source={require("../../assets/images/mole-silhouette.png")}
+          />
+        </View>
+
+        <View style={{ flex: 1, marginVertical: "3%", alignItems: "center" }}>
+          <View style={styles.polaroidContainerLarge}>
+            <Image
+              style={styles.polaroidImageLarge}
+              source={{ uri: base64Img }}
+            />
+          </View>
+          <View style={{ width: 300 }}>
             <TextInput
               placeholder="notes"
-              style={styles.textInput}
+              style={styles.textInputLarge}
               onChangeText={(notes) => setNotes(notes)}
               value={notes}
             />
           </View>
-          <View>
+          <View style={{ width: 300 }}>
             {gotMoleId === false && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}
@@ -121,12 +146,11 @@ const AddEntry = ({ route, navigation }) => {
               />
             )}
           </View>
-          <TouchableOpacity
-            onPress={handleSubmit}
-            style={styles.submitEntryButton}
-          >
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
+          <View style={{ marginVertical: 25 }}>
+            <TouchableOpacity onPress={handleSubmit} style={styles.buttonLarge}>
+              <Text style={styles.buttonLargeText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </KeyboardAwareScrollView>
     </View>
