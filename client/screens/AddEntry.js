@@ -8,6 +8,7 @@ import {
   TextInput,
   Image,
   Text,
+  Button,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SelectDropdown from "react-native-select-dropdown";
@@ -22,6 +23,9 @@ import {
 } from "../store/entry";
 import Loading from "./Loading";
 import { ENTRY } from "../NavigationConstants";
+// NEW
+import DateTimePicker from "@react-native-community/datetimepicker";
+// NEW END
 
 const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
@@ -63,10 +67,39 @@ const AddEntry = ({ route, navigation }) => {
   const handleSubmit = () => {
     dispatch(addEntry(notes, base64Img, moleId));
   };
+
+  // NEW
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    // setShow(Platform.OS === "ios");
+    setShow(false);
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+  // NEW END
+
   if (status === ADD_PENDING) {
     return <Loading />;
   } else if (status === ADD_SUCCESS) {
-    navigation.navigate("Moles",{screen: ENTRY, params:{entry: entryForEntryRouteParam, name: moleNameForEntryRouteParam}})
+    navigation.navigate("Moles", {
+      screen: ENTRY,
+      params: {
+        entry: entryForEntryRouteParam,
+        name: moleNameForEntryRouteParam,
+      },
+    });
   } else if (status === ADD_FAILED) {
     alert("Upload failed");
     dispatch(addStatus(null));
@@ -115,6 +148,44 @@ const AddEntry = ({ route, navigation }) => {
             />
           </View>
           <View style={{ width: 300 }}>
+            <View
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {show ? (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={mode}
+                  display="default"
+                  onChange={onChange}
+                  textColor="spinner"
+                  style={styles.dropdown2BtnStyle}
+                />
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    ...styles.dropdown2BtnStyle,
+                    justifyContent: "center",
+                  }}
+                  onPress={showDatepicker}
+                >
+                  <Text
+                    style={{
+                      ...styles.dropdown2BtnTxtStyle,
+                      alignItems: "center",
+                    }}
+                  >
+                    {date}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+          <View style={{ width: 300 }}>
             {gotMoleId === false && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}
@@ -146,6 +217,7 @@ const AddEntry = ({ route, navigation }) => {
               />
             )}
           </View>
+
           <View style={{ marginVertical: 25 }}>
             <TouchableOpacity onPress={handleSubmit} style={styles.buttonLarge}>
               <Text style={styles.buttonLargeText}>Submit</Text>
