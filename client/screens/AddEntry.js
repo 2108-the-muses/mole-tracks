@@ -256,7 +256,6 @@ const AddEntry = ({ route, navigation }) => {
                 }}
               />
             )}
-            {/* Front butt bug */}
             {gotMoleId === false && Object.keys(bodyPartMoles).length > 0 && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}
