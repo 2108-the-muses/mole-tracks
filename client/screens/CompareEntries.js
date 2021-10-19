@@ -180,6 +180,7 @@ const CompareEntries = (props) => {
                       props.navigation.navigate("Entry", {
                         entry: entryTwo,
                         name: name,
+                        moleId: moleId,
                       })
                     }
                   >
