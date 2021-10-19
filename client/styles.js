@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
    top: 50,
    bottom: 50,
    zIndex: 1000
- }
+ },
   tagsInAddEntryContainer: {
     padding: 10,
   },
