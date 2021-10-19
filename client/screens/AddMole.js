@@ -31,10 +31,12 @@ const AddMole = (props) => {
   const handleSubmit = async () => {
     const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side }));
     if (newMole) {
-      props.navigation.navigate("Moles", {
-        screen: SINGLEMOLE,
-        params: { mole: newMole },
-      });
+      props.navigation.navigate(SINGLEMOLE, { mole: newMole });
+      // COME BACK TO THE BELOW AFTER DEMO DAY
+      // props.navigation.navigate("Moles", {
+      //   screen: SINGLEMOLE,
+      //   params: { mole: newMole },
+      // });
     }
   };
 
@@ -86,7 +88,7 @@ const AddMole = (props) => {
             </View>
             {bodyPart !== "" && (
               <TouchableOpacity
-                style={styles.buttonLarge}
+                style={{ ...styles.buttonLarge, marginTop: 20 }}
                 onPress={handleSubmit}
               >
                 <Text style={styles.buttonLargeText}>add mole</Text>
