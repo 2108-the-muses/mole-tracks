@@ -35,7 +35,6 @@
     "pg": "^8.5.1",
     "react": "17.0.1",
     "react-native": "0.64.2",
-    "react-native-date-picker": "^4.1.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "^3.4.0",
