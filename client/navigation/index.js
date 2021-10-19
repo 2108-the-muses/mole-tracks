@@ -158,7 +158,6 @@ const AddStack = () => {
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
         headerTitle: topHeaderLogo,
-        headerBackVisible: false,
         headerTintColor: "white",
       }}
     >
