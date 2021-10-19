@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
-import { ADDENTRY } from "../NavigationConstants";
+import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
 import styles from "../styles";
 

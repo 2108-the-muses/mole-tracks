@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles";
-import { TAKEPHOTO, ADDMOLE } from "../NavigationConstants";
+import { TAKEPHOTO, ADDMOLE } from "../navigation/constants";
 import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 
 const Add = ({ navigation }) => {

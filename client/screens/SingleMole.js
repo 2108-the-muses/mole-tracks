@@ -15,7 +15,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import SelectDropdown from "react-native-select-dropdown";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { ALLMOLES } from "../NavigationConstants";
+import { ALLMOLES } from "../navigation/constants";
 import {
   deleteMoleThunk,
   updateMoleThunk,

@@ -8,7 +8,7 @@ import {
   TextInput,
   Image,
   Text,
-  Button,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SelectDropdown from "react-native-select-dropdown";
@@ -22,7 +22,7 @@ import {
   ADD_SUCCESS,
 } from "../store/entry";
 import Loading from "./Loading";
-import { ENTRY } from "../NavigationConstants";
+import { ENTRY } from "../navigation/constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 
@@ -98,20 +98,37 @@ const AddEntry = ({ route, navigation }) => {
     setFormattedDate(format(currentDate, "PP"));
   };
 
-  const handleSubmit = () => {
-    dispatch(
-      addEntry(
-        notes,
-        date,
-        base64Img,
-        moleId,
-        asymmetryTag,
-        borderTag,
-        colorTag,
-        elevationTag,
-        diameterTag
-      )
+  const submitAlert = () =>
+    Alert.alert(
+      "Whoops!",
+      "Please make sure to select a Body Part or a Corresponding Mole",
+      [
+        {
+          text: "Try Again",
+          onPress: () => console.log("Try Again pressed"),
+          style: "cancel",
+        },
+      ]
     );
+
+  const handleSubmit = () => {
+    if (!moleId || (!bodyPart && !moleId)) {
+      submitAlert();
+      console.log("mole id ", moleId);
+    } else
+      dispatch(
+        addEntry(
+          notes,
+          date,
+          base64Img,
+          moleId,
+          asymmetryTag,
+          borderTag,
+          colorTag,
+          elevationTag,
+          diameterTag
+        )
+      );
   };
 
   if (status === ADD_PENDING) {
@@ -164,8 +181,8 @@ const AddEntry = ({ route, navigation }) => {
             style={styles.moleSilhouette}
             source={require("../../assets/images/mole-silhouette-flipped.png")}
           />
-          <View style={styles.buttonLarge}>
-            <Text style={styles.buttonLargeText}>new entry</Text>
+          <View>
+            <Text style={styles.fontLarge}>new entry</Text>
           </View>
           <Image
             style={styles.moleSilhouette}
@@ -379,7 +396,7 @@ const AddEntry = ({ route, navigation }) => {
 
           <TouchableOpacity
             style={styles.moreInfoButton}
-            onPress={() => navigation.push("Info")}
+            onPress={() => navigation.navigate("Info")}
           >
             <Text style={styles.tagsInAddEntryTitle}>More Information</Text>
           </TouchableOpacity>

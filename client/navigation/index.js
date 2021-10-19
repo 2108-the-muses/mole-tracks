@@ -15,7 +15,7 @@ import {
   INFO,
   PROFILE,
   COMPAREENTRIES,
-} from "../NavigationConstants";
+} from "../navigation/constants";
 import cIndex from "../components";
 const { Logout } = cIndex;
 import sIndex from "../screens";
@@ -158,7 +158,6 @@ const AddStack = () => {
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
         headerTitle: topHeaderLogo,
-        headerBackVisible: false,
         headerTintColor: "white",
       }}
     >
