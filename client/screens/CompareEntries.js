@@ -9,10 +9,12 @@ import {
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import styles from "../styles";
+import { format } from "date-fns";
 
 const CompareEntries = (props) => {
   const entries = props.route.params.entries;
   const name = props.route.params.name;
+  const moleId = props.route.params.moleId;
   const [entryOne, setEntryOne] = useState(null);
   const [entryTwo, setEntryTwo] = useState(null);
 
@@ -27,8 +29,9 @@ const CompareEntries = (props) => {
     return orderedDate;
   };
 
+  // @todo turn this into an object so that id is not in the list
   const entryLabels = entries.map(
-    (entry) => `${dateTruncated(entry.createdAt)} (id: ${entry.id})`
+    (entry) => `${format(new Date(entry.date), "P")} (id: ${entry.id})`
   );
 
   const parseEntryLabel = (label) => {
@@ -117,9 +120,14 @@ const CompareEntries = (props) => {
                     source={{ uri: entryOne.imgUrl }}
                     style={styles.polaroidImage}
                   ></Image>
-                  <View style={styles.polaroidLabel}>
+                  <View
+                    style={{
+                      ...styles.polaroidLabel,
+                      justifyContent: "center",
+                    }}
+                  >
                     <Text style={styles.headerText}>
-                      {dateTruncated(entryOne.createdAt)}
+                      {format(new Date(entryOne.date), "PP")}
                     </Text>
                   </View>
                 </View>
@@ -133,6 +141,7 @@ const CompareEntries = (props) => {
                       props.navigation.navigate("Entry", {
                         entry: entryOne,
                         name: name,
+                        moleId: moleId,
                       })
                     }
                   >
@@ -150,9 +159,14 @@ const CompareEntries = (props) => {
                     source={{ uri: entryTwo.imgUrl }}
                     style={styles.polaroidImage}
                   ></Image>
-                  <View style={styles.polaroidLabel}>
+                  <View
+                    style={{
+                      ...styles.polaroidLabel,
+                      justifyContent: "center",
+                    }}
+                  >
                     <Text style={styles.headerText}>
-                      {dateTruncated(entryTwo.createdAt)}
+                      {format(new Date(entryTwo.date), "PP")}
                     </Text>
                   </View>
                 </View>

@@ -58,6 +58,7 @@ const TakePhoto = ({ navigation, route }) => {
     navigation.push(ADDENTRY, {
       base64Img: base64Img,
       moleId: route.params.moleId,
+      mole: route.params.mole,
     });
   };
 

@@ -106,56 +106,66 @@ async function seed() {
   ] = await Entry.bulkCreate([
     {
       notes: "New mole. A little asymmetrical, not much else to note.",
+      date: new Date(2019, 7, 2),
       imgUrl:
         "https://live.staticflickr.com/65535/51599636232_d4b486378f_o.png",
     },
     {
       notes:
         "I think it's growing a little bit, but it's hard to tell. No symptoms to note.",
+      date: new Date(2019, 10, 12),
       imgUrl:
         "https://live.staticflickr.com/65535/51600675958_c942c03acd_o.png",
     },
     {
       notes: "Felt just a little itchy today, taking a pic to make note.",
+      date: new Date(2020, 3, 24),
       imgUrl:
         "https://live.staticflickr.com/65535/51600463476_d66d7d7759_o.png",
     },
     {
       notes:
         "Sigh. It's definitely getting itchier, but I don't think it's growing? Could be wrong.",
+      date: new Date(2020, 8, 1),
       imgUrl:
         "https://live.staticflickr.com/65535/51601354370_526e13b2e6_o.png",
     },
     {
       notes: "Mole seems a little darker now than it was before.",
+      date: new Date(2020, 11, 17),
       imgUrl:
         "https://live.staticflickr.com/65535/51601354355_a45204b819_o.png",
     },
     {
       notes:
         "No longer itchy, but it is getting darker/bigger. Not sure what's going on.",
+      date: new Date(2021, 4, 8),
       imgUrl:
         "https://live.staticflickr.com/65535/51601354350_1fa4b8f471_o.png",
     },
     {
       notes:
         "Good new! Saw the doctor - he said the itching might have just been a sign of 'minor trauma' and not skin cancer. We will continue to monitor this mole regardless.",
+      date: new Date(2021, 10, 12),
       imgUrl:
         "https://live.staticflickr.com/65535/51601354345_deca64dbd2_o.png",
     },
     {
       notes:
         "An old mole I've been monitoring for a while. No symptoms, just large.",
+      date: new Date(2018, 3, 4),
       imgUrl:
         "https://live.staticflickr.com/65535/51601122064_62e0d113e7_o.png",
     },
     {
       notes: "Need to check growth - seems to be getting bigger.",
+      date: new Date(2020, 9, 18),
       imgUrl:
         "https://live.staticflickr.com/65535/51600675908_013c9438fd_o.png",
     },
     {
       notes: "Starting to get redness and swelling.",
+      date: new Date(2021, 8, 30),
       imgUrl:
         "https://live.staticflickr.com/65535/51601122049_282824f464_o.png",
     },

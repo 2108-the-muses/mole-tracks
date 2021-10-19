@@ -20,7 +20,17 @@ export const _addEntry = (newEntry) => ({
 
 export const addStatus = (status) => ({ type: ADD_STATUS, status });
 
-export const addEntry = (notes, base64Img, moleId) => {
+export const addEntry = (
+  notes,
+  date,
+  base64Img,
+  moleId,
+  asymmetryTag,
+  borderTag,
+  colorTag,
+  elevationTag,
+  diameterTag
+) => {
   return async (dispatch) => {
     try {
       dispatch(addStatus(ADD_PENDING));
@@ -44,8 +54,14 @@ export const addEntry = (notes, base64Img, moleId) => {
             `http://${IP_ADDRESS}:8080/api/entries/`,
             {
               notes: notes,
+              date: date,
               imgUrl: secure_url,
               moleId: moleId,
+              asymmetryTag: asymmetryTag,
+              borderTag: borderTag,
+              colorTag: colorTag,
+              elevationTag: elevationTag,
+              diameterTag: diameterTag,
             },
             {
               headers: {
