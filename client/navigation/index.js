@@ -15,7 +15,7 @@ import {
   INFO,
   PROFILE,
   COMPAREENTRIES,
-} from "../NavigationConstants";
+} from "../navigation/constants";
 import cIndex from "../components";
 const { Logout } = cIndex;
 import sIndex from "../screens";
