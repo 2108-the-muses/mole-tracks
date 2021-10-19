@@ -18,21 +18,12 @@ const CompareEntries = (props) => {
   const [entryOne, setEntryOne] = useState(null);
   const [entryTwo, setEntryTwo] = useState(null);
 
-  const dateTruncated = (createdAt) => {
-    const splitDate = createdAt.split("-");
-    let orderedDate = [
-      splitDate[1],
-      splitDate[2].split("T")[0],
-      splitDate[0].slice(2),
-    ];
-    orderedDate = orderedDate.join("/");
-    return orderedDate;
-  };
 
   // @todo turn this into an object so that id is not in the list
-  const entryLabels = entries.map(
-    (entry) => `${format(new Date(entry.date), "P")} (id: ${entry.id})`
-  );
+  const entryDictionary = {}
+ entries.map(
+    (entry) => entryDictionary[format(new Date(entry.date), "P")] = entry)
+
 
   const parseEntryLabel = (label) => {
     const id = +label.split(/[():\s]/)[4];
@@ -88,9 +79,9 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={entryLabels}
+              data={Object.keys(entryDictionary)}
               defaultButtonText={"entry 1"}
-              onSelect={(selected) => setEntryOne(parseEntryLabel(selected))}
+              onSelect={(selected) => setEntryOne(entryDictionary[selected])}
             />
           </View>
           <View style={{ width: "50%" }}>
@@ -100,9 +91,9 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={entryLabels}
+              data={Object.keys(entryDictionary)}
               defaultButtonText={"entry 2"}
-              onSelect={(selected) => setEntryTwo(parseEntryLabel(selected))}
+              onSelect={(selected) => setEntryTwo(entryDictionary[selected])}
             />
           </View>
         </View>
@@ -180,6 +171,8 @@ const CompareEntries = (props) => {
                       props.navigation.navigate("Entry", {
                         entry: entryTwo,
                         name: name,
+                        moleId: moleId
+                        
                       })
                     }
                   >
