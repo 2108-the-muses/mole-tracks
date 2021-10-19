@@ -22,6 +22,7 @@ export const addStatus = (status) => ({ type: ADD_STATUS, status });
 
 export const addEntry = (
   notes,
+  date,
   base64Img,
   moleId,
   asymmetryTag,
@@ -53,6 +54,7 @@ export const addEntry = (
             `http://${IP_ADDRESS}:8080/api/entries/`,
             {
               notes: notes,
+              date: date,
               imgUrl: secure_url,
               moleId: moleId,
               asymmetryTag: asymmetryTag,

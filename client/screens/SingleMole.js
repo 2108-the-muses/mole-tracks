@@ -24,6 +24,7 @@ import {
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import Loading from "./Loading";
 import styles from "../styles";
+import { format, compareAsc, compareDesc } from "date-fns";
 
 const SingleMole = (props) => {
   const moleId = props.route.params.mole.id;
@@ -67,22 +68,16 @@ const SingleMole = (props) => {
     ? (firstPhoto = entries[0].imgUrl)
     : (firstPhoto =
         "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png");
-  const date = (createdAt) => {
-    const splitDate = createdAt.split("-");
-    let orderedDate = [splitDate[1], splitDate[2].split("T")[0], splitDate[0]];
-    orderedDate = orderedDate.join(" · ");
-    return orderedDate;
-  };
 
-  const dateTruncated = (createdAt) => {
-    const splitDate = createdAt.split("-");
-    let orderedDate = [
-      splitDate[1],
-      splitDate[2].split("T")[0],
-      splitDate[0].slice(2),
-    ];
-    orderedDate = orderedDate.join("/");
-    return orderedDate;
+  let initialSortedEntries = entries.sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+  const [sortedEntries, setSortedEntries] = useState(initialSortedEntries);
+
+  const handleOrderByDate = () => {
+    setSortedEntries(sortedEntries.reverse());
+
+    console.log(sortedEntries.map((entry) => entry.date));
   };
 
   const handleSubmit = () => {
@@ -184,10 +179,12 @@ const SingleMole = (props) => {
                   source={{ uri: firstPhoto }}
                   style={styles.polaroidImage}
                 ></Image>
-                <View style={styles.polaroidLabel}>
+                <View
+                  style={{ ...styles.polaroidLabel, justifyContent: "center" }}
+                >
                   {entries.length ? (
                     <Text style={styles.headerText}>
-                      {date(entries[0].createdAt)}
+                      {format(new Date(entries[0].date), "PP")}
                     </Text>
                   ) : (
                     <Text style={styles.headerText}></Text>
@@ -273,11 +270,7 @@ const SingleMole = (props) => {
                 {/* @todo reverse button */}
                 <TouchableOpacity
                   style={{ marginHorizontal: 10 }}
-                  onPress={() =>
-                    console.log(
-                      "This button should reverse the order - newest to oldest/oldest to newest, etc."
-                    )
-                  }
+                  onPress={() => handleOrderByDate()}
                 >
                   <Entypo name="select-arrows" size={16} color="black" />
                 </TouchableOpacity>
@@ -294,7 +287,8 @@ const SingleMole = (props) => {
                 style={{ width: "100%" }}
                 showsVerticalScrollIndicator={false}
               >
-                {entries.reverse().map((entry) => {
+                {/* will changed to sortedEntries upon fixing bug */}
+                {initialSortedEntries.map((entry) => {
                   const notes = entry.notes || [];
                   return (
                     <TouchableOpacity
@@ -344,7 +338,7 @@ const SingleMole = (props) => {
                           )}
                         </View>
                         <Text style={styles.entryText}>
-                          {dateTruncated(entry.createdAt)}
+                          {format(new Date(entry.date), "P")}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -372,6 +366,7 @@ const SingleMole = (props) => {
                   props.navigation.push("CompareEntries", {
                     entries,
                     name: mole.nickname,
+                    moleId: mole.id,
                   })
                 }
               >

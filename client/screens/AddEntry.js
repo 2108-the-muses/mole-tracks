@@ -23,9 +23,8 @@ import {
 } from "../store/entry";
 import Loading from "./Loading";
 import { ENTRY } from "../NavigationConstants";
-// NEW
-// import DateTimePicker from "@react-native-community/datetimepicker";
-// NEW END
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { format } from "date-fns";
 
 const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
@@ -89,10 +88,21 @@ const AddEntry = ({ route, navigation }) => {
     setBodyPartMoles(molesDictionary);
   }, [bodyPart]);
 
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [formattedDate, setFormattedDate] = useState(format(new Date(), "PP"));
+
+  const selectDate = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setFormattedDate(format(currentDate, "PP"));
+  };
+
   const handleSubmit = () => {
     dispatch(
       addEntry(
         notes,
+        date,
         base64Img,
         moleId,
         asymmetryTag,
@@ -104,37 +114,23 @@ const AddEntry = ({ route, navigation }) => {
     );
   };
 
-  // NEW
-  // const [date, setDate] = useState(new Date());
-  // const [mode, setMode] = useState("date");
-  // const [show, setShow] = useState(false);
-
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date;
-  //   // setShow(Platform.OS === "ios");
-  //   setShow(false);
-  //   setDate(currentDate);
-  // };
-
-  // const showMode = (currentMode) => {
-  //   setShow(true);
-  //   setMode(currentMode);
-  // };
-
-  // const showDatepicker = () => {
-  //   showMode("date");
-  // };
-  // NEW END
-
   if (status === ADD_PENDING) {
     return <Loading />;
   } else if (status === ADD_SUCCESS) {
-    navigation.navigate("Moles", {
-      screen: ENTRY,
-      params: {
-        entry: entryForEntryRouteParam,
-        name: moleNameForEntryRouteParam,
-      },
+    // @todo after this navigation the "ALLMOLES" tab only ever wants to default to the Entry
+    // navigation.navigate("Moles", {
+    //   screen: ENTRY,
+    //   params: {
+    //     entry: entryForEntryRouteParam,
+    //     name: moleNameForEntryRouteParam,
+    //     moleId: moleId,
+    //   },
+    // });
+    // temporary fix below... not what we eventually want
+    navigation.push(ENTRY, {
+      entry: entryForEntryRouteParam,
+      name: moleNameForEntryRouteParam,
+      moleId: moleId,
     });
   } else if (status === ADD_FAILED) {
     alert("Upload failed");
@@ -175,145 +171,73 @@ const AddEntry = ({ route, navigation }) => {
               style={styles.polaroidImageLarge}
               source={{ uri: base64Img }}
             />
+            {/* <View
+              style={{
+                ...styles.polaroidLabelLarge,
+                marginVertical: 27,
+                justifyContent: "flex-end",
+              }}
+            >
+              <Text style={styles.fontExtraLarge}>{mole.nickname}</Text>
+            </View> */}
           </View>
           <View style={{ width: 300 }}>
-            <TextInput
-              placeholder="notes"
-              style={styles.textInputLarge}
-              onChangeText={(notes) => setNotes(notes)}
-              value={notes}
-            />
-          </View>
-        </View>
-        {/* <View style={{ width: 300 }}>
-          <View
-            style={{
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {show ? (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={mode}
-                display="default"
-                onChange={onChange}
-                textColor="spinner"
-                style={styles.dropdown2BtnStyle}
-              />
-            ) : (
-              <TouchableOpacity
-                style={{
-                  ...styles.dropdown2BtnStyle,
-                  justifyContent: "center",
-                }}
-                onPress={showDatepicker}
-              >
-                <Text
+            <View
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {show ? (
+                <>
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    mode="date"
+                    display="spinner"
+                    onChange={selectDate}
+                    textColor="default"
+                    style={{ width: 300 }}
+                  />
+                  <TouchableOpacity
+                    style={{
+                      ...styles.dropdown2BtnStyle,
+                      justifyContent: "center",
+                    }}
+                    onPress={() => setShow(false)}
+                  >
+                    <Text
+                      style={{
+                        ...styles.dropdown2BtnTxtStyle,
+                        alignItems: "center",
+                      }}
+                    >
+                      Select Date
+                    </Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <TouchableOpacity
                   style={{
-                    ...styles.dropdown2BtnTxtStyle,
-                    alignItems: "center",
+                    ...styles.dropdown2BtnStyle,
+                    justifyContent: "center",
                   }}
+                  onPress={() => setShow(true)}
                 >
-                  {date}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View> */}
-        <View style={{ width: 300 }}>
-          <View style={styles.tagsInAddEntryContainer}>
-            <View style={styles.tagsCategoryContainer}>
-              <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
-              {asymmetryTagArray.map((tag, index) => {
-                return (
-                  <View key={index} style={styles.tagsInactiveButton}>
-                    <TouchableOpacity
-                      style={tag === asymmetryTag && styles.tagsActiveButton}
-                      onPress={() => asymmetryTagSelect(tag)}
-                    >
-                      <Text style={styles.tagText}>{tag}</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </View>
-
-            <View style={styles.tagsCategoryContainer}>
-              <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
-              {borderTagArray.map((tag, index) => {
-                return (
-                  <View key={index} style={styles.tagsInactiveButton}>
-                    <TouchableOpacity
-                      style={tag === borderTag && styles.tagsActiveButton}
-                      onPress={() => borderTagSelect(tag)}
-                    >
-                      <Text style={styles.tagText}>{tag}</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </View>
-
-            <View style={styles.tagsCategoryContainer}>
-              <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
-              {colorTagArray.map((tag, index) => {
-                return (
-                  <View key={index} style={styles.tagsInactiveButton}>
-                    <TouchableOpacity
-                      style={tag === colorTag && styles.tagsActiveButton}
-                      onPress={() => colorTagSelect(tag)}
-                    >
-                      <Text style={styles.tagText}>{tag}</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </View>
-
-            <View style={styles.tagsCategoryContainer}>
-              <Text style={styles.tagsInAddEntryTitle}>Elevation:</Text>
-              {elevationTagArray.map((tag, index) => {
-                return (
-                  <View key={index} style={styles.tagsInactiveButton}>
-                    <TouchableOpacity
-                      style={tag === elevationTag && styles.tagsActiveButton}
-                      onPress={() => elevationTagSelect(tag)}
-                    >
-                      <Text style={styles.tagText}>{tag}</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
-            </View>
-
-            <View style={styles.tagsCategoryContainer}>
-              <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
-              {diameterTagArray.map((tag, index) => {
-                return (
-                  <View key={index} style={styles.tagsInactiveButton}>
-                    <TouchableOpacity
-                      style={tag === diameterTag && styles.tagsActiveButton}
-                      onPress={() => diameterTagSelect(tag)}
-                    >
-                      <Text style={styles.tagText}>{tag}</Text>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })}
+                  <Text
+                    style={{
+                      ...styles.dropdown2BtnTxtStyle,
+                      alignItems: "center",
+                    }}
+                  >
+                    {formattedDate}
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
-
-          <TouchableOpacity
-            style={styles.moreInfoButton}
-            onPress={() => navigation.push("Info")}
-          >
-            <Text style={styles.tagsInAddEntryTitle}>More Information</Text>
-          </TouchableOpacity>
-
-          <View>
+          <View style={{ width: 300 }}>
             {gotMoleId === false && (
               <SelectDropdown
                 buttonStyle={styles.dropdown2BtnStyle}
@@ -344,6 +268,113 @@ const AddEntry = ({ route, navigation }) => {
               />
             )}
           </View>
+          <View style={{ width: 300 }}>
+            <TextInput
+              placeholder="notes"
+              style={styles.textInputLarge}
+              onChangeText={(notes) => setNotes(notes)}
+              value={notes}
+            />
+          </View>
+
+          <View style={styles.tagsInAddEntryContainer}>
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
+              <View style={{ flexDirection: "row" }}>
+                {asymmetryTagArray.map((tag, index) => {
+                  return (
+                    <View key={index} style={styles.tagsInactiveButton}>
+                      <TouchableOpacity
+                        style={tag === asymmetryTag && styles.tagsActiveButton}
+                        onPress={() => asymmetryTagSelect(tag)}
+                      >
+                        <Text style={styles.tagText}>{tag}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
+              <View style={{ flexDirection: "row" }}>
+                {borderTagArray.map((tag, index) => {
+                  return (
+                    <View key={index} style={styles.tagsInactiveButton}>
+                      <TouchableOpacity
+                        style={tag === borderTag && styles.tagsActiveButton}
+                        onPress={() => borderTagSelect(tag)}
+                      >
+                        <Text style={styles.tagText}>{tag}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
+              <View style={{ flexDirection: "row" }}>
+                {colorTagArray.map((tag, index) => {
+                  return (
+                    <View key={index} style={styles.tagsInactiveButton}>
+                      <TouchableOpacity
+                        style={tag === colorTag && styles.tagsActiveButton}
+                        onPress={() => colorTagSelect(tag)}
+                      >
+                        <Text style={styles.tagText}>{tag}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Elevation:</Text>
+              <View style={{ flexDirection: "row" }}>
+                {elevationTagArray.map((tag, index) => {
+                  return (
+                    <View key={index} style={styles.tagsInactiveButton}>
+                      <TouchableOpacity
+                        style={tag === elevationTag && styles.tagsActiveButton}
+                        onPress={() => elevationTagSelect(tag)}
+                      >
+                        <Text style={styles.tagText}>{tag}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+
+            <View style={styles.tagsCategoryContainer}>
+              <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
+              <View style={{ flexDirection: "row" }}>
+                {diameterTagArray.map((tag, index) => {
+                  return (
+                    <View key={index} style={styles.tagsInactiveButton}>
+                      <TouchableOpacity
+                        style={tag === diameterTag && styles.tagsActiveButton}
+                        onPress={() => diameterTagSelect(tag)}
+                      >
+                        <Text style={styles.tagText}>{tag}</Text>
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={styles.moreInfoButton}
+            onPress={() => navigation.push("Info")}
+          >
+            <Text style={styles.tagsInAddEntryTitle}>More Information</Text>
+          </TouchableOpacity>
 
           <View style={{ marginVertical: 25 }}>
             <TouchableOpacity onPress={handleSubmit} style={styles.buttonLarge}>
