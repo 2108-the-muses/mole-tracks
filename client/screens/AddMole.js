@@ -22,7 +22,6 @@ const AddMole = (props) => {
   const [nickname, setNickname] = useState("");
   const [bodyPart, setBodyPart] = useState("");
   const [side, setSide] = useState("");
-  const [moleLocationSelection, setMoleLocationSelection] = useState(null);
   const singleMole = useSelector((state) => {
     return state.allMoles.singleMole;
   });
@@ -61,16 +60,8 @@ const AddMole = (props) => {
               />
             </View>
             <View style={{ width: 300 }}>
-            <Buttons setMoleLocationSelection={setMoleLocationSelection}/>
-            {moleLocationSelection === "dropdown" ? (
-              <BodyPartSelector
-                side={side}
-                setSide={setSide}
-                bodyPart={bodyPart}
-                setBodyPart={setBodyPart}
-              />
-            ) : (
-              moleLocationSelection === "body map" && <ClickBody setBodyPart= {setBodyPart} setSide = {setSide} sendCoords={setCoords}/>)}
+        
+              <ClickBody setBodyPart= {setBodyPart} setSide = {setSide} sendCoords={setCoords}/>
             </View>
             {bodyPart !== "" && (
               <TouchableOpacity

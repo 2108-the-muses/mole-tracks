@@ -43,21 +43,22 @@ const Body = ({navigation}) => {
 
     return (
       <View
-        style={{
-          ...styles.containerScroll,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={styles.containerScroll}
       >
         <ImageBackground
           source={require("../../assets/images/background.png")}
           style={styles.backgroundImage}
         />
-        <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
-        <KeyboardAwareScrollView>
         
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        
+        < View  style={{
+        ...styles.flexStart,
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+        <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
         <Image
-          style={{ marginTop: 10 }}
           source={viewFront ? require(frontBody) : require(backBody)}
         />
         {moles.length===0 && <Text>You have no moles!</Text>}
@@ -65,6 +66,7 @@ const Body = ({navigation}) => {
           if(mole.x && mole.y)
           {return <TouchableOpacity key = {mole.nickname}style={{ ...styles.moleDot, top: mole.y, left: mole.x}} onPress= {()=>goToMole(mole)}/>}
         })}
+        </View>
         </KeyboardAwareScrollView>
       </View>)
   }
