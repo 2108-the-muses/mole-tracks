@@ -181,8 +181,8 @@ const AddEntry = ({ route, navigation }) => {
             style={styles.moleSilhouette}
             source={require("../../assets/images/mole-silhouette-flipped.png")}
           />
-          <View style={styles.buttonLarge}>
-            <Text style={styles.buttonLargeText}>new entry</Text>
+          <View>
+            <Text style={styles.fontLarge}>new entry</Text>
           </View>
           <Image
             style={styles.moleSilhouette}
@@ -396,7 +396,7 @@ const AddEntry = ({ route, navigation }) => {
 
           <TouchableOpacity
             style={styles.moreInfoButton}
-            onPress={() => navigation.push("Info")}
+            onPress={() => navigation.navigate("Info")}
           >
             <Text style={styles.tagsInAddEntryTitle}>More Information</Text>
           </TouchableOpacity>
