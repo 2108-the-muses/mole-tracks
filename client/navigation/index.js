@@ -36,23 +36,37 @@ const {
   CompareEntries,
 } = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Text } from "react-native";
+import { Text, Image, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styles from "../styles";
-
-// this is a dummy component for now
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const Stack = createNativeStackNavigator();
 
+const topHeaderLogo = () => {
+  return (
+    <View style={{ flexDirection: "row" }}>
+      <Text style={styles.navHeader}> mole </Text>
+      <Image
+        source={require("../../assets/images/face-with-mole.png")}
+        style={{
+          width: 40,
+          height: 40,
+          position: "relative",
+        }}
+      ></Image>
+      <Text style={styles.navHeader}> tracks</Text>
+    </View>
+  );
+};
 const BodyStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={BODY}
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: "mole tracks",
-        headerTitleStyle: styles.navHeader,
+        headerTitle: topHeaderLogo,
         headerBackTitleVisible: false,
         headerTintColor: "white",
       }}
@@ -70,8 +84,7 @@ const MolesStack = (props) => {
       initialRouteName={ALLMOLES}
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: "mole tracks",
-        headerTitleStyle: styles.navHeader,
+        headerTitle: topHeaderLogo,
         headerBackTitleVisible: false,
         headerTintColor: "white",
       }}
@@ -80,6 +93,27 @@ const MolesStack = (props) => {
       <Stack.Screen
         name={SINGLEMOLE}
         component={SingleMole}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={25} color="white" />
+                <Text
+                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+                  onPress={() => {
+                    navigation.navigate(ALLMOLES);
+                  }}
+                >
+                  All Moles
+                </Text>
+              </View>
+            ),
+          };
+        }}
         // @todo ideally don't want this here, tab should always be resetting
         // right now is needed because after adding an entry from the add button,
         // the tab default somehow becomes the new entry
@@ -101,6 +135,29 @@ const MolesStack = (props) => {
       <Stack.Screen
         name={ENTRY}
         component={Entry}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={25} color="white" />
+                <Text
+                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+                  onPress={() => {
+                    navigation.navigate(SINGLEMOLE, {
+                      mole: { id: route.params.entry.moleId },
+                    });
+                  }}
+                >
+                  Mole
+                </Text>
+              </View>
+            ),
+          };
+        }}
         // options={({ route, navigation }) => {
         //   return {
         //     headerLeft: () => (
@@ -132,11 +189,9 @@ const AddStack = () => {
       initialRouteName={ADD}
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: "mole tracks",
-        headerTitleStyle: styles.navHeader,
-        headerBackTitleVisible: false,
-        headerTintColor: "white",
+        headerTitle: topHeaderLogo,
         headerBackVisible: false,
+        headerTintColor: "white",
       }}
     >
       <Stack.Screen name={ADD} component={Add} options={{ title: "Add" }} />
@@ -160,8 +215,7 @@ const UserStack = () => {
       initialRouteName={LOGOUT}
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: "mole tracks",
-        headerTitleStyle: styles.navHeader,
+        headerTitle: topHeaderLogo,
         headerBackTitleVisible: false,
         headerTintColor: "white",
       }}
@@ -237,8 +291,9 @@ export const AuthNavigator = () => {
       initialRouteName={LOGIN}
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: "mole tracks",
-        headerTitleStyle: styles.navHeader,
+        headerTitle: topHeaderLogo,
+        headerBackTitleVisible: false,
+        headerTintColor: "white",
         headerBackVisible: false,
       }}
     >
