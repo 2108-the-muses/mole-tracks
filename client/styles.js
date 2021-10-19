@@ -447,8 +447,6 @@ const styles = StyleSheet.create({
    width: 20,
    borderRadius: 10,
    position: "absolute",
-   top: 50,
-   bottom: 50,
    zIndex: 1000
  },
   tagsInAddEntryContainer: {
