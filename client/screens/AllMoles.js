@@ -23,8 +23,10 @@ const AllMoles = ({ navigation }) => {
             style={styles.moleSilhouette}
             source={require("../../assets/images/mole-silhouette-flipped.png")}
           />
-          <View style={styles.buttonLarge}>
-            <Text style={styles.buttonLargeText}>moles</Text>
+          <View
+            style={{ ...styles.buttonLarge, backgroundColor: "transparent" }}
+          >
+            <Text style={styles.fontExtraLarge}>moles</Text>
           </View>
           <Image
             style={styles.moleSilhouette}
