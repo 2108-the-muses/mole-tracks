@@ -440,6 +440,7 @@ const styles = StyleSheet.create({
   tagsCategoryContainer: {
     flexDirection: "row",
     padding: 5,
+    justifyContent: "flex-end",
   },
   tagsInactiveButton: {
     marginHorizontal: 7,
