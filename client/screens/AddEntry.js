@@ -8,7 +8,7 @@ import {
   TextInput,
   Image,
   Text,
-  Button,
+  Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SelectDropdown from "react-native-select-dropdown";
@@ -36,7 +36,7 @@ const AddEntry = ({ route, navigation }) => {
   const [bodyPartMoles, setBodyPartMoles] = useState({});
   const status = useSelector((state) => state.entry.addStatus);
   const entryForEntryRouteParam = useSelector((state) => state.entry.entry);
-  let moleNameForEntryRouteParam;
+  let moleNameForEntryRouteParam = "";
   const gotMoleId = route.params.moleId;
   const dispatch = useDispatch();
   const [asymmetryTag, setAsymmetryTag] = useState("");
@@ -98,20 +98,37 @@ const AddEntry = ({ route, navigation }) => {
     setFormattedDate(format(currentDate, "PP"));
   };
 
-  const handleSubmit = () => {
-    dispatch(
-      addEntry(
-        notes,
-        date,
-        base64Img,
-        moleId,
-        asymmetryTag,
-        borderTag,
-        colorTag,
-        elevationTag,
-        diameterTag
-      )
+  const submitAlert = () =>
+    Alert.alert(
+      "Whoops!",
+      "Please make sure to select a Body Part or a Corresponding Mole",
+      [
+        {
+          text: "Try Again",
+          onPress: () => console.log("Try Again pressed"),
+          style: "cancel",
+        },
+      ]
     );
+
+  const handleSubmit = () => {
+    if (!moleId || (!bodyPart && !moleId)) {
+      submitAlert();
+      console.log("mole id ", moleId);
+    } else
+      dispatch(
+        addEntry(
+          notes,
+          date,
+          base64Img,
+          moleId,
+          asymmetryTag,
+          borderTag,
+          colorTag,
+          elevationTag,
+          diameterTag
+        )
+      );
   };
 
   if (status === ADD_PENDING) {
