@@ -22,7 +22,7 @@ import {
   ADD_SUCCESS,
 } from "../store/entry";
 import Loading from "./Loading";
-import { ENTRY } from "../NavigationConstants";
+import { ENTRY } from "../navigation/constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { format } from "date-fns";
 
