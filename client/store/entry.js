@@ -1,7 +1,6 @@
 import axios from "axios";
-import { IP_ADDRESS } from "../../secrets";
 import { firebaseAuth } from "../firebase-auth/config";
-import { CLOUDINARY_URL, upload_preset } from "../../secrets";
+import { IP_ADDRESS, CLOUDINARY_URL, upload_preset } from "../../secrets";
 
 /**
  * ADD CONSTANTS
@@ -51,7 +50,7 @@ export const addEntry = (
         let { secure_url } = await response.json();
         if (secure_url) {
           const { data } = await axios.post(
-            `http://${IP_ADDRESS}:8080/api/entries/`,
+            `${NGROK}/api/entries/`,
             {
               notes: notes,
               date: date,
