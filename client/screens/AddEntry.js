@@ -36,7 +36,7 @@ const AddEntry = ({ route, navigation }) => {
   const [bodyPartMoles, setBodyPartMoles] = useState({});
   const status = useSelector((state) => state.entry.addStatus);
   const entryForEntryRouteParam = useSelector((state) => state.entry.entry);
-  let moleNameForEntryRouteParam = "";
+  let moleNameForEntryRouteParam;
   const gotMoleId = route.params.moleId;
   const dispatch = useDispatch();
   const [asymmetryTag, setAsymmetryTag] = useState("");
