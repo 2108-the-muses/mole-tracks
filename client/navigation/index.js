@@ -36,15 +36,26 @@ const {
   CompareEntries,
 } = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Text } from "react-native";
+import { Text, Image, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styles from "../styles";
-
-// this is a dummy component for now
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const Stack = createNativeStackNavigator();
 
+const topHeaderLogo = () => {
+  return (
+    <Image
+      source={require("../../assets/images/face-with-mole.png")}
+      style={{
+        width: 40,
+        height: 40,
+        position: "relative",
+      }}
+    ></Image>
+  );
+};
 const BodyStack = () => {
   return (
     <Stack.Navigator
@@ -55,6 +66,7 @@ const BodyStack = () => {
         headerTitleStyle: styles.navHeader,
         headerBackTitleVisible: false,
         headerTintColor: "white",
+        headerRight: topHeaderLogo,
       }}
     >
       <Stack.Screen name={BODY} options={{ title: "Body" }} component={Body} />
@@ -74,6 +86,7 @@ const MolesStack = (props) => {
         headerTitleStyle: styles.navHeader,
         headerBackTitleVisible: false,
         headerTintColor: "white",
+        headerRight: topHeaderLogo,
       }}
     >
       <Stack.Screen name={ALLMOLES} component={AllMoles} />
@@ -83,13 +96,26 @@ const MolesStack = (props) => {
         options={({ route, navigation }) => {
           return {
             headerLeft: () => (
-              <Text
-                onPress={() => {
-                  navigation.navigate(ALLMOLES);
+              <View
+                style={{
+                  flexDirection: "row",
                 }}
               >
-                Back to all moles
-              </Text>
+                <FontAwesome5 name="angle-left" size={30} color="white" />
+                <Text
+                  style={{
+                    color: "white",
+                    margin: 5,
+                    fontFamily: "SulphurPoint-Regular",
+                    fontSize: 20,
+                  }}
+                  onPress={() => {
+                    navigation.navigate(ALLMOLES);
+                  }}
+                >
+                  All Moles
+                </Text>
+              </View>
             ),
           };
         }}
@@ -100,15 +126,28 @@ const MolesStack = (props) => {
         options={({ route, navigation }) => {
           return {
             headerLeft: () => (
-              <Text
-                onPress={() => {
-                  navigation.navigate(SINGLEMOLE, {
-                    mole: { id: route.params.entry.moleId },
-                  });
+              <View
+                style={{
+                  flexDirection: "row",
                 }}
               >
-                Back to mole
-              </Text>
+                <FontAwesome5 name="angle-left" size={30} color="white" />
+                <Text
+                  style={{
+                    color: "white",
+                    margin: 5,
+                    fontFamily: "SulphurPoint-Regular",
+                    fontSize: 20,
+                  }}
+                  onPress={() => {
+                    navigation.navigate(SINGLEMOLE, {
+                      mole: { id: route.params.entry.moleId },
+                    });
+                  }}
+                >
+                  Mole
+                </Text>
+              </View>
             ),
           };
         }}
@@ -132,6 +171,7 @@ const AddStack = () => {
         headerTitleStyle: styles.navHeader,
         headerBackTitleVisible: false,
         headerTintColor: "white",
+        headerRight: topHeaderLogo,
       }}
     >
       <Stack.Screen name={ADD} component={Add} options={{ title: "Add" }} />
@@ -154,6 +194,7 @@ const UserStack = () => {
         headerTitleStyle: styles.navHeader,
         headerBackTitleVisible: false,
         headerTintColor: "white",
+        headerRight: topHeaderLogo,
       }}
     >
       <Stack.Screen name={LOADING} component={Loading} />
