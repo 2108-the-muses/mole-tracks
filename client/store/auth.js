@@ -116,7 +116,7 @@ export const authenticateLogin =
         password
       );
       const { data } = await axios.post(
-        `http://${IP_ADDRESS}:8080/auth/login`,
+        `https://mole-tracks.herokuapp.com/auth/login`,
         {
           uid: user.uid,
         }
