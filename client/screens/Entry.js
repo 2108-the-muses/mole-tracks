@@ -141,42 +141,42 @@ const Entry = (props) => {
               >
                 Notes: {entry.notes}
               </Text>
-
-              <View style={styles.tagsInAddEntryContainer}>
-                <View style={styles.tagsCategoryContainer}>
-                  <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
-                  <View style={styles.tagsActiveButton}>
-                    <Text>{entry.asymmetryTag}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.tagsCategoryContainer}>
-                  <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
-                  <View style={styles.tagsActiveButton}>
-                    <Text>{entry.borderTag}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.tagsCategoryContainer}>
-                  <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
-                  <View style={styles.tagsActiveButton}>
-                    <Text>{entry.colorTag}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.tagsCategoryContainer}>
-                  <Text style={styles.tagsInAddEntryTitle}>Elevation: </Text>
-                  <View style={styles.tagsActiveButton}>
-                    <Text>{entry.elevationTag}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.tagsCategoryContainer}>
-                  <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
-                  <View style={styles.tagsActiveButton}>
-                    <Text>{entry.diameterTag}</Text>
-                  </View>
-                </View>
+              <View
+                style={{
+                  marginTop: 20,
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                {[
+                  entry.asymmetryTag,
+                  entry.borderTag,
+                  entry.colorTag,
+                  entry.elevationTag,
+                  entry.diameterTag,
+                ].map((tag) => {
+                  if (tag.length > 0)
+                    return (
+                      <View
+                        style={{
+                          backgroundColor: "#FF7379",
+                          borderColor: "black",
+                          borderWidth: 1,
+                          alignItems: "center",
+                          justifyContent: "center",
+                          margin: 5,
+                        }}
+                      >
+                        <Text
+                          style={(styles.tagText, { fontSize: 15, padding: 5 })}
+                        >
+                          {tag}
+                        </Text>
+                      </View>
+                    );
+                })}
               </View>
             </View>
           </View>
