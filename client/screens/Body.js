@@ -28,7 +28,7 @@ const Body = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const toggleSide = (front) => {
-    if (viewFront !== front) setViewFront((viewFront) => !viewFront);
+    setViewFront(front);
   };
   useEffect(() => {
     dispatch(fetchAllMoles());
@@ -67,7 +67,6 @@ const Body = ({ navigation }) => {
                   mole.y}
               )
               .map((mole) => {
-                console.log(mole.side);
                 {
                   return (
                     <TouchableOpacity

@@ -16,8 +16,10 @@ import styles from "../styles";
 
 
 const Toggle = ({toggleSide,viewFront}) => {
-    const activeStyles = { ...styles.buttonSmall };
-    const inactiveStyles = { ...styles.buttonSmall, opacity: 0.5 };
+console.log(viewFront?"Front":"back")
+
+    const activeStyles = styles.buttonSmall
+    const inactiveStyles = {...styles.buttonSmall, backgroundColor: "#ffcfd1"}
   return (
     <View style={styles.buttonBox}>
       <TouchableOpacity

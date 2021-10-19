@@ -21,8 +21,9 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
   const frontBody = "../../assets/images/body-front.png";
   const backBody = "../../assets/images/body-back.png";
   const [viewFront, setViewFront] = useState(true);
+  
   const toggleSide = (front) => {
-    if (viewFront !== front) setViewFront((viewFront) => !viewFront);
+    setViewFront(front);
   };
   
   const touchBody = (e) => {
