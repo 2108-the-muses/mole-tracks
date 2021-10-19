@@ -5,7 +5,6 @@ import {
   Text,
   ImageBackground,
   TouchableOpacity,
-
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "../styles";
@@ -17,10 +16,10 @@ import {
   FETCH_SUCCESS,
 } from "../store/mole";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from './Loading'
+import Loading from "./Loading";
 import { NavigationContainer } from "@react-navigation/native";
 
-const Body = ({navigation}) => {
+const Body = ({ navigation }) => {
   const [viewFront, setViewFront] = useState(true);
   const frontBody = "../../assets/images/body-front.png";
   const backBody = "../../assets/images/body-back.png";
@@ -34,43 +33,56 @@ const Body = ({navigation}) => {
   useEffect(() => {
     dispatch(fetchAllMoles());
   }, []);
-  const goToMole = (mole)=>{
-    navigation.navigate("Moles", {screen:"SingleMole",params:{mole}})
-  }
+  const goToMole = (mole) => {
+    navigation.navigate("Moles", { screen: "SingleMole", params: { mole } });
+  };
   if (fetchStatus === FETCH_PENDING) {
-    return <Loading />;}
-  else if ((fetchStatus === FETCH_SUCCESS)) {
-
+    return <Loading />;
+  } else if (fetchStatus === FETCH_SUCCESS) {
     return (
-      <View
-        style={styles.containerScroll}
-      >
+      <View style={styles.containerScroll}>
         <ImageBackground
           source={require("../../assets/images/background.png")}
           style={styles.backgroundImage}
         />
-        
+
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        
-        < View  style={{
-        ...styles.flexStart,
-        justifyContent: "center",
-        alignItems: "center",
-      }}>
-        <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
-        <Image
-          source={viewFront ? require(frontBody) : require(backBody)}
-        />
-        {moles.length===0 && <Text>You have no moles!</Text>}
-        {moles.map(mole=>{
-          if(mole.x && mole.y)
-          {return <TouchableOpacity key = {mole.nickname}style={{ ...styles.moleDot, top: mole.y, left: mole.x}} onPress= {()=>goToMole(mole)}/>}
-        })}
-        </View>
+          <View
+            style={{
+              ...styles.flexStart,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
+            <Image
+              source={viewFront ? require(frontBody) : require(backBody)}
+            />
+            {moles.length === 0 && <Text>You have no moles!</Text>}
+            {moles
+              .filter(
+                (mole) =>{
+                  return mole.side === (viewFront ? 'front':'back') &&
+                  mole.x &&
+                  mole.y}
+              )
+              .map((mole) => {
+                console.log(mole.side);
+                {
+                  return (
+                    <TouchableOpacity
+                      key={mole.nickname}
+                      style={{ ...styles.moleDot, top: mole.y, left: mole.x }}
+                      onPress={() => goToMole(mole)}
+                    />
+                  );
+                }
+              })}
+          </View>
         </KeyboardAwareScrollView>
-      </View>)
-  }
-  else if (fetchStatus === FETCH_FAILED) {
+      </View>
+    );
+  } else if (fetchStatus === FETCH_FAILED) {
     return (
       <View style={styles.containerCenter}>
         <Text style={styles.fontExtraLarge}>
