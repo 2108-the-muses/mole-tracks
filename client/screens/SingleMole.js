@@ -298,6 +298,7 @@ const SingleMole = (props) => {
                         props.navigation.push("Entry", {
                           entry: entry,
                           name: mole.nickname,
+                          moleId: mole.id,
                         })
                       }
                     >
