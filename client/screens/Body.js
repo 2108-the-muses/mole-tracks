@@ -55,7 +55,8 @@ const Body = ({ navigation }) => {
             }}
           >
             <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
-            <Image
+            <View>
+            <Image style={{ marginTop: 10 }}
               source={viewFront ? require(frontBody) : require(backBody)}
             />
             {moles.length === 0 && <Text>You have no moles!</Text>}
@@ -77,6 +78,7 @@ const Body = ({ navigation }) => {
                   );
                 }
               })}
+              </View>
           </View>
         </KeyboardAwareScrollView>
       </View>
