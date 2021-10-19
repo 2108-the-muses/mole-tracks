@@ -65,8 +65,8 @@ const CompareEntries = (props) => {
             style={styles.moleSilhouette}
             source={require("../../assets/images/mole-silhouette-flipped.png")}
           />
-          <View style={styles.buttonLarge}>
-            <Text style={styles.buttonLargeText}>compare</Text>
+          <View>
+            <Text style={styles.fontLarge}>compare</Text>
           </View>
           <Image
             style={styles.moleSilhouette}
@@ -180,6 +180,7 @@ const CompareEntries = (props) => {
                       props.navigation.navigate("Entry", {
                         entry: entryTwo,
                         name: name,
+                        moleId: moleId,
                       })
                     }
                   >

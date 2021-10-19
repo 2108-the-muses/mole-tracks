@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { View, TouchableOpacity, Text, ImageBackground } from "react-native";
-import { LOGIN, INFO, PROFILE } from "../NavigationConstants";
+import { LOGIN, INFO, PROFILE } from "../navigation/constants";
 import { logout } from "../store/auth";
 import { firebaseAuth } from "../firebase-auth/config";
 import styles from "../styles.js";

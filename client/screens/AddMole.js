@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   View,
@@ -6,35 +6,37 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { addMoleThunk } from "../store/mole";
+import BodyPartSelector from "../components/addMoleSelector";
+import ClickBody from "../components/ClickBody";
+import Buttons from "../components/BodyPartSelectorButtons";
 import styles from "../styles";
-import { SINGLEMOLE } from "../NavigationConstants";
+import { SINGLEMOLE } from "../navigation/constants";
 
 const AddMole = (props) => {
   const dispatch = useDispatch();
   const [nickname, setNickname] = useState("");
-  const [side, setSide] = useState("");
   const [bodyPart, setBodyPart] = useState("");
+  const [side, setSide] = useState("");
   const singleMole = useSelector((state) => {
     return state.allMoles.singleMole;
   });
-
-  const sides = ["front", "back"];
-  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
-  side === "front"
-    ? (bodyParts = [...bodyParts, "groin"])
-    : (bodyParts = [...bodyParts, "butt"]);
-
+  const [coords, setCoords] = useState("");
   const handleSubmit = async () => {
-    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side }));
+    const newMole = await dispatch(
+      addMoleThunk({ nickname, bodyPart, side, coords })
+    );
     if (newMole) {
-      props.navigation.navigate("Moles", {
-        screen: SINGLEMOLE,
-        params: { mole: newMole },
-      });
+      props.navigation.navigate(SINGLEMOLE, { mole: newMole });
+      // COME BACK TO THE BELOW AFTER DEMO DAY
+      // props.navigation.navigate("Moles", {
+      //   screen: SINGLEMOLE,
+      //   params: { mole: newMole },
+      // });
     }
   };
 
@@ -61,32 +63,15 @@ const AddMole = (props) => {
               />
             </View>
             <View style={{ width: 300 }}>
-              <SelectDropdown
-                data={sides}
-                defaultButtonText={"select side"}
-                buttonStyle={styles.dropdown2BtnStyle}
-                buttonTextStyle={styles.dropdown2BtnTxtStyle}
-                dropdownStyle={styles.dropdown2DropdownStyle}
-                rowStyle={styles.dropdown2RowStyle}
-                rowTextStyle={styles.dropdown2RowTxtStyle}
-                onSelect={(selected) => setSide(selected)}
+              <ClickBody
+                setBodyPart={setBodyPart}
+                setSide={setSide}
+                sendCoords={setCoords}
               />
-              {side !== "" && (
-                <SelectDropdown
-                  data={bodyParts}
-                  defaultButtonText={"select body part"}
-                  buttonStyle={styles.dropdown2BtnStyle}
-                  buttonTextStyle={styles.dropdown2BtnTxtStyle}
-                  dropdownStyle={styles.dropdown2DropdownStyle}
-                  rowStyle={styles.dropdown2RowStyle}
-                  rowTextStyle={styles.dropdown2RowTxtStyle}
-                  onSelect={(selected) => setBodyPart(selected)}
-                />
-              )}
             </View>
             {bodyPart !== "" && (
               <TouchableOpacity
-                style={styles.buttonLarge}
+                style={{ ...styles.buttonLarge, marginTop: 20 }}
                 onPress={handleSubmit}
               >
                 <Text style={styles.buttonLargeText}>add mole</Text>
