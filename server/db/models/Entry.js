@@ -5,7 +5,9 @@ const Entry = db.define("entry", {
   notes: {
     type: Sequelize.TEXT,
   },
-  // for dummy data purposes
+  date: {
+    type: Sequelize.DATE,
+  },
   imgUrl: {
     type: Sequelize.TEXT,
     validate: {
