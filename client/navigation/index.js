@@ -83,20 +83,20 @@ const MolesStack = (props) => {
         // @todo ideally don't want this here, tab should always be resetting
         // right now is needed because after adding an entry from the add button,
         // the tab default somehow becomes the new entry
-        options={({ route, navigation }) => {
-          return {
-            headerLeft: () => (
-              <Text
-                style={{ color: "white" }}
-                onPress={() => {
-                  navigation.navigate(ALLMOLES);
-                }}
-              >
-                back
-              </Text>
-            ),
-          };
-        }}
+        // options={({ route, navigation }) => {
+        //   return {
+        //     headerLeft: () => (
+        //       <Text
+        //         style={{ color: "white" }}
+        //         onPress={() => {
+        //           navigation.navigate(ALLMOLES);
+        //         }}
+        //       >
+        //         back
+        //       </Text>
+        //     ),
+        //   };
+        // }}
       />
       <Stack.Screen
         name={ENTRY}
@@ -144,7 +144,10 @@ const AddStack = () => {
       <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
       {/* this is NOT what we want below, but is a temporary fix */}
+      <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
+      <Stack.Screen name={COMPAREENTRIES} component={CompareEntries} />
       <Stack.Screen name={ENTRY} component={Entry} />
+      {/* do not want above either */}
       <Stack.Screen name={INFO} component={Info} />
       <Stack.Screen name={LOADING} component={Loading} />
     </Stack.Navigator>

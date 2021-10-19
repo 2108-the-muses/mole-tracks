@@ -115,7 +115,15 @@ const AddEntry = ({ route, navigation }) => {
   };
 
   if (status === ADD_PENDING) {
-    return <Loading />;
+    return (
+      <View style={styles.containerCenter}>
+        <ImageBackground
+          source={require("../../assets/images/background.png")}
+          style={styles.backgroundImage}
+        />
+        <Loading />
+      </View>
+    );
   } else if (status === ADD_SUCCESS) {
     // @todo after this navigation the "ALLMOLES" tab only ever wants to default to the Entry
     // navigation.navigate("Moles", {
@@ -126,7 +134,7 @@ const AddEntry = ({ route, navigation }) => {
     //     moleId: moleId,
     //   },
     // });
-    // temporary fix below... not what we eventually want
+    // temporary fix below... not what we want
     navigation.push(ENTRY, {
       entry: entryForEntryRouteParam,
       name: moleNameForEntryRouteParam,
