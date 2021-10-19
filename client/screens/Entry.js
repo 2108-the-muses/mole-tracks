@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   TouchableOpacity,
@@ -16,7 +16,6 @@ import { Entypo } from "@expo/vector-icons";
 import { format } from "date-fns";
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import Loading from "./Loading";
-
 import styles from "../styles";
 
 const Entry = (props) => {
@@ -141,6 +140,43 @@ const Entry = (props) => {
               >
                 Notes: {entry.notes}
               </Text>
+
+              <View style={styles.tagsInAddEntryContainer}>
+                <View style={styles.tagsCategoryContainer}>
+                  <Text style={styles.tagsInAddEntryTitle}>Asymmetry:</Text>
+                  <View style={styles.tagsActiveButton}>
+                    <Text>{entry.asymmetryTag}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.tagsCategoryContainer}>
+                  <Text style={styles.tagsInAddEntryTitle}>Border:</Text>
+                  <View style={styles.tagsActiveButton}>
+                    <Text>{entry.borderTag}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.tagsCategoryContainer}>
+                  <Text style={styles.tagsInAddEntryTitle}>Color:</Text>
+                  <View style={styles.tagsActiveButton}>
+                    <Text>{entry.colorTag}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.tagsCategoryContainer}>
+                  <Text style={styles.tagsInAddEntryTitle}>Elevation: </Text>
+                  <View style={styles.tagsActiveButton}>
+                    <Text>{entry.elevationTag}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.tagsCategoryContainer}>
+                  <Text style={styles.tagsInAddEntryTitle}>Diameter:</Text>
+                  <View style={styles.tagsActiveButton}>
+                    <Text>{entry.diameterTag}</Text>
+                  </View>
+                </View>
+              </View>
             </View>
           </View>
         </KeyboardAwareScrollView>
