@@ -21,6 +21,7 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
   const frontBody = "../../assets/images/body-front.png";
   const backBody = "../../assets/images/body-back.png";
   const [viewFront, setViewFront] = useState(true);
+
   
   const toggleSide = (front) => {
     setViewFront(front);
@@ -55,7 +56,7 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
       <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
       <TouchableWithoutFeedback onPress={touchBody}>
         <View>
-          <View style={{ ...styles.moleDot, top: coords.y, left: coords.x }} />
+          {coords.x&&<View style={{ ...styles.moleDot, top: coords.y, left: coords.x }} />}
           <Image
             style={{ marginTop: 10 }}
             source={viewFront ? require(frontBody) : require(backBody)}

@@ -21,25 +21,40 @@ const AllMoles = ({ navigation }) => {
             flexDirection: "row",
           }}
         >
-          <FontAwesome5
-            name="info-circle"
-            size={30}
-            color="skyblue"
-            onPress={() => {
-              navigation.navigate(INFO);
-            }}
+          <Image
+            style={styles.moleSilhouette}
+            source={require("../../assets/images/mole-silhouette-flipped.png")}
           />
           <View style={styles.screenTitle}>
             <Text style={styles.fontExtraLarge}>moles</Text>
           </View>
-          <FontAwesome5
-            onPress={() => {
-              navigation.navigate(ADDMOLE);
+          <View
+            style={{
+              ...styles.moleSilhouette,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            name="plus"
-            size={30}
-            color="black"
-          />
+          >
+            <FontAwesome5
+              onPress={() => {
+                navigation.navigate(ADDMOLE);
+              }}
+              name="plus"
+              size={24}
+              color="black"
+              style={{ marginHorizontal: 10 }}
+            />
+            <FontAwesome5
+              name="info-circle"
+              size={30}
+              color="rgb(1, 91, 63)"
+              style={{ marginHorizontal: 10 }}
+              onPress={() => {
+                navigation.navigate(INFO);
+              }}
+            />
+          </View>
         </View>
         <BodyPartsList navigation={navigation} />
       </ScrollView>

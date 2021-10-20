@@ -12,6 +12,7 @@ import styles from "../styles";
 import { format } from "date-fns";
 
 const CompareEntries = (props) => {
+
   const entries = props.route.params.entries;
   const name = props.route.params.name;
   const moleId = props.route.params.moleId;
@@ -22,8 +23,19 @@ const CompareEntries = (props) => {
   // @todo turn this into an object so that id is not in the list
   const entryDictionary = {};
   entries.forEach(
-    (entry) => (entryDictionary[format(new Date(entry.date), "P")] = entry)
-  );
+    (entry) => {
+
+
+      if(entryDictionary[format(new Date(entry.date), "P")]){
+        let x=1
+        while(entryDictionary[format(new Date(entry.date), "P")+` (${x})`]){
+          x++
+        }
+      return entryDictionary[format(new Date(entry.date), "P")+` (${x})`] = entry
+    }
+      else{return entryDictionary[format(new Date(entry.date), "P")] = entry}
+    })
+  
 
   return (
     <View style={styles.containerFlexStart}>
@@ -68,7 +80,14 @@ const CompareEntries = (props) => {
         >
           <View style={{ width: "50%" }}>
             <SelectDropdown
-              buttonStyle={styles.dropdownBtnStyle}
+              buttonStyle={{
+                ...styles.dropdownBtnStyle,
+                backgroundColor: "#FF7379",
+                borderRightColor: "white",
+                borderRightWidth: 2,
+                borderLeftColor: "white",
+                borderLeftWidth: 2,
+              }}
               buttonTextStyle={styles.dropdownBtnTxtStyle}
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
@@ -76,7 +95,7 @@ const CompareEntries = (props) => {
               data={Object.keys(entryDictionary).filter(
                 (entry) => entry !== lastEntryChanged
               )}
-              defaultButtonText={"entry 1"}
+              defaultButtonText={"select entry 1"}
               onSelect={(selected) => {
                 setLastEntryChanged(selected);
                 setEntryOne(entryDictionary[selected]);
@@ -85,7 +104,14 @@ const CompareEntries = (props) => {
           </View>
           <View style={{ width: "50%" }}>
             <SelectDropdown
-              buttonStyle={styles.dropdownBtnStyle}
+              buttonStyle={{
+                ...styles.dropdownBtnStyle,
+                backgroundColor: "#FF7379",
+                borderRightColor: "white",
+                borderRightWidth: 2,
+                borderLeftColor: "white",
+                borderLeftWidth: 2,
+              }}
               buttonTextStyle={styles.dropdownBtnTxtStyle}
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
@@ -93,7 +119,7 @@ const CompareEntries = (props) => {
               data={Object.keys(entryDictionary).filter(
                 (entry) => entry !== lastEntryChanged
               )}
-              defaultButtonText={"entry 2"}
+              defaultButtonText={"select entry 2"}
               onSelect={(selected) => {
                 setLastEntryChanged(selected);
                 setEntryTwo(entryDictionary[selected]);

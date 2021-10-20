@@ -59,7 +59,13 @@ const Body = ({ navigation }) => {
                 style={{ marginTop: 10 }}
                 source={viewFront ? require(frontBody) : require(backBody)}
               />
-              {moles.length === 0 && <Text>You have no moles!</Text>}
+              {moles.length === 0 && (
+                <View
+                  style={styles.noMoles}
+                >
+                  <Text style={{...styles.fontExtraLarge,color:"white"}}>You have no moles!</Text>
+                </View>
+              )}
               {moles
                 .filter((mole) => {
                   return (
@@ -87,7 +93,7 @@ const Body = ({ navigation }) => {
   } else if (fetchStatus === FETCH_FAILED) {
     return (
       <View style={styles.containerCenter}>
-        <Text style={styles.fontExtraLarge}>
+        <Text style={{ ...styles.buttonLargeText, color: "black" }}>
           Uh oh! We were unable to fetch your moles!
         </Text>
       </View>

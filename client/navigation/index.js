@@ -46,14 +46,20 @@ const Stack = createNativeStackNavigator();
 
 const topHeaderLogo = () => {
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingBottom: 10,
+      }}
+    >
       <Text style={styles.navHeader}> mole </Text>
       <Image
         source={require("../../assets/images/face-with-mole.png")}
         style={{
           width: 40,
           height: 40,
-          position: "relative",
         }}
       ></Image>
       <Text style={styles.navHeader}> tracks</Text>

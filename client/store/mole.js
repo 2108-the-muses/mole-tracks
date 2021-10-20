@@ -86,7 +86,6 @@ export const fetchSingleMole = (moleId) => {
 };
 
 export const addMoleThunk = ({ nickname, bodyPart, side, coords }) => {
-  console.log(nickname, bodyPart, side, coords);
   return async (dispatch) => {
     try {
       console.log("thunk", coords);
