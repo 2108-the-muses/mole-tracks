@@ -475,6 +475,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  tagsSmallButton: {
+    marginHorizontal: 7,
+    backgroundColor: "#FFDEDF",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 18,
+  },
   tagsActiveButton: {
     backgroundColor: "#FF7379",
     width: 105,
