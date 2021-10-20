@@ -42,49 +42,54 @@ async function seed() {
         nickname: "Jinx",
         side: "front",
         bodyPart: "arm-l",
-        X: 100,
-        Y: 100
+        x: 275,
+        y: 257
       },
       {
-        X: 200,
-        Y: 200,
+        x: 200,
+        y: 200,
         nickname: "Bumpy",
         side: "back",
         bodyPart: "torso",
       },
-      {X: 300,
-        Y: 300,
+      {x: 300,
+        y: 300,
         nickname: "Sienna",
         side: "back",
         bodyPart: "butt",
       },
-
-      {
+      {x: 148,
+        y: 127,
         nickname: "Backy",
         side: "back",
         bodyPart: "torso",
       },
-      {
+      {x: 225,
+        y: 275,
         nickname: "Becky",
         side: "back",
         bodyPart: "torso",
       },
-      {
+      {x: 200,
+        y: 175,
         nickname: "Lumps",
         side: "back",
         bodyPart: "torso",
       },
-      {
+      {x: 235,
+        y: 487,
         nickname: "Bigs",
         side: "front",
         bodyPart: "leg-l",
       },
-      {
+      {x: 141,
+        y: 575,
         nickname: "Smalls",
         side: "front",
         bodyPart: "leg-r",
       },
-      {
+      {x: 222,
+        y: 300,
         nickname: "Reardon",
         side: "back",
         bodyPart: "butt",
@@ -103,6 +108,15 @@ async function seed() {
     Entry21,
     Entry22,
     Entry23,
+    Entry31,
+    Entry41,
+    Entry42,
+    Entry51,
+    Entry61,
+    Entry62,
+    Entry71,
+    Entry81,
+    Entry91,
   ] = await Entry.bulkCreate([
     {
       notes: "New mole. A little asymmetrical, not much else to note.",
@@ -169,6 +183,60 @@ async function seed() {
       imgUrl:
         "https://live.staticflickr.com/65535/51601122049_282824f464_o.png",
     },
+    {
+      notes: "Dark brown with light brown ring.",
+      date: new Date(2021, 1, 15),
+      imgUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmPH0ZRxVAtVv-dj9lN0m3E4i3qGCfC4ZI4g&usqp=CAU",
+    },
+    {
+      notes: "Definitley elevated, but small",
+      date: new Date(2020, 1, 19),
+      imgUrl:
+        "https://www.aimatmelanoma.org/wp-content/uploads/Untitled-design-70.png",
+    },
+    {
+      notes: "Looking the same as last month-- still elevated. Nothing else to report; no news is good news!",
+      date: new Date(2021, 2, 19),
+      imgUrl:
+        "https://www.aimatmelanoma.org/wp-content/uploads/Untitled-design-70.png",
+    },
+    {
+      notes: "Patchy looking mole, reminds me of an undiscovered island",
+      date: new Date(2018, 11, 12),
+      imgUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtzvbOR2FYMV6jvCdahMoYlfENM9eiKRBHFA&usqp=CAU",
+    },
+    {
+      notes: "Pretty small-- I just want to keep track of it in case it gets bigger though.",
+      date: new Date(2021, 3, 27),
+      imgUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1ioz4B6tKnArbs8-yrSB-x-VlLLoYYqL3wQ&usqp=CAU",
+    },
+    {
+      notes: "Is it possible for a mole to shrink? Because I feel like this mole is definitley getting smaller and smaller-- phew! ",
+      date: new Date(2021, 4, 27),
+      imgUrl:
+        "https://i.redd.it/5fx8zhhl5k861.jpg",
+    },
+    {
+      notes: "Dark brown and raised in the middle. Not too big so not too worried!!! Should keep an eye on this though, just in case ",
+      date: new Date(2021, 6, 22),
+      imgUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZObSYsI4t73DkpOsYZuLCjcAlj7U1rNqWWg&usqp=CAU",
+    },
+    {
+      notes: "Kinda light, kinda small. Not too worrisome though! Let's just cross our fingers and hope for the best!",
+      date: new Date(2021, 4, 9),
+      imgUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo7Yx-TZP_2u7d_6BdCs1-eGfa3J2M5gScsw&usqp=CAU",
+    },
+    {
+      notes: "Holey Moley! This one isn't too bad but I just want to keep any eye on this lil guy. Ya can't be too safe, ya know what I mean?",
+      date: new Date(2020, 10, 3),
+      imgUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv9VcGdJWmgvGH4U9yWcVqewzFkePSTRrS1g&usqp=CAU",
+    },
   ]);
 
   // Associations via Magic Methods
@@ -195,13 +263,14 @@ async function seed() {
   ]);
   await Sienna.setEntries([Entry21, Entry22, Entry23]);
   // @todo need to create these entries above and find photos
-  // await Bumpy.setEntries([Entry31])
-  // await Backy.setEntries([Entry41, Entry42])
-  // await Becky.setEntries([Entry51])
-  // await Lumps.setEntries([Entry61, Entry62])
-  // await Bigs.setEntries([Entry71])
-  // await Smalls.setEntries([Entry81])
-  // await Reardon.setEntries([Entry91])
+
+  await Bumpy.setEntries([Entry31])
+  await Backy.setEntries([Entry41, Entry42])
+  await Becky.setEntries([Entry51])
+  await Lumps.setEntries([Entry61, Entry62])
+  await Bigs.setEntries([Entry71])
+  await Smalls.setEntries([Entry81])
+  await Reardon.setEntries([Entry91])
 
   console.log(`seeded successfully`);
 }
