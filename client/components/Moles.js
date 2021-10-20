@@ -25,7 +25,11 @@ const Moles = ({ moles, navigation }) => {
       },
       {
         text: "Delete",
-        onPress: () => dispatch(deleteMoleThunk(moleId)),
+        onPress: () => {
+          dispatch(deleteMoleThunk(moleId));
+
+          navigation.push("Allmoles");
+        },
         style: "destructive",
       },
     ]);
@@ -51,7 +55,12 @@ const Moles = ({ moles, navigation }) => {
             <View style={styles.polaroidLabel}>
               <Text style={styles.headerText}>{mole.nickname}</Text>
               <TouchableOpacity
-                style={{ width: 20, height: 20 ,justifyContent: "center", alignItems: "center" }}
+                style={{
+                  width: 20,
+                  height: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
                 onPress={() => deleteAlert(mole.id)}
               >
                 <FontAwesome5 name="minus" size={12} color="black" />

@@ -85,7 +85,7 @@ router.delete("/:moleId", checkAuth, async (req, res, next) => {
         moleId: req.params.moleId,
       },
     });
-    if (mole && entries) {
+    if ((mole && entries) || entries === 0) {
       res.sendStatus(200);
     } else {
       throw { status: 401, message: "Mole Not Found!" };
