@@ -46,7 +46,7 @@ const Entry = (props, { navigation }) => {
     setFormattedDate(format(currentDate, "PP"));
   };
 
-  const deleteAlert = (entryId) =>
+  const deleteAlert = (entry) =>
     Alert.alert("Delete Entry", "Are you sure you want to delete this entry?", [
       {
         text: "Cancel",
@@ -56,7 +56,7 @@ const Entry = (props, { navigation }) => {
       {
         text: "Delete",
         onPress: () => {
-          dispatch(deleteEntry(entryId)),
+          dispatch(deleteEntry(entry)),
             props.navigation.push("SingleMole", { mole });
         },
         style: "destructive",
@@ -149,7 +149,7 @@ const Entry = (props, { navigation }) => {
 
               <TouchableOpacity
                 style={{ marginHorizontal: 10 }}
-                onPress={() => deleteAlert(entry.id)}
+                onPress={() => deleteAlert(entry)}
               >
                 <FontAwesome5 name="minus" size={16} color="black" />
               </TouchableOpacity>

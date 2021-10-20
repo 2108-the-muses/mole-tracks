@@ -90,7 +90,6 @@ export const addEntry = (
               },
             }
           );
-          // alert("Upload to Cloudinary successful")
           dispatch(_addEntry(data));
         }
       }
@@ -102,18 +101,18 @@ export const addEntry = (
   };
 };
 
-export const deleteEntry = (entryId) => async (dispatch) => {
+export const deleteEntry = (entry) => async (dispatch) => {
   try {
     const idToken = await firebaseAuth.currentUser.getIdToken(true);
     if (idToken) {
       const response = await axios.delete(
-        `http://${IP_ADDRESS}:8080/api/entries/${entryId}`,
+        `http://${IP_ADDRESS}:8080/api/entries/${entry.id}`,
         {
           headers: { authtoken: idToken },
         }
       );
       if (response.status === 200) {
-        dispatch(_deleteEntry(entryId));
+        dispatch(_deleteEntry(entry.id));
       }
     }
   } catch (err) {
