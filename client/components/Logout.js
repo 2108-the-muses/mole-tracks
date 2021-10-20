@@ -22,22 +22,22 @@ const Logout = (props) => {
     }
   };
 
-  //Temporary Buttons for Profile Page and Info Page
-  const onPressButton1 = async () => {
-    try {
-      props.navigation.navigate(PROFILE);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  // //Temporary Buttons for Profile Page and Info Page
+  // const onPressButton1 = async () => {
+  //   try {
+  //     props.navigation.navigate(PROFILE);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
-  const onPressButton2 = async () => {
-    try {
-      props.navigation.navigate(INFO);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  // const onPressButton2 = async () => {
+  //   try {
+  //     props.navigation.navigate(INFO);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // };
 
   return (
     <View style={{ ...styles.containerCenter, justifyContent: "space-around" }}>
@@ -45,13 +45,13 @@ const Logout = (props) => {
         source={require("../../assets/images/background.png")}
         style={styles.backgroundImage}
       />
-      <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton1}>
+      {/* <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton1}>
         <Text style={styles.buttonLargeText}>Profile</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton2}>
         <Text style={styles.buttonLargeText}>Info</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <TouchableOpacity style={styles.buttonLarge} onPress={onPressButton}>
         <Text style={styles.buttonLargeText}>Logout</Text>

@@ -39,9 +39,11 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Text, Image, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import styles from "../styles";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 
 const topHeaderLogo = () => {
@@ -177,25 +179,25 @@ const AddStack = () => {
   );
 };
 
-const UserStack = () => {
-  return (
-    <Stack.Navigator
-      initialRouteName={LOGOUT}
-      screenOptions={{
-        headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: topHeaderLogo,
-        headerBackTitleVisible: false,
-        headerTintColor: "white",
-      }}
-    >
-      <Stack.Screen name={LOADING} component={Loading} />
-      <Stack.Screen name={LOGOUT} component={Logout} />
-      <Stack.Screen name={LOGIN} component={Login} />
-      <Stack.Screen name={INFO} component={Info} />
-      <Stack.Screen name={PROFILE} component={Profile} />
-    </Stack.Navigator>
-  );
-};
+// const UserStack = () => {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName={LOGOUT}
+//       screenOptions={{
+//         headerStyle: { backgroundColor: "#BA5A31" },
+//         headerTitle: topHeaderLogo,
+//         headerBackTitleVisible: false,
+//         headerTintColor: "white",
+//       }}
+//     >
+//       <Stack.Screen name={LOADING} component={Loading} />
+//       <Stack.Screen name={LOGOUT} component={Logout} />
+//       <Stack.Screen name={LOGIN} component={Login} />
+//       <Stack.Screen name={INFO} component={Info} />
+//       <Stack.Screen name={PROFILE} component={Profile} />
+//     </Stack.Navigator>
+//   );
+// };
 
 const Tab = createBottomTabNavigator();
 
@@ -214,7 +216,7 @@ export const TabNavigator = () => {
           } else if (route.name === "Add") {
             iconName = focused ? "add" : "add-outline";
           } else {
-            iconName = focused ? "person-circle" : "person-circle-outline";
+            iconName = focused ? "person-circle"  : "person-circle-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -243,7 +245,7 @@ export const TabNavigator = () => {
       />
       <Tab.Screen
         name="User"
-        component={UserStack}
+        component={sideDrawer}
         unmountOnBlur={true}
         options={{ unmountOnBlur: true }}
       />
@@ -272,3 +274,15 @@ export const AuthNavigator = () => {
     </Auth.Navigator>
   );
 };
+
+function sideDrawer() {
+  return (
+    <Drawer.Navigator
+      drawerPosition= "right"
+      >
+      <Drawer.Screen name={LOGOUT} component={Logout} />
+      <Drawer.Screen name={INFO} component={Info} />
+      <Drawer.Screen name={PROFILE} component={Profile} />
+    </Drawer.Navigator>
+  );
+}
