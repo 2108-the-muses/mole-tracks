@@ -16,6 +16,7 @@ const ADD_STATUS = "ADD_STATUS";
  */
 const ADD_ENTRY = "ADD_ENTRY";
 const DELETE_ENTRY = "DELETE_ENTRY";
+const UPDATE_ENTRY = "UPDATE_ENTRY";
 
 /**
  * ACTION CREATORS
@@ -29,29 +30,13 @@ export const _deleteEntry = (entryId) => {
   return { type: DELETE_ENTRY, entryId };
 };
 
+const _updateEntry = (entry) => ({ type: UPDATE_ENTRY, entry });
+
 export const addStatus = (status) => ({ type: ADD_STATUS, status });
 
 /**
  * THUNK CREATORS
  */
-export const deleteEntry = (entryId) => async (dispatch) => {
-  try {
-    const idToken = await firebaseAuth.currentUser.getIdToken(true);
-    if (idToken) {
-      const response = await axios.delete(
-        `http://${IP_ADDRESS}:8080/api/entries/${entryId}`,
-        {
-          headers: { authtoken: idToken },
-        }
-      );
-      if (response.status === 200) {
-        dispatch(_deleteEntry(entryId));
-      }
-    }
-  } catch (err) {
-    console.log("error in delete entry thunk", err);
-  }
-};
 
 export const addEntry = (
   notes,
@@ -115,6 +100,54 @@ export const addEntry = (
   };
 };
 
+export const deleteEntry = (entryId) => async (dispatch) => {
+  try {
+    const idToken = await firebaseAuth.currentUser.getIdToken(true);
+    if (idToken) {
+      const response = await axios.delete(
+        `http://${IP_ADDRESS}:8080/api/entries/${entryId}`,
+        {
+          headers: { authtoken: idToken },
+        }
+      );
+      if (response.status === 200) {
+        dispatch(_deleteEntry(entryId));
+      }
+    }
+  } catch (err) {
+    console.log("error in delete entry thunk", err);
+  }
+};
+
+export const updateEntry = (
+  entryId,
+  { notes, date, asymmetryTag, borderTag, colorTag, elevationTag, diameterTag }
+) => {
+  return async (dispatch) => {
+    try {
+      const idToken = await firebaseAuth.currentUser.getIdToken(true);
+      if (idToken) {
+        const { data } = await axios.put(
+          `http://${IP_ADDRESS}:8080/api/entries/${entryId}`,
+          {
+            notes: notes,
+            date: date,
+            asymmetryTag: asymmetryTag,
+            borderTag: borderTag,
+            colorTag: colorTag,
+            elevationTag: elevationTag,
+            diameterTag: diameterTag,
+          },
+          { headers: { authtoken: idToken } }
+        );
+        dispatch(_updateEntry(data));
+      }
+    } catch (error) {
+      console.log("THUNK ERROR: ", error);
+    }
+  };
+};
+
 const initialState = { addStatus: null, entry: {} };
 
 export default function (state = initialState, action) {
@@ -123,6 +156,8 @@ export default function (state = initialState, action) {
       return { ...state, entry: action.newEntry };
     case ADD_STATUS:
       return { ...state, addStatus: action.status };
+    case UPDATE_ENTRY:
+      return { ...state, entry: action.entry };
     default:
       return state;
   }

@@ -118,29 +118,29 @@ const MolesStack = (props) => {
       <Stack.Screen
         name={ENTRY}
         component={Entry}
-        // options={({ route, navigation }) => {
-        //   return {
-        //     headerLeft: () => (
-        //       <View
-        //         style={{
-        //           flexDirection: "row",
-        //         }}
-        //       >
-        //         <FontAwesome5 name="angle-left" size={25} color="white" />
-        //         <Text
-        //           style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
-        //           onPress={() => {
-        //             navigation.navigate(SINGLEMOLE, {
-        //               mole: { id: route.params.entry.moleId },
-        //             });
-        //           }}
-        //         >
-        //           Mole
-        //         </Text>
-        //       </View>
-        //     ),
-        //   };
-        // }}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={25} color="white" />
+                <Text
+                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+                  onPress={() => {
+                    navigation.push(SINGLEMOLE, {
+                      mole: { id: route.params.entry.moleId },
+                    });
+                  }}
+                >
+                  Mole
+                </Text>
+              </View>
+            ),
+          };
+        }}
       />
       <Stack.Screen name={INFO} component={Info} />
       <Stack.Screen name={LOADING} component={Loading} />
