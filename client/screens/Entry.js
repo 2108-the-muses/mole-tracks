@@ -64,8 +64,8 @@ const Entry = (props) => {
               style={styles.moleSilhouette}
               source={require("../../assets/images/mole-silhouette-flipped.png")}
             />
-            <View style={styles.buttonLarge}>
-              <Text style={styles.buttonLargeText}>entry</Text>
+            <View style={styles.screenTitle}>
+              <Text style={styles.fontExtraLarge}>entry</Text>
             </View>
             <Image
               style={styles.moleSilhouette}

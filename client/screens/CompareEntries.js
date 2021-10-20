@@ -65,8 +65,8 @@ const CompareEntries = (props) => {
             style={styles.moleSilhouette}
             source={require("../../assets/images/mole-silhouette-flipped.png")}
           />
-          <View>
-            <Text style={styles.fontLarge}>compare</Text>
+          <View style={styles.screenTitle}>
+            <Text style={styles.fontExtraLarge}>compare</Text>
           </View>
           <Image
             style={styles.moleSilhouette}
