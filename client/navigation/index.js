@@ -118,29 +118,6 @@ const MolesStack = (props) => {
       <Stack.Screen
         name={ENTRY}
         component={Entry}
-        // options={({ route, navigation }) => {
-        //   return {
-        //     headerLeft: () => (
-        //       <View
-        //         style={{
-        //           flexDirection: "row",
-        //         }}
-        //       >
-        //         <FontAwesome5 name="angle-left" size={25} color="white" />
-        //         <Text
-        //           style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
-        //           onPress={() => {
-        //             navigation.navigate(SINGLEMOLE, {
-        //               mole: { id: route.params.entry.moleId },
-        //             });
-        //           }}
-        //         >
-        //           Mole
-        //         </Text>
-        //       </View>
-        //     ),
-        //   };
-        // }}
       />
       <Stack.Screen name={INFO} component={Info} />
       <Stack.Screen name={LOADING} component={Loading} />
@@ -152,30 +129,6 @@ const MolesStack = (props) => {
   );
 };
 
-const AddStack = () => {
-  return (
-    <Stack.Navigator
-      initialRouteName={ADD}
-      screenOptions={{
-        headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: topHeaderLogo,
-        headerTintColor: "white",
-      }}
-    >
-      <Stack.Screen name={ADD} component={Add} options={{ title: "Add" }} />
-      <Stack.Screen name={ADDENTRY} component={AddEntry} />
-      <Stack.Screen name={ADDMOLE} component={AddMole} />
-      <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
-      {/* this is NOT what we want below, but is a temporary fix */}
-      <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
-      <Stack.Screen name={COMPAREENTRIES} component={CompareEntries} />
-      <Stack.Screen name={ENTRY} component={Entry} />
-      {/* do not want above either */}
-      <Stack.Screen name={INFO} component={Info} />
-      <Stack.Screen name={LOADING} component={Loading} />
-    </Stack.Navigator>
-  );
-};
 
 const UserStack = () => {
   return (
@@ -235,12 +188,12 @@ export const TabNavigator = () => {
         unmountOnBlur={true}
         options={{ unmountOnBlur: true }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Add"
         component={AddStack}
         unmountOnBlur={true}
         options={{ unmountOnBlur: true }}
-      />
+      /> */}
       <Tab.Screen
         name="User"
         component={UserStack}

@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, ScrollView, ImageBackground, Image } from "react-native";
 import BodyPartsList from "../components/BodyPartsList";
 import styles from "../styles";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { ADDMOLE, INFO } from "../navigation/constants";
 
 const AllMoles = ({ navigation }) => {
   return (
@@ -14,21 +16,29 @@ const AllMoles = ({ navigation }) => {
         <View
           style={{
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "space-around",
             marginVertical: "3%",
             flexDirection: "row",
           }}
         >
-          <Image
-            style={styles.moleSilhouette}
-            source={require("../../assets/images/mole-silhouette-flipped.png")}
+          <FontAwesome5
+            name="info-circle"
+            size={30}
+            color="skyblue"
+            onPress={() => {
+              navigation.navigate(INFO);
+            }}
           />
           <View style={styles.screenTitle}>
             <Text style={styles.fontExtraLarge}>moles</Text>
           </View>
-          <Image
-            style={styles.moleSilhouette}
-            source={require("../../assets/images/mole-silhouette.png")}
+          <FontAwesome5
+            onPress={() => {
+              navigation.navigate(ADDMOLE);
+            }}
+            name="plus"
+            size={30}
+            color="black"
           />
         </View>
         <BodyPartsList navigation={navigation} />
