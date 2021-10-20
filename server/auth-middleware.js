@@ -8,7 +8,6 @@ admin.initializeApp({
 
 const checkAuth = async (req, res, next) => {
   try {
-    console.log("IN CHECK AUTH");
     if (req.headers.authtoken) {
       req.user = await admin.auth().verifyIdToken(req.headers.authtoken);
       next();

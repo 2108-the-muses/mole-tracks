@@ -1,6 +1,11 @@
 import axios from "axios";
 import { firebaseAuth } from "../firebase-auth/config";
-import { IP_ADDRESS, CLOUDINARY_URL, upload_preset } from "../../secrets";
+import {
+  IP_ADDRESS,
+  CLOUDINARY_URL,
+  upload_preset,
+  NGROK,
+} from "../../secrets";
 
 /**
  * ADD CONSTANTS
@@ -64,7 +69,6 @@ export const addEntry = (
           },
           method: "POST",
         });
-
         let { secure_url } = await response.json();
         if (secure_url) {
           const { data } = await axios.post(
@@ -87,7 +91,6 @@ export const addEntry = (
             }
           );
           // alert("Upload to Cloudinary successful")
-
           dispatch(_addEntry(data));
         }
       }

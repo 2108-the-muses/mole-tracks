@@ -108,18 +108,14 @@ export const authenticateLogin =
   ({ email, password }) =>
   async (dispatch) => {
     try {
-      console.log("BEFORE FIREBASE", email);
       const { user } = await firebaseAuth.signInWithEmailAndPassword(
         email,
         password
       );
-      console.log("AFTER FIREBASE", email);
       const { data } = await axios.post(`${NGROK}/auth/login`, {
         uid: user.uid,
       });
-      console.log("AFTER POST LOGIN");
       if (verify(data, dispatch)) {
-        console.log("VERIFY TRUE");
         return true;
       }
     } catch (err) {

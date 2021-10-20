@@ -7,9 +7,7 @@ module.exports = router;
 
 router.post("/login", async (req, res, next) => {
   try {
-    console.log("IN LOGIN");
     const user = await User.findByPk(req.body.uid);
-    console.log("USER?", user);
     res.send(user);
   } catch (err) {
     next(err);
