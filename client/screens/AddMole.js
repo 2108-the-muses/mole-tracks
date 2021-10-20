@@ -6,7 +6,7 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
-  Button,
+  Alert,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -26,17 +26,31 @@ const AddMole = (props) => {
     return state.allMoles.singleMole;
   });
   const [coords, setCoords] = useState("");
+
+  const nicknameAlert = () =>
+    Alert.alert("Oops!", "Please write in a nickname for your mole", [
+      {
+        text: "Try Again",
+        onPress: () => console.log("Try Again pressed"),
+        style: "cancel",
+      },
+    ]);
+
   const handleSubmit = async () => {
-    const newMole = await dispatch(
-      addMoleThunk({ nickname, bodyPart, side, coords })
-    );
-    if (newMole) {
-      props.navigation.navigate(SINGLEMOLE, { mole: newMole });
-      // COME BACK TO THE BELOW AFTER DEMO DAY
-      // props.navigation.navigate("Moles", {
-      //   screen: SINGLEMOLE,
-      //   params: { mole: newMole },
-      // });
+    if (!nickname) {
+      nicknameAlert();
+    } else {
+      const newMole = await dispatch(
+        addMoleThunk({ nickname, bodyPart, side, coords })
+      );
+      if (newMole) {
+        props.navigation.navigate(SINGLEMOLE, { mole: newMole });
+        // COME BACK TO THE BELOW AFTER DEMO DAY
+        // props.navigation.navigate("Moles", {
+        //   screen: SINGLEMOLE,
+        //   params: { mole: newMole },
+        // });
+      }
     }
   };
 
