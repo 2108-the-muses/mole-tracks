@@ -14,12 +14,9 @@ import {
 } from "react-native";
 import styles from "../styles";
 
-
-const Toggle = ({toggleSide,viewFront}) => {
-console.log(viewFront?"Front":"back")
-
-    const activeStyles = styles.buttonSmall
-    const inactiveStyles = {...styles.buttonSmall, backgroundColor: "#ffcfd1"}
+const Toggle = ({ toggleSide, viewFront }) => {
+  const activeStyles = styles.buttonSmall;
+  const inactiveStyles = { ...styles.buttonSmall, backgroundColor: "#ffcfd1" };
   return (
     <View style={styles.buttonBox}>
       <TouchableOpacity
@@ -42,4 +39,4 @@ console.log(viewFront?"Front":"back")
   );
 };
 
-export default Toggle
+export default Toggle;

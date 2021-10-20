@@ -11,14 +11,47 @@ export const ADD_PENDING = "ADD_PENDING";
 export const ADD_SUCCESS = "ADD_SUCCESS";
 const ADD_STATUS = "ADD_STATUS";
 
+/**
+ * ACTION TYPES
+ */
 const ADD_ENTRY = "ADD_ENTRY";
+const DELETE_ENTRY = "DELETE_ENTRY";
 
+/**
+ * ACTION CREATORS
+ */
 export const _addEntry = (newEntry) => ({
   type: ADD_ENTRY,
   newEntry,
 });
 
+export const _deleteEntry = (entryId) => {
+  return { type: DELETE_ENTRY, entryId };
+};
+
 export const addStatus = (status) => ({ type: ADD_STATUS, status });
+
+/**
+ * THUNK CREATORS
+ */
+export const deleteEntry = (entryId) => async (dispatch) => {
+  try {
+    const idToken = await firebaseAuth.currentUser.getIdToken(true);
+    if (idToken) {
+      const response = await axios.delete(
+        `http://${IP_ADDRESS}:8080/api/entries/${entryId}`,
+        {
+          headers: { authtoken: idToken },
+        }
+      );
+      if (response.status === 200) {
+        dispatch(_deleteEntry(entryId));
+      }
+    }
+  } catch (err) {
+    console.log("error in delete entry thunk", err);
+  }
+};
 
 export const addEntry = (
   notes,

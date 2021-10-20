@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   TouchableOpacity,
@@ -7,8 +7,10 @@ import {
   Text,
   Image,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { fetchSingleMole } from "../store/mole";
+import { deleteEntry } from "../store/entry";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { addStatus } from "../store/entry";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -16,7 +18,6 @@ import { Entypo } from "@expo/vector-icons";
 import { format } from "date-fns";
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import Loading from "./Loading";
-
 import styles from "../styles";
 
 const Entry = (props) => {
@@ -25,6 +26,23 @@ const Entry = (props) => {
   const fetchStatus = useSelector(
     (state) => state.allMoles.singleMoleFetchStatus
   );
+
+  const deleteAlert = (entryId) =>
+    Alert.alert("Delete Entry", "Are you sure you want to delete this entry?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        onPress: () => {
+          dispatch(deleteEntry(entryId)),
+            props.navigation.push("SingleMole", { mole });
+        },
+        style: "destructive",
+      },
+    ]);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -98,7 +116,7 @@ const Entry = (props) => {
               {/* @todo ability to delete entry */}
               <TouchableOpacity
                 style={{ marginHorizontal: 10 }}
-                onPress={() => console.log("Do a deleteAlert(entry.id) here")}
+                onPress={() => deleteAlert(entry.id)}
               >
                 <FontAwesome5 name="minus" size={16} color="black" />
               </TouchableOpacity>
@@ -142,6 +160,43 @@ const Entry = (props) => {
               >
                 Notes: {entry.notes}
               </Text>
+              <View
+                style={{
+                  marginTop: 20,
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                {[
+                  entry.asymmetryTag,
+                  entry.borderTag,
+                  entry.colorTag,
+                  entry.elevationTag,
+                  entry.diameterTag,
+                ].map((tag) => {
+                  if (tag.length > 0)
+                    return (
+                      <View
+                        style={{
+                          backgroundColor: "#FF7379",
+                          borderColor: "black",
+                          borderWidth: 1,
+                          alignItems: "center",
+                          justifyContent: "center",
+                          margin: 5,
+                        }}
+                      >
+                        <Text
+                          style={(styles.tagText, { fontSize: 15, padding: 5 })}
+                        >
+                          {tag}
+                        </Text>
+                      </View>
+                    );
+                })}
+              </View>
             </View>
           </View>
         </KeyboardAwareScrollView>

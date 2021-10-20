@@ -17,7 +17,6 @@ import {
 } from "../store/mole";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "./Loading";
-import { NavigationContainer } from "@react-navigation/native";
 
 const Body = ({ navigation }) => {
   const [viewFront, setViewFront] = useState(true);
@@ -56,29 +55,31 @@ const Body = ({ navigation }) => {
           >
             <ToggleSideButtons toggleSide={toggleSide} viewFront={viewFront} />
             <View>
-            <Image style={{ marginTop: 10 }}
-              source={viewFront ? require(frontBody) : require(backBody)}
-            />
-            {moles.length === 0 && <Text>You have no moles!</Text>}
-            {moles
-              .filter(
-                (mole) =>{
-                  return mole.side === (viewFront ? 'front':'back') &&
-                  mole.x &&
-                  mole.y}
-              )
-              .map((mole) => {
-                {
+              <Image
+                style={{ marginTop: 10 }}
+                source={viewFront ? require(frontBody) : require(backBody)}
+              />
+              {moles.length === 0 && <Text>You have no moles!</Text>}
+              {moles
+                .filter((mole) => {
                   return (
-                    <TouchableOpacity
-                      key={mole.nickname}
-                      style={{ ...styles.moleDot, top: mole.y, left: mole.x }}
-                      onPress={() => goToMole(mole)}
-                    />
+                    mole.side === (viewFront ? "front" : "back") &&
+                    mole.x &&
+                    mole.y
                   );
-                }
-              })}
-              </View>
+                })
+                .map((mole) => {
+                  {
+                    return (
+                      <TouchableOpacity
+                        key={mole.nickname}
+                        style={{ ...styles.moleDot, top: mole.y, left: mole.x }}
+                        onPress={() => goToMole(mole)}
+                      />
+                    );
+                  }
+                })}
+            </View>
           </View>
         </KeyboardAwareScrollView>
       </View>
