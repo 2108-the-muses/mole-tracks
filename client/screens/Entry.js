@@ -7,8 +7,10 @@ import {
   Text,
   Image,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { fetchSingleMole } from "../store/mole";
+import { deleteEntry } from "../store/entry";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { addStatus } from "../store/entry";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -24,6 +26,23 @@ const Entry = (props) => {
   const fetchStatus = useSelector(
     (state) => state.allMoles.singleMoleFetchStatus
   );
+
+  const deleteAlert = (entryId) =>
+    Alert.alert("Delete Entry", "Are you sure you want to delete this entry?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        onPress: () => {
+          dispatch(deleteEntry(entryId)),
+            props.navigation.push("SingleMole", { mole });
+        },
+        style: "destructive",
+      },
+    ]);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -97,7 +116,7 @@ const Entry = (props) => {
               {/* @todo ability to delete entry */}
               <TouchableOpacity
                 style={{ marginHorizontal: 10 }}
-                onPress={() => console.log("Do a deleteAlert(entry.id) here")}
+                onPress={() => deleteAlert(entry.id)}
               >
                 <FontAwesome5 name="minus" size={16} color="black" />
               </TouchableOpacity>
