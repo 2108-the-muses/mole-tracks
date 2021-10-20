@@ -17,10 +17,10 @@ const Mole = db.define('mole', {
     allowNull: false,
   },
   x:{
-    type:Sequelize.INTEGER
+    type: Sequelize.INTEGER
   },
   y:{
-    type:Sequelize.INTEGER
+    type: Sequelize.INTEGER
   }
 });
 
