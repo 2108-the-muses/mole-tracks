@@ -51,7 +51,12 @@ const Moles = ({ moles, navigation }) => {
             <View style={styles.polaroidLabel}>
               <Text style={styles.headerText}>{mole.nickname}</Text>
               <TouchableOpacity
-                style={{ width: 20, height: 20 ,justifyContent: "center", alignItems: "center" }}
+                style={{
+                  width: 40,
+                  height: 20,
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
                 onPress={() => deleteAlert(mole.id)}
               >
                 <FontAwesome5 name="minus" size={12} color="black" />

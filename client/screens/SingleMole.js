@@ -147,11 +147,15 @@ const SingleMole = (props) => {
                 style={{
                   flexDirection: "row",
                   justifyContent: "flex-end",
-                  width: 150,
+                  width: 100,
                 }}
               >
                 <TouchableOpacity
-                  style={{ marginHorizontal: 10 }}
+                  style={{
+                    marginLeft: 10,
+                    width: 30,
+                    alignItems: "center",
+                  }}
                   onPress={() => {
                     setIsEdit(true);
                   }}
@@ -159,7 +163,11 @@ const SingleMole = (props) => {
                   <Entypo name="edit" size={16} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{ marginHorizontal: 10 }}
+                  style={{
+                    marginLeft: 10,
+                    width: 30,
+                    alignItems: "center",
+                  }}
                   onPress={() => deleteAlert(mole.id)}
                 >
                   <FontAwesome5 name="minus" size={16} color="black" />
@@ -264,18 +272,24 @@ const SingleMole = (props) => {
                 style={{
                   flexDirection: "row",
                   justifyContent: "flex-end",
-                  width: 150,
+                  width: 100,
                 }}
               >
                 {/* @todo reverse button */}
-                <TouchableOpacity
-                  style={{ marginHorizontal: 10 }}
+                {/* <TouchableOpacity
+                  style={{      marginHorizontal: 10,
+                    width: 30,
+                    alignItems: "center", }}
                   onPress={() => handleOrderByDate()}
                 >
                   <Entypo name="select-arrows" size={16} color="black" />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity
-                  style={{ marginHorizontal: 10 }}
+                  style={{
+                    marginLeft: 10,
+                    width: 30,
+                    alignItems: "center",
+                  }}
                   onPress={() => props.navigation.push("TakePhoto", { moleId })}
                 >
                   <FontAwesome5 name="plus" size={16} color="black" />

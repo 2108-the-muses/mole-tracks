@@ -54,11 +54,18 @@ const BodyPartsList = ({ navigation }) => {
       return list();
     } else {
       return (
-        <View style={{ marginTop: 25 }}>
-          <Text style={styles.headerText}>You have no moles!</Text>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 1,
+            marginTop: 25,
+          }}
+        >
+          <Text style={styles.fontExtraLarge}>You have no moles!</Text>
           <TouchableOpacity
             onPress={() => navigation.push("AddMole")}
-            style={styles.buttonLarge}
+            style={{ ...styles.buttonLarge, width: 150, marginVertical: 25 }}
           >
             <Text style={styles.buttonLargeText}>add a mole!</Text>
           </TouchableOpacity>
@@ -67,7 +74,14 @@ const BodyPartsList = ({ navigation }) => {
     }
   } else if (fetchStatus === FETCH_FAILED) {
     return (
-      <View style={styles.containerCenter}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 1,
+          marginTop: 25,
+        }}
+      >
         <Text style={styles.fontExtraLarge}>
           Uh oh! We were unable to fetch your moles!
         </Text>
