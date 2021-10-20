@@ -61,18 +61,7 @@ const Body = ({ navigation }) => {
               />
               {moles.length === 0 && (
                 <View
-                  style={{
-                    alignSelf: "center",
-                    justifySelf: "center",
-                    position: "absolute",
-                    top: 200,
-                    backgroundColor: "rgba(1, 91, 63,.5)",
-                    height: 50,
-                    width: 300,
-                    borderRadius: 30,
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }}
+                  style={styles.noMoles}
                 >
                   <Text style={{...styles.fontExtraLarge,color:"white"}}>You have no moles!</Text>
                 </View>
