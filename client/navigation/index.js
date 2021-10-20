@@ -142,6 +142,7 @@ const MolesStack = (props) => {
         //   };
         // }}
       />
+      <Stack.Screen name={INFO} component={Info} />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
