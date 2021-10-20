@@ -48,7 +48,7 @@ const AllMoles = ({ navigation }) => {
             <FontAwesome5
               name="info-circle"
               size={30}
-              color="skyblue"
+              color="rgb(1, 91, 63)"
               style={{ marginHorizontal: 10 }}
               onPress={() => {
                 navigation.navigate(INFO);

@@ -25,7 +25,10 @@ const Moles = ({ moles, navigation }) => {
       },
       {
         text: "Delete",
-        onPress: () => dispatch(deleteMoleThunk(moleId)),
+        onPress: () => {
+          dispatch(deleteMoleThunk(moleId));
+          navigation.push("Allmoles");
+        },
         style: "destructive",
       },
     ]);
