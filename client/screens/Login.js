@@ -7,8 +7,8 @@ import styles from "../styles";
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("sally@moletracks.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleLogin = async () => {
