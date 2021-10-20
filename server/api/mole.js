@@ -80,12 +80,13 @@ router.delete("/:moleId", checkAuth, async (req, res, next) => {
         userUid: req.user.uid,
       },
     });
-    const entries = await Entry.destroy({
-      where: {
-        moleId: req.params.moleId,
-      },
-    });
-    if (mole && entries) {
+    // const entries = await Entry.destroy({
+    //   where: {
+    //     moleId: req.params.moleId,
+    //   },
+    // });
+    // console.log(entries)
+    if (mole) {
       res.sendStatus(200);
     } else {
       throw { status: 401, message: "Mole Not Found!" };

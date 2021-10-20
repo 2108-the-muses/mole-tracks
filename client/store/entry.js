@@ -105,12 +105,9 @@ export const deleteEntry = (entry) => async (dispatch) => {
   try {
     const idToken = await firebaseAuth.currentUser.getIdToken(true);
     if (idToken) {
-      const response = await axios.delete(
-        `http://${IP_ADDRESS}:8080/api/entries/${entry.id}`,
-        {
-          headers: { authtoken: idToken },
-        }
-      );
+      const response = await axios.delete(`${NGROK}/api/entries/${entry.id}`, {
+        headers: { authtoken: idToken },
+      });
       if (response.status === 200) {
         dispatch(_deleteEntry(entry.id));
       }
@@ -129,7 +126,7 @@ export const updateEntry = (
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.put(
-          `http://${IP_ADDRESS}:8080/api/entries/${entryId}`,
+          `${NGROK}/api/entries/${entryId}`,
           {
             notes: notes,
             date: date,
