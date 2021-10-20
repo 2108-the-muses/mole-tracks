@@ -12,6 +12,7 @@ import styles from "../styles";
 import { format } from "date-fns";
 
 const CompareEntries = (props) => {
+
   const entries = props.route.params.entries;
   const name = props.route.params.name;
   const moleId = props.route.params.moleId;
@@ -22,8 +23,19 @@ const CompareEntries = (props) => {
   // @todo turn this into an object so that id is not in the list
   const entryDictionary = {};
   entries.forEach(
-    (entry) => (entryDictionary[format(new Date(entry.date), "P")] = entry)
-  );
+    (entry) => {
+
+
+      if(entryDictionary[format(new Date(entry.date), "P")]){
+        let x=1
+        while(entryDictionary[format(new Date(entry.date), "P")+` (${x})`]){
+          x++
+        }
+      return entryDictionary[format(new Date(entry.date), "P")+` (${x})`] = entry
+    }
+      else{return entryDictionary[format(new Date(entry.date), "P")] = entry}
+    })
+  
 
   return (
     <View style={styles.containerFlexStart}>
