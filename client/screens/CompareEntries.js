@@ -16,20 +16,15 @@ const CompareEntries = (props) => {
   const name = props.route.params.name;
   const moleId = props.route.params.moleId;
   const [entryOne, setEntryOne] = useState(null);
+  const [lastEntryChanged,setLastEntryChanged] = useState(null)
   const [entryTwo, setEntryTwo] = useState(null);
 
 
   // @todo turn this into an object so that id is not in the list
   const entryDictionary = {}
- entries.map(
+ entries.forEach(
     (entry) => entryDictionary[format(new Date(entry.date), "P")] = entry)
 
-
-  const parseEntryLabel = (label) => {
-    const id = +label.split(/[():\s]/)[4];
-    const entry = entries.filter((entry) => entry.id === id)[0];
-    return entry;
-  };
 
   return (
     <View style={styles.containerFlexStart}>
@@ -79,9 +74,11 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={Object.keys(entryDictionary)}
+              data={Object.keys(entryDictionary).filter(entry=>entry!==lastEntryChanged)}
               defaultButtonText={"entry 1"}
-              onSelect={(selected) => setEntryOne(entryDictionary[selected])}
+              onSelect={(selected) => {
+                setLastEntryChanged(selected)
+                setEntryOne(entryDictionary[selected])}}
             />
           </View>
           <View style={{ width: "50%" }}>
@@ -91,9 +88,11 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={Object.keys(entryDictionary)}
+              data={Object.keys(entryDictionary).filter(entry=>entry!==lastEntryChanged)}
               defaultButtonText={"entry 2"}
-              onSelect={(selected) => setEntryTwo(entryDictionary[selected])}
+              onSelect={(selected) => {
+                setLastEntryChanged(selected)
+                setEntryTwo(entryDictionary[selected])}}
             />
           </View>
         </View>
