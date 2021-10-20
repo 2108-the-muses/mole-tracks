@@ -68,7 +68,14 @@ const CompareEntries = (props) => {
         >
           <View style={{ width: "50%" }}>
             <SelectDropdown
-              buttonStyle={styles.dropdownBtnStyle}
+              buttonStyle={{
+                ...styles.dropdownBtnStyle,
+                backgroundColor: "#FF7379",
+                borderRightColor: "white",
+                borderRightWidth: 2,
+                borderLeftColor: "white",
+                borderLeftWidth: 2,
+              }}
               buttonTextStyle={styles.dropdownBtnTxtStyle}
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
@@ -76,7 +83,7 @@ const CompareEntries = (props) => {
               data={Object.keys(entryDictionary).filter(
                 (entry) => entry !== lastEntryChanged
               )}
-              defaultButtonText={"entry 1"}
+              defaultButtonText={"select entry 1"}
               onSelect={(selected) => {
                 setLastEntryChanged(selected);
                 setEntryOne(entryDictionary[selected]);
@@ -85,7 +92,14 @@ const CompareEntries = (props) => {
           </View>
           <View style={{ width: "50%" }}>
             <SelectDropdown
-              buttonStyle={styles.dropdownBtnStyle}
+              buttonStyle={{
+                ...styles.dropdownBtnStyle,
+                backgroundColor: "#FF7379",
+                borderRightColor: "white",
+                borderRightWidth: 2,
+                borderLeftColor: "white",
+                borderLeftWidth: 2,
+              }}
               buttonTextStyle={styles.dropdownBtnTxtStyle}
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
@@ -93,7 +107,7 @@ const CompareEntries = (props) => {
               data={Object.keys(entryDictionary).filter(
                 (entry) => entry !== lastEntryChanged
               )}
-              defaultButtonText={"entry 2"}
+              defaultButtonText={"select entry 2"}
               onSelect={(selected) => {
                 setLastEntryChanged(selected);
                 setEntryTwo(entryDictionary[selected]);

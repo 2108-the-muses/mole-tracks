@@ -225,19 +225,27 @@ const Entry = (props, { navigation }) => {
                 }}
               >
                 {isEdit ? (
-                  <Tags
-                    navigation={navigation}
-                    setAsymmetryTag={setAsymmetryTag}
-                    setBorderTag={setBorderTag}
-                    setColorTag={setColorTag}
-                    setElevationTag={setElevationTag}
-                    setDiameterTag={setDiameterTag}
-                    asymmetryTag={asymmetryTag}
-                    borderTag={borderTag}
-                    colorTag={colorTag}
-                    elevationTag={elevationTag}
-                    diameterTag={diameterTag}
-                  />
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      aligntItems: "center",
+                      width: "115%",
+                    }}
+                  >
+                    <Tags
+                      navigation={navigation}
+                      setAsymmetryTag={setAsymmetryTag}
+                      setBorderTag={setBorderTag}
+                      setColorTag={setColorTag}
+                      setElevationTag={setElevationTag}
+                      setDiameterTag={setDiameterTag}
+                      asymmetryTag={asymmetryTag}
+                      borderTag={borderTag}
+                      colorTag={colorTag}
+                      elevationTag={elevationTag}
+                      diameterTag={diameterTag}
+                    />
+                  </View>
                 ) : (
                   [
                     asymmetryTag,
@@ -274,9 +282,18 @@ const Entry = (props, { navigation }) => {
           </View>
 
           {isEdit && (
-            <View>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               {show ? (
-                <>
+                <View
+                  style={{
+                    width: 300,
+                  }}
+                >
                   <DateTimePicker
                     testID="dateTimePicker"
                     value={date}
@@ -299,37 +316,45 @@ const Entry = (props, { navigation }) => {
                         alignItems: "center",
                       }}
                     >
-                      Select Date
+                      Edit Date
                     </Text>
                   </TouchableOpacity>
-                </>
+                </View>
               ) : (
-                <TouchableOpacity
-                  style={{
-                    ...styles.dropdown2BtnStyle,
-                    justifyContent: "center",
-                  }}
-                  onPress={() => setShow(true)}
-                >
-                  <Text
+                <View style={{ width: 300 }}>
+                  <TouchableOpacity
                     style={{
-                      ...styles.dropdown2BtnTxtStyle,
-                      alignItems: "center",
+                      ...styles.dropdown2BtnStyle,
+                      justifyContent: "center",
                     }}
+                    onPress={() => setShow(true)}
                   >
-                    Edit Date
-                  </Text>
-                </TouchableOpacity>
+                    <Text
+                      style={{
+                        ...styles.dropdown2BtnTxtStyle,
+                        alignItems: "center",
+                      }}
+                    >
+                      Edit Date
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               )}
             </View>
           )}
           {isEdit && (
-            <View>
+            <View
+              style={{
+                marginVertical: 20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <TouchableOpacity
                 onPress={handleSubmit}
-                style={styles.buttonSmall}
+                style={styles.buttonLarge}
               >
-                <Text style={styles.buttonSmallText}>Update</Text>
+                <Text style={styles.buttonLargeText}>Update</Text>
               </TouchableOpacity>
             </View>
           )}

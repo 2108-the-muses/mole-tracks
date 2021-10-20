@@ -55,10 +55,10 @@ const Moles = ({ moles, navigation }) => {
               <Text style={styles.headerText}>{mole.nickname}</Text>
               <TouchableOpacity
                 style={{
-                  width: 20,
+                  width: 40,
                   height: 20,
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignItems: "flex-end",
                 }}
                 onPress={() => deleteAlert(mole.id)}
               >

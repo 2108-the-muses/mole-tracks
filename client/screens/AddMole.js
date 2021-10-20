@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Image,
 } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -61,37 +62,53 @@ const AddMole = (props) => {
         style={styles.backgroundImage}
       />
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1, marginVertical: "3%", alignItems: "center" }}>
-          <View style={styles.buttonLarge}>
-            <Text style={styles.buttonLargeText}>new mole</Text>
+        <View
+          style={{
+            flex: 1,
+            marginVertical: "3%",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            style={styles.moleSilhouette}
+            source={require("../../assets/images/mole-silhouette-flipped.png")}
+          />
+          <View style={styles.screenTitle}>
+            <Text style={styles.fontExtraLarge}>new mole</Text>
           </View>
+          <Image
+            style={styles.moleSilhouette}
+            source={require("../../assets/images/mole-silhouette.png")}
+          />
+        </View>
 
-          <View style={{ flex: 1, marginVertical: "3%", alignItems: "center" }}>
-            <View style={{ width: 300 }}>
-              <TextInput
-                placeholder="nickname"
-                autoCapitalize="none"
-                style={styles.textInputLarge}
-                onChangeText={(nickname) => setNickname(nickname)}
-                value={nickname}
-              />
-            </View>
-            <View style={{ width: 300 }}>
-              <ClickBody
-                setBodyPart={setBodyPart}
-                setSide={setSide}
-                sendCoords={setCoords}
-              />
-            </View>
-            {bodyPart !== "" && (
-              <TouchableOpacity
-                style={{ ...styles.buttonLarge, marginTop: 20 }}
-                onPress={handleSubmit}
-              >
-                <Text style={styles.buttonLargeText}>add mole</Text>
-              </TouchableOpacity>
-            )}
+        <View style={{ flex: 1, marginVertical: "3%", alignItems: "center" }}>
+          <View style={{ width: 300 }}>
+            <TextInput
+              placeholder="nickname"
+              autoCapitalize="none"
+              style={styles.textInputLarge}
+              onChangeText={(nickname) => setNickname(nickname)}
+              value={nickname}
+            />
           </View>
+          <View style={{ width: 300 }}>
+            <ClickBody
+              setBodyPart={setBodyPart}
+              setSide={setSide}
+              sendCoords={setCoords}
+            />
+          </View>
+          {bodyPart !== "" && (
+            <TouchableOpacity
+              style={{ ...styles.buttonLarge, marginTop: 20 }}
+              onPress={handleSubmit}
+            >
+              <Text style={styles.buttonLargeText}>add mole</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </KeyboardAwareScrollView>
     </View>
