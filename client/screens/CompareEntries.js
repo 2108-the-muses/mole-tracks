@@ -16,29 +16,15 @@ const CompareEntries = (props) => {
   const name = props.route.params.name;
   const moleId = props.route.params.moleId;
   const [entryOne, setEntryOne] = useState(null);
+  const [lastEntryChanged,setLastEntryChanged] = useState(null)
   const [entryTwo, setEntryTwo] = useState(null);
 
-  const dateTruncated = (createdAt) => {
-    const splitDate = createdAt.split("-");
-    let orderedDate = [
-      splitDate[1],
-      splitDate[2].split("T")[0],
-      splitDate[0].slice(2),
-    ];
-    orderedDate = orderedDate.join("/");
-    return orderedDate;
-  };
 
   // @todo turn this into an object so that id is not in the list
-  const entryLabels = entries.map(
-    (entry) => `${format(new Date(entry.date), "P")} (id: ${entry.id})`
-  );
+  const entryDictionary = {}
+ entries.forEach(
+    (entry) => entryDictionary[format(new Date(entry.date), "P")] = entry)
 
-  const parseEntryLabel = (label) => {
-    const id = +label.split(/[():\s]/)[4];
-    const entry = entries.filter((entry) => entry.id === id)[0];
-    return entry;
-  };
 
   return (
     <View style={styles.containerFlexStart}>
@@ -65,8 +51,8 @@ const CompareEntries = (props) => {
             style={styles.moleSilhouette}
             source={require("../../assets/images/mole-silhouette-flipped.png")}
           />
-          <View>
-            <Text style={styles.fontLarge}>compare</Text>
+          <View style={styles.screenTitle}>
+            <Text style={styles.fontExtraLarge}>compare</Text>
           </View>
           <Image
             style={styles.moleSilhouette}
@@ -88,9 +74,11 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={entryLabels}
+              data={Object.keys(entryDictionary).filter(entry=>entry!==lastEntryChanged)}
               defaultButtonText={"entry 1"}
-              onSelect={(selected) => setEntryOne(parseEntryLabel(selected))}
+              onSelect={(selected) => {
+                setLastEntryChanged(selected)
+                setEntryOne(entryDictionary[selected])}}
             />
           </View>
           <View style={{ width: "50%" }}>
@@ -100,9 +88,11 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={entryLabels}
+              data={Object.keys(entryDictionary).filter(entry=>entry!==lastEntryChanged)}
               defaultButtonText={"entry 2"}
-              onSelect={(selected) => setEntryTwo(parseEntryLabel(selected))}
+              onSelect={(selected) => {
+                setLastEntryChanged(selected)
+                setEntryTwo(entryDictionary[selected])}}
             />
           </View>
         </View>
@@ -180,7 +170,8 @@ const CompareEntries = (props) => {
                       props.navigation.navigate("Entry", {
                         entry: entryTwo,
                         name: name,
-                        moleId: moleId,
+                        moleId: moleId
+                        
                       })
                     }
                   >

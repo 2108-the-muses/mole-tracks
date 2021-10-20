@@ -17,7 +17,7 @@ const Info = () => {
         source={require("../../assets/images/background.png")}
         style={styles.backgroundImage}
       />
-      <ScrollView style={{ margin: 20 }}>
+      <ScrollView style={{ margin: 20 }} showsVerticalScrollIndicator={false}>
         <Text style={styles.fontLarge}>{title}</Text>
         <Text style={styles.fontMedium}>{blurb}</Text>
         <Text style={styles.fontMedium}>{list}</Text>
