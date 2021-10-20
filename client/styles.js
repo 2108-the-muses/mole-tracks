@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   /***********************
    Containers            *
   ***********************/
+
   containerScroll: {
     height: "100%",
     flex: 1,
@@ -54,6 +55,19 @@ const styles = StyleSheet.create({
   /***********************
    Headers               *
   ***********************/
+ noMoles:{
+  
+    alignSelf: "center",
+    position: "absolute",
+    top: 200,
+    backgroundColor: "rgba(1, 91, 63,.5)",
+    height: 50,
+    width: 300,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center"
+  
+ },
   navHeader: {
     fontFamily: "SulphurPoint-Regular",
     fontSize: 30,
