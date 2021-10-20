@@ -64,8 +64,8 @@ const Entry = (props) => {
               style={styles.moleSilhouette}
               source={require("../../assets/images/mole-silhouette-flipped.png")}
             />
-            <View style={styles.buttonLarge}>
-              <Text style={styles.buttonLargeText}>entry</Text>
+            <View style={styles.screenTitle}>
+              <Text style={styles.fontExtraLarge}>entry</Text>
             </View>
             <Image
               style={styles.moleSilhouette}
@@ -114,14 +114,15 @@ const Entry = (props) => {
               <View
                 style={{
                   ...styles.polaroidLabelLarge,
-                  marginVertical: 27,
-                  justifyContent: "flex-end",
+                  marginVertical: 20,
+                  justifyContent: "center",
                 }}
               >
                 <TouchableOpacity
+                  style={styles.buttonLarge}
                   onPress={() => props.navigation.push("SingleMole", { mole })}
                 >
-                  <Text style={styles.fontExtraLarge}>{mole.nickname}</Text>
+                  <Text style={styles.buttonLargeText}>{mole.nickname}</Text>
                 </TouchableOpacity>
               </View>
             </View>

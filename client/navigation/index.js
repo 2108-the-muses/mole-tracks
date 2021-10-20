@@ -114,66 +114,35 @@ const MolesStack = (props) => {
             ),
           };
         }}
-        // @todo ideally don't want this here, tab should always be resetting
-        // right now is needed because after adding an entry from the add button,
-        // the tab default somehow becomes the new entry
-        // options={({ route, navigation }) => {
-        //   return {
-        //     headerLeft: () => (
-        //       <Text
-        //         style={{ color: "white" }}
-        //         onPress={() => {
-        //           navigation.navigate(ALLMOLES);
-        //         }}
-        //       >
-        //         back
-        //       </Text>
-        //     ),
-        //   };
-        // }}
       />
       <Stack.Screen
         name={ENTRY}
         component={Entry}
-        options={({ route, navigation }) => {
-          return {
-            headerLeft: () => (
-              <View
-                style={{
-                  flexDirection: "row",
-                }}
-              >
-                <FontAwesome5 name="angle-left" size={25} color="white" />
-                <Text
-                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
-                  onPress={() => {
-                    navigation.navigate(SINGLEMOLE, {
-                      mole: { id: route.params.entry.moleId },
-                    });
-                  }}
-                >
-                  Mole
-                </Text>
-              </View>
-            ),
-          };
-        }}
         // options={({ route, navigation }) => {
         //   return {
         //     headerLeft: () => (
-        //       <Text
-        //         onPress={() => {
-        //           navigation.navigate(SINGLEMOLE, {
-        //             mole: { id: route.params.entry.moleId },
-        //           });
+        //       <View
+        //         style={{
+        //           flexDirection: "row",
         //         }}
         //       >
-        //         Back to mole
-        //       </Text>
+        //         <FontAwesome5 name="angle-left" size={25} color="white" />
+        //         <Text
+        //           style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+        //           onPress={() => {
+        //             navigation.navigate(SINGLEMOLE, {
+        //               mole: { id: route.params.entry.moleId },
+        //             });
+        //           }}
+        //         >
+        //           Mole
+        //         </Text>
+        //       </View>
         //     ),
         //   };
         // }}
       />
+      <Stack.Screen name={INFO} component={Info} />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
@@ -190,7 +159,6 @@ const AddStack = () => {
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
         headerTitle: topHeaderLogo,
-        headerBackVisible: false,
         headerTintColor: "white",
       }}
     >

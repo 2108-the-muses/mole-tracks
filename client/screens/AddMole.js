@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   View,
@@ -13,7 +13,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { addMoleThunk } from "../store/mole";
 import BodyPartSelector from "../components/addMoleSelector";
 import ClickBody from "../components/ClickBody";
-import Buttons from '../components/BodyPartSelectorButtons'
+import Buttons from "../components/BodyPartSelectorButtons";
 import styles from "../styles";
 import { SINGLEMOLE } from "../navigation/constants";
 
@@ -25,15 +25,18 @@ const AddMole = (props) => {
   const singleMole = useSelector((state) => {
     return state.allMoles.singleMole;
   });
-  const [coords, setCoords]= useState("")
+  const [coords, setCoords] = useState("");
   const handleSubmit = async () => {
-    const newMole = await dispatch(addMoleThunk({ nickname, bodyPart, side, coords }));
+    const newMole = await dispatch(
+      addMoleThunk({ nickname, bodyPart, side, coords })
+    );
     if (newMole) {
-
-      props.navigation.navigate("Moles", {
-        screen: SINGLEMOLE,
-        params: { mole: newMole },
-      });
+      props.navigation.navigate(SINGLEMOLE, { mole: newMole });
+      // COME BACK TO THE BELOW AFTER DEMO DAY
+      // props.navigation.navigate("Moles", {
+      //   screen: SINGLEMOLE,
+      //   params: { mole: newMole },
+      // });
     }
   };
 
@@ -60,12 +63,15 @@ const AddMole = (props) => {
               />
             </View>
             <View style={{ width: 300 }}>
-        
-              <ClickBody setBodyPart= {setBodyPart} setSide = {setSide} sendCoords={setCoords}/>
+              <ClickBody
+                setBodyPart={setBodyPart}
+                setSide={setSide}
+                sendCoords={setCoords}
+              />
             </View>
             {bodyPart !== "" && (
               <TouchableOpacity
-                style={styles.buttonLarge}
+                style={{ ...styles.buttonLarge, marginTop: 20 }}
                 onPress={handleSubmit}
               >
                 <Text style={styles.buttonLargeText}>add mole</Text>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { fetchAllMoles } from "../store/mole";
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
@@ -32,20 +32,11 @@ const BodyPartsList = ({ navigation }) => {
   const list = () => {
     return bodyParts.map((bodyPart, index) => {
       let molesInBodyPart = moles.filter((mole) => mole.bodyPart === bodyPart);
-
       if (molesInBodyPart.length)
         return (
           <View key={index} style={{ marginBottom: 0 }}>
             <View style={{ ...styles.headerBox, paddingHorizontal: "3%" }}>
               <Text style={styles.headerText}>{bodyPart}</Text>
-              {/* @todo order the nicknames of moles alphabetically */}
-              <TouchableOpacity
-                onPress={() =>
-                  console.log("Orders alphabetically, forward and reverse")
-                }
-              >
-                <Entypo name="select-arrows" size={16} color="black" />
-              </TouchableOpacity>
             </View>
 
             <View>
