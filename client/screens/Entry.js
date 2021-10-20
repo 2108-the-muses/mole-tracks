@@ -8,9 +8,10 @@ import {
   Image,
   ImageBackground,
   Alert,
+  TextInput,
 } from "react-native";
 import { fetchSingleMole } from "../store/mole";
-import { deleteEntry } from "../store/entry";
+import { deleteEntry, updateEntry } from "../store/entry";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { addStatus } from "../store/entry";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -19,15 +20,33 @@ import { format } from "date-fns";
 import { FETCH_FAILED, FETCH_PENDING, FETCH_SUCCESS } from "../store/mole";
 import Loading from "./Loading";
 import styles from "../styles";
+import Tags from "../components/Tags";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-const Entry = (props) => {
+const Entry = (props, { navigation }) => {
   const { entry, name, moleId } = props.route.params;
   const mole = useSelector((state) => state.allMoles.singleMole);
   const fetchStatus = useSelector(
     (state) => state.allMoles.singleMoleFetchStatus
   );
+  const [isEdit, setIsEdit] = useState(false);
+  const [notes, setNotes] = useState(entry.notes);
+  const [asymmetryTag, setAsymmetryTag] = useState(entry.asymmetryTag);
+  const [borderTag, setBorderTag] = useState(entry.borderTag);
+  const [colorTag, setColorTag] = useState(entry.colorTag);
+  const [elevationTag, setElevationTag] = useState(entry.elevationTag);
+  const [diameterTag, setDiameterTag] = useState(entry.diameterTag);
+  const [date, setDate] = useState(entry.date);
+  const [show, setShow] = useState(false);
+  const [formattedDate, setFormattedDate] = useState(format(new Date(), "PP"));
 
-  const deleteAlert = (entryId) =>
+  const selectDate = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setFormattedDate(format(currentDate, "PP"));
+  };
+
+  const deleteAlert = (entry) =>
     Alert.alert("Delete Entry", "Are you sure you want to delete this entry?", [
       {
         text: "Cancel",
@@ -37,7 +56,7 @@ const Entry = (props) => {
       {
         text: "Delete",
         onPress: () => {
-          dispatch(deleteEntry(entryId)),
+          dispatch(deleteEntry(entry)),
             props.navigation.push("SingleMole", { mole });
         },
         style: "destructive",
@@ -50,6 +69,21 @@ const Entry = (props) => {
   }, []);
 
   dispatch(addStatus(null));
+
+  const handleSubmit = () => {
+    setIsEdit(false);
+    dispatch(
+      updateEntry(entry.id, {
+        notes,
+        date,
+        asymmetryTag,
+        borderTag,
+        colorTag,
+        elevationTag,
+        diameterTag,
+      })
+    );
+  };
 
   if (fetchStatus === FETCH_PENDING) {
     return (
@@ -94,7 +128,7 @@ const Entry = (props) => {
           <View style={styles.headerBox}>
             <View style={{ marginLeft: 10 }}>
               <Text style={{ ...styles.headerText, width: 160 }}>
-                {format(new Date(entry.date), "PP")}
+                {format(new Date(date), "PP")}
               </Text>
             </View>
             <View
@@ -104,19 +138,18 @@ const Entry = (props) => {
                 width: 150,
               }}
             >
-              {/* @todo ability to edit entry */}
               <TouchableOpacity
                 style={{ marginHorizontal: 10 }}
                 onPress={() => {
-                  console.log("Do a setIsEdit(true) here");
+                  setIsEdit(true);
                 }}
               >
                 <Entypo name="edit" size={16} color="black" />
               </TouchableOpacity>
-              {/* @todo ability to delete entry */}
+
               <TouchableOpacity
                 style={{ marginHorizontal: 10 }}
-                onPress={() => deleteAlert(entry.id)}
+                onPress={() => deleteAlert(entry)}
               >
                 <FontAwesome5 name="minus" size={16} color="black" />
               </TouchableOpacity>
@@ -151,15 +184,37 @@ const Entry = (props) => {
                 width: "80%",
               }}
             >
-              <Text
-                style={{
-                  fontFamily: "SulphurPoint-Bold",
-                  color: "black",
-                  fontSize: 22,
-                }}
-              >
-                Notes: {entry.notes}
-              </Text>
+              {isEdit ? (
+                <View>
+                  <Text
+                    style={{
+                      fontFamily: "SulphurPoint-Bold",
+                      color: "black",
+                      fontSize: 22,
+                    }}
+                  >
+                    Notes:
+                  </Text>
+                  <TextInput
+                    style={styles.textInputLarge}
+                    onChangeText={(notes) => setNotes(notes)}
+                    value={notes}
+                    placeholder={"enter notes here"}
+                  ></TextInput>
+                </View>
+              ) : (
+                notes && (
+                  <Text
+                    style={{
+                      fontFamily: "SulphurPoint-Bold",
+                      color: "black",
+                      fontSize: 22,
+                    }}
+                  >
+                    Notes: {notes}
+                  </Text>
+                )
+              )}
               <View
                 style={{
                   marginTop: 20,
@@ -169,36 +224,115 @@ const Entry = (props) => {
                   width: "100%",
                 }}
               >
-                {[
-                  entry.asymmetryTag,
-                  entry.borderTag,
-                  entry.colorTag,
-                  entry.elevationTag,
-                  entry.diameterTag,
-                ].map((tag) => {
-                  if (tag.length > 0)
-                    return (
-                      <View
-                        style={{
-                          backgroundColor: "#FF7379",
-                          borderColor: "black",
-                          borderWidth: 1,
-                          alignItems: "center",
-                          justifyContent: "center",
-                          margin: 5,
-                        }}
-                      >
-                        <Text
-                          style={(styles.tagText, { fontSize: 15, padding: 5 })}
+                {isEdit ? (
+                  <Tags
+                    navigation={navigation}
+                    setAsymmetryTag={setAsymmetryTag}
+                    setBorderTag={setBorderTag}
+                    setColorTag={setColorTag}
+                    setElevationTag={setElevationTag}
+                    setDiameterTag={setDiameterTag}
+                    asymmetryTag={asymmetryTag}
+                    borderTag={borderTag}
+                    colorTag={colorTag}
+                    elevationTag={elevationTag}
+                    diameterTag={diameterTag}
+                  />
+                ) : (
+                  [
+                    asymmetryTag,
+                    borderTag,
+                    colorTag,
+                    elevationTag,
+                    diameterTag,
+                  ].map((tag) => {
+                    if (tag.length > 0)
+                      return (
+                        <View
+                          style={{
+                            backgroundColor: "#FF7379",
+                            borderColor: "black",
+                            borderWidth: 1,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            margin: 5,
+                          }}
                         >
-                          {tag}
-                        </Text>
-                      </View>
-                    );
-                })}
+                          <Text
+                            style={
+                              (styles.tagText, { fontSize: 15, padding: 5 })
+                            }
+                          >
+                            {tag}
+                          </Text>
+                        </View>
+                      );
+                  })
+                )}
               </View>
             </View>
           </View>
+
+          {isEdit && (
+            <View>
+              {show ? (
+                <>
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={date}
+                    mode="date"
+                    display="spinner"
+                    onChange={selectDate}
+                    textColor="default"
+                    style={{ width: 300 }}
+                  />
+                  <TouchableOpacity
+                    style={{
+                      ...styles.dropdown2BtnStyle,
+                      justifyContent: "center",
+                    }}
+                    onPress={() => setShow(false)}
+                  >
+                    <Text
+                      style={{
+                        ...styles.dropdown2BtnTxtStyle,
+                        alignItems: "center",
+                      }}
+                    >
+                      Select Date
+                    </Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    ...styles.dropdown2BtnStyle,
+                    justifyContent: "center",
+                  }}
+                  onPress={() => setShow(true)}
+                >
+                  <Text
+                    style={{
+                      ...styles.dropdown2BtnTxtStyle,
+                      alignItems: "center",
+                    }}
+                  >
+                    Edit Date
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
+          {isEdit && (
+            <View>
+              <TouchableOpacity
+                onPress={handleSubmit}
+                style={styles.buttonSmall}
+              >
+                <Text style={styles.buttonSmallText}>Update</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </KeyboardAwareScrollView>
       </View>
     );

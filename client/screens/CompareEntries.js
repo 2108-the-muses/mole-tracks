@@ -16,15 +16,14 @@ const CompareEntries = (props) => {
   const name = props.route.params.name;
   const moleId = props.route.params.moleId;
   const [entryOne, setEntryOne] = useState(null);
-  const [lastEntryChanged,setLastEntryChanged] = useState(null)
+  const [lastEntryChanged, setLastEntryChanged] = useState(null);
   const [entryTwo, setEntryTwo] = useState(null);
 
-
   // @todo turn this into an object so that id is not in the list
-  const entryDictionary = {}
- entries.forEach(
-    (entry) => entryDictionary[format(new Date(entry.date), "P")] = entry)
-
+  const entryDictionary = {};
+  entries.forEach(
+    (entry) => (entryDictionary[format(new Date(entry.date), "P")] = entry)
+  );
 
   return (
     <View style={styles.containerFlexStart}>
@@ -74,11 +73,14 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={Object.keys(entryDictionary).filter(entry=>entry!==lastEntryChanged)}
+              data={Object.keys(entryDictionary).filter(
+                (entry) => entry !== lastEntryChanged
+              )}
               defaultButtonText={"entry 1"}
               onSelect={(selected) => {
-                setLastEntryChanged(selected)
-                setEntryOne(entryDictionary[selected])}}
+                setLastEntryChanged(selected);
+                setEntryOne(entryDictionary[selected]);
+              }}
             />
           </View>
           <View style={{ width: "50%" }}>
@@ -88,11 +90,14 @@ const CompareEntries = (props) => {
               dropdownStyle={styles.dropdownDropdownStyle}
               rowStyle={styles.dropdownRowStyle}
               rowTextStyle={styles.dropdownRowTxtStyle}
-              data={Object.keys(entryDictionary).filter(entry=>entry!==lastEntryChanged)}
+              data={Object.keys(entryDictionary).filter(
+                (entry) => entry !== lastEntryChanged
+              )}
               defaultButtonText={"entry 2"}
               onSelect={(selected) => {
-                setLastEntryChanged(selected)
-                setEntryTwo(entryDictionary[selected])}}
+                setLastEntryChanged(selected);
+                setEntryTwo(entryDictionary[selected]);
+              }}
             />
           </View>
         </View>
@@ -124,6 +129,39 @@ const CompareEntries = (props) => {
                 <View style={{ marginVertical: 10 }}>
                   <Text style={styles.fontSmall}>{entryOne.notes}</Text>
                 </View>
+                <View>
+                  {[
+                    entryOne.asymmetryTag,
+                    entryOne.borderTag,
+                    entryOne.colorTag,
+                    entryOne.elevationTag,
+                    entryOne.diameterTag,
+                  ].map((tag) => {
+                    if (tag.length > 0) {
+                      return (
+                        <View
+                          style={{
+                            backgroundColor: "#FFDEDF",
+                            borderColor: "black",
+                            borderWidth: 1,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            margin: 5,
+                          }}
+                        >
+                          <Text
+                            style={
+                              (styles.tagText, { fontSize: 15, padding: 5 })
+                            }
+                          >
+                            {tag}
+                          </Text>
+                        </View>
+                      );
+                    }
+                  })}
+                </View>
+
                 <View style={{ marginVertical: 10 }}>
                   <TouchableOpacity
                     style={styles.buttonSmall}
@@ -163,6 +201,39 @@ const CompareEntries = (props) => {
                 <View style={{ marginVertical: 10 }}>
                   <Text style={styles.fontSmall}>{entryTwo.notes}</Text>
                 </View>
+
+                <View>
+                  {[
+                    entryTwo.asymmetryTag,
+                    entryTwo.borderTag,
+                    entryTwo.colorTag,
+                    entryTwo.elevationTag,
+                    entryTwo.diameterTag,
+                  ].map((tag) => {
+                    if (tag.length > 0) {
+                      return (
+                        <View
+                          style={{
+                            backgroundColor: "#FFDEDF",
+                            borderColor: "black",
+                            borderWidth: 1,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            margin: 5,
+                          }}
+                        >
+                          <Text
+                            style={
+                              (styles.tagText, { fontSize: 15, padding: 5 })
+                            }
+                          >
+                            {tag}
+                          </Text>
+                        </View>
+                      );
+                    }
+                  })}
+                </View>
                 <View style={{ marginVertical: 10 }}>
                   <TouchableOpacity
                     style={styles.buttonSmall}
@@ -170,8 +241,7 @@ const CompareEntries = (props) => {
                       props.navigation.navigate("Entry", {
                         entry: entryTwo,
                         name: name,
-                        moleId: moleId
-                        
+                        moleId: moleId,
                       })
                     }
                   >
