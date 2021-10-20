@@ -105,7 +105,7 @@ const MolesStack = (props) => {
                 <Text
                   style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
                   onPress={() => {
-                    navigation.navigate(ALLMOLES);
+                    navigation.push(ALLMOLES);
                   }}
                 >
                   All Moles
