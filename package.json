@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "nodemon server/index.js",
-    "expo": "expo start",
+    "heroku-start": "nodemon server/index.js",
+    "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
