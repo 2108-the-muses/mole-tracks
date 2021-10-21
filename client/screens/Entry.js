@@ -128,7 +128,7 @@ const Entry = (props, { navigation }) => {
           <View style={styles.headerBox}>
             <View style={{ marginLeft: 10 }}>
               <Text style={{ ...styles.headerText, width: 160 }}>
-                {format(new Date(date), "PP")}
+                {formattedDate}
               </Text>
             </View>
             <View
