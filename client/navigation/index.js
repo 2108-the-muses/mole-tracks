@@ -93,6 +93,7 @@ const MolesStack = (props) => {
         headerTitle: topHeaderLogo,
         headerBackTitleVisible: false,
         headerTintColor: "white",
+        headerBackVisible: false,
       }}
     >
       <Stack.Screen name={ALLMOLES} component={AllMoles} />
@@ -104,16 +105,21 @@ const MolesStack = (props) => {
             headerLeft: () => (
               <View
                 style={{
-                  flexDirection: "row",
+                  marginLeft: -10,
+                  marginRight: -5,
                 }}
               >
-                <FontAwesome5 name="angle-left" size={25} color="white" />
                 <Text
-                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                  }}
                   onPress={() => {
                     navigation.push(ALLMOLES);
                   }}
                 >
+                  <FontAwesome5 name="angle-left" size={16} color="white" />
                   All Moles
                 </Text>
               </View>
@@ -129,18 +135,23 @@ const MolesStack = (props) => {
             headerLeft: () => (
               <View
                 style={{
-                  flexDirection: "row",
+                  marginLeft: -10,
+                  marginRight: -5,
                 }}
               >
-                <FontAwesome5 name="angle-left" size={25} color="white" />
                 <Text
-                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                  }}
                   onPress={() => {
                     navigation.push(SINGLEMOLE, {
                       mole: { id: route.params.entry.moleId },
                     });
                   }}
                 >
+                  <FontAwesome5 name="angle-left" size={16} color="white" />
                   Mole
                 </Text>
               </View>
