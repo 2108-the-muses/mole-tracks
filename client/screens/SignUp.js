@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { authenticateSignUp } from "../store/auth";
+import { authenticateGoogleLogin, authenticateSignUp } from "../store/auth";
 import styles from "../styles";
 
 const SignUp = (props) => {
@@ -98,7 +98,9 @@ const SignUp = (props) => {
               marginTop: 10,
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => dispatch(authenticateGoogleLogin())}
+            >
               <View style={styles.googleButton}>
                 <Image
                   style={styles.googleImage}

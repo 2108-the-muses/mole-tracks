@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { authenticateLogin } from "../store/auth";
+import { authenticateGoogleLogin, authenticateLogin } from "../store/auth";
 import styles from "../styles";
 
 const Login = (props) => {
@@ -23,6 +23,12 @@ const Login = (props) => {
       console.log(error);
     }
   };
+
+  // let userInfoResponse = await fetch(
+  //   "https://www.googleapis.com/userinfo/v2/me",
+  //   {
+  //     headers: { Authorization: `Bearer ${accessToken}` },
+  //   }
 
   return (
     <KeyboardAwareScrollView
@@ -84,7 +90,9 @@ const Login = (props) => {
               marginTop: 10,
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => dispatch(authenticateGoogleLogin())}
+            >
               <View style={styles.googleButton}>
                 <Image
                   style={styles.googleImage}

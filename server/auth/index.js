@@ -7,7 +7,11 @@ module.exports = router;
 
 router.post("/login", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.body.uid);
+    // const user = await User.findByPk(req.body.uid);
+    let user = await User.findByPk(req.body.uid);
+    if (!user) {
+      user = await User.create(req.body);
+    }
     res.send(user);
   } catch (err) {
     next(err);
