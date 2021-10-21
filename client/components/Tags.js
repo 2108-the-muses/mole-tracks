@@ -21,7 +21,7 @@ const Tags = ({
   const colorTagArray = ["Single Color", "Many Colors"];
   const elevationTagArray = ["Flat", "Raised"];
   const diameterTagArray = ["Under 6mm", "Over 6mm"];
-
+ 
   const asymmetryTagSelect = (value) => {
     value === asymmetryTag ? setAsymmetryTag("") : setAsymmetryTag(value);
   };
