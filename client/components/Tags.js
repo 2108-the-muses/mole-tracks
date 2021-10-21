@@ -37,7 +37,7 @@ const Tags = ({
   const diameterTagSelect = (value) => {
     value === diameterTag ? setDiameterTag("") : setDiameterTag(value);
   };
-
+ 
   return (
     <View style={styles.tagsInAddEntryContainer}>
       <View style={styles.tagsCategoryContainer}>
