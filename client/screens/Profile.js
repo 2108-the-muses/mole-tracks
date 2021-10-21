@@ -12,7 +12,7 @@ import styles from "../styles";
 import { updateUserThunk, updatePassword } from "../store/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Logout from "../components/Logout";
-import { INFO } from "../navigation/constants";
+import { INFO, MOLE_LEARNING } from "../navigation/constants";
 
 const Profile = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -62,6 +62,14 @@ const Profile = (props) => {
   const onPressInfoButton = async () => {
     try {
       props.navigation.navigate(INFO);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const onPressLearningButton = async () => {
+    try {
+      props.navigation.navigate(MOLE_LEARNING);
     } catch (error) {
       setError(error.message);
     }
@@ -234,6 +242,12 @@ const Profile = (props) => {
               onPress={onPressInfoButton}
             >
               <Text style={styles.buttonLargeText}>Info</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.buttonLarge}
+              onPress={onPressLearningButton}
+            >
+              <Text style={styles.buttonLargeText}>Learning</Text>
             </TouchableOpacity>
             <Logout />
           </View>

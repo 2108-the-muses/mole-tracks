@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
 import styles from "../styles";
+import MoleLearning from "./MoleLearning";
+import { database } from "firebase-admin";
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
@@ -14,6 +16,7 @@ const TakePhoto = ({ navigation, route }) => {
   const [isPreview, setIsPreview] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [sourceInfo, setSourceInfo] = useState(null);
+  const [moleLearning, setMoleLearning] = useState(null);
 
   useEffect(() => {
     onHandlePermission();
@@ -49,6 +52,7 @@ const TakePhoto = ({ navigation, route }) => {
         await cameraRef.current.pausePreview();
         setIsPreview(true);
         setSourceInfo(source);
+        setMoleLearning(data)
       }
     }
   };
@@ -135,6 +139,7 @@ const TakePhoto = ({ navigation, route }) => {
           >
             <Text style={styles.photoCaptureText}>Take Photo</Text>
           </TouchableOpacity>
+          <MoleLearning photo={moleLearning} />
         </View>
       )}
     </View>
