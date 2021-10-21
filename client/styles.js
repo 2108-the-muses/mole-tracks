@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
+  containerInfoTags: {
+    flexDirection: "row",
+    width: 400,
+    justifyContent: "space-between",
+  },
   /***********************
    Fonts               *
   ***********************/
@@ -55,8 +60,7 @@ const styles = StyleSheet.create({
   /***********************
    Headers               *
   ***********************/
- noMoles:{
-  
+  noMoles: {
     alignSelf: "center",
     position: "absolute",
     top: 200,
@@ -65,9 +69,8 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 30,
     alignItems: "center",
-    justifyContent: "center"
-  
- },
+    justifyContent: "center",
+  },
   navHeader: {
     fontFamily: "SulphurPoint-Regular",
     fontSize: 30,
@@ -119,6 +122,11 @@ const styles = StyleSheet.create({
   bodyMap: {
     width: "100%",
     height: "100%",
+  },
+  infoTagsImgs: {
+    width: 75,
+    height: 115,
+    marginHorizontal: 10,
   },
   /***********************
    Buttons               *
