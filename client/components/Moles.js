@@ -18,7 +18,6 @@ const Moles = ({ moles, navigation }) => {
   const [molesImageLoadCount, setMolesImageLoadCount] = useState(0);
   const [allImagesLoaded,setAllImagesLoaded] = useState(false)
   useEffect(()=>{
-    console.log(molesImageLoadCount, moles.length, allImagesLoaded)
     if(molesImageLoadCount === moles.length) setAllImagesLoaded(true)},[molesImageLoadCount])
   const deleteAlert = (moleId) =>
     Alert.alert("Delete Mole", "Are you sure you want to delete this mole?", [
