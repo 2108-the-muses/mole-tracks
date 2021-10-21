@@ -178,6 +178,15 @@ const styles = StyleSheet.create({
     fontFamily: "SulphurPoint-Regular",
     fontSize: 22,
   },
+
+  textInputNotes: {
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    marginTop: 15,
+    color: "black",
+    fontFamily: "SulphurPoint-Regular",
+    fontSize: 22,
+  },
   /***********************
    Dropdown Menuts       *
   ***********************/
