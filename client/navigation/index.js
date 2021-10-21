@@ -161,7 +161,7 @@ const MolesStack = (props) => {
 const UserStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName={LOGOUT}
+      initialRouteName={PROFILE}
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
         headerTitle: topHeaderLogo,
@@ -169,11 +169,11 @@ const UserStack = () => {
         headerTintColor: "white",
       }}
     >
+      <Stack.Screen name={PROFILE} component={Profile} />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={LOGOUT} component={Logout} />
       <Stack.Screen name={LOGIN} component={Login} />
       <Stack.Screen name={INFO} component={Info} />
-      <Stack.Screen name={PROFILE} component={Profile} />
     </Stack.Navigator>
   );
 };
