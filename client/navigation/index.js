@@ -93,6 +93,7 @@ const MolesStack = (props) => {
         headerTitle: topHeaderLogo,
         headerBackTitleVisible: false,
         headerTintColor: "white",
+        headerBackVisible: false,
       }}
     >
       <Stack.Screen name={ALLMOLES} component={AllMoles} />
@@ -104,16 +105,44 @@ const MolesStack = (props) => {
             headerLeft: () => (
               <View
                 style={{
-                  flexDirection: "row",
+                  marginLeft: -10,
+                  marginRight: -5,
                 }}
               >
-                <FontAwesome5 name="angle-left" size={25} color="white" />
                 <Text
-                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                  }}
                   onPress={() => {
-                    navigation.push(ALLMOLES);
+                    navigation.navigate(ALLMOLES, {
+                      options: {
+                        animations: {
+                          showModal: {
+                            enter: {
+                              enabled: true,
+                              alpha: {
+                                from: 0,
+                                to: 1,
+                                duration: 300,
+                              },
+                            },
+                            exit: {
+                              enabled: true,
+                              alpha: {
+                                from: 1,
+                                to: 0,
+                                duration: 300,
+                              },
+                            },
+                          },
+                        },
+                      },
+                    });
                   }}
                 >
+                  <FontAwesome5 name="angle-left" size={16} color="white" />
                   All Moles
                 </Text>
               </View>
@@ -129,18 +158,45 @@ const MolesStack = (props) => {
             headerLeft: () => (
               <View
                 style={{
-                  flexDirection: "row",
+                  marginLeft: -10,
+                  marginRight: -5,
                 }}
               >
-                <FontAwesome5 name="angle-left" size={25} color="white" />
                 <Text
-                  style={(styles.fontExtraSmall, { color: "white", margin: 5 })}
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                  }}
                   onPress={() => {
-                    navigation.push(SINGLEMOLE, {
+                    navigation.navigate(SINGLEMOLE, {
                       mole: { id: route.params.entry.moleId },
+                      options: {
+                        animations: {
+                          showModal: {
+                            enter: {
+                              enabled: true,
+                              alpha: {
+                                from: 0,
+                                to: 1,
+                                duration: 300,
+                              },
+                            },
+                            exit: {
+                              enabled: true,
+                              alpha: {
+                                from: 1,
+                                to: 0,
+                                duration: 300,
+                              },
+                            },
+                          },
+                        },
+                      },
                     });
                   }}
                 >
+                  <FontAwesome5 name="angle-left" size={16} color="white" />
                   Mole
                 </Text>
               </View>
@@ -161,7 +217,7 @@ const MolesStack = (props) => {
 const UserStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName={LOGOUT}
+      initialRouteName={PROFILE}
       screenOptions={{
         headerStyle: { backgroundColor: "#BA5A31" },
         headerTitle: topHeaderLogo,
@@ -169,11 +225,11 @@ const UserStack = () => {
         headerTintColor: "white",
       }}
     >
+      <Stack.Screen name={PROFILE} component={Profile} />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={LOGOUT} component={Logout} />
       <Stack.Screen name={LOGIN} component={Login} />
       <Stack.Screen name={INFO} component={Info} />
-      <Stack.Screen name={PROFILE} component={Profile} />
     </Stack.Navigator>
   );
 };

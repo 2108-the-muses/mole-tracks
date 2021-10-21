@@ -11,6 +11,8 @@ import {
 import styles from "../styles";
 import { updateUserThunk, updatePassword } from "../store/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Logout from "../components/Logout";
+import { INFO } from "../navigation/constants";
 
 const Profile = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -53,6 +55,14 @@ const Profile = (props) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const onPressInfoButton = async () => {
+    try {
+      props.navigation.navigate(INFO);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -136,7 +146,7 @@ const Profile = (props) => {
               </View>
             )}
           </View>
-          {/* <View>
+          <View>
             {isEditPassword ? (
               <View style={{ margin: 20 }}>
                 <TextInput
@@ -210,7 +220,22 @@ const Profile = (props) => {
                 </TouchableOpacity>
               </View>
             )}
-          </View> */}
+          </View>
+        </View>
+        <View
+          style={{
+            ...styles.buttonBox,
+            alignContent: "center",
+            paddingLeft: 20,
+          }}
+        >
+          <TouchableOpacity
+            style={styles.buttonLarge}
+            onPress={onPressInfoButton}
+          >
+            <Text style={styles.buttonLargeText}>Info</Text>
+          </TouchableOpacity>
+          <Logout />
         </View>
       </KeyboardAwareScrollView>
     </View>
