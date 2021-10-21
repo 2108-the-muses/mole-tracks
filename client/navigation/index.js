@@ -116,7 +116,30 @@ const MolesStack = (props) => {
                     margin: 5,
                   }}
                   onPress={() => {
-                    navigation.push(ALLMOLES);
+                    navigation.navigate(ALLMOLES, {
+                      options: {
+                        animations: {
+                          showModal: {
+                            enter: {
+                              enabled: true,
+                              alpha: {
+                                from: 0,
+                                to: 1,
+                                duration: 300,
+                              },
+                            },
+                            exit: {
+                              enabled: true,
+                              alpha: {
+                                from: 1,
+                                to: 0,
+                                duration: 300,
+                              },
+                            },
+                          },
+                        },
+                      },
+                    });
                   }}
                 >
                   <FontAwesome5 name="angle-left" size={16} color="white" />
@@ -146,8 +169,30 @@ const MolesStack = (props) => {
                     margin: 5,
                   }}
                   onPress={() => {
-                    navigation.push(SINGLEMOLE, {
+                    navigation.navigate(SINGLEMOLE, {
                       mole: { id: route.params.entry.moleId },
+                      options: {
+                        animations: {
+                          showModal: {
+                            enter: {
+                              enabled: true,
+                              alpha: {
+                                from: 0,
+                                to: 1,
+                                duration: 300,
+                              },
+                            },
+                            exit: {
+                              enabled: true,
+                              alpha: {
+                                from: 1,
+                                to: 0,
+                                duration: 300,
+                              },
+                            },
+                          },
+                        },
+                      },
                     });
                   }}
                 >
