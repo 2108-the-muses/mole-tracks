@@ -196,10 +196,11 @@ const Entry = (props, { navigation }) => {
                     Notes:
                   </Text>
                   <TextInput
-                    style={styles.textInputLarge}
+                    style={styles.textInputNotes}
                     onChangeText={(notes) => setNotes(notes)}
                     value={notes}
                     placeholder={"enter notes here"}
+                    multiline={true}
                   ></TextInput>
                 </View>
               ) : (
@@ -211,7 +212,8 @@ const Entry = (props, { navigation }) => {
                       fontSize: 22,
                     }}
                   >
-                    Notes: {notes}
+                    Notes:
+                    <Text style={styles.textInputNotes}> {notes}</Text>
                   </Text>
                 )
               )}
@@ -258,9 +260,7 @@ const Entry = (props, { navigation }) => {
                       return (
                         <View
                           style={{
-                            backgroundColor: "#FF7379",
-                            borderColor: "black",
-                            borderWidth: 1,
+                            backgroundColor: "#FFDEDF",
                             alignItems: "center",
                             justifyContent: "center",
                             margin: 5,
