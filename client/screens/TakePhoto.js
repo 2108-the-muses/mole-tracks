@@ -4,7 +4,6 @@ import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
 import styles from "../styles";
 import MoleLearning from "./MoleLearning";
-import { database } from "firebase-admin";
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
@@ -52,7 +51,7 @@ const TakePhoto = ({ navigation, route }) => {
         await cameraRef.current.pausePreview();
         setIsPreview(true);
         setSourceInfo(source);
-        setMoleLearning(data)
+        setMoleLearning(data);
       }
     }
   };
