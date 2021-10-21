@@ -24,7 +24,7 @@ useEffect(()=>{console.log("loaded")},[isLoaded])
 
 const loadAssets = async()=>{
   console.log("in load asset")
-    const fontAssets = fonts.map(font=>Font.loadAsync(font))
+    await Font.loadAsync(fonts)
     const imageAssets = images.map(image => {
       if (typeof image === 'string') {
         return Image.prefetch(image);
