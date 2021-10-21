@@ -61,7 +61,6 @@ const Profile = (props) => {
 
   const onPressInfoButton = async () => {
     try {
-      console.log("pressed info button");
       props.navigation.navigate(INFO);
     } catch (error) {
       setError(error.message);
