@@ -258,9 +258,7 @@ const Entry = (props, { navigation }) => {
                       return (
                         <View
                           style={{
-                            backgroundColor: "#FF7379",
-                            borderColor: "black",
-                            borderWidth: 1,
+                            backgroundColor: "#FFDEDF",
                             alignItems: "center",
                             justifyContent: "center",
                             margin: 5,
