@@ -4,7 +4,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "heroku-start": "nodemon server/index.js",
-    "start": "node server"
+    "start": "node server",
     "expo": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
