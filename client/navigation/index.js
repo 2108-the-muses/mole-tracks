@@ -169,7 +169,7 @@ const MolesStack = (props) => {
                     margin: 5,
                   }}
                   onPress={() => {
-                    navigation.navigate(SINGLEMOLE, {
+                    navigation.push(SINGLEMOLE, {
                       mole: { id: route.params.entry.moleId },
                       options: {
                         animations: {
