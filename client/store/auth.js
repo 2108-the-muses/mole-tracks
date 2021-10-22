@@ -2,7 +2,10 @@ import axios from "axios";
 // import history from '../history'
 import { firebaseAuth } from "../firebase-auth/config";
 
-import { IP_ADDRESS, NGROK } from "../../secrets";
+import firebase from "firebase";
+import * as GoogleAuthentication from "expo-google-app-auth";
+import { IOS_CLIENT_ID } from "../../secrets";
+import { IP_ADDRESS,NGROK } from "../../secrets";
 
 /**
  * ACTION TYPES
@@ -123,6 +126,44 @@ export const authenticateLogin =
       return err.message;
     }
   };
+
+export const authenticateGoogleLogin = () => async (dispatch) => {
+  try {
+    const { type, idToken, accessToken, user } =
+      await GoogleAuthentication.logInAsync({
+        iosClientId: IOS_CLIENT_ID,
+        scopes: ["profile", "email"],
+      });
+    if (type === "success") {
+      const credential = await firebase.auth.GoogleAuthProvider.credential(
+        idToken,
+        accessToken
+      );
+      await firebase.auth().signInWithCredential(credential);
+      let userId;
+      await firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          userId = user.uid;
+        } else {
+          return false;
+        }
+      });
+      const { data } = await axios.post(
+        `${NGROK}/auth/login`,
+        {
+          uid: userId,
+          email: user.email,
+          firstName: user.givenName,
+          lastName: user.familyName,
+        }
+      );
+      if (verify(data, dispatch)) return true;
+    }
+  } catch (err) {
+    console.log(err);
+    // return err.message;
+  }
+};
 
 const initialState = {
   user: {},
