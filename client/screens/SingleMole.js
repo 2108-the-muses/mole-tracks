@@ -72,13 +72,6 @@ const SingleMole = (props) => {
   let initialSortedEntries = entries.sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );
-  const [sortedEntries, setSortedEntries] = useState(initialSortedEntries);
-
-  const handleOrderByDate = () => {
-    setSortedEntries(sortedEntries.reverse());
-
-    console.log(sortedEntries.map((entry) => entry.date));
-  };
 
   const handleSubmit = () => {
     setIsEdit(false);
@@ -275,15 +268,6 @@ const SingleMole = (props) => {
                   width: 100,
                 }}
               >
-                {/* @todo reverse button */}
-                {/* <TouchableOpacity
-                  style={{      marginHorizontal: 10,
-                    width: 30,
-                    alignItems: "center", }}
-                  onPress={() => handleOrderByDate()}
-                >
-                  <Entypo name="select-arrows" size={16} color="black" />
-                </TouchableOpacity> */}
                 <TouchableOpacity
                   style={{
                     marginLeft: 10,

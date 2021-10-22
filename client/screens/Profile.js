@@ -46,7 +46,6 @@ const Profile = (props) => {
   const handleUpdatePassword = async () => {
     try {
       const response = await updatePassword(password);
-      console.log("HANDLE UPDATE PASSWORD: ", response);
       if (response !== true) {
         setError(response);
       } else {
