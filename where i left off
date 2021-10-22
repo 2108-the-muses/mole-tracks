@@ -1,6 +1,0 @@
-can toggle back and forth between selector and body map buttons
-need to:
-figure out react-native image-mapper dependencies
-how to access press event 
-    make view in clickbody be whole screen
-    write an on press and see what happens!
