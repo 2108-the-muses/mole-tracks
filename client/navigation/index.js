@@ -142,6 +142,7 @@ const MolesStack = (props) => {
                     color: "white",
                     margin: 5,
                     marginLeft: 3,
+                    fontFamily: "SulphurPoint-Regular"
                   }}
                 >
                   all
@@ -198,6 +199,7 @@ const MolesStack = (props) => {
                     color: "white",
                     margin: 5,
                     marginLeft: 3,
+                    fontFamily: "SulphurPoint-Regular"
                   }}
                 >
                   mole
@@ -230,6 +232,7 @@ const MolesStack = (props) => {
                     color: "white",
                     margin: 5,
                     marginLeft: 3,
+                    fontFamily: "SulphurPoint-Regular"
                   }}
                 ></Text>
               </TouchableOpacity>
