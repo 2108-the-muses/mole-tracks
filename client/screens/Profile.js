@@ -65,13 +65,8 @@ const Profile = (props) => {
     }
   };
 
-  const onPressLearningButton = async () => {
-    try {
-      props.navigation.navigate(MOLE_LEARNING);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  const currentUser = firebaseAuth.currentUser;
+  const provider = currentUser.providerData[0].providerId;
 
   return (
     <View style={styles.containerScroll}>
@@ -192,12 +187,16 @@ const Profile = (props) => {
                     Passwords must match!
                   </Text>
                 ) : (
-                  <TouchableOpacity
-                    onPress={handleUpdatePassword}
-                    style={{ ...styles.buttonLarge, marginTop: 20 }}
-                  >
-                    <Text style={styles.buttonLargeText}>Update Password</Text>
-                  </TouchableOpacity>
+                  provider !== "google.com" && (
+                    <TouchableOpacity
+                      onPress={handleUpdatePassword}
+                      style={{ ...styles.buttonLarge, marginTop: 20 }}
+                    >
+                      <Text style={styles.buttonLargeText}>
+                        Update Password
+                      </Text>
+                    </TouchableOpacity>
+                  )
                 )}
               </View>
             ) : (
