@@ -17,7 +17,6 @@ import { firebaseAuth } from "../firebase-auth/config";
 
 const Profile = (props) => {
   const user = useSelector((state) => state.auth.user);
-
   const [error, setError] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const [isEditPassword, setIsEditPassword] = useState(false);
@@ -67,8 +66,18 @@ const Profile = (props) => {
     }
   };
 
+<<<<<<< HEAD
   const currentUser = firebaseAuth.currentUser;
   const provider = currentUser.providerData[0].providerId;
+=======
+  const onPressLearningButton = async () => {
+    try {
+      props.navigation.navigate(MOLE_LEARNING);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+>>>>>>> 35c96f029820c9fdda7d69aa9503b6cee1496530
 
   return (
     <View style={styles.containerScroll}>

@@ -1,11 +1,15 @@
 import axios from "axios";
 import { firebaseAuth } from "../firebase-auth/config";
+<<<<<<< HEAD
 import {
   IP_ADDRESS,
   CLOUDINARY_URL,
   upload_preset,
   NGROK,
 } from "../../secrets";
+=======
+import { CLOUDINARY_URL, upload_preset } from "../../secrets";
+>>>>>>> 35c96f029820c9fdda7d69aa9503b6cee1496530
 
 /**
  * ADD CONSTANTS
@@ -51,7 +55,8 @@ export const addEntry = (
   borderTag,
   colorTag,
   elevationTag,
-  diameterTag
+  diameterTag,
+  moleAnalysis
 ) => {
   return async (dispatch) => {
     try {
@@ -83,6 +88,7 @@ export const addEntry = (
               colorTag: colorTag,
               elevationTag: elevationTag,
               diameterTag: diameterTag,
+              moleAnalysis: moleAnalysis,
             },
             {
               headers: {

@@ -34,6 +34,10 @@ const Entry = db.define("entry", {
     type: Sequelize.ENUM("Under 6mm", "Over 6mm", ""),
     defaultValue: "",
   },
+  moleAnalysis: {
+    type: Sequelize.TEXT,
+    defaultValue: "",
+  },
 });
 
 module.exports = Entry;
