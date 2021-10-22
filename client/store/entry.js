@@ -51,7 +51,8 @@ export const addEntry = (
   borderTag,
   colorTag,
   elevationTag,
-  diameterTag
+  diameterTag,
+  moleAnalysis
 ) => {
   return async (dispatch) => {
     try {
@@ -83,6 +84,7 @@ export const addEntry = (
               colorTag: colorTag,
               elevationTag: elevationTag,
               diameterTag: diameterTag,
+              moleAnalysis: moleAnalysis,
             },
             {
               headers: {

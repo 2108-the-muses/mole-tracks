@@ -29,6 +29,10 @@ import Tags from "../components/Tags";
 
 const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
+  const moleAnalysis = route.params.moleAnalysis;
+
+  console.log("moleAnalysis in add entry", moleAnalysis);
+
   const [bodyParts, setBodyParts] = useState([]);
   const [notes, setNotes] = useState(null);
   const [moleId, setMoleId] = useState(route.params.moleId);
@@ -49,6 +53,7 @@ const AddEntry = ({ route, navigation }) => {
   useEffect(() => {
     dispatch(fetchAllMoles());
   }, []);
+  useEffect(() => {});
 
   useEffect(() => {
     let bodyPartsArr = moles.map((mole) => {
@@ -94,8 +99,7 @@ const AddEntry = ({ route, navigation }) => {
   const handleSubmit = () => {
     if (!moleId || (!bodyPart && !moleId)) {
       submitAlert();
-      console.log("mole id ", moleId);
-    } else
+    } else {
       dispatch(
         addEntry(
           notes,
@@ -106,9 +110,11 @@ const AddEntry = ({ route, navigation }) => {
           borderTag,
           colorTag,
           elevationTag,
-          diameterTag
+          diameterTag,
+          moleAnalysis
         )
       );
+    }
   };
 
   if (status === ADD_PENDING) {
