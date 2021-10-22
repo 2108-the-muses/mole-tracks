@@ -233,7 +233,6 @@ const SingleMole = (props) => {
                 style={{ width: "100%" }}
                 showsVerticalScrollIndicator={false}
               >
-                {/* will changed to sortedEntries upon fixing bug */}
                 {initialSortedEntries.map((entry) => {
                   const notes = entry.notes || [];
                   return (

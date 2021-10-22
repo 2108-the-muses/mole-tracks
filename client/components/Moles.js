@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,9 +16,10 @@ import styles from "../styles";
 const Moles = ({ moles, navigation }) => {
   const dispatch = useDispatch();
   const [molesImageLoadCount, setMolesImageLoadCount] = useState(0);
-  const [allImagesLoaded,setAllImagesLoaded] = useState(false)
-  useEffect(()=>{
-    if(molesImageLoadCount === moles.length) setAllImagesLoaded(true)},[molesImageLoadCount])
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+  useEffect(() => {
+    if (molesImageLoadCount === moles.length) setAllImagesLoaded(true);
+  }, [molesImageLoadCount]);
   const deleteAlert = (moleId) =>
     Alert.alert("Delete Mole", "Are you sure you want to delete this mole?", [
       {
@@ -60,7 +61,11 @@ const Moles = ({ moles, navigation }) => {
                   (molesImageLoadCount) => molesImageLoadCount + 1
                 );
               }}
-              source={ allImagesLoaded ? {uri: image} : require('../../assets/images/face-with-mole.png') }
+              source={
+                allImagesLoaded
+                  ? { uri: image }
+                  : require("../../assets/images/face-with-mole.png")
+              }
             />
             <View style={styles.polaroidLabel}>
               <Text style={styles.headerText}>{mole.nickname}</Text>

@@ -13,9 +13,7 @@ import AppLoading from "expo-app-loading";
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    console.log("loaded");
-  }, [isLoaded]);
+  useEffect(() => [isLoaded]);
   const fonts = {
     "SulphurPoint-Bold": require("./assets/fonts/SulphurPoint-Bold.ttf"),
     "SulphurPoint-Light": require("./assets/fonts/SulphurPoint-Light.ttf"),
