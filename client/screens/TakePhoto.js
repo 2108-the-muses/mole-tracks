@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
 import styles from "../styles";
-import {SafeAreaView} from 'react-native-safe-area-context'
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);

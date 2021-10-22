@@ -49,9 +49,7 @@ const loadAssets = async()=>{
 
   return (
     <Provider store={store}>
-    <SafeAreaProvider>
       <Main />
-  </SafeAreaProvider>
     </Provider>
   );
 }
