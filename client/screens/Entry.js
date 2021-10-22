@@ -109,6 +109,7 @@ const Entry = (props, { navigation }) => {
             <Image
               style={styles.moleSilhouette}
               source={require("../../assets/images/mole-silhouette-flipped.png")}
+
             />
             <View style={styles.screenTitle}>
               <Text style={styles.fontExtraLarge}>entry</Text>
@@ -153,6 +154,7 @@ const Entry = (props, { navigation }) => {
           <View style={{ flex: 1, marginVertical: "3%", alignItems: "center" }}>
             <View style={styles.polaroidContainerLarge}>
               <Image
+              defaultSource={require('../../assets/images/face-with-mole.png')}
                 source={{ uri: entry.imgUrl }}
                 style={styles.polaroidImageLarge}
               ></Image>
