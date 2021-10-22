@@ -20,7 +20,7 @@ useEffect(()=>{console.log("loaded")},[isLoaded])
     "SulphurPoint-Regular": require("./assets/fonts/SulphurPoint-Regular.ttf"),
     "SF-Pro": require("./assets/fonts/SF-Pro.ttf"),
   };
-  const images = [require("./assets/images/face-with-mole.png"),require("./assets/images/body-front.png"),require("./assets/images/body-back.png"),"https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png"];
+  const images = [require("./assets/images/face-with-mole.png"),require("./assets/images/body-front.png"),require("./assets/images/body-back.png"),"https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png",require('./assets/images/spinninglogo.gif')];
 
 const loadAssets = async()=>{
   console.log("in load asset")
