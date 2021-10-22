@@ -4,7 +4,7 @@ import {
   IP_ADDRESS,
   CLOUDINARY_URL,
   upload_preset,
-  NGROK,
+  HEROKU,
 } from "../../secrets";
 
 /**
@@ -72,7 +72,7 @@ export const addEntry = (
         let { secure_url } = await response.json();
         if (secure_url) {
           const { data } = await axios.post(
-            `${NGROK}/api/entries/`,
+            `${HEROKU}/api/entries/`,
             {
               notes: notes,
               date: date,
@@ -105,7 +105,7 @@ export const deleteEntry = (entry) => async (dispatch) => {
   try {
     const idToken = await firebaseAuth.currentUser.getIdToken(true);
     if (idToken) {
-      const response = await axios.delete(`${NGROK}/api/entries/${entry.id}`, {
+      const response = await axios.delete(`${HEROKU}/api/entries/${entry.id}`, {
         headers: { authtoken: idToken },
       });
       if (response.status === 200) {
@@ -126,7 +126,7 @@ export const updateEntry = (
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.put(
-          `${NGROK}/api/entries/${entryId}`,
+          `${HEROKU}/api/entries/${entryId}`,
           {
             notes: notes,
             date: date,
