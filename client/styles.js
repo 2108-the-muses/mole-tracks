@@ -104,6 +104,12 @@ const styles = StyleSheet.create({
     height: 100,
     alignItems: "center",
     backgroundColor: "#E59F71",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   screenTitle: {
     borderRadius: 10,

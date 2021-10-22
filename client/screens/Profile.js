@@ -233,6 +233,7 @@ const Profile = (props) => {
             ...styles.buttonBox,
             alignContent: "center",
             paddingLeft: 20,
+            marginBottom: 20,
           }}
         >
           <TouchableOpacity
