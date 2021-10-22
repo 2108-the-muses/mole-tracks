@@ -48,7 +48,6 @@ const Profile = (props) => {
   const handleUpdatePassword = async () => {
     try {
       const response = await updatePassword(password);
-      console.log("HANDLE UPDATE PASSWORD: ", response);
       if (response !== true) {
         setError(response);
       } else {
@@ -228,21 +227,21 @@ const Profile = (props) => {
               )
             )}
           </View>
-          <View
-            style={{
-              ...styles.buttonBox,
-              alignContent: "center",
-              paddingLeft: 20,
-            }}
+        </View>
+        <View
+          style={{
+            ...styles.buttonBox,
+            alignContent: "center",
+            paddingLeft: 20,
+          }}
+        >
+          <TouchableOpacity
+            style={styles.buttonLarge}
+            onPress={onPressInfoButton}
           >
-            <TouchableOpacity
-              style={styles.buttonLarge}
-              onPress={onPressInfoButton}
-            >
-              <Text style={styles.buttonLargeText}>Info</Text>
-            </TouchableOpacity>
-            <Logout />
-          </View>
+            <Text style={styles.buttonLargeText}>Info</Text>
+          </TouchableOpacity>
+          <Logout />
         </View>
       </KeyboardAwareScrollView>
     </View>

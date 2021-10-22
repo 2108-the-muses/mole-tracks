@@ -1,6 +1,7 @@
 import axios from "axios";
-import { IP_ADDRESS } from "../../secrets";
+import { IP_ADDRESS, NGROK } from "../../secrets";
 import { firebaseAuth } from "../firebase-auth/config";
+// http://${IP_ADDRESS}:8080 when not using NGROK
 
 /**
  * FETCH CONSTANTS
@@ -52,12 +53,9 @@ export const fetchAllMoles = () => {
       dispatch(setMolesFetchStatus(FETCH_PENDING));
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const { data } = await axios.get(
-          `http://${IP_ADDRESS}:8080/api/mole/`,
-          {
-            headers: { authtoken: idToken },
-          }
-        );
+        const { data } = await axios.get(`${NGROK}/api/mole/`, {
+          headers: { authtoken: idToken },
+        });
         dispatch(setAllMoles(data));
       }
       dispatch(setMolesFetchStatus(FETCH_SUCCESS));
@@ -71,16 +69,12 @@ export const fetchAllMoles = () => {
 export const fetchSingleMole = (moleId) => {
   return async (dispatch) => {
     try {
-      
       dispatch(setSingleMoleFetchStatus(FETCH_PENDING));
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
-        const { data } = await axios.get(
-          `http://${IP_ADDRESS}:8080/api/mole/${moleId}`,
-          {
-            headers: { authtoken: idToken },
-          }
-        );
+        const { data } = await axios.get(`${NGROK}/api/mole/${moleId}`, {
+          headers: { authtoken: idToken },
+        });
         dispatch(setSingleMole(data));
       }
       dispatch(setSingleMoleFetchStatus(FETCH_SUCCESS));
@@ -94,17 +88,17 @@ export const fetchSingleMole = (moleId) => {
 export const addMoleThunk = ({ nickname, bodyPart, side, coords }) => {
   return async (dispatch) => {
     try {
-      console.log('thunk',coords)
+      console.log("thunk", coords);
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.post(
-          `http://${IP_ADDRESS}:8080/api/mole/`,
+          `${NGROK}/api/mole/`,
           {
             nickname,
             bodyPart,
             side,
             x: coords.x,
-            y: coords.y
+            y: coords.y,
           },
           { headers: { authtoken: idToken } }
         );
@@ -124,7 +118,7 @@ export const updateMoleThunk = (moleId, { nickname, bodyPart, side }) => {
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.put(
-          `http://${IP_ADDRESS}:8080/api/mole/${moleId}`,
+          `${NGROK}/api/mole/${moleId}`,
           {
             nickname,
             bodyPart,
@@ -144,12 +138,9 @@ export const deleteMoleThunk = (moleId) => async (dispatch) => {
   try {
     const idToken = await firebaseAuth.currentUser.getIdToken(true);
     if (idToken) {
-      const response = await axios.delete(
-        `http://${IP_ADDRESS}:8080/api/mole/${moleId}`,
-        {
-          headers: { authtoken: idToken },
-        }
-      );
+      const response = await axios.delete(`${NGROK}/api/mole/${moleId}`, {
+        headers: { authtoken: idToken },
+      });
       if (response.status === 200) {
         dispatch(deleteMole(moleId));
       }
