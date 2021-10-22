@@ -83,7 +83,6 @@ const AddMole = (props) => {
             source={require("../../assets/images/mole-silhouette.png")}
           />
         </View>
-
         <View style={{ flex: 1, marginVertical: "3%", alignItems: "center" }}>
           <View style={{ width: 300 }}>
             <TextInput

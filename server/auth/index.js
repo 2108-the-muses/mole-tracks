@@ -47,7 +47,6 @@ router.put("/update", checkAuth, async (req, res, next) => {
     const user = await User.findByPk(req.user.uid);
 
     if (user) {
-      console.log(await user.update(req.body));
       res.json(await user.update(req.body));
     } else {
       throw { status: 401, message: "User not Found!" };

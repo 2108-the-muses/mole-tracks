@@ -10,8 +10,9 @@ npm-debug.*
 web-build/
 secrets.js
 .env
+package-lock.json
 # macOS
 .DS_Store
 firebase-admin-sdk.json
 package.json
-where i left off
+GoogleService-Info.plist

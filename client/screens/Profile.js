@@ -13,6 +13,7 @@ import { updateUserThunk, updatePassword } from "../store/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Logout from "../components/Logout";
 import { INFO } from "../navigation/constants";
+import { firebaseAuth } from "../firebase-auth/config";
 
 const Profile = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -46,7 +47,6 @@ const Profile = (props) => {
   const handleUpdatePassword = async () => {
     try {
       const response = await updatePassword(password);
-      console.log("HANDLE UPDATE PASSWORD: ", response);
       if (response !== true) {
         setError(response);
       } else {
@@ -66,13 +66,8 @@ const Profile = (props) => {
     }
   };
 
-  const onPressLearningButton = async () => {
-    try {
-      props.navigation.navigate(MOLE_LEARNING);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  const currentUser = firebaseAuth.currentUser;
+  const provider = currentUser.providerData[0].providerId;
 
   return (
     <View style={styles.containerScroll}>
@@ -99,7 +94,7 @@ const Profile = (props) => {
                     borderBottomWidth: 0,
                   }}
                 >
-                  Email: {user.email}
+                  EMAIL: {user.email}
                 </TextInput>
                 <TextInput
                   onChangeText={(firstName) => setFirstName(firstName)}
@@ -202,31 +197,33 @@ const Profile = (props) => {
                 )}
               </View>
             ) : (
-              <View style={{ margin: 20 }}>
-                <TextInput
-                  style={{
-                    ...styles.textInputLarge,
-                    borderBottomWidth: 0,
-                  }}
-                >
-                  Password
-                </TextInput>
-                <TextInput
-                  secureTextEntry
-                  style={{
-                    ...styles.textInputLarge,
-                    borderBottomColor: "none",
-                  }}
-                >
-                  {password}
-                </TextInput>
-                <TouchableOpacity
-                  onPress={() => setIsEditPassword(true)}
-                  style={{ ...styles.buttonLarge, marginTop: 20 }}
-                >
-                  <Text style={styles.buttonLargeText}>Change Password</Text>
-                </TouchableOpacity>
-              </View>
+              provider !== "google.com" && (
+                <View style={{ margin: 20 }}>
+                  <TextInput
+                    style={{
+                      ...styles.textInputLarge,
+                      borderBottomWidth: 0,
+                    }}
+                  >
+                    Password
+                  </TextInput>
+                  <TextInput
+                    secureTextEntry
+                    style={{
+                      ...styles.textInputLarge,
+                      borderBottomColor: "none",
+                    }}
+                  >
+                    {password}
+                  </TextInput>
+                  <TouchableOpacity
+                    onPress={() => setIsEditPassword(true)}
+                    style={{ ...styles.buttonLarge, marginTop: 20 }}
+                  >
+                    <Text style={styles.buttonLargeText}>Change Password</Text>
+                  </TouchableOpacity>
+                </View>
+              )
             )}
           </View>
           <View
@@ -234,6 +231,7 @@ const Profile = (props) => {
               ...styles.buttonBox,
               alignContent: "center",
               paddingLeft: 20,
+              marginBottom: 20,
             }}
           >
             <TouchableOpacity

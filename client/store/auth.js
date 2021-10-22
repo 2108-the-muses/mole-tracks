@@ -5,7 +5,7 @@ import { firebaseAuth } from "../firebase-auth/config";
 import firebase from "firebase";
 import * as GoogleAuthentication from "expo-google-app-auth";
 import { IOS_CLIENT_ID } from "../../secrets";
-import { IP_ADDRESS,NGROK } from "../../secrets";
+import { IP_ADDRESS, HEROKU } from "../../secrets";
 
 /**
  * ACTION TYPES
@@ -30,7 +30,7 @@ export const logout = () => {
 export const setUserThunk = () => async (dispatch) => {
   const idToken = await firebaseAuth.currentUser.getIdToken(true);
   if (idToken) {
-    const { data } = await axios.get(`${NGROK}/auth/me`, {
+    const { data } = await axios.get(`${HEROKU}/auth/me`, {
       headers: {
         authtoken: idToken,
       },
@@ -46,7 +46,7 @@ export const updateUserThunk =
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.put(
-          `${NGROK}/auth/update`,
+          `${HEROKU}/auth/update`,
           {
             firstName,
             lastName,
@@ -94,7 +94,7 @@ export const authenticateSignUp =
         email,
         password
       );
-      const { data } = await axios.post(`${NGROK}/auth/signup`, {
+      const { data } = await axios.post(`${HEROKU}/auth/signup`, {
         uid: user.uid,
         email,
         firstName,
@@ -115,7 +115,7 @@ export const authenticateLogin =
         email,
         password
       );
-      const { data } = await axios.post(`${NGROK}/auth/login`, {
+      const { data } = await axios.post(`${HEROKU}/auth/login`, {
         uid: user.uid,
       });
       if (verify(data, dispatch)) {
@@ -148,15 +148,12 @@ export const authenticateGoogleLogin = () => async (dispatch) => {
           return false;
         }
       });
-      const { data } = await axios.post(
-        `${NGROK}/auth/login`,
-        {
-          uid: userId,
-          email: user.email,
-          firstName: user.givenName,
-          lastName: user.familyName,
-        }
-      );
+      const { data } = await axios.post(`${HEROKU}/auth/login`, {
+        uid: userId,
+        email: user.email,
+        firstName: user.givenName,
+        lastName: user.familyName,
+      });
       if (verify(data, dispatch)) return true;
     }
   } catch (err) {

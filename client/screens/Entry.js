@@ -38,15 +38,7 @@ const Entry = (props, { navigation }) => {
   const [colorTag, setColorTag] = useState(entry.colorTag);
   const [elevationTag, setElevationTag] = useState(entry.elevationTag);
   const [diameterTag, setDiameterTag] = useState(entry.diameterTag);
-  const [date, setDate] = useState(entry.date);
-  const [show, setShow] = useState(false);
   const [formattedDate, setFormattedDate] = useState(format(new Date(), "PP"));
-
-  const selectDate = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setDate(currentDate);
-    setFormattedDate(format(currentDate, "PP"));
-  };
 
   const deleteAlert = (entry) =>
     Alert.alert("Delete Entry", "Are you sure you want to delete this entry?", [
@@ -87,7 +79,6 @@ const Entry = (props, { navigation }) => {
     dispatch(
       updateEntry(entry.id, {
         notes,
-        date,
         asymmetryTag,
         borderTag,
         colorTag,
@@ -127,6 +118,7 @@ const Entry = (props, { navigation }) => {
             <Image
               style={styles.moleSilhouette}
               source={require("../../assets/images/mole-silhouette-flipped.png")}
+
             />
             <View style={styles.screenTitle}>
               <Text style={styles.fontExtraLarge}>entry</Text>
@@ -171,6 +163,7 @@ const Entry = (props, { navigation }) => {
           <View style={{ flex: 1, marginVertical: "3%", alignItems: "center" }}>
             <View style={styles.polaroidContainerLarge}>
               <Image
+              defaultSource={require('../../assets/images/face-with-mole.png')}
                 source={{ uri: entry.imgUrl }}
                 style={styles.polaroidImageLarge}
               ></Image>
@@ -293,67 +286,6 @@ const Entry = (props, { navigation }) => {
             </View>
           </View>
 
-          {isEdit && (
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {show ? (
-                <View
-                  style={{
-                    width: 300,
-                  }}
-                >
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode="date"
-                    display="spinner"
-                    onChange={selectDate}
-                    textColor="default"
-                    style={{ width: 300 }}
-                  />
-                  <TouchableOpacity
-                    style={{
-                      ...styles.dropdown2BtnStyle,
-                      justifyContent: "center",
-                    }}
-                    onPress={() => setShow(false)}
-                  >
-                    <Text
-                      style={{
-                        ...styles.dropdown2BtnTxtStyle,
-                        alignItems: "center",
-                      }}
-                    >
-                      Edit Date
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              ) : (
-                <View style={{ width: 300 }}>
-                  <TouchableOpacity
-                    style={{
-                      ...styles.dropdown2BtnStyle,
-                      justifyContent: "center",
-                    }}
-                    onPress={() => setShow(true)}
-                  >
-                    <Text
-                      style={{
-                        ...styles.dropdown2BtnTxtStyle,
-                        alignItems: "center",
-                      }}
-                    >
-                      Edit Date
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-          )}
           {isEdit && (
             <View
               style={{
