@@ -31,8 +31,6 @@ const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
   const moleAnalysis = route.params.moleAnalysis;
 
-  console.log("moleAnalysis in add entry", moleAnalysis);
-
   const [bodyParts, setBodyParts] = useState([]);
   const [notes, setNotes] = useState(null);
   const [moleId, setMoleId] = useState(route.params.moleId);
@@ -49,6 +47,9 @@ const AddEntry = ({ route, navigation }) => {
   const [colorTag, setColorTag] = useState("");
   const [elevationTag, setElevationTag] = useState("");
   const [diameterTag, setDiameterTag] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [formattedDate, setFormattedDate] = useState(format(new Date(), "PP"));
 
   useEffect(() => {
     dispatch(fetchAllMoles());
@@ -72,10 +73,6 @@ const AddEntry = ({ route, navigation }) => {
     });
     setBodyPartMoles(molesDictionary);
   }, [bodyPart]);
-
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-  const [formattedDate, setFormattedDate] = useState(format(new Date(), "PP"));
 
   const selectDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -128,16 +125,6 @@ const AddEntry = ({ route, navigation }) => {
       </View>
     );
   } else if (status === ADD_SUCCESS) {
-    // @todo after this navigation the "ALLMOLES" tab only ever wants to default to the Entry
-    // navigation.navigate("Moles", {
-    //   screen: ENTRY,
-    //   params: {
-    //     entry: entryForEntryRouteParam,
-    //     name: moleNameForEntryRouteParam,
-    //     moleId: moleId,
-    //   },
-    // });
-    // temporary fix below... not what we want
     navigation.push(ENTRY, {
       entry: entryForEntryRouteParam,
       name: moleNameForEntryRouteParam,
@@ -182,15 +169,6 @@ const AddEntry = ({ route, navigation }) => {
               style={styles.polaroidImageLarge}
               source={{ uri: base64Img }}
             />
-            {/* <View
-              style={{
-                ...styles.polaroidLabelLarge,
-                marginVertical: 27,
-                justifyContent: "flex-end",
-              }}
-            >
-              <Text style={styles.fontExtraLarge}>{mole.nickname}</Text>
-            </View> */}
           </View>
           <View style={{ width: 300 }}>
             <View
