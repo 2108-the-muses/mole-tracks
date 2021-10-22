@@ -52,7 +52,7 @@ const Moles = ({ moles, navigation }) => {
           <View style={{ ...styles.polaroidContainer, marginRight: 10 }}>
             <Image
               style={styles.polaroidImage}
-              defaultSource = {require('../../assets/images/spinninglogo.gif')}
+              defaultSource = {require('../../assets/images/face-with-mole.png')}
               source={{uri: image}} 
             />
             <View style={styles.polaroidLabel}>
