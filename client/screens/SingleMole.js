@@ -172,7 +172,7 @@ const SingleMole = (props) => {
             >
               <View style={styles.polaroidContainer}>
                 <Image
-                defaultfSource={require('../../assets/images/face-with-mole.png')}
+                defaultSource={require('../../assets/images/face-with-mole.png')}
                   source={{ uri: firstPhoto }}
                   style={styles.polaroidImage}
                 ></Image>
