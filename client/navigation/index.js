@@ -220,10 +220,10 @@ const MolesStack = (props) => {
                   alignItems: "center",
                 }}
                 onPress={() => {
-                  navigation.goBack(SINGLEMOLE);
+                  navigation.goBack();
                 }}
               >
-                <FontAwesome5 name="angle-left" size={16} color="white" />
+                <FontAwesome5 name="angle-left" size={20} color="white" />
                 <Text
                   style={{
                     fontSize: 16,
@@ -231,9 +231,7 @@ const MolesStack = (props) => {
                     margin: 5,
                     marginLeft: 3,
                   }}
-                >
-                  entry
-                </Text>
+                ></Text>
               </TouchableOpacity>
             ),
           };
