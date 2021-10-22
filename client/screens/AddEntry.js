@@ -31,6 +31,8 @@ const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
   const moleAnalysis = route.params.moleAnalysis;
 
+  console.log("moleAnalysis in add entry", moleAnalysis);
+
   const [bodyParts, setBodyParts] = useState([]);
   const [notes, setNotes] = useState(null);
   const [moleId, setMoleId] = useState(route.params.moleId);

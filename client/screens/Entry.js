@@ -24,6 +24,7 @@ import Tags from "../components/Tags";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 const Entry = (props, { navigation }) => {
+
   const { entry, name, moleId } = props.route.params;
   const mole = useSelector((state) => state.allMoles.singleMole);
   const fetchStatus = useSelector(
