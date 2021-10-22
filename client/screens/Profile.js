@@ -98,7 +98,7 @@ const Profile = (props) => {
                     borderBottomWidth: 0,
                   }}
                 >
-                  Email: {user.email}
+                  EMAIL: {user.email}
                 </TextInput>
                 <TextInput
                   onChangeText={(firstName) => setFirstName(firstName)}
