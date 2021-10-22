@@ -84,6 +84,12 @@ const styles = StyleSheet.create({
     height: 35,
     alignItems: "center",
     backgroundColor: "#E59F71",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   headerText: {
     fontFamily: "SulphurPoint-Bold",
@@ -144,6 +150,13 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+      // width: 2,
+    },
   },
   buttonLargeText: {
     color: "white",
@@ -158,6 +171,12 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   buttonSmallText: {
     color: "white",
@@ -259,6 +278,12 @@ const styles = StyleSheet.create({
     height: 150,
     borderColor: "#F3EAD3",
     borderWidth: 1,
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   polaroidLabel: {
     flexDirection: "row",
@@ -286,6 +311,12 @@ const styles = StyleSheet.create({
     height: 325,
     borderColor: "#F3EAD3",
     borderWidth: 2,
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   polaroidLabelLarge: {
     flexDirection: "row",
@@ -329,6 +360,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     flexDirection: "row",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   googleButtonText: {
     color: "black",
@@ -454,6 +491,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#E59F71",
     opacity: 0.7,
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   photoCapture: {
     marginTop: 20,
@@ -513,6 +556,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     fontFamily: "SulphurPoint-Regular",
     fontSize: 18,
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
   tagsActiveButton: {
     backgroundColor: "#FF7379",
@@ -536,6 +585,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
     fontSize: 20,
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
   },
 });
 
