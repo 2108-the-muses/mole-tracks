@@ -367,7 +367,7 @@ const SingleMole = (props) => {
             )}
           </View>
 
-          {entries.length > 0 && (
+          {entries.length > 1 && (
             <View
               style={{
                 justifyContent: "center",
