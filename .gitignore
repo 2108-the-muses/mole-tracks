@@ -13,4 +13,5 @@ secrets.js
 # macOS
 .DS_Store
 firebase-admin-sdk.json
+package.json
 where i left off
