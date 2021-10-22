@@ -207,12 +207,12 @@ const AddEntry = ({ route, navigation }) => {
                   </TouchableOpacity>
                 </>
               ) : (
-                <TouchableOpacity
+                <View
                   style={{
                     ...styles.dropdown2BtnStyle,
                     justifyContent: "center",
                   }}
-                  onPress={() => setShow(true)}
+                  // onPress={() => setShow(true)}
                 >
                   <Text
                     style={{
@@ -222,7 +222,7 @@ const AddEntry = ({ route, navigation }) => {
                   >
                     {formattedDate}
                   </Text>
-                </TouchableOpacity>
+                </View>
               )}
             </View>
           </View>

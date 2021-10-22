@@ -35,7 +35,7 @@ const {
   CompareEntries,
 } = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Text, Image, View } from "react-native";
+import { Text, Image, View, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styles from "../styles";
@@ -102,49 +102,51 @@ const MolesStack = (props) => {
         options={({ route, navigation }) => {
           return {
             headerLeft: () => (
-              <View
+              <TouchableOpacity
                 style={{
-                  marginLeft: -10,
-                  marginRight: -5,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  navigation.navigate(ALLMOLES, {
+                    options: {
+                      animations: {
+                        showModal: {
+                          enter: {
+                            enabled: true,
+                            alpha: {
+                              from: 0,
+                              to: 1,
+                              duration: 300,
+                            },
+                          },
+                          exit: {
+                            enabled: true,
+                            alpha: {
+                              from: 1,
+                              to: 0,
+                              duration: 300,
+                            },
+                          },
+                        },
+                      },
+                    },
+                  });
                 }}
               >
+                <FontAwesome5 name="angle-left" size={16} color="white" />
                 <Text
                   style={{
                     fontSize: 16,
                     color: "white",
                     margin: 5,
-                  }}
-                  onPress={() => {
-                    navigation.navigate(ALLMOLES, {
-                      options: {
-                        animations: {
-                          showModal: {
-                            enter: {
-                              enabled: true,
-                              alpha: {
-                                from: 0,
-                                to: 1,
-                                duration: 300,
-                              },
-                            },
-                            exit: {
-                              enabled: true,
-                              alpha: {
-                                from: 1,
-                                to: 0,
-                                duration: 300,
-                              },
-                            },
-                          },
-                        },
-                      },
-                    });
+                    marginLeft: 3,
                   }}
                 >
-                  <FontAwesome5 name="angle-left" size={16} color="white" />
-                  All Moles
+                  all
                 </Text>
-              </View>
+              </TouchableOpacity>
             ),
           };
         }}
@@ -155,55 +157,86 @@ const MolesStack = (props) => {
         options={({ route, navigation }) => {
           return {
             headerLeft: () => (
-              <View
+              <TouchableOpacity
                 style={{
-                  marginLeft: -10,
-                  marginRight: -5,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  navigation.push(SINGLEMOLE, {
+                    mole: { id: route.params.entry.moleId },
+                    options: {
+                      animations: {
+                        showModal: {
+                          enter: {
+                            enabled: true,
+                            alpha: {
+                              from: 0,
+                              to: 1,
+                              duration: 300,
+                            },
+                          },
+                          exit: {
+                            enabled: true,
+                            alpha: {
+                              from: 1,
+                              to: 0,
+                              duration: 300,
+                            },
+                          },
+                        },
+                      },
+                    },
+                  });
                 }}
               >
+                <FontAwesome5 name="angle-left" size={16} color="white" />
                 <Text
                   style={{
                     fontSize: 16,
                     color: "white",
                     margin: 5,
-                  }}
-                  onPress={() => {
-                    navigation.navigate(SINGLEMOLE, {
-                      mole: { id: route.params.entry.moleId },
-                      options: {
-                        animations: {
-                          showModal: {
-                            enter: {
-                              enabled: true,
-                              alpha: {
-                                from: 0,
-                                to: 1,
-                                duration: 300,
-                              },
-                            },
-                            exit: {
-                              enabled: true,
-                              alpha: {
-                                from: 1,
-                                to: 0,
-                                duration: 300,
-                              },
-                            },
-                          },
-                        },
-                      },
-                    });
+                    marginLeft: 3,
                   }}
                 >
-                  <FontAwesome5 name="angle-left" size={16} color="white" />
-                  Mole
+                  mole
                 </Text>
-              </View>
+              </TouchableOpacity>
             ),
           };
         }}
       />
-      <Stack.Screen name={INFO} component={Info} />
+      <Stack.Screen
+        name={INFO}
+        component={Info}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={20} color="white" />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                    marginLeft: 3,
+                  }}
+                ></Text>
+              </TouchableOpacity>
+            ),
+          };
+        }}
+      />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
