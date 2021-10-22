@@ -103,6 +103,7 @@ const TakePhoto = ({ navigation, route }) => {
 
       {isPreview && (
         <View style={styles.photoBottomButtonsContainer}>
+          <View style = {styles.photoButtonsBox}>
           <TouchableOpacity
             activeOpacity={0.3}
             onPress={onAcceptPhoto}
@@ -118,12 +119,14 @@ const TakePhoto = ({ navigation, route }) => {
           >
             <Text style={styles.photoCaptureText}>Retake Photo</Text>
           </TouchableOpacity>
+          </View>
 
         </View>
       )}
 
       {!isPreview && (
         <View style={styles.photoBottomButtonsContainer}>
+          <View style = {styles.photoButtonsBox}>
           <TouchableOpacity
             activeOpacity={0.3}
             disabled={!isCameraReady}
@@ -140,6 +143,7 @@ const TakePhoto = ({ navigation, route }) => {
           >
             <Text style={styles.photoCaptureText}>Take Photo</Text>
           </TouchableOpacity>
+          </View>
         </View>
       )}
       </View>

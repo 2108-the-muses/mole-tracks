@@ -448,18 +448,21 @@ const styles = StyleSheet.create({
   },
   photoBottomButtonsContainer: {
     // position: "absolute",
-    flexDirection: "row",
     bottom: 0,
     width: "100%",
     alignItems: "center",
-    justifyContent: "space-around",
     backgroundColor: "#E59F71",
     opacity: 0.7,
     flex:2
   },
+  photoButtonsBox: {
+    width: "100%",
+    height: "50%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
   photoCapture: {
-    marginBottom: 110,
-    marginLeft: 20,
     borderRadius: 10,
     backgroundColor: "#FF7379",
     borderColor: "black",
