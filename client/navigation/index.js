@@ -36,7 +36,7 @@ const {
   CompareEntries,
 } = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Text, Image, View } from "react-native";
+import { Text, Image, View, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import styles from "../styles";
@@ -109,11 +109,11 @@ const MolesStack = (props) => {
                   marginRight: -5,
                 }}
               >
-                <Text
+                <TouchableOpacity
                   style={{
-                    fontSize: 16,
-                    color: "white",
-                    margin: 5,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                   onPress={() => {
                     navigation.navigate(ALLMOLES, {
@@ -143,8 +143,17 @@ const MolesStack = (props) => {
                   }}
                 >
                   <FontAwesome5 name="angle-left" size={16} color="white" />
-                  All Moles
-                </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: "white",
+                      margin: 5,
+                      marginLeft: 3,
+                    }}
+                  >
+                    All Moles
+                  </Text>
+                </TouchableOpacity>
               </View>
             ),
           };

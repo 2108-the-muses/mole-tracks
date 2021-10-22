@@ -60,9 +60,12 @@ const CompareEntries = (props) => {
               style={styles.moleSilhouette}
               source={require("../../assets/images/mole-silhouette-flipped.png")}
             />
-            <View style={styles.screenTitle}>
-              <Text style={styles.fontExtraLarge}>compare</Text>
-            </View>
+            <TouchableOpacity
+              style={styles.buttonLarge}
+              onPress={() => props.navigation.goBack("SingleMole")}
+            >
+              <Text style={styles.buttonLargeText}>{name}</Text>
+            </TouchableOpacity>
             <Image
               style={styles.moleSilhouette}
               source={require("../../assets/images/mole-silhouette.png")}
