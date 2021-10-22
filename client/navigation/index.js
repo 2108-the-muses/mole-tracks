@@ -7,7 +7,6 @@ import {
   ALLMOLES,
   SINGLEMOLE,
   ENTRY,
-  ADD,
   LOGOUT,
   ADDENTRY,
   TAKEPHOTO,
