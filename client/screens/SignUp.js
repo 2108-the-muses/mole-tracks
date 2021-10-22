@@ -7,10 +7,10 @@ import styles from "../styles";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
-  const [firstName, setFirstName] = useState("Cody");
-  const [lastName, setLastName] = useState("Mole");
-  const [email, setEmail] = useState("cody@moletracks.com");
-  const [password, setPassword] = useState("123456");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSignUp = async () => {
@@ -90,7 +90,7 @@ const SignUp = (props) => {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={{ marginTop: 10 }}>or</Text>
+          {/* <Text style={{ marginTop: 10 }}>or</Text>
           <View
             style={{
               flexDirection: "row",
@@ -111,7 +111,7 @@ const SignUp = (props) => {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </View>
     </KeyboardAwareScrollView>

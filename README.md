@@ -156,7 +156,7 @@ Run the seed file to populate the database:
 
 # Creators
 * Gillian (Gigi) Markley: [GitHub](https://github.com/gigimarkley) | [LinkedIn](https://www.linkedin.com/in/gillian-markley/)
-* Vera Kahn: [GitHub](https://github.com/charmingduchess) | [LinkedIn]()
+* Vera Kahn: [GitHub](https://github.com/charmingduchess) | [LinkedIn](https://www.linkedin.com/vera-kahn)
 * Sonja Pylvainen: [GitHub](https://github.com/maijaleena) | [LinkedIn]()
 * Alexandra Marks: [GitHub](https://github.com/amarks93) | [LinkedIn]()
 

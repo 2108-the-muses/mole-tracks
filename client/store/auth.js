@@ -1,10 +1,11 @@
 import axios from "axios";
 // import history from '../history'
 import { firebaseAuth } from "../firebase-auth/config";
+
 import firebase from "firebase";
 import * as GoogleAuthentication from "expo-google-app-auth";
 import { IOS_CLIENT_ID } from "../../secrets";
-import { IP_ADDRESS } from "../../secrets";
+import { IP_ADDRESS,NGROK } from "../../secrets";
 
 /**
  * ACTION TYPES
@@ -29,7 +30,7 @@ export const logout = () => {
 export const setUserThunk = () => async (dispatch) => {
   const idToken = await firebaseAuth.currentUser.getIdToken(true);
   if (idToken) {
-    const { data } = await axios.get(`http://${IP_ADDRESS}:8080/auth/me`, {
+    const { data } = await axios.get(`${NGROK}/auth/me`, {
       headers: {
         authtoken: idToken,
       },
@@ -45,7 +46,7 @@ export const updateUserThunk =
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.put(
-          `http://${IP_ADDRESS}:8080/auth/update`,
+          `${NGROK}/auth/update`,
           {
             firstName,
             lastName,
@@ -93,15 +94,12 @@ export const authenticateSignUp =
         email,
         password
       );
-      const { data } = await axios.post(
-        `http://${IP_ADDRESS}:8080/auth/signup`,
-        {
-          uid: user.uid,
-          email,
-          firstName,
-          lastName,
-        }
-      );
+      const { data } = await axios.post(`${NGROK}/auth/signup`, {
+        uid: user.uid,
+        email,
+        firstName,
+        lastName,
+      });
       if (verify(data, dispatch)) return true;
     } catch (err) {
       console.log(err);
@@ -117,13 +115,12 @@ export const authenticateLogin =
         email,
         password
       );
-      const { data } = await axios.post(
-        `http://${IP_ADDRESS}:8080/auth/login`,
-        {
-          uid: user.uid,
-        }
-      );
-      if (verify(data, dispatch)) return true;
+      const { data } = await axios.post(`${NGROK}/auth/login`, {
+        uid: user.uid,
+      });
+      if (verify(data, dispatch)) {
+        return true;
+      }
     } catch (err) {
       console.log(err);
       return err.message;
@@ -152,7 +149,7 @@ export const authenticateGoogleLogin = () => async (dispatch) => {
         }
       });
       const { data } = await axios.post(
-        `http://${IP_ADDRESS}:8080/auth/login`,
+        `${NGROK}/auth/login`,
         {
           uid: userId,
           email: user.email,

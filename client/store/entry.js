@@ -1,8 +1,11 @@
 import axios from "axios";
-import { IP_ADDRESS } from "../../secrets";
 import { firebaseAuth } from "../firebase-auth/config";
-import { CLOUDINARY_URL, upload_preset } from "../../secrets";
-
+import {
+  IP_ADDRESS,
+  CLOUDINARY_URL,
+  upload_preset,
+  NGROK,
+} from "../../secrets";
 
 /**
  * ADD CONSTANTS
@@ -66,11 +69,10 @@ export const addEntry = (
           },
           method: "POST",
         });
-
         let { secure_url } = await response.json();
         if (secure_url) {
           const { data } = await axios.post(
-            `http://${IP_ADDRESS}:8080/api/entries/`,
+            `${NGROK}/api/entries/`,
             {
               notes: notes,
               date: date,
@@ -103,12 +105,9 @@ export const deleteEntry = (entry) => async (dispatch) => {
   try {
     const idToken = await firebaseAuth.currentUser.getIdToken(true);
     if (idToken) {
-      const response = await axios.delete(
-        `http://${IP_ADDRESS}:8080/api/entries/${entry.id}`,
-        {
-          headers: { authtoken: idToken },
-        }
-      );
+      const response = await axios.delete(`${NGROK}/api/entries/${entry.id}`, {
+        headers: { authtoken: idToken },
+      });
       if (response.status === 200) {
         dispatch(_deleteEntry(entry.id));
       }
@@ -127,7 +126,7 @@ export const updateEntry = (
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.put(
-          `http://${IP_ADDRESS}:8080/api/entries/${entryId}`,
+          `${NGROK}/api/entries/${entryId}`,
           {
             notes: notes,
             date: date,
