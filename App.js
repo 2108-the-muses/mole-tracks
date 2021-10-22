@@ -13,27 +13,31 @@ import AppLoading from "expo-app-loading";
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
-useEffect(()=>{console.log("loaded")},[isLoaded])
+  useEffect(() => [isLoaded]);
   const fonts = {
     "SulphurPoint-Bold": require("./assets/fonts/SulphurPoint-Bold.ttf"),
     "SulphurPoint-Light": require("./assets/fonts/SulphurPoint-Light.ttf"),
     "SulphurPoint-Regular": require("./assets/fonts/SulphurPoint-Regular.ttf"),
     "SF-Pro": require("./assets/fonts/SF-Pro.ttf"),
   };
-  const images = [require("./assets/images/face-with-mole.png"),require("./assets/images/body-front.png"),require("./assets/images/body-back.png"),"https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png",require('./assets/images/face-with-mole.png')];
+  const images = [
+    require("./assets/images/face-with-mole.png"),
+    require("./assets/images/body-front.png"),
+    require("./assets/images/body-back.png"),
+    "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png",
+  ];
 
-const loadAssets = async()=>{
-  console.log("in load asset")
-    await Font.loadAsync(fonts)
-    const imageAssets = images.map(image => {
-      if (typeof image === 'string') {
+  const loadAssets = async () => {
+    await Font.loadAsync(fonts);
+    const imageAssets = images.map((image) => {
+      if (typeof image === "string") {
         return Image.prefetch(image);
       } else {
         return Asset.fromModule(image).downloadAsync();
       }
     });
-    await Promise.all([...imageAssets, fontAssets])
-}
+    await Promise.all([...imageAssets, fontAssets]);
+  };
 
   if (!isLoaded) {
     return (

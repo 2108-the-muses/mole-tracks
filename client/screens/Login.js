@@ -7,8 +7,8 @@ import styles from "../styles";
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("sally@moletracks.com");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState(null);
 
   const handleLogin = async () => {
@@ -82,7 +82,7 @@ const Login = (props) => {
               </View>
             </TouchableOpacity>
           </View>
-          {/* <Text style={{ marginTop: 10 }}>or</Text>
+          <Text style={{ marginTop: 10 }}>or</Text>
           <View
             style={{
               flexDirection: "row",
@@ -103,7 +103,7 @@ const Login = (props) => {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View> */}
+          </View>
         </View>
       </View>
     </KeyboardAwareScrollView>
