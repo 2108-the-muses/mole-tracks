@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "./client/store";
 import Main from "./client/screens/Main";
-import { LogBox } from "react-native";
+
+import { LogBox, SafeAreaView } from "react-native";
+import {SafeAreaProvider} from 'react-native-safe-area-context'
 
 import { Asset } from "expo-asset";
 LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
@@ -47,7 +49,9 @@ const loadAssets = async()=>{
 
   return (
     <Provider store={store}>
+    <SafeAreaProvider>
       <Main />
+  </SafeAreaProvider>
     </Provider>
   );
 }

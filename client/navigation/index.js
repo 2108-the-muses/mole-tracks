@@ -207,7 +207,7 @@ const MolesStack = (props) => {
       <Stack.Screen name={INFO} component={Info} />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={ADDMOLE} component={AddMole} />
-      <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
+      <Stack.Screen name={TAKEPHOTO} component={TakePhoto} options = {{tabBarVisible: false}}/>
       <Stack.Screen name={ADDENTRY} component={AddEntry} />
       <Stack.Screen name={COMPAREENTRIES} component={CompareEntries} />
     </Stack.Navigator>
@@ -272,12 +272,6 @@ export const TabNavigator = () => {
         unmountOnBlur={true}
         options={{ unmountOnBlur: true }}
       />
-      {/* <Tab.Screen
-        name="Add"
-        component={AddStack}
-        unmountOnBlur={true}
-        options={{ unmountOnBlur: true }}
-      /> */}
       <Tab.Screen
         name="User"
         component={UserStack}

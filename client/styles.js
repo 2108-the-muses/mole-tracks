@@ -413,18 +413,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
+    height: heightConst
   },
   photoTopContainer: {
-    position: "absolute",
+    flex: 1,
+    // position: "absolute",
     flexDirection: "row",
     top: 0,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
-    height: 147,
     backgroundColor: "#E59F71",
     opacity: 0.7,
+    
   },
   photoCaptureDimeAdvice: {
     flex: 1,
@@ -445,20 +447,19 @@ const styles = StyleSheet.create({
     borderColor: "black",
   },
   photoBottomButtonsContainer: {
-    position: "absolute",
+    // position: "absolute",
     flexDirection: "row",
     bottom: 0,
     width: "100%",
-    height: 146,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-around",
     backgroundColor: "#E59F71",
     opacity: 0.7,
+    flex:2
   },
   photoCapture: {
-    marginTop: 20,
+    marginBottom: 110,
     marginLeft: 20,
-    marginBottom: 13,
     borderRadius: 10,
     backgroundColor: "#FF7379",
     borderColor: "black",
@@ -467,7 +468,6 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
   },
   photoCaptureText: {
     color: "white",

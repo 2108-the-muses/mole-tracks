@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
 import styles from "../styles";
+import {SafeAreaView} from 'react-native-safe-area-context'
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
@@ -75,7 +76,7 @@ const TakePhoto = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.photoContainer}>
+    <SafeAreaView >
       <Camera
         ref={cameraRef}
         style={styles.photoContainer}
@@ -84,8 +85,8 @@ const TakePhoto = ({ navigation, route }) => {
         useCamera2Api={true}
       />
 
-      <View style={styles.photoGuide}></View>
-
+      
+<View style={styles.photoContainer}>
       <View style={styles.photoTopContainer}>
         <Text style={styles.photoCaptureDimeAdvice}>
           Please line up your dime with the dime image!
@@ -98,6 +99,8 @@ const TakePhoto = ({ navigation, route }) => {
         </View>
       </View>
 
+      <View style={styles.photoGuide}></View>
+
       {isPreview && (
         <View style={styles.photoBottomButtonsContainer}>
           <TouchableOpacity
@@ -107,6 +110,7 @@ const TakePhoto = ({ navigation, route }) => {
           >
             <Text style={styles.photoCaptureText}>Accept Photo</Text>
           </TouchableOpacity>
+         
           <TouchableOpacity
             activeOpacity={0.3}
             onPress={retakePic}
@@ -114,6 +118,7 @@ const TakePhoto = ({ navigation, route }) => {
           >
             <Text style={styles.photoCaptureText}>Retake Photo</Text>
           </TouchableOpacity>
+
         </View>
       )}
 
@@ -137,7 +142,8 @@ const TakePhoto = ({ navigation, route }) => {
           </TouchableOpacity>
         </View>
       )}
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
