@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
   containerInfoTags: {
     flexDirection: "row",
-    width: 400,
     justifyContent: "space-between",
   },
   /***********************
@@ -440,8 +439,8 @@ const styles = StyleSheet.create({
   },
   // LABEL is the category label
   labelBox: {
-    borderTopWidth: 1,
-    borderColor: "black",
+    // borderTopWidth: 1,
+    // borderColor: "black",
     alignItems: "flex-start",
     paddingTop: 4,
   },

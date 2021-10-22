@@ -144,7 +144,7 @@ const MolesStack = (props) => {
                     marginLeft: 3,
                   }}
                 >
-                  All
+                  all
                 </Text>
               </TouchableOpacity>
             ),
@@ -200,14 +200,45 @@ const MolesStack = (props) => {
                     marginLeft: 3,
                   }}
                 >
-                  Mole
+                  mole
                 </Text>
               </TouchableOpacity>
             ),
           };
         }}
       />
-      <Stack.Screen name={INFO} component={Info} />
+      <Stack.Screen
+        name={INFO}
+        component={Info}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  navigation.goBack(SINGLEMOLE);
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={16} color="white" />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                    marginLeft: 3,
+                  }}
+                >
+                  entry
+                </Text>
+              </TouchableOpacity>
+            ),
+          };
+        }}
+      />
       <Stack.Screen name={LOADING} component={Loading} />
       <Stack.Screen name={ADDMOLE} component={AddMole} />
       <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />

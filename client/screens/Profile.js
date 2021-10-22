@@ -13,6 +13,7 @@ import { updateUserThunk, updatePassword } from "../store/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Logout from "../components/Logout";
 import { INFO } from "../navigation/constants";
+import { firebaseAuth } from "../firebase-auth/config";
 
 const Profile = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -187,44 +188,42 @@ const Profile = (props) => {
                     Passwords must match!
                   </Text>
                 ) : (
-                  provider !== "google.com" && (
-                    <TouchableOpacity
-                      onPress={handleUpdatePassword}
-                      style={{ ...styles.buttonLarge, marginTop: 20 }}
-                    >
-                      <Text style={styles.buttonLargeText}>
-                        Update Password
-                      </Text>
-                    </TouchableOpacity>
-                  )
+                  <TouchableOpacity
+                    onPress={handleUpdatePassword}
+                    style={{ ...styles.buttonLarge, marginTop: 20 }}
+                  >
+                    <Text style={styles.buttonLargeText}>Update Password</Text>
+                  </TouchableOpacity>
                 )}
               </View>
             ) : (
-              <View style={{ margin: 20 }}>
-                <TextInput
-                  style={{
-                    ...styles.textInputLarge,
-                    borderBottomWidth: 0,
-                  }}
-                >
-                  Password
-                </TextInput>
-                <TextInput
-                  secureTextEntry
-                  style={{
-                    ...styles.textInputLarge,
-                    borderBottomColor: "none",
-                  }}
-                >
-                  {password}
-                </TextInput>
-                <TouchableOpacity
-                  onPress={() => setIsEditPassword(true)}
-                  style={{ ...styles.buttonLarge, marginTop: 20 }}
-                >
-                  <Text style={styles.buttonLargeText}>Change Password</Text>
-                </TouchableOpacity>
-              </View>
+              provider !== "google.com" && (
+                <View style={{ margin: 20 }}>
+                  <TextInput
+                    style={{
+                      ...styles.textInputLarge,
+                      borderBottomWidth: 0,
+                    }}
+                  >
+                    Password
+                  </TextInput>
+                  <TextInput
+                    secureTextEntry
+                    style={{
+                      ...styles.textInputLarge,
+                      borderBottomColor: "none",
+                    }}
+                  >
+                    {password}
+                  </TextInput>
+                  <TouchableOpacity
+                    onPress={() => setIsEditPassword(true)}
+                    style={{ ...styles.buttonLarge, marginTop: 20 }}
+                  >
+                    <Text style={styles.buttonLargeText}>Change Password</Text>
+                  </TouchableOpacity>
+                </View>
+              )
             )}
           </View>
           <View

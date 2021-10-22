@@ -112,7 +112,7 @@ export const addMoleThunk = ({ nickname, bodyPart, side, coords }) => {
   };
 };
 
-export const updateMoleThunk = (moleId, { nickname, bodyPart, side }) => {
+export const updateMoleThunk = (moleId, { nickname }) => {
   return async (dispatch) => {
     try {
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
@@ -121,8 +121,6 @@ export const updateMoleThunk = (moleId, { nickname, bodyPart, side }) => {
           `${HEROKU}/api/mole/${moleId}`,
           {
             nickname,
-            bodyPart,
-            side,
           },
           { headers: { authtoken: idToken } }
         );

@@ -36,8 +36,6 @@ const SingleMole = (props) => {
 
   const [isEdit, setIsEdit] = useState(false);
   const [nickname, setNickname] = useState(mole.nickname);
-  const [side, setSide] = useState(mole.side);
-  const [bodyPart, setBodyPart] = useState(mole.bodyPart);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -47,20 +45,6 @@ const SingleMole = (props) => {
   useEffect(() => {
     setNickname(mole.nickname);
   }, [mole.nickname]);
-
-  useEffect(() => {
-    setSide(mole.side);
-  }, [mole.side]);
-
-  useEffect(() => {
-    setBodyPart(mole.bodyPart);
-  }, [mole.bodyPart]);
-
-  const sides = ["front", "back"];
-  let bodyParts = ["head", "torso", "arm-l", "arm-r", "leg-l", "leg-r"];
-  side === "front"
-    ? (bodyParts = [...bodyParts, "groin"])
-    : (bodyParts = [...bodyParts, "butt"]);
 
   let firstPhoto;
   const entries = mole.entries || [];
@@ -75,7 +59,7 @@ const SingleMole = (props) => {
 
   const handleSubmit = () => {
     setIsEdit(false);
-    dispatch(updateMoleThunk(mole.id, { nickname, bodyPart, side }));
+    dispatch(updateMoleThunk(mole.id, { nickname }));
   };
 
   const deleteAlert = (moleId) =>
@@ -121,15 +105,26 @@ const SingleMole = (props) => {
             <View style={styles.headerBox}>
               <View style={{ marginLeft: 10 }}>
                 {isEdit ? (
-                  <SafeAreaView>
-                    <TextInput
-                      autoCapitalize="none"
-                      style={styles.headerInput}
-                      placeholder={nickname}
-                      onChangeText={(nickname) => setNickname(nickname)}
-                      value={nickname}
-                    ></TextInput>
-                  </SafeAreaView>
+                  <View style={{ flexDirection: "row" }}>
+                    <SafeAreaView>
+                      <TextInput
+                        autoCapitalize="none"
+                        style={styles.headerInput}
+                        placeholder={nickname}
+                        onChangeText={(nickname) => setNickname(nickname)}
+                        value={nickname}
+                      ></TextInput>
+                    </SafeAreaView>
+                    <TouchableOpacity
+                      onPress={handleSubmit}
+                      style={{
+                        ...styles.buttonSmall,
+                        backgroundColor: "transparent",
+                      }}
+                    >
+                      <Text style={styles.buttonSmallText}>update</Text>
+                    </TouchableOpacity>
+                  </View>
                 ) : (
                   <Text style={{ ...styles.headerText, width: 160 }}>
                     {nickname}
@@ -195,62 +190,15 @@ const SingleMole = (props) => {
 
               <View style={{ margin: 10, flex: 1, alignItems: "center" }}>
                 <View style={{ width: "90%" }}>
-                  {isEdit ? (
-                    <SelectDropdown
-                      buttonStyle={styles.dropdownBtnStyle}
-                      buttonTextStyle={styles.dropdownBtnTxtStyle}
-                      dropdownStyle={styles.dropdownDropdownStyle}
-                      rowStyle={styles.dropdownRowStyle}
-                      rowTextStyle={styles.dropdownRowTxtStyle}
-                      data={sides}
-                      defaultButtonText={side}
-                      onSelect={(selected) => setSide(selected)}
-                    />
-                  ) : (
-                    <View style={styles.selectBox}>
-                      <Text style={styles.select}>{side}</Text>
-                    </View>
-                  )}
-                  <View style={styles.labelBox}>
-                    <Text style={styles.labelText}>side</Text>
+                  <View style={styles.selectBox}>
+                    <Text style={styles.select}>Side: {mole.side}</Text>
                   </View>
                 </View>
                 <View style={{ width: "90%" }}>
-                  {isEdit ? (
-                    <SelectDropdown
-                      buttonStyle={styles.dropdownBtnStyle}
-                      buttonTextStyle={styles.dropdownBtnTxtStyle}
-                      dropdownStyle={styles.dropdownDropdownStyle}
-                      rowStyle={styles.dropdownRowStyle}
-                      rowTextStyle={styles.dropdownRowTxtStyle}
-                      data={bodyParts}
-                      defaultButtonText={bodyPart}
-                      onSelect={(selected) => setBodyPart(selected)}
-                    />
-                  ) : (
-                    <View style={styles.selectBox}>
-                      <Text style={styles.select}>{bodyPart}</Text>
-                    </View>
-                  )}
-                  <View style={styles.labelBox}>
-                    <Text style={styles.labelText}>location</Text>
+                  <View style={styles.selectBox}>
+                    <Text style={styles.select}>Location: {mole.bodyPart}</Text>
                   </View>
                 </View>
-                {isEdit && (
-                  <View
-                    style={{
-                      alignItems: "flex-end",
-                      width: "95%",
-                    }}
-                  >
-                    <TouchableOpacity
-                      onPress={handleSubmit}
-                      style={styles.buttonSmall}
-                    >
-                      <Text style={styles.buttonSmallText}>update</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
               </View>
             </View>
           </View>
