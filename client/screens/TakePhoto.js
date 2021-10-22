@@ -11,7 +11,6 @@ import {
 import { cropPicture } from "../../assets/MachineLearning/imageHelper";
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
-const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
 
 const TakePhoto = ({ navigation, route }) => {
   const cameraRef = useRef();
@@ -20,6 +19,7 @@ const TakePhoto = ({ navigation, route }) => {
   const [isPreview, setIsPreview] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [sourceInfo, setSourceInfo] = useState(null);
+  const [dataInfo, setDataInfo] = useState(null);
   const [moleAnalysis, setMoleAnalysis] = useState("");
   const RESULT_MAPPING = ["Unknown", "Malignant", "Benign"];
 
@@ -62,19 +62,22 @@ const TakePhoto = ({ navigation, route }) => {
     if (cameraRef.current) {
       const options = { quality: 0.7, base64: true };
       const data = await cameraRef.current.takePictureAsync(options);
-      await processImagePrediction(data);
+      // setDataInfo(data);
+      // console.log("data", data);
       const source = data.base64;
+
       if (source) {
         await cameraRef.current.pausePreview();
         setIsPreview(true);
         setSourceInfo(source);
       }
+      await processImagePrediction(data);
     }
   };
 
   const onAcceptPhoto = async () => {
+    // await processImagePrediction(dataInfo);
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
-
     navigation.push(ADDENTRY, {
       base64Img: base64Img,
       moleId: route.params.moleId,

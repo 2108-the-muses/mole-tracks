@@ -76,8 +76,6 @@ const SingleMole = (props) => {
 
   const handleOrderByDate = () => {
     setSortedEntries(sortedEntries.reverse());
-
-    console.log(sortedEntries.map((entry) => entry.date));
   };
 
   const handleSubmit = () => {

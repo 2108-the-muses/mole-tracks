@@ -121,7 +121,7 @@ export const deleteEntry = (entry) => async (dispatch) => {
 
 export const updateEntry = (
   entryId,
-  { notes, date, asymmetryTag, borderTag, colorTag, elevationTag, diameterTag }
+  { notes, asymmetryTag, borderTag, colorTag, elevationTag, diameterTag }
 ) => {
   return async (dispatch) => {
     try {
@@ -131,7 +131,6 @@ export const updateEntry = (
           `${NGROK}/api/entries/${entryId}`,
           {
             notes: notes,
-            date: date,
             asymmetryTag: asymmetryTag,
             borderTag: borderTag,
             colorTag: colorTag,
