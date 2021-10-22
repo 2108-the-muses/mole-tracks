@@ -10,7 +10,7 @@ npm-debug.*
 web-build/
 secrets.js
 .env
-package.json
+package-lock.json
 # macOS
 .DS_Store
 firebase-admin-sdk.json
