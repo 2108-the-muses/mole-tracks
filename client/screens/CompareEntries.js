@@ -139,6 +139,7 @@ const CompareEntries = (props) => {
                 <>
                   <View style={styles.polaroidContainer}>
                     <Image
+                    defaultSource={require('../../assets/images/face-with-mole.png')}
                       source={{ uri: entryOne.imgUrl }}
                       style={styles.polaroidImage}
                     ></Image>
