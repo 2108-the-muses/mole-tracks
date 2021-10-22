@@ -7,7 +7,6 @@ import {
   ALLMOLES,
   SINGLEMOLE,
   ENTRY,
-  ADD,
   LOGOUT,
   ADDENTRY,
   TAKEPHOTO,
@@ -15,7 +14,6 @@ import {
   INFO,
   PROFILE,
   COMPAREENTRIES,
-  MOLE_LEARNING
 } from "../navigation/constants";
 import cIndex from "../components";
 const { Logout } = cIndex;
@@ -35,7 +33,6 @@ const {
   Info,
   Profile,
   CompareEntries,
-  MoleLearning
 } = sIndex;
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Text, Image, View } from "react-native";
@@ -232,7 +229,6 @@ const UserStack = () => {
       <Stack.Screen name={LOGOUT} component={Logout} />
       <Stack.Screen name={LOGIN} component={Login} />
       <Stack.Screen name={INFO} component={Info} />
-      <Stack.Screen name={MOLE_LEARNING} component={MoleLearning} />
     </Stack.Navigator>
   );
 };

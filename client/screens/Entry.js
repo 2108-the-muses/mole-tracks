@@ -30,6 +30,7 @@ const Entry = (props, { navigation }) => {
     (state) => state.allMoles.singleMoleFetchStatus
   );
   const [isEdit, setIsEdit] = useState(false);
+  const [isInspect, setIsInspect] = useState(false);
   const [notes, setNotes] = useState(entry.notes);
   const [asymmetryTag, setAsymmetryTag] = useState(entry.asymmetryTag);
   const [borderTag, setBorderTag] = useState(entry.borderTag);
@@ -69,7 +70,9 @@ const Entry = (props, { navigation }) => {
   }, []);
 
   dispatch(addStatus(null));
-
+  const handleInspect = () => {
+    setIsInspect(true);
+  };
   const handleSubmit = () => {
     setIsEdit(false);
     dispatch(
@@ -358,6 +361,70 @@ const Entry = (props, { navigation }) => {
               </TouchableOpacity>
             </View>
           )}
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginVertical: 20,
+            }}
+          >
+            {entry.moleAnalysis ? (
+              isInspect === false && (
+                <TouchableOpacity
+                  style={styles.buttonLarge}
+                  onPress={handleInspect}
+                >
+                  <Text style={styles.buttonLargeText}>Inspect Mole</Text>
+                </TouchableOpacity>
+              )
+            ) : (
+              <Text></Text>
+            )}
+            {isInspect && entry.moleAnalysis === "Unknown" && (
+              <Text style={{ ...styles.fontExtraSmall, margin: 10 }}>
+                Sorry, our machine learning inspection could not analyze this
+                mole.
+              </Text>
+            )}
+
+            {isInspect && entry.moleAnalysis === "Malignant" && (
+              <Text style={{ ...styles.fontExtraSmall, margin: 10 }}>
+                According to our machine learning inspection, this mole shows
+                signs of malignancy/cancer. Please see our information page to
+                see more information. {"\n \n"}DISCLAIMER: THIS APP DOES NOT
+                PROVIDE MEDICAL ADVICE. The information, including but not
+                limited to, text, graphics, images and other material contained
+                on this application are for informational purposes only. No
+                material on this application is intended to be a substitute for
+                professional medical advice, diagnosis or treatment. Always seek
+                the advice of your physician or other qualified health care
+                provider with any questions you may have regarding a medical
+                condition or treatment and before undertaking a new health care
+                regimen, and never disregard professional medical advice or
+                delay in seeking it because of something you have read on this
+                application.
+              </Text>
+            )}
+
+            {isInspect && entry.moleAnalysis === "Benign" && (
+              <Text style={{ ...styles.fontExtraSmall, margin: 10 }}>
+                According to our machine learning inspection, this mole appears
+                to be benign/noncancerous. Please see our information page to
+                see more information. {"\n \n"}DISCLAIMER: THIS APP DOES NOT
+                PROVIDE MEDICAL ADVICE The information, including but not
+                limited to, text, graphics, images and other material contained
+                on this application are for informational purposes only. No
+                material on this application is intended to be a substitute for
+                professional medical advice, diagnosis or treatment. Always seek
+                the advice of your physician or other qualified health care
+                provider with any questions you may have regarding a medical
+                condition or treatment and before undertaking a new health care
+                regimen, and never disregard professional medical advice or
+                delay in seeking it because of something you have read on this
+                application.
+              </Text>
+            )}
+          </View>
         </KeyboardAwareScrollView>
       </View>
     );

@@ -17,4 +17,3 @@ export const PROFILE = "Profile";
 export const COMPAREENTRIES = "CompareEntries";
 export const TAGS = "Tags";
 export const CLICKBODY = "ClickBody";
-export const MOLE_LEARNING = "MoleLearning";

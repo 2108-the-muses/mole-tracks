@@ -3,7 +3,6 @@ import { IP_ADDRESS } from "../../secrets";
 import { firebaseAuth } from "../firebase-auth/config";
 import { CLOUDINARY_URL, upload_preset } from "../../secrets";
 
-
 /**
  * ADD CONSTANTS
  */
@@ -48,7 +47,8 @@ export const addEntry = (
   borderTag,
   colorTag,
   elevationTag,
-  diameterTag
+  diameterTag,
+  moleAnalysis
 ) => {
   return async (dispatch) => {
     try {
@@ -81,6 +81,7 @@ export const addEntry = (
               colorTag: colorTag,
               elevationTag: elevationTag,
               diameterTag: diameterTag,
+              moleAnalysis: moleAnalysis,
             },
             {
               headers: {

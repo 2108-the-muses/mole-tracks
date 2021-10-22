@@ -12,7 +12,6 @@ import TakePhoto from "./TakePhoto";
 import Profile from "./Profile";
 import Info from "./Info";
 import CompareEntries from "./CompareEntries";
-import MoleLearning from "./MoleLearning";
 
 const index = {
   Add,
@@ -29,6 +28,5 @@ const index = {
   Profile,
   Info,
   CompareEntries,
-  MoleLearning
 };
 export default index;

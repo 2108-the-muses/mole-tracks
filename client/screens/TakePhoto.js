@@ -3,7 +3,12 @@ import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
 import styles from "../styles";
-import MoleLearning from "./MoleLearning";
+import {
+  getModel,
+  convertBase64ToTensor,
+  startPrediction,
+} from "../../assets/MachineLearning/tensorHelper";
+import { cropPicture } from "../../assets/MachineLearning/imageHelper";
 
 const WINDOW_HEIGHT = Dimensions.get("window").height;
 const CAPTURE_SIZE = Math.floor(WINDOW_HEIGHT * 0.08);
@@ -15,7 +20,8 @@ const TakePhoto = ({ navigation, route }) => {
   const [isPreview, setIsPreview] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [sourceInfo, setSourceInfo] = useState(null);
-  const [moleLearning, setMoleLearning] = useState(null);
+  const [moleAnalysis, setMoleAnalysis] = useState("");
+  const RESULT_MAPPING = ["Unknown", "Malignant", "Benign"];
 
   useEffect(() => {
     onHandlePermission();
@@ -41,27 +47,39 @@ const TakePhoto = ({ navigation, route }) => {
     );
   };
 
+  const processImagePrediction = async (image) => {
+    const croppedData = await cropPicture(image, 300); ///you need this to flatten
+    const model = await getModel();
+    const tensor = await convertBase64ToTensor(croppedData.base64);
+    const prediction = await startPrediction(model, tensor);
+    const highestPrediction = prediction.indexOf(
+      Math.max.apply(null, prediction)
+    );
+    await setMoleAnalysis(RESULT_MAPPING[highestPrediction]);
+  };
+
   const onSnap = async () => {
     if (cameraRef.current) {
       const options = { quality: 0.7, base64: true };
       const data = await cameraRef.current.takePictureAsync(options);
+      await processImagePrediction(data);
       const source = data.base64;
-
       if (source) {
         await cameraRef.current.pausePreview();
         setIsPreview(true);
         setSourceInfo(source);
-        setMoleLearning(data);
       }
     }
   };
 
-  const onAcceptPhoto = () => {
+  const onAcceptPhoto = async () => {
     let base64Img = `data:image/jpg;base64,${sourceInfo}`;
+
     navigation.push(ADDENTRY, {
       base64Img: base64Img,
       moleId: route.params.moleId,
       mole: route.params.mole,
+      moleAnalysis: moleAnalysis,
     });
   };
 
@@ -138,7 +156,6 @@ const TakePhoto = ({ navigation, route }) => {
           >
             <Text style={styles.photoCaptureText}>Take Photo</Text>
           </TouchableOpacity>
-          <MoleLearning photo={moleLearning} />
         </View>
       )}
     </View>
