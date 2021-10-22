@@ -13,6 +13,7 @@ import { updateUserThunk, updatePassword } from "../store/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Logout from "../components/Logout";
 import { INFO } from "../navigation/constants";
+import { firebaseAuth } from "../firebase-auth/config";
 
 const Profile = (props) => {
   const user = useSelector((state) => state.auth.user);
@@ -66,6 +67,9 @@ const Profile = (props) => {
       setError(error.message);
     }
   };
+
+  const currentUser = firebaseAuth.currentUser;
+  const provider = currentUser.providerData[0].providerId;
 
   return (
     <View style={styles.containerScroll}>
@@ -195,31 +199,33 @@ const Profile = (props) => {
                 )}
               </View>
             ) : (
-              <View style={{ margin: 20 }}>
-                <TextInput
-                  style={{
-                    ...styles.textInputLarge,
-                    borderBottomWidth: 0,
-                  }}
-                >
-                  Password
-                </TextInput>
-                <TextInput
-                  secureTextEntry
-                  style={{
-                    ...styles.textInputLarge,
-                    borderBottomColor: "none",
-                  }}
-                >
-                  {password}
-                </TextInput>
-                <TouchableOpacity
-                  onPress={() => setIsEditPassword(true)}
-                  style={{ ...styles.buttonLarge, marginTop: 20 }}
-                >
-                  <Text style={styles.buttonLargeText}>Change Password</Text>
-                </TouchableOpacity>
-              </View>
+              provider !== "google.com" && (
+                <View style={{ margin: 20 }}>
+                  <TextInput
+                    style={{
+                      ...styles.textInputLarge,
+                      borderBottomWidth: 0,
+                    }}
+                  >
+                    Password
+                  </TextInput>
+                  <TextInput
+                    secureTextEntry
+                    style={{
+                      ...styles.textInputLarge,
+                      borderBottomColor: "none",
+                    }}
+                  >
+                    {password}
+                  </TextInput>
+                  <TouchableOpacity
+                    onPress={() => setIsEditPassword(true)}
+                    style={{ ...styles.buttonLarge, marginTop: 20 }}
+                  >
+                    <Text style={styles.buttonLargeText}>Change Password</Text>
+                  </TouchableOpacity>
+                </View>
+              )
             )}
           </View>
           <View
