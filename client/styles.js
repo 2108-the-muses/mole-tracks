@@ -111,6 +111,20 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
+  headerBoxMedium: {
+    // width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 60,
+    alignItems: "center",
+    backgroundColor: "#E59F71",
+    shadowColor: "#000000",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 2,
+    },
+  },
   screenTitle: {
     borderRadius: 10,
     width: 115,
