@@ -34,34 +34,39 @@ Watch our demo video (insert demo video here eventually)
 * Expo
 * Node.js
 * Heroku
+* Tensorflow
+* Teachable Machine
+* Google Login
 
 
 # Features
 ## App Features
-- **Persistent Login**
-    - Using Firebase Authentication
-- **Body**
-    - Displays moles as coordinates on a body image
+ - **Account**
+    - User can sign-up for an account, login, and logout
+    - User can view and edit their account profile
+    - User can change their password
+    - Persistant login using **Firebase** Authentication
+    - User can choose to sign in with their **Google** account
 - **Moles**
     - Displays all moles as a list under body part categories
     - User can click on individual moles to view
     - User can view, add, edit, and delete moles
-- **Entry**
-    - User can compare entries with each other
+    - Displays moles as coordinates on a body image that users can click on
+- **Entries**
+    - User can compare entries with each other to see any changes
     - User can select tags for their entries
     - User can view, add, edit, and delete entries
+    - User can check if their moles are malignant using machine learning (**Tensorflow** & **Teachable Machine**)
 - **Image Capture & Storage**: 
-    - User can take pictures of their moles and are given a size reference for image consistency
-- **Account**
-    - User can sign-up for an account, login, and logout
-    - User can view and edit their account profile
-    - User can change their password
+    - Images can be taken of moles on the user's phone using **Expo** camera
+    - User is given a size reference for image consistency
+    - Images are stored using **Cloudinary**
 - **Info**
     - User can view recommended skin monitoring guidelines
 
 
 ## Technical Features
-- Registration with E-mail, First Name, Last Name & Password
+- Registration with E-mail & Password
 - Uploading and retrieving images from Cloudinary Database
 - React Navigation with nested stack & bottom tab navigators
 
@@ -152,6 +157,7 @@ Run the seed file to populate the database:
 
 
 # Next Steps
+The next steps for Mole Tracks is to enable the user to easily send their mole information to a physician, provide the user with growth data by calculating the area of their moles and keeping track of any changes in that area over time, and make our mole analysis machine learning model more inclusive. Unfortunately, the machine learning model that we used is based primarily on images of moles on lighter skin tones. A feature that would greatly improve the inclusivity of our mole analyis feature is allowing the user to trace their mole on the image to help make it clear what should be recognized as a mole. 
 
 
 # Creators
