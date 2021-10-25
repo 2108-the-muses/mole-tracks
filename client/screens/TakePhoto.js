@@ -9,6 +9,7 @@ import {
   startPrediction,
 } from "../../assets/MachineLearning/tensorHelper";
 import { cropPicture } from "../../assets/MachineLearning/imageHelper";
+import Loading from "./Loading";
 
 const TakePhoto = ({ navigation, route }) => {
   const cameraRef = useRef();
@@ -18,6 +19,9 @@ const TakePhoto = ({ navigation, route }) => {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [sourceInfo, setSourceInfo] = useState(null);
   const [moleAnalysis, setMoleAnalysis] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const RESULT_MAPPING = ["Unknown", "Malignant", "Benign"];
 
   useEffect(() => {
@@ -62,8 +66,12 @@ const TakePhoto = ({ navigation, route }) => {
       const source = data.base64;
       if (source) {
         await cameraRef.current.pausePreview();
-        setIsPreview(true);
-        setSourceInfo(source);
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          setIsPreview(true);
+          setSourceInfo(source);
+        }, 5000);
       }
       await processImagePrediction(data);
     }
@@ -128,7 +136,8 @@ const TakePhoto = ({ navigation, route }) => {
             />
           </View>
         </View>
-        <View style={styles.photoGuide}></View>
+
+        <View style={styles.photoGuide}>{isLoading && <Loading />}</View>
 
         {isPreview && (
           <View style={styles.photoBottomButtonsContainer}>
