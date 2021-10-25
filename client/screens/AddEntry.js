@@ -29,7 +29,6 @@ import Tags from "../components/Tags";
 
 const AddEntry = ({ route, navigation }) => {
   const base64Img = route.params.base64Img;
-  const moleAnalysis = route.params.moleAnalysis;
 
   const [bodyParts, setBodyParts] = useState([]);
   const [notes, setNotes] = useState(null);
@@ -39,6 +38,9 @@ const AddEntry = ({ route, navigation }) => {
   const [bodyPartMoles, setBodyPartMoles] = useState({});
   const status = useSelector((state) => state.entry.addStatus);
   const entryForEntryRouteParam = useSelector((state) => state.entry.entry);
+
+  const moleAnalysis = useSelector((state) => state.entry.moleAnalysis);
+
   let moleNameForEntryRouteParam;
   const gotMoleId = route.params.moleId;
   const dispatch = useDispatch();

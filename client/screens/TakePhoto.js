@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
@@ -10,17 +11,16 @@ import {
 } from "../../assets/MachineLearning/tensorHelper";
 import { cropPicture } from "../../assets/MachineLearning/imageHelper";
 import Loading from "./Loading";
+import { setMoleAnalysis } from "../store/entry";
 
 const TakePhoto = ({ navigation, route }) => {
   const cameraRef = useRef();
+  const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [isPreview, setIsPreview] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [sourceInfo, setSourceInfo] = useState(null);
-  const [moleAnalysis, setMoleAnalysis] = useState("");
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const RESULT_MAPPING = ["Unknown", "Malignant", "Benign"];
 
@@ -56,7 +56,8 @@ const TakePhoto = ({ navigation, route }) => {
     const highestPrediction = prediction.indexOf(
       Math.max.apply(null, prediction)
     );
-    await setMoleAnalysis(RESULT_MAPPING[highestPrediction]);
+    await dispatch(setMoleAnalysis(RESULT_MAPPING[highestPrediction]));
+    console.log("RESULT MAP", RESULT_MAPPING[highestPrediction]);
   };
 
   const onSnap = async () => {
@@ -66,12 +67,9 @@ const TakePhoto = ({ navigation, route }) => {
       const source = data.base64;
       if (source) {
         await cameraRef.current.pausePreview();
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          setIsPreview(true);
-          setSourceInfo(source);
-        }, 5000);
+
+        setIsPreview(true);
+        setSourceInfo(source);
       }
       await processImagePrediction(data);
     }
@@ -83,7 +81,6 @@ const TakePhoto = ({ navigation, route }) => {
       base64Img: base64Img,
       moleId: route.params.moleId,
       mole: route.params.mole,
-      moleAnalysis: moleAnalysis,
     });
   };
 
@@ -108,14 +105,6 @@ const TakePhoto = ({ navigation, route }) => {
         height: "100%",
       }}
     >
-      <Camera
-        ref={cameraRef}
-        style={styles.photoContainer}
-        type={cameraType}
-        onCameraReady={onCameraReady}
-        useCamera2Api={true}
-      />
-
       <View
         style={{
           flex: 1,
@@ -127,31 +116,33 @@ const TakePhoto = ({ navigation, route }) => {
       >
         <View style={styles.photoTopContainer}>
           <Text style={styles.photoCaptureDimeAdvice}>
-            Please line up your dime with the dime image!
+            Please center your mole on the screen!
           </Text>
-          <View>
-            <Image
-              style={styles.dimeImage}
-              source={require("../../assets/images/dime_image.png")}
-            />
-          </View>
         </View>
 
-        <View style={styles.photoGuide}>{isLoading && <Loading />}</View>
+        <View style={styles.photoGuide}>
+          <Camera
+            ref={cameraRef}
+            style={styles.photoContainer}
+            type={cameraType}
+            onCameraReady={onCameraReady}
+            useCamera2Api={true}
+          />
+        </View>
 
         {isPreview && (
           <View style={styles.photoBottomButtonsContainer}>
             <TouchableOpacity
               activeOpacity={0.3}
               onPress={onAcceptPhoto}
-              style={styles.photoCapture}
+              style={{ ...styles.photoCapture, marginRight: 20 }}
             >
               <Text style={styles.photoCaptureText}>Accept Photo</Text>
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.3}
               onPress={retakePic}
-              style={styles.photoCapture}
+              style={{ ...styles.photoCapture, margingLeft: 20 }}
             >
               <Text style={styles.photoCaptureText}>Retake Photo</Text>
             </TouchableOpacity>
@@ -164,7 +155,7 @@ const TakePhoto = ({ navigation, route }) => {
               activeOpacity={0.3}
               disabled={!isCameraReady}
               onPress={switchCamera}
-              style={styles.photoCapture}
+              style={{ ...styles.photoCapture, marginRight: 20 }}
             >
               <Text style={styles.photoCaptureText}>Flip Camera</Text>
             </TouchableOpacity>
@@ -172,7 +163,7 @@ const TakePhoto = ({ navigation, route }) => {
               activeOpacity={0.3}
               disabled={!isCameraReady}
               onPress={onSnap}
-              style={styles.photoCapture}
+              style={{ ...styles.photoCapture, margingLeft: 20 }}
             >
               <Text style={styles.photoCaptureText}>Take Photo</Text>
             </TouchableOpacity>
