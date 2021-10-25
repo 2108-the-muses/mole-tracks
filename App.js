@@ -22,6 +22,8 @@ export default function App() {
   };
   const images = [
     require("./assets/images/face-with-mole.png"),
+    require("./assets/images/background.png"),
+    require("./assets/images/dime_image.png"),
     require("./assets/images/body-front.png"),
     require("./assets/images/body-back.png"),
     "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/59232/mole-in-hole-clipart-xl.png",
