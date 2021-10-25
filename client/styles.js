@@ -523,7 +523,7 @@ const styles = StyleSheet.create({
   },
 
   /***********************
-            Tags           
+            Tags
   ***********************/
   moleDot: {
     backgroundColor: brown,
@@ -595,6 +595,18 @@ const styles = StyleSheet.create({
       height: 2,
     },
   },
+  /***********************
+         Learn More
+  ***********************/
+
+  learnMoreContainer: {
+    flexDirection: "row",
+    flexWrap: 'wrap',
+  },
+  learnMoreFont: {
+    color: "#5F9EA0",
+    textDecorationLine: "underline",
+  }
 });
 
 export default styles;
