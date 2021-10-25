@@ -21,6 +21,7 @@ const ADD_STATUS = "ADD_STATUS";
 const ADD_ENTRY = "ADD_ENTRY";
 const DELETE_ENTRY = "DELETE_ENTRY";
 const UPDATE_ENTRY = "UPDATE_ENTRY";
+const CURRENT_MOLE_ANALYSIS = "CURRENT_MOLE_ANALYSIS";
 
 /**
  * ACTION CREATORS
@@ -37,6 +38,11 @@ export const _deleteEntry = (entryId) => {
 const _updateEntry = (entry) => ({ type: UPDATE_ENTRY, entry });
 
 export const addStatus = (status) => ({ type: ADD_STATUS, status });
+
+export const setMoleAnalysis = (moleAnalysis) => ({
+  type: CURRENT_MOLE_ANALYSIS,
+  moleAnalysis,
+});
 
 /**
  * THUNK CREATORS
@@ -147,7 +153,7 @@ export const updateEntry = (
   };
 };
 
-const initialState = { addStatus: null, entry: {} };
+const initialState = { addStatus: null, entry: {}, moleAnalysis: "" };
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -157,6 +163,9 @@ export default function (state = initialState, action) {
       return { ...state, addStatus: action.status };
     case UPDATE_ENTRY:
       return { ...state, entry: action.entry };
+    case CURRENT_MOLE_ANALYSIS:
+      console.log("IN REDUCER", action.moleAnalysis);
+      return { ...state, moleAnalysis: action.moleAnalysis };
     default:
       return state;
   }

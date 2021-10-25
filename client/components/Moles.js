@@ -35,7 +35,8 @@ const Moles = ({ moles, navigation }) => {
   const list = () => {
     return moles.map((mole, index) => {
       let image;
-      const entries = mole.entries || [];
+      let entries = mole.entries || [];
+      entries = entries.sort((a, b) => new Date(a.date) - new Date(b.date));
       entries.length
         ? (image = entries[entries.length - 1].imgUrl)
         : (image =
@@ -51,14 +52,23 @@ const Moles = ({ moles, navigation }) => {
           <View style={{ ...styles.polaroidContainer, marginRight: 10 }}>
             <Image
               style={styles.polaroidImage}
-              defaultSource = {require('../../assets/images/face-with-mole.png')}
-              source={{uri: image}} 
+              defaultSource={require("../../assets/images/face-with-mole.png")}
+              source={{ uri: image }}
             />
             <View style={styles.polaroidLabel}>
-              <Text style={styles.headerText}>{mole.nickname}</Text>
+              <Text
+                style={{
+                  ...styles.headerText,
+                  fontSize: 18,
+                }}
+              >
+                {mole.nickname}
+              </Text>
               <TouchableOpacity
                 style={{
-                  width: 40,
+                  position: "absolute",
+                  right: 11,
+                  width: 60,
                   height: 20,
                   justifyContent: "center",
                   alignItems: "flex-end",

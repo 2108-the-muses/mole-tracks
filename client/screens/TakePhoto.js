@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
 import { ADDENTRY } from "../navigation/constants";
 import { Camera } from "expo-camera";
@@ -9,15 +10,17 @@ import {
   startPrediction,
 } from "../../assets/MachineLearning/tensorHelper";
 import { cropPicture } from "../../assets/MachineLearning/imageHelper";
+import { setMoleAnalysis } from "../store/entry";
 
 const TakePhoto = ({ navigation, route }) => {
   const cameraRef = useRef();
+  const dispatch = useDispatch();
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [isPreview, setIsPreview] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [sourceInfo, setSourceInfo] = useState(null);
-  const [moleAnalysis, setMoleAnalysis] = useState("");
+
   const RESULT_MAPPING = ["Unknown", "Malignant", "Benign"];
 
   useEffect(() => {
@@ -52,7 +55,7 @@ const TakePhoto = ({ navigation, route }) => {
     const highestPrediction = prediction.indexOf(
       Math.max.apply(null, prediction)
     );
-    await setMoleAnalysis(RESULT_MAPPING[highestPrediction]);
+    await dispatch(setMoleAnalysis(RESULT_MAPPING[highestPrediction]));
   };
 
   const onSnap = async () => {
@@ -75,7 +78,6 @@ const TakePhoto = ({ navigation, route }) => {
       base64Img: base64Img,
       moleId: route.params.moleId,
       mole: route.params.mole,
-      moleAnalysis: moleAnalysis,
     });
   };
 
@@ -92,68 +94,79 @@ const TakePhoto = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.photoContainer}>
-      <Camera
-        ref={cameraRef}
-        style={styles.photoContainer}
-        type={cameraType}
-        onCameraReady={onCameraReady}
-        useCamera2Api={true}
-      />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <View style={styles.photoTopContainer}>
+          <Text style={styles.photoCaptureDimeAdvice}>
+            Please center your mole on the screen!
+          </Text>
+        </View>
 
-      <View style={styles.photoGuide}></View>
-
-      <View style={styles.photoTopContainer}>
-        <Text style={styles.photoCaptureDimeAdvice}>
-          Please line up your dime with the dime image!
-        </Text>
-        <View>
-          <Image
-            style={styles.dimeImage}
-            source={require("../../assets/images/dime_image.png")}
+        <View style={styles.photoGuide}>
+          <Camera
+            ref={cameraRef}
+            style={styles.photoContainer}
+            type={cameraType}
+            onCameraReady={onCameraReady}
+            useCamera2Api={true}
           />
         </View>
+
+        {isPreview && (
+          <View style={styles.photoBottomButtonsContainer}>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={onAcceptPhoto}
+              style={{ ...styles.photoCapture, marginRight: 20 }}
+            >
+              <Text style={styles.photoCaptureText}>Accept Photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={retakePic}
+              style={{ ...styles.photoCapture, margingLeft: 20 }}
+            >
+              <Text style={styles.photoCaptureText}>Retake Photo</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {!isPreview && (
+          <View style={styles.photoBottomButtonsContainer}>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              disabled={!isCameraReady}
+              onPress={switchCamera}
+              style={{ ...styles.photoCapture, marginRight: 20 }}
+            >
+              <Text style={styles.photoCaptureText}>Flip Camera</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              disabled={!isCameraReady}
+              onPress={onSnap}
+              style={{ ...styles.photoCapture, margingLeft: 20 }}
+            >
+              <Text style={styles.photoCaptureText}>Take Photo</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-
-      {isPreview && (
-        <View style={styles.photoBottomButtonsContainer}>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            onPress={onAcceptPhoto}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Accept Photo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            onPress={retakePic}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Retake Photo</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      {!isPreview && (
-        <View style={styles.photoBottomButtonsContainer}>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            disabled={!isCameraReady}
-            onPress={switchCamera}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Flip Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            disabled={!isCameraReady}
-            onPress={onSnap}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Take Photo</Text>
-          </TouchableOpacity>
-        </View>
-      )}
     </View>
   );
 };
