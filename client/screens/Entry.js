@@ -322,66 +322,52 @@ const Entry = (props, { navigation }) => {
               <Text></Text>
             )}
             {isInspect && entry.moleAnalysis === "Unknown" && (
-              <Text style={{ ...styles.fontExtraSmall, margin: 10 }}>
+              <View>
+              <Text style={{ ...styles.fontExtraSmall, margin: 15 }}>
                 Sorry, our machine learning inspection could not analyze this
                 mole.
-                <TouchableOpacity onPress={onPressLearnMore}>
-                <Text
-                    style={{
-                      ...styles.fontExtraSmall,
-                      margin: 10,
-                      color: "blue",
-                      textDecorationLine: "underline",
-                    }}
-                  >
-                    {" "}
-                    Learn More{" "}
-                  </Text>
-                </TouchableOpacity>
               </Text>
+              </View>
             )}
 
             {isInspect && entry.moleAnalysis === "Malignant" && (
-              <Text style={{ ...styles.fontExtraSmall, margin: 10 }}>
-                According to our machine learning inspection, this mole shows
-                signs of malignancy/cancer. Disclaimer: This is NOT a medical
-                diagnosis.
+              <View style={{...styles.learnMoreContainer, margin: 15}}>
+              <Text style={styles.fontExtraSmall}>
+                According to our machine learning inspection, this mole may show
+                signs of malignancy/cancer. DISCLAIMER: This is NOT a medical
+                diagnosis. {}
                 <TouchableOpacity onPress={onPressLearnMore}>
                   <Text
                     style={{
                       ...styles.fontExtraSmall,
-                      margin: 10,
-                      color: "blue",
-                      textDecorationLine: "underline",
+                      ...styles.learnMoreFont
                     }}
                   >
-                    {" "}
-                    Learn More{" "}
+                    Learn More
                   </Text>
                 </TouchableOpacity>
               </Text>
+              </View>
             )}
 
             {isInspect && entry.moleAnalysis === "Benign" && (
-              <View>
-                <Text style={{ ...styles.fontExtraSmall, margin: 10 }}>
+              <View style={{...styles.learnMoreContainer, margin: 15}}>
+                <Text>
+                <Text style={ styles.fontExtraSmall }>
                   According to our machine learning inspection, this mole
-                  appears to be benign/noncancerous. Disclaimer: This is NOT a
-                  medical diagnosis.
+                  appears to be benign/noncancerous. DISCLAIMER: This is NOT a
+                  medical diagnosis. {}
                 </Text>
                 <TouchableOpacity onPress={onPressLearnMore}>
                   <Text
                     style={{
                       ...styles.fontExtraSmall,
-                      margin: 10,
-                      color: "blue",
-                      textDecorationLine: "underline",
+                      ...styles.learnMoreFont
                     }}
-                  >
-                    {" "}
-                    Learn More{" "}
+                  >Learn More
                   </Text>
                 </TouchableOpacity>
+                </Text>
               </View>
             )}
           </View>
