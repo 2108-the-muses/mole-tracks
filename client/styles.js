@@ -472,7 +472,6 @@ const styles = StyleSheet.create({
   },
   photoTopContainer: {
     flex: 1,
-    // flexDirection: "row",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
@@ -481,7 +480,6 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   photoCaptureDimeAdvice: {
-    // flex: 1,
     color: "black",
     fontFamily: "SulphurPoint-Regular",
     textAlign: "center",
@@ -508,9 +506,6 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   photoCapture: {
-    // marginTop: 20,
-    // marginLeft: 20,
-    // marginBottom: 13,
     borderRadius: 10,
     backgroundColor: "#FF7379",
     borderColor: "black",
@@ -519,7 +514,6 @@ const styles = StyleSheet.create({
     height: 45,
     alignItems: "center",
     justifyContent: "center",
-    // marginTop: 10,
   },
   photoCaptureText: {
     color: "white",

@@ -10,7 +10,6 @@ import {
   startPrediction,
 } from "../../assets/MachineLearning/tensorHelper";
 import { cropPicture } from "../../assets/MachineLearning/imageHelper";
-import Loading from "./Loading";
 import { setMoleAnalysis } from "../store/entry";
 
 const TakePhoto = ({ navigation, route }) => {
