@@ -80,7 +80,7 @@ export const fetchSingleMole = (moleId) => {
       dispatch(setSingleMoleFetchStatus(FETCH_SUCCESS));
     } catch (error) {
       dispatch(setSingleMoleFetchStatus(FETCH_FAILED));
-      console.log("THUNK ERROR: ", error);
+      console.log("THUNK ERROR:  ", error);
     }
   };
 };
