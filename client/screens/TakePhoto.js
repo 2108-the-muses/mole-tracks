@@ -92,7 +92,14 @@ const TakePhoto = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.photoContainer}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
       <Camera
         ref={cameraRef}
         style={styles.photoContainer}
@@ -101,59 +108,68 @@ const TakePhoto = ({ navigation, route }) => {
         useCamera2Api={true}
       />
 
-      <View style={styles.photoGuide}></View>
-
-      <View style={styles.photoTopContainer}>
-        <Text style={styles.photoCaptureDimeAdvice}>
-          Please line up your dime with the dime image!
-        </Text>
-        <View>
-          <Image
-            style={styles.dimeImage}
-            source={require("../../assets/images/dime_image.png")}
-          />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <View style={styles.photoTopContainer}>
+          <Text style={styles.photoCaptureDimeAdvice}>
+            Please line up your dime with the dime image!
+          </Text>
+          <View>
+            <Image
+              style={styles.dimeImage}
+              source={require("../../assets/images/dime_image.png")}
+            />
+          </View>
         </View>
+        <View style={styles.photoGuide}></View>
+
+        {isPreview && (
+          <View style={styles.photoBottomButtonsContainer}>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={onAcceptPhoto}
+              style={styles.photoCapture}
+            >
+              <Text style={styles.photoCaptureText}>Accept Photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              onPress={retakePic}
+              style={styles.photoCapture}
+            >
+              <Text style={styles.photoCaptureText}>Retake Photo</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {!isPreview && (
+          <View style={styles.photoBottomButtonsContainer}>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              disabled={!isCameraReady}
+              onPress={switchCamera}
+              style={styles.photoCapture}
+            >
+              <Text style={styles.photoCaptureText}>Flip Camera</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.3}
+              disabled={!isCameraReady}
+              onPress={onSnap}
+              style={styles.photoCapture}
+            >
+              <Text style={styles.photoCaptureText}>Take Photo</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-
-      {isPreview && (
-        <View style={styles.photoBottomButtonsContainer}>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            onPress={onAcceptPhoto}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Accept Photo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            onPress={retakePic}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Retake Photo</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      {!isPreview && (
-        <View style={styles.photoBottomButtonsContainer}>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            disabled={!isCameraReady}
-            onPress={switchCamera}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Flip Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.3}
-            disabled={!isCameraReady}
-            onPress={onSnap}
-            style={styles.photoCapture}
-          >
-            <Text style={styles.photoCaptureText}>Take Photo</Text>
-          </TouchableOpacity>
-        </View>
-      )}
     </View>
   );
 };
