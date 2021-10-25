@@ -157,7 +157,7 @@ Run the seed file to populate the database:
 
 
 # Next Steps
-The next steps for Mole Tracks is to enable the user to easily send their mole information to a physician, provide the user with growth data by calculating the area of their moles and keeping track of any changes in that area over time, and make our mole analysis machine learning model more inclusive. Unfortunately, the machine learning model that we used is based primarily on images of moles on lighter skin tones. A feature that would greatly improve the inclusivity of our mole analyis feature is allowing the user to trace their mole on the image to help make it clear what should be recognized as a mole.
+The next steps for Mole Tracks is to enable the user to easily send their mole information to a physician, provide the user with growth data by calculating the area of their moles and keeping track of any changes in that area over time, and make our mole analysis machine learning model more inclusive. Unfortunately, the machine learning model that we used is based primarily on images of moles on lighter skin tones. A feature that would greatly improve the inclusivity of our mole analyis is allowing the user to trace their mole on the image to help make it clear what should be recognized as a mole.
 
 
 # Creators
