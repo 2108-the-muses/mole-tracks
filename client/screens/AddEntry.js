@@ -58,8 +58,6 @@ const AddEntry = ({ route, navigation }) => {
     dispatch(fetchAllMoles());
   }, []);
 
-  console.log("ANALYSIS", moleAnalysis.length);
-
   useEffect(() => {
     setIsSubmitReady(true);
   }, [moleAnalysis]);
@@ -102,7 +100,6 @@ const AddEntry = ({ route, navigation }) => {
     );
 
   const handleSubmit = () => {
-    console.log("IN HANDLE SUBMIT", moleAnalysis);
     if (!moleId || (!bodyPart && !moleId)) {
       submitAlert();
     } else {
