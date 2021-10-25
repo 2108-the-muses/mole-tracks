@@ -42,6 +42,15 @@ const SingleMole = (props) => {
     dispatch(fetchSingleMole(moleId));
   }, []);
 
+  const nicknameAlert = () =>
+    Alert.alert("Oops!", "Mole nicknames must have 1 to 12 characters!", [
+      {
+        text: "Try Again",
+        onPress: () => console.log("Try Again pressed"),
+        style: "cancel",
+      },
+    ]);
+
   useEffect(() => {
     setNickname(mole.nickname);
   }, [mole.nickname]);
@@ -58,8 +67,12 @@ const SingleMole = (props) => {
   );
 
   const handleSubmit = () => {
-    setIsEdit(false);
-    dispatch(updateMoleThunk(mole.id, { nickname }));
+    if (nickname.length < 1 || nickname.length > 12) {
+      nicknameAlert();
+    } else {
+      setIsEdit(false);
+      dispatch(updateMoleThunk(mole.id, { nickname }));
+    }
   };
 
   const deleteAlert = (moleId) =>
@@ -172,7 +185,7 @@ const SingleMole = (props) => {
             >
               <View style={styles.polaroidContainer}>
                 <Image
-                defaultSource={require('../../assets/images/face-with-mole.png')}
+                  defaultSource={require("../../assets/images/face-with-mole.png")}
                   source={{ uri: firstPhoto }}
                   style={styles.polaroidImage}
                 ></Image>

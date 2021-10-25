@@ -52,11 +52,17 @@ const AddEntry = ({ route, navigation }) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [formattedDate, setFormattedDate] = useState(format(new Date(), "PP"));
+  const [isSubmitReady, setIsSubmitReady] = useState(false);
 
   useEffect(() => {
     dispatch(fetchAllMoles());
   }, []);
-  useEffect(() => {});
+
+  console.log("ANALYSIS", moleAnalysis.length);
+
+  useEffect(() => {
+    setIsSubmitReady(true);
+  }, [moleAnalysis]);
 
   useEffect(() => {
     let bodyPartsArr = moles.map((mole) => {
@@ -96,6 +102,7 @@ const AddEntry = ({ route, navigation }) => {
     );
 
   const handleSubmit = () => {
+    console.log("IN HANDLE SUBMIT", moleAnalysis);
     if (!moleId || (!bodyPart && !moleId)) {
       submitAlert();
     } else {
@@ -116,7 +123,7 @@ const AddEntry = ({ route, navigation }) => {
     }
   };
 
-  if (status === ADD_PENDING) {
+  if (status === ADD_PENDING || moleAnalysis.length === 0) {
     return (
       <View style={styles.containerCenter}>
         <ImageBackground

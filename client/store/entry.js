@@ -164,6 +164,7 @@ export default function (state = initialState, action) {
     case UPDATE_ENTRY:
       return { ...state, entry: action.entry };
     case CURRENT_MOLE_ANALYSIS:
+      console.log("IN REDUCER", action.moleAnalysis);
       return { ...state, moleAnalysis: action.moleAnalysis };
     default:
       return state;

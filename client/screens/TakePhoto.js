@@ -56,7 +56,6 @@ const TakePhoto = ({ navigation, route }) => {
       Math.max.apply(null, prediction)
     );
     await dispatch(setMoleAnalysis(RESULT_MAPPING[highestPrediction]));
-    console.log("RESULT MAP", RESULT_MAPPING[highestPrediction]);
   };
 
   const onSnap = async () => {
@@ -66,7 +65,6 @@ const TakePhoto = ({ navigation, route }) => {
       const source = data.base64;
       if (source) {
         await cameraRef.current.pausePreview();
-
         setIsPreview(true);
         setSourceInfo(source);
       }
