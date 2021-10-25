@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "mole-tracks",
+    "name": "Mole Tracks",
     "slug": "mole-tracks",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/face-with-mole.png",
     "splash": {
       "image": "./assets/images/face-with-mole.png",
       "resizeMode": "contain",
