@@ -162,7 +162,7 @@ The next steps for Mole Tracks is to enable the user to easily send their mole i
 
 # Creators
 * Gillian (Gigi) Markley: [GitHub](https://github.com/gigimarkley) | [LinkedIn](https://www.linkedin.com/in/gillian-markley/)
-* Vera Kahn: [GitHub](https://github.com/charmingduchess) | [LinkedIn](https://www.linkedin.com/vera-kahn)
+* Vera Kahn: [GitHub](https://github.com/charmingduchess) | [LinkedIn](https://www.linkedin.com/in/vera-kahn)
 * Sonja Pylvainen: [GitHub](https://github.com/maijaleena) | [LinkedIn](https://www.linkedin.com/in/sonjapyl/)
 * Alexandra Marks: [GitHub](https://github.com/amarks93) | [LinkedIn](https://www.linkedin.com/in/alexandravmarks)
 
