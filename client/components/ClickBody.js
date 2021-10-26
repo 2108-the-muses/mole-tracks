@@ -38,6 +38,7 @@ const ClickBody = ({ setBodyPart, setSide, sendCoords }) => {
     for (let bodyPart of BPC) {
       const part = BodyPartCoords[bodyPart];
       if (y < part.yMax && y > part.yMin && x < part.xMax && x > part.xMin) {
+        console.log("whichbodypart",side)
         setBodyPart(bodyPart);
       }
     }
