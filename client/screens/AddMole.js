@@ -41,8 +41,17 @@ const AddMole = (props) => {
     if (nickname.length < 1 || nickname.length > 12) {
       nicknameAlert();
     } else {
+      let backBodyPart=undefined
+      if(side==="back" && bodyPart.slice(0,3) ==='arm'||bodyPart.slice(0,3) ==='leg'){
+        const lrSide = bodyPart[4]
+        backBodyPart = lrSide === 'l'? bodyPart.slice(0,4)+'r':bodyPart.slice(0,4)+'l'
+      }
+      console.log('backBodyPart',backBodyPart)
+      const bodyPartToSend = backBodyPart?backBodyPart:bodyPart
+      console.log('send',bodyPartToSend)
       const newMole = await dispatch(
-        addMoleThunk({ nickname, bodyPart, side, coords })
+        
+        addMoleThunk({ nickname, bodyPart:bodyPartToSend, side, coords })
       );
       if (newMole) {
         props.navigation.navigate(SINGLEMOLE, { mole: newMole });
@@ -93,6 +102,7 @@ const AddMole = (props) => {
               setBodyPart={setBodyPart}
               setSide={setSide}
               sendCoords={setCoords}
+              side={side}
             />
           </View>
           {bodyPart !== "" && (
