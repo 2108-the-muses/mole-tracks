@@ -29,7 +29,7 @@ const AddMole = (props) => {
   const [coords, setCoords] = useState("");
 
   const nicknameAlert = () =>
-    Alert.alert("Oops!", "Please write in a nickname for your mole", [
+    Alert.alert("Oops!", "Mole nicknames must have 1 to 12 characters!", [
       {
         text: "Try Again",
         onPress: () => console.log("Try Again pressed"),
@@ -38,7 +38,7 @@ const AddMole = (props) => {
     ]);
 
   const handleSubmit = async () => {
-    if (!nickname) {
+    if (nickname.length < 1 || nickname.length > 12) {
       nicknameAlert();
     } else {
       let backBodyPart=undefined
@@ -55,11 +55,6 @@ const AddMole = (props) => {
       );
       if (newMole) {
         props.navigation.navigate(SINGLEMOLE, { mole: newMole });
-        // COME BACK TO THE BELOW AFTER DEMO DAY
-        // props.navigation.navigate("Moles", {
-        //   screen: SINGLEMOLE,
-        //   params: { mole: newMole },
-        // });
       }
     }
   };

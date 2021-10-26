@@ -28,8 +28,8 @@ h1 {
   display: flex;
   align-items: center;
 }
-h2{
-  font-size: 2.3rem
+h2 {
+  font-size: 2.3rem;
 }
 h4 {
   margin-bottom: 0px;
@@ -47,13 +47,13 @@ ol {
   height: 160px;
   width: 160px;
   border: 2px solid black;
-
   border-radius: 80px;
 }
 .img-container > img {
   max-width: 100%;
   max-height: 100%;
   margin: 0;
+  border-radius: 80px;
 }
 .links {
   margin: 5px;
@@ -128,7 +128,7 @@ ol {
     align-items: center;
     justify-content: center;
     /* padding: 30px; */
-    height: 100vh
+    height: 100vh;
   }
 }
 #disclaimer {
@@ -139,7 +139,7 @@ ol {
 }
 #disclaimer > p {
   text-align: center;
-  font-size: 1rem
+  font-size: 1rem;
 }
 #download {
   background-color: #e59f71;
@@ -169,7 +169,7 @@ ol {
   text-align: right;
   width: 600px;
   align-self: right;
-  font-size: 1.3rem
+  font-size: 1.3rem;
 }
 #logo {
   height: 100px;
@@ -193,8 +193,8 @@ ol {
   align-items: center;
   /* margin: 30px; */
 }
-#screen-container>img{
-  height:100%
+#screen-container > img {
+  height: 100%;
 }
 #subtitle {
   display: flex;

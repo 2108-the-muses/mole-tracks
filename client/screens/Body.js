@@ -33,7 +33,7 @@ const Body = ({ navigation }) => {
     dispatch(fetchAllMoles());
   }, []);
   const goToMole = (mole) => {
-    navigation.navigate("Moles", { screen: "SingleMole", params: { mole } });
+    navigation.navigate("SingleMole", { mole });
   };
   if (fetchStatus === FETCH_PENDING) {
     return <Loading />;
@@ -60,10 +60,10 @@ const Body = ({ navigation }) => {
                 source={viewFront ? require(frontBody) : require(backBody)}
               />
               {moles.length === 0 && (
-                <View
-                  style={styles.noMoles}
-                >
-                  <Text style={{...styles.fontExtraLarge,color:"white"}}>You have no moles!</Text>
+                <View style={styles.noMoles}>
+                  <Text style={{ ...styles.fontExtraLarge, color: "white" }}>
+                    You have no moles!
+                  </Text>
                 </View>
               )}
               {moles

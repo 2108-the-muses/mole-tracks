@@ -89,19 +89,22 @@ const Profile = (props) => {
             {isEdit ? (
               <View style={{ margin: 20 }}>
                 <TextInput
+                  editable={false}
                   style={{
                     ...styles.textInputLarge,
                     borderBottomWidth: 0,
                   }}
                 >
-                  EMAIL: {user.email}
+                  Email: {user.email}
                 </TextInput>
                 <TextInput
+                  editable={true}
                   onChangeText={(firstName) => setFirstName(firstName)}
                   value={firstName}
                   style={styles.textInputLarge}
                 ></TextInput>
                 <TextInput
+                  editable={true}
                   onChangeText={(lastName) => setLastName(lastName)}
                   value={lastName}
                   style={styles.textInputLarge}
@@ -116,6 +119,7 @@ const Profile = (props) => {
             ) : (
               <View style={{ margin: 20 }}>
                 <TextInput
+                  editable={false}
                   style={{
                     ...styles.textInputLarge,
                     borderBottomWidth: 0,
@@ -124,6 +128,7 @@ const Profile = (props) => {
                   Email: {user.email}
                 </TextInput>
                 <TextInput
+                  editable={false}
                   style={{
                     ...styles.textInputLarge,
                     borderBottomWidth: 0,
@@ -132,6 +137,7 @@ const Profile = (props) => {
                   First Name: {user.firstName}
                 </TextInput>
                 <TextInput
+                  editable={false}
                   style={{
                     ...styles.textInputLarge,
                     borderBottomWidth: 0,
@@ -154,12 +160,14 @@ const Profile = (props) => {
               <View style={{ margin: 20 }}>
                 <TextInput
                   secureTextEntry
+                  editable={true}
                   onChangeText={(password) => setPassword(password)}
                   value={password}
                   style={styles.textInputLarge}
                 ></TextInput>
                 <TextInput
                   secureTextEntry
+                  editable={true}
                   onChangeText={(passwordDuplicate) =>
                     setPasswordDuplicate(passwordDuplicate)
                   }
@@ -200,6 +208,7 @@ const Profile = (props) => {
               provider !== "google.com" && (
                 <View style={{ margin: 20 }}>
                   <TextInput
+                    editable={false}
                     style={{
                       ...styles.textInputLarge,
                       borderBottomWidth: 0,
@@ -208,6 +217,7 @@ const Profile = (props) => {
                     Password
                   </TextInput>
                   <TextInput
+                    editable={false}
                     secureTextEntry
                     style={{
                       ...styles.textInputLarge,
