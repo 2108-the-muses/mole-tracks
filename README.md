@@ -15,14 +15,14 @@
 
 # Introduction
 
-Mole Tracks is a mobile application that helps people monitor the moles on their skin. According to the American Cancer Society, melanoma (skin cancer) is the most common type of cancer. In an effort to decrease severe melanoma cases, this visually pleasing app makes it easier for people to track any suspicious moles and catch cancerous moles before they become problematic. 
+Mole Tracks is a mobile application that helps people monitor the moles on their skin. According to the American Cancer Society, melanoma (skin cancer) is the most common type of cancer. In an effort to decrease severe melanoma cases, this visually pleasing app makes it easier for people to track any suspicious moles and catch cancerous moles before they become problematic.
 
 Users can take pictures of their moles and track any visual changes over time. They also have the option to add names, tags, notes, and coordinates to more easily track their moles.
 
 **DISCLAIMER: THIS APP DOES NOT PROVIDE MEDICAL ADVICE**
 *The information, including but not limited to, text, graphics, images and other material contained on this application are for informational purposes only. No material on this application is intended to be a substitute for professional medical advice, diagnosis or treatment. Always seek the advice of your physician or other qualified health care provider with any questions you may have regarding a medical condition or treatment and before undertaking a new health care regimen, and never disregard professional medical advice or delay in seeking it because of something you have read on this application.*
 
-Watch our demo video (insert demo video here eventually)
+Watch our demo video [here](https://www.youtube.com/watch?v=Kes7bkad9Hc&ab_channel=FullstackAcademy)
 
 ## Tech Stack
 * React Native
@@ -57,7 +57,7 @@ Watch our demo video (insert demo video here eventually)
     - User can select tags for their entries
     - User can view, add, edit, and delete entries
     - User can check if their moles are malignant using machine learning (**Tensorflow** & **Teachable Machine**)
-- **Image Capture & Storage**: 
+- **Image Capture & Storage**:
     - Images can be taken of moles on the user's phone using **Expo** camera
     - User is given a size reference for image consistency
     - Images are stored using **Cloudinary**
@@ -79,7 +79,7 @@ Fork and clone this repo. Then, `npm install`.
 Create a secrets file:
 `touch secret.js`
 
-Add the following Firebase, local IP Address, and Cloudinary information: 
+Add the following Firebase, local IP Address, and Cloudinary information:
 
 ```
 const API_KEY = "insert-your-key";
@@ -123,7 +123,7 @@ Add the following:
     "token_uri": "insert-yours-here",
     "auth_provider_x509_cert_url": "insert-yours-here",
     "client_x509_cert_url": "insert-yours-here"}
-    
+
 ```
 
 Create a .env file:
@@ -157,7 +157,7 @@ Run the seed file to populate the database:
 
 
 # Next Steps
-The next steps for Mole Tracks is to enable the user to easily send their mole information to a physician, provide the user with growth data by calculating the area of their moles and keeping track of any changes in that area over time, and make our mole analysis machine learning model more inclusive. Unfortunately, the machine learning model that we used is based primarily on images of moles on lighter skin tones. A feature that would greatly improve the inclusivity of our mole analyis feature is allowing the user to trace their mole on the image to help make it clear what should be recognized as a mole. 
+The next steps for Mole Tracks is to enable the user to easily send their mole information to a physician, provide the user with growth data by calculating the area of their moles and keeping track of any changes in that area over time, and make our mole analysis machine learning model more inclusive. Unfortunately, the machine learning model that we used is based primarily on images of moles on lighter skin tones. A feature that would greatly improve the inclusivity of our mole analyis feature is allowing the user to trace their mole on the image to help make it clear what should be recognized as a mole.
 
 
 # Creators
