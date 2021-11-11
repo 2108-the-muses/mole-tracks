@@ -15,12 +15,13 @@
 
 Mole Tracks helps people monitor the moles on their skin for melanoma, a type of skin cancer. According to the American Cancer Society, skin cancer is the most common type of cancer in the United States. In an effort to decrease severe melanoma cases, this visually pleasing app makes it easier for people to track any suspicious moles and catch cancerous moles before they become problematic.
 
+
 Users can take pictures of their moles and track any visual changes over time. One feature allows users to compare two entries for the same mole on different dates. They can also test their moles for malignancy using our experimental machine learning model. Additionally, users have the option to add nicknames, tags, notes, and coordinates to more easily track their moles.
 
 **DISCLAIMER: THIS APP DOES NOT PROVIDE MEDICAL ADVICE**
 _The information, including but not limited to, text, graphics, images and other material contained on this application are for informational purposes only. No material on this application is intended to be a substitute for professional medical advice, diagnosis or treatment. Always seek the advice of your physician or other qualified health care provider with any questions you may have regarding a medical condition or treatment and before undertaking a new health care regimen, and never disregard professional medical advice or delay in seeking it because of something you have read on this application._
 
-Watch our demo video (insert demo video here eventually)
+Watch our demo video [here](https://www.youtube.com/watch?v=Kes7bkad9Hc&ab_channel=FullstackAcademy)
 
 # Run the App
 
@@ -157,7 +158,6 @@ Run the seed file to populate the database:
 `npm run seed`
 
 # Next Steps
-
 The next steps for Mole Tracks is to enable the user to easily send their mole information to a physician, provide the user with growth data by calculating the area of their moles and keeping track of any changes in that area over time, and make our mole analysis machine learning model more inclusive. Unfortunately, the machine learning model that we used is based primarily on images of moles on lighter skin tones. A feature that would greatly improve the inclusivity of our mole analyis is allowing the user to trace their mole on the image to help make it clear what should be recognized as a mole.
 
 # Creators
