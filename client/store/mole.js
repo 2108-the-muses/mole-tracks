@@ -80,7 +80,7 @@ export const fetchSingleMole = (moleId) => {
       dispatch(setSingleMoleFetchStatus(FETCH_SUCCESS));
     } catch (error) {
       dispatch(setSingleMoleFetchStatus(FETCH_FAILED));
-      console.log("THUNK ERROR: ", error);
+      console.log("THUNK ERROR:  ", error);
     }
   };
 };
@@ -88,7 +88,6 @@ export const fetchSingleMole = (moleId) => {
 export const addMoleThunk = ({ nickname, bodyPart, side, coords }) => {
   return async (dispatch) => {
     try {
-      console.log("thunk", coords);
       const idToken = await firebaseAuth.currentUser.getIdToken(true);
       if (idToken) {
         const { data } = await axios.post(

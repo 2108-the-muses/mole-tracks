@@ -73,29 +73,11 @@ const BodyStack = () => {
         headerStyle: { backgroundColor: "#BA5A31" },
         headerTitle: topHeaderLogo,
         headerBackTitleVisible: false,
+        headerBackVisible: false,
         headerTintColor: "white",
       }}
     >
       <Stack.Screen name={BODY} options={{ title: "Body" }} component={Body} />
-      <Stack.Screen name={SINGLEMOLE} component={SingleMole} />
-      <Stack.Screen name={LOADING} component={Loading} />
-    </Stack.Navigator>
-  );
-};
-
-const MolesStack = (props) => {
-  return (
-    <Stack.Navigator
-      initialRouteName={ALLMOLES}
-      screenOptions={{
-        headerStyle: { backgroundColor: "#BA5A31" },
-        headerTitle: topHeaderLogo,
-        headerBackTitleVisible: false,
-        headerTintColor: "white",
-        headerBackVisible: false,
-      }}
-    >
-      <Stack.Screen name={ALLMOLES} component={AllMoles} />
       <Stack.Screen
         name={SINGLEMOLE}
         component={SingleMole}
@@ -109,30 +91,7 @@ const MolesStack = (props) => {
                   alignItems: "center",
                 }}
                 onPress={() => {
-                  navigation.navigate(ALLMOLES, {
-                    options: {
-                      animations: {
-                        showModal: {
-                          enter: {
-                            enabled: true,
-                            alpha: {
-                              from: 0,
-                              to: 1,
-                              duration: 300,
-                            },
-                          },
-                          exit: {
-                            enabled: true,
-                            alpha: {
-                              from: 1,
-                              to: 0,
-                              duration: 300,
-                            },
-                          },
-                        },
-                      },
-                    },
-                  });
+                  navigation.push(BODY);
                 }}
               >
                 <FontAwesome5 name="angle-left" size={16} color="white" />
@@ -142,10 +101,10 @@ const MolesStack = (props) => {
                     color: "white",
                     margin: 5,
                     marginLeft: 3,
-                    fontFamily: "SulphurPoint-Regular"
+                    fontFamily: "SulphurPoint-Regular",
                   }}
                 >
-                  all
+                  body
                 </Text>
               </TouchableOpacity>
             ),
@@ -167,28 +126,6 @@ const MolesStack = (props) => {
                 onPress={() => {
                   navigation.push(SINGLEMOLE, {
                     mole: { id: route.params.entry.moleId },
-                    options: {
-                      animations: {
-                        showModal: {
-                          enter: {
-                            enabled: true,
-                            alpha: {
-                              from: 0,
-                              to: 1,
-                              duration: 300,
-                            },
-                          },
-                          exit: {
-                            enabled: true,
-                            alpha: {
-                              from: 1,
-                              to: 0,
-                              duration: 300,
-                            },
-                          },
-                        },
-                      },
-                    },
                   });
                 }}
               >
@@ -199,7 +136,7 @@ const MolesStack = (props) => {
                     color: "white",
                     margin: 5,
                     marginLeft: 3,
-                    fontFamily: "SulphurPoint-Regular"
+                    fontFamily: "SulphurPoint-Regular",
                   }}
                 >
                   mole
@@ -232,7 +169,128 @@ const MolesStack = (props) => {
                     color: "white",
                     margin: 5,
                     marginLeft: 3,
-                    fontFamily: "SulphurPoint-Regular"
+                    fontFamily: "SulphurPoint-Regular",
+                  }}
+                ></Text>
+              </TouchableOpacity>
+            ),
+          };
+        }}
+      />
+      <Stack.Screen name={LOADING} component={Loading} />
+      <Stack.Screen name={ADDMOLE} component={AddMole} />
+      <Stack.Screen name={TAKEPHOTO} component={TakePhoto} />
+      <Stack.Screen name={ADDENTRY} component={AddEntry} />
+      <Stack.Screen name={COMPAREENTRIES} component={CompareEntries} />
+    </Stack.Navigator>
+  );
+};
+
+const MolesStack = (props) => {
+  return (
+    <Stack.Navigator
+      initialRouteName={ALLMOLES}
+      screenOptions={{
+        headerStyle: { backgroundColor: "#BA5A31" },
+        headerTitle: topHeaderLogo,
+        headerBackTitleVisible: false,
+        headerTintColor: "white",
+        headerBackVisible: false,
+      }}
+    >
+      <Stack.Screen name={ALLMOLES} component={AllMoles} />
+      <Stack.Screen
+        name={SINGLEMOLE}
+        component={SingleMole}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  navigation.push(ALLMOLES);
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={16} color="white" />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                    marginLeft: 3,
+                    fontFamily: "SulphurPoint-Regular",
+                  }}
+                >
+                  all
+                </Text>
+              </TouchableOpacity>
+            ),
+          };
+        }}
+      />
+      <Stack.Screen
+        name={ENTRY}
+        component={Entry}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  navigation.push(SINGLEMOLE, {
+                    mole: { id: route.params.entry.moleId },
+                  });
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={16} color="white" />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                    marginLeft: 3,
+                    fontFamily: "SulphurPoint-Regular",
+                  }}
+                >
+                  mole
+                </Text>
+              </TouchableOpacity>
+            ),
+          };
+        }}
+      />
+      <Stack.Screen
+        name={INFO}
+        component={Info}
+        options={({ route, navigation }) => {
+          return {
+            headerLeft: () => (
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                <FontAwesome5 name="angle-left" size={20} color="white" />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    margin: 5,
+                    marginLeft: 3,
+                    fontFamily: "SulphurPoint-Regular",
                   }}
                 ></Text>
               </TouchableOpacity>

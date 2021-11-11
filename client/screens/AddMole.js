@@ -29,7 +29,7 @@ const AddMole = (props) => {
   const [coords, setCoords] = useState("");
 
   const nicknameAlert = () =>
-    Alert.alert("Oops!", "Please write in a nickname for your mole", [
+    Alert.alert("Oops!", "Mole nicknames must have 1 to 12 characters!", [
       {
         text: "Try Again",
         onPress: () => console.log("Try Again pressed"),
@@ -38,19 +38,23 @@ const AddMole = (props) => {
     ]);
 
   const handleSubmit = async () => {
-    if (!nickname) {
+    if (nickname.length < 1 || nickname.length > 12) {
       nicknameAlert();
     } else {
+      let backBodyPart=undefined
+      if(side==="back" && bodyPart.slice(0,3) ==='arm'||bodyPart.slice(0,3) ==='leg'){
+        const lrSide = bodyPart[4]
+        backBodyPart = lrSide === 'l'? bodyPart.slice(0,4)+'r':bodyPart.slice(0,4)+'l'
+      }
+      console.log('backBodyPart',backBodyPart)
+      const bodyPartToSend = backBodyPart?backBodyPart:bodyPart
+      console.log('send',bodyPartToSend)
       const newMole = await dispatch(
-        addMoleThunk({ nickname, bodyPart, side, coords })
+        
+        addMoleThunk({ nickname, bodyPart:bodyPartToSend, side, coords })
       );
       if (newMole) {
         props.navigation.navigate(SINGLEMOLE, { mole: newMole });
-        // COME BACK TO THE BELOW AFTER DEMO DAY
-        // props.navigation.navigate("Moles", {
-        //   screen: SINGLEMOLE,
-        //   params: { mole: newMole },
-        // });
       }
     }
   };
@@ -98,6 +102,7 @@ const AddMole = (props) => {
               setBodyPart={setBodyPart}
               setSide={setSide}
               sendCoords={setCoords}
+              side={side}
             />
           </View>
           {bodyPart !== "" && (
